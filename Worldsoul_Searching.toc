@@ -1,0 +1,10 @@
+## Interface 110200
+## Title: Worldsoul Searching
+## Notes: The War Within Meta Achievement tracker
+## Author: inzenir
+## Version: 1.0
+## IconTexture: Interface\AddOns\Worldsoul_Searching\images\achievement_zone_isleofdorn.jpg
+
+achi-list/WorldSoulSearching.lua
+tree-list.lua
+entrypoint.lua

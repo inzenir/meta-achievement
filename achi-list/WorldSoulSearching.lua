@@ -1,0 +1,204 @@
+WorldSoulSearchingAchievements = {
+    {
+        id = 61451,
+        name = "Worldsoul-Searching",
+        children = {
+            { id = 40244 }, -- Nerub-ar Palace
+            { id = 41598 }, -- Manaforge Omega
+            {
+                id = 41201, -- You Xal Not Pass
+                children = {
+                    {
+                        id = 41186, -- Slate of the Union
+                        children = {
+                            { id = 40435 }, -- Adventurer of the Isle of Dorn	
+                            { id = 40606 }, -- Flat Earthen
+                            { id = 40860 }, -- A Star of Dorn	
+                            { id = 40434 }, -- Treasures of the Isle of Dorn	
+                            { id = 40859 }, -- We're Here All Night
+                            { id = 40504 } -- Rocked to Sleep
+                        }
+                    },
+                    {
+                        id = 41188, -- Crystal Chronicled	
+                        children = {
+                            { id = 40851 }, -- Adventurer of Hallowfall	
+                            { id = 40625 }, -- The Missing Lynx	
+                            { id = 40622 }, -- Biblo Archivist	
+                            { id = 40311 }, -- Sharing the Light	
+                            { id = 40313 }, -- Igniting the Keyflames	
+                            { id = 40848 }, -- Treasures of Hallowfall	
+                            { id = 40151 }, -- Mereldar Menace	
+                            { id = 40308 }, -- Beacon of Hope	
+                            { id = 40618 }, -- Lost and Found	
+                            { id = 40150 } -- Children's Entertainer	
+                        }
+                    },
+                    {
+                        id = 41133, -- Isle Remember You	
+                        children = {
+                            { id = 41045 }, -- A Song of Secrets	
+                            { id = 41043 }, -- Excavation Projects	
+                            { id = 41131 }, -- Treasures of the Storm	
+                            { id = 41042 }, -- Siren-ity Now!	
+                            { id = 41046 }, -- Clean Up on Isle Siren	
+                            { id = 41050 } -- A Choir of Citrines	
+                        }
+                    },
+                    {
+                        id = 41187, -- Rage Aside the Machine	
+                        children = {
+                            { id = 40837 }, -- Adventurer of The Ringing Deeps	
+                            { id = 40662 }, -- It's Not Much, But It's Honest Work	
+                            { id = 40628 }, -- Notable Machines	
+                            { id = 40475 }, -- To All the Slimes I Love	
+                            { id = 40724 }, -- Treasures of The Ringing Deeps	
+                            { id = 40585 }, -- Super Size Snuffling	
+                            { id = 40473 } -- Not So Quick Fix	
+                        }
+                    },
+                    {
+                        id = 41189 , -- Azj the World Turns	
+                        children = {
+                            { id = 40840 }, -- Adventurer of Azj-Kahet	
+                            { id = 40634 }, -- You Can't Hang With Us	
+                            { id = 40869 }, -- Worm Theory	
+                            { id = 40542 }, -- Smelling History	
+                            { id = 40828 }, -- Treasures of Azj-Kahet	
+                            { id = 40633 }, -- The Unseeming	
+                            { id = 40624 }, -- Itsy Bitsy Spider	
+                            { id = 40629 } -- Bookworm
+                        }
+                    }
+                }
+            },
+            {
+                id = 40438, -- Glory of the Delver	
+                children = {
+                    {
+                        id = 40537, -- Delve Loremaster: War Within	
+                        children = {
+                            { id = 40525 }, -- Fungal Folly Stories	
+                            { id = 40527 }, -- Earthcrawl Mines Stories	
+                            { id = 40529 }, -- The Dread Pit Stories	
+                            { id = 40531 }, -- Mycomancer Cavern Stories	
+                            { id = 40533 }, -- Skittering Breach Stories	
+                            { id = 40535 }, -- Tak-Rethan Abyss Stories	
+                            { id = 41098 }, -- Excavation Site 9 Stories	
+                            { id = 42771 }, -- Archival Assault Stories	
+                            { id = 40526 }, -- Kriegval's Rest Stories	
+                            { id = 40528 }, -- The Waterworks Stories	
+                            { id = 40530 }, -- Nightfall Sanctum Stories	
+                            { id = 40532 }, -- The Sinkhole Stories	
+                            { id = 40534 }, -- The Underkeep Stories	
+                            { id = 40536 }, -- The Spiral Weave Stories	
+                            { id = 41099 } -- Sidestreet Sluice Stories	
+                        }
+                    },
+                    { id = 40445 }, -- Sporesweeper
+                    { id = 40454 }, -- Daystormer
+                    {
+                        id = 40506, -- Leave No Treasure Unfound
+                        children = {
+                            { id = 40807 }, -- Kriegval's Rest Discoveries	
+                            { id = 40815 }, -- The Underkeep Discoveries	
+                            { id = 40806 }, -- Earthcrawl Mines Discoveries	
+                            { id = 40808 }, -- Mycomancer Cavern Discoveries	
+                            { id = 40812 }, -- The Dread Pit Discoveries	
+                            { id = 40816 }, -- The Waterworks Discoveries	
+                            { id = 41100 }, -- Excavation Site 9 Discoveries	
+                            { id = 42679 }, -- Archival Assault Discoveries	
+                            { id = 40814 }, -- The Spiral Weave Discoveries	
+                            { id = 40813 }, -- The Sinkhole Discoveries	
+                            { id = 40803 }, -- Fungal Folly Discoveries	
+                            { id = 40810 }, -- Skittering Breach Discoveries	
+                            { id = 40809 }, -- Nightfall Sanctum Discoveries	
+                            { id = 40811 }, -- Tak-Rethan Abyss Discoveries	
+                            { id = 41101 } -- Sidestreet Sluice Discoveries	
+                        }
+                    },
+                    { id = 40453 }, -- Spider Senses	
+                    { id = 40538 }, -- Brann Development
+                    -- toti so malo sumljivi, al dobar...
+                    { id = 40103 }, -- My First Nemesis
+                    { id = 41530 }, -- My New Nemesis
+                    { id = 42193 } -- My Stab-Happy Nemesis
+                }
+            },
+            { id = 41997 }, -- Owner of a Radiant Heart
+            { id = 41222 }, -- Liberation of Undermine
+            {
+                id = 41555, -- All That Khaz	
+                children = {
+                    { id = 40430 }, -- Khaz Algar Flight Master	
+                    {
+                        id = 20596, -- Loremaster of Khaz Algar
+                        children = {
+                            { id = 20118 }, -- The Isle of Dorn	
+                            { id = 20598 }, -- Hallowfall
+                            { id = 20595 }, -- Sojourner of Isle of Dorn	
+                            { id = 40844 }, -- Sojourner of Hallowfall	
+                            { id = 19560 }, -- The Ringing Deeps	
+                            { id = 19559 }, -- Azj-Kahet
+                            { id = 40799 }, -- Sojourner of The Ringing Deeps	
+                            { id = 40636 } -- Sojourner of Azj-Kahet	
+                        }
+                    },
+                    { id = 41169 }, -- Khaz Algar Diplomat	
+                    {
+                        id = 40702, -- Khaz Algar Glyph Hunter	
+                        children = {
+                            { id = 40166 }, --  Isle of Dorn Glyph Hunter	
+                            { id = 40704 }, --  Hallowfall Glyph Hunter	
+                            { id = 40703 }, --  The Ringing Deeps Glyph Hunter	
+                            { id = 40705 } --  Azj-Kahet Glyph Hunter	
+                        }
+                    },
+                    { id = 40762 }, --  Khaz Algar Lore Hunter	
+                    { id = 40307 } --  Allied Races: Earthen
+                }
+            },
+            {
+                id = 60889, -- Unraveled and Persevering	
+                children = {
+                    { id = 42761 }, -- Remnants of a Shattered World	
+                    { id = 42740 }, -- Explore K'aresh	
+                    { id = 42729 }, -- Dangerous Prowlers of K'aresh	
+                    { id = 60890 }, -- Secrets of the K'areshi	
+                    { id = 42741 }, -- Treasures of K'aresh	
+                    { id = 41979 }, -- Bounty Seeker	
+                    { id = 42742 } -- Power of the Reshii	
+                }
+            },
+            {
+                id = 41586, -- Going Goblin Mode
+                children = {
+                    { id = 41216 }, -- Adventurer of Undermine	
+                    { id = 40948 }, -- Nine-Tenths of the Law	
+                    { id = 41589 }, -- That Can-Do Attitude	
+                    { id = 41217 }, -- Treasures of Undermine	
+                    { id = 41588 }, -- Read Between the Lines	
+                    { id = 41708 } -- You're My Friend Now	
+                }
+            },
+            {
+                id = 40231, -- The War Within Pathfinder	
+                children = {
+                    { id = 20118 }, -- The Isle of Dorn	
+                    { id = 20598 }, -- Hallowfall	
+                    {
+                        id = 40790, -- Khaz Algar Explorer	
+                        children = {
+                            { id = 40831 }, -- Explore the Isle of Dorn	
+                            { id = 40826 }, -- Explore Hallowfall	
+                            { id = 40825 }, -- Explore the Ringing Deeps	
+                            { id = 40822 } -- Explore Azj-Kahet	
+                        }
+                    },
+                    { id = 19560 }, -- The Ringing Deeps	
+                    { id = 19559 } -- Azj-Kahet	
+                }
+            }
+        }
+    }
+}
