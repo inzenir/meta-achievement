@@ -1,0 +1,12 @@
+package-as: Worldsoul_Searching
+externals:
+  libs/LibStub:
+    url: https://www.wowace.com/projects/libstub/files/latest
+  Libs/LibDataBroker:
+    url: https://www.wowace.com/projects/libdatabroker-1-1/files/latest
+  Libs/LibDBIcon: 
+    url: https://www.wowace.com/projects/libdbicon-1-0/files/latest
+
+ignore:
+  - LICENSE
+  - .gitignore
