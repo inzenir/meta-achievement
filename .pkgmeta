@@ -1,9 +1,5 @@
 package-as: Worldsoul_Searching
 enable-nolib-creation: no
-embedded-libraries:
-  - libdbicon-1-0
-  - libdatabroker-1-1
-  - libstub
 ignore:
 license-output: LICENSE.txt
 tools-used:
