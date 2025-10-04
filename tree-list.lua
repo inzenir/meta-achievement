@@ -1,55 +1,55 @@
 local ROW_HEIGHT = 20
 local DEPTH_OFFSET = 15;
-local allRows = {}
-local parentReference = nil
 
-local function flattenData(data)
-    local tmpItems = {}
+TreeView = {}
+TreeView.__index = TreeView
 
-    for _, item in ipairs(data) do
-        tmpItems[#tmpItems+1] = item
+function TreeView:new(parent, data)
+    local obj = setmetatable({}, TreeView)
+    obj.frame = CreateFrame("Frame", nil, parent)
+    obj.frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -10)
+    obj.frame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 10)
+    obj.frame:SetWidth(parent:GetWidth() - 50)
+    obj.frame:SetHeight(0)
 
-        if item.colapsed == false then
-            for i, tmpItem in ipairs(flattenData(item.children)) do
-                tmpItems[#tmpItems+1] = tmpItem
-            end
-        end
-    end
+    parent:HookScript("OnSizeChanged", function()
+        obj.frame:SetWidth(parent:GetWidth() - 50)
+    end)
 
-    return tmpItems
+    obj.dataList = data
+
+    return obj
 end
 
-local function toggleColapsed(id, data)
-    data = data or allRows
-    for _, node in ipairs(data) do
-        if node.id == id then
-            node.colapsed = not node.colapsed
-        end
-        if node.children then
-           toggleColapsed(id, node.children)
-        end
-    end
+function TreeView:getFrame()
+    return self.frame
 end
 
-
-local function createTreeList(parent, data)
-    parent = parent or parentReference
-    data = data or flattenData(allRows)
-
-    local prevRow = nil
-
-    for _, child in ipairs({ parent:GetChildren()}) do
+local function clearTreeView(parent)
+    for _, child in ipairs({ parent:GetChildren() }) do
         child:SetParent(nil)
         child:Hide()
         child = nil
     end
+end
 
-    parent:SetHeight(#data * ROW_HEIGHT)
+function TreeView:onToggleClick(node, button)
+    self.dataList:toggleColapsed(node.id)
+    self:drawTreeList()
+end
 
-    for i, node in ipairs(data) do
-        local row = CreateFrame("Frame", nil, parent, "BackdropTemplate")
+function TreeView:drawTreeList()
+    local prevRow = nil
+    local dataList = self.dataList:getFlatData()
+
+    self.frame:SetHeight(#dataList * ROW_HEIGHT)
+
+    clearTreeView(self.frame)
+
+    for _, node in ipairs(dataList) do
+        local row = CreateFrame("Frame", nil, self.frame, "BackdropTemplate")
         row:SetHeight(ROW_HEIGHT)
-        row:SetPoint("RIGHT", parent, "RIGHT", 0, 0)
+        row:SetPoint("RIGHT", self.frame, "RIGHT", 0, 0)
 
         -- Highlight
 
@@ -71,7 +71,7 @@ local function createTreeList(parent, data)
         if prevRow then
             row:SetPoint("TOPLEFT", prevRow, "BOTTOMLEFT", 0, 0)
         else
-            row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -1 * ROW_HEIGHT)
+            row:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, -1 * ROW_HEIGHT)
         end
 
         local depthOffset = node.depth * DEPTH_OFFSET
@@ -83,10 +83,10 @@ local function createTreeList(parent, data)
             toggle:SetSize(15, 15)
             local toggleText = node.colapsed and "+" or "-"
             toggle:SetText(node.hasChildren and toggleText)
+            toggle.id = node.id
 
-            toggle:SetScript("OnClick", function ()
-                toggleColapsed(node.id)
-                createTreeList()
+            toggle:SetScript("OnClick", function(frame, button)
+                self:onToggleClick(frame, button)
             end)
         end
 
@@ -118,61 +118,4 @@ local function createTreeList(parent, data)
 
         prevRow = row
     end
-end
-
-local function initData(data, depth)
-    depth = depth or 0
-    local tmpItems = {}
-    for _, item in ipairs(data) do
-        local _, nodeName, _, nodeCompleted, _, _, _, _, _, nodeImageAchiement = GetAchievementInfo(item.id)
-        local children = {}
-        local nodeImageCompletion = "Interface\\Buttons\\UI-StopButton"
-        if nodeCompleted or false then
-            nodeImageCompletion = "Interface\\Buttons\\UI-CheckBox-Check"
-        end
-        if item.children then
-            children = initData(item.children, depth + 1)
-        end
-        local tmpItem = {
-            id = item.id,
-            name = nodeName or item.name or "Unknown Achievement",
-            icon = nodeImageAchiement or "Interface\\Icons\\INV_Misc_QuestionMark",
-            completed = nodeCompleted,
-            completedIcon = nodeImageCompletion,
-            colapsed = false,
-            children = children,
-            hasChildren = #children > 0,
-            depth = depth
-        }
-
-        tmpItems[#tmpItems+1] = tmpItem
-    end
-
-    return tmpItems
-end
-
-local function drawFrame()
-    local flatData = flattenData(allRows)
-    createTreeList(parentReference, flatData)
-
-    parentReference:SetHeight(#flatData * ROW_HEIGHT)
-end
-
-function InitFrame(parent, data)
-    local frame = CreateFrame("Frame", nil, parent)
-    frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -10)
-    frame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 10)
-    frame:SetWidth(parent:GetWidth() - 50)
-    frame:SetHeight(0)
-
-    parent:HookScript("OnSizeChanged", function()
-        frame:SetWidth(parent:GetWidth() - 50)
-    end)
-
-    parentReference = frame
-    allRows = initData(data)
-
-    createTreeList()
-
-    return frame
 end

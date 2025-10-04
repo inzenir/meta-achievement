@@ -1,8 +1,22 @@
-MyAddonDB = {}
+MetaAchievementDB = {
+    achievementLists = {
+        worldSoulSearching = {
+            data = DataList:new(WorldSoulSearchingAchievements),
+            treeView = {}
+        }
+    }
+}
 
 local mainFrame = CreateFrame("Frame", "MetaAchievementsTracker", UIParent, "BasicFrameTemplateWithInset")
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1")
 local DBIcon = LibStub("LibDBIcon-1.0")
+
+local function refrestAchievementsLists()
+    for _, achilist in pairs(MetaAchievementDB.achievementLists) do
+        achilist.data:rescanData()
+        achilist.treeView:drawTreeList()
+    end
+end
 
 local iconObject = LDB:NewDataObject("MetaAchievementsTracker", {
     type = "launcher",
@@ -15,14 +29,26 @@ local iconObject = LDB:NewDataObject("MetaAchievementsTracker", {
                 mainFrame:Show()
             end
         end
+        if button == "RightButton" then
+            refrestAchievementsLists()
+        end
     end,
     OnTooltipShow = function(tooltip)
         tooltip:AddLine("Meta Achievements Tracker")
         tooltip:AddLine("Left-click to toggle visibility.")
+        tooltip:AddLine("Right-click to manually refresh addons.")
     end,
 })
-DBIcon:Register("MetaAchievementsTracker", iconObject, MyAddonDB.minimap)
+DBIcon:Register("MetaAchievementsTracker", iconObject, MetaAchievementDB.minimap)
 
+mainFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+mainFrame:RegisterEvent("ACHIEVEMENT_EARNED")
+
+mainFrame:SetScript("OnEvent", function(self, event)
+    if event == "PLAYER_ENTERING_WORLD" or event == "ACHIEVEMENT_EARNED" then
+        refrestAchievementsLists()
+    end
+end)
 
 
 -- Main frame
@@ -68,8 +94,7 @@ local scrollFrame = CreateFrame("ScrollFrame", nil, mainFrame, "UIPanelScrollFra
 scrollFrame:SetPoint("TOPLEFT", mainFrame, "TOPLEFT", 10, -30)
 scrollFrame:SetPoint("BOTTOMRIGHT", mainFrame, "BOTTOMRIGHT", -35, 20)
 
--- local content = CreateFrame("Frame", nil, scrollFrame)
-local tmpFrame = InitFrame(mainFrame, WorldSoulSearchingAchievements)
-scrollFrame:SetScrollChild(tmpFrame)
 
-
+MetaAchievementDB.achievementLists.worldSoulSearching.treeView = TreeView:new(mainFrame, MetaAchievementDB.achievementLists.worldSoulSearching.data)
+scrollFrame:SetScrollChild(MetaAchievementDB.achievementLists.worldSoulSearching.treeView:getFrame())
+MetaAchievementDB.achievementLists.worldSoulSearching.treeView:drawTreeList()
