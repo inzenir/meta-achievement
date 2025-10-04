@@ -411,3 +411,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+make-links.bat

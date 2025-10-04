@@ -2,6 +2,7 @@ WorldSoulSearchingAchievements = {
     {
         id = 61451,
         name = "Worldsoul-Searching",
+        icon = "Interface\\Icons\\achievement_zone_isleofdorn",
         children = {
             { id = 40244 }, -- Nerub-ar Palace
             { id = 41598 }, -- Manaforge Omega
