@@ -1,12 +1,3 @@
 package-as: Worldsoul_Searching
 enable-nolib-creation: no
-ignore:
 license-output: LICENSE.txt
-tools-used:
-plain-copy:
-    - achi-list/*
-    - images/*
-    - Libs/*
-    - entryponit.lua
-    - tree-list.lua
-    - Worldsoul_Searching.toc
