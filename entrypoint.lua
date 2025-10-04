@@ -1,4 +1,29 @@
-local mainFrame = CreateFrame("Frame", "WorldsoulSearching", UIParent, "BasicFrameTemplateWithInset")
+MyAddonDB = {}
+
+local mainFrame = CreateFrame("Frame", "MetaAchievementsTracker", UIParent, "BasicFrameTemplateWithInset")
+local LDB = LibStub:GetLibrary("LibDataBroker-1.1")
+local DBIcon = LibStub("LibDBIcon-1.0")
+
+local iconObject = LDB:NewDataObject("MetaAchievementsTracker", {
+    type = "launcher",
+    icon = "Interface\\Icons\\achievement_zone_isleofdorn",
+    OnClick = function(self, button)
+        if button == "LeftButton" then
+            if mainFrame:IsShown() then
+                mainFrame:Hide()
+            else
+                mainFrame:Show()
+            end
+        end
+    end,
+    OnTooltipShow = function(tooltip)
+        tooltip:AddLine("Meta Achievements Tracker")
+        tooltip:AddLine("Left-click to toggle visibility.")
+    end,
+})
+DBIcon:Register("MetaAchievementsTracker", iconObject, MyAddonDB.minimap)
+
+
 
 -- Main frame
 mainFrame:SetSize(300, 200)

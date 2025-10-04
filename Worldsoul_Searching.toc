@@ -3,7 +3,12 @@
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
 ## Version: 1.0
-## IconTexture: Interface\AddOns\Worldsoul_Searching\images\achievement_zone_isleofdorn.jpg
+## IconTexture: Interface\Icons\achievement_zone_isleofdorn
+
+Libs\LibStub\LibStub.lua
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+
 
 achi-list/WorldSoulSearching.lua
 tree-list.lua
