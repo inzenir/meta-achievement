@@ -2,7 +2,7 @@
 ## Title: Worldsoul Searching
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
-## Version: 1.0
+## Version: 1.0.1
 ## IconTexture: Interface\Icons\achievement_zone_isleofdorn
 
 Libs\LibStub\LibStub.lua
