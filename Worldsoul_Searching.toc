@@ -1,9 +1,9 @@
-## Interface: 110200
+## Interface 110200
 ## Title: Worldsoul Searching
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
-## Version: 1.0.3
-## IconTexture: Interface\Icons\achievement_zone_isleofdorn
+## Version: @project-version@
+## IconTexture: images\achievement_zone_isleofdorn.jpg
 
 Libs\LibStub\LibStub.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
