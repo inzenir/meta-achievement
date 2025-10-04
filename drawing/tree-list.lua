@@ -4,7 +4,7 @@ local DEPTH_OFFSET = 15;
 TreeView = {}
 TreeView.__index = TreeView
 
-function TreeView:new(parent, data)
+function TreeView:new(parent, data, name)
     local obj = setmetatable({}, TreeView)
     obj.frame = CreateFrame("Frame", nil, parent)
     obj.frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -10)
@@ -17,12 +17,17 @@ function TreeView:new(parent, data)
     end)
 
     obj.dataList = data
+    obj.name = name
 
     return obj
 end
 
 function TreeView:getFrame()
     return self.frame
+end
+
+function TreeView:getName()
+    return self.name
 end
 
 local function clearTreeView(parent)
@@ -35,11 +40,12 @@ end
 
 function TreeView:onToggleClick(node, button)
     self.dataList:toggleColapsed(node.id)
-    self:drawTreeList()
+    self:draw()
 end
 
-function TreeView:drawTreeList()
+function TreeView:draw()
     local prevRow = nil
+    self.dataList:rescanData()
     local dataList = self.dataList:getFlatData()
 
     self.frame:SetHeight(#dataList * ROW_HEIGHT)
@@ -55,7 +61,16 @@ function TreeView:drawTreeList()
 
         local highlight = row:CreateTexture(nil, "HIGHLIGHT")
         highlight:SetAllPoints()
-        highlight:SetColorTexture(1, 0, 0, 0.3) -- semi-transparent red
+        if MetaAchievementConfigurationDB.colouredHightlight then
+            if node.completed then
+                highlight:SetColorTexture(0, 1, 0, 0.1) -- semi-transparent gren
+            else
+                highlight:SetColorTexture(1, 0, 0, 0.1) -- semi-transparent red
+            end
+            
+        else
+            highlight:SetColorTexture(1, 1, 1, 0.1) -- translucent
+        end
         highlight:Hide()
 
         row:SetScript("OnEnter", function()
@@ -71,7 +86,7 @@ function TreeView:drawTreeList()
         if prevRow then
             row:SetPoint("TOPLEFT", prevRow, "BOTTOMLEFT", 0, 0)
         else
-            row:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, -1 * ROW_HEIGHT)
+            row:SetPoint("TOPLEFT", self.frame, "TOPLEFT", -5, -5)
         end
 
         local depthOffset = node.depth * DEPTH_OFFSET

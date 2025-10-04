@@ -7,22 +7,32 @@ local function scanData(inputData, depth)
         local _, nodeName, _, nodeCompleted, _, _, _, _, _, nodeImageAchiement = GetAchievementInfo(item.id)
         local children = {}
         local nodeImageCompletion = "Interface\\Buttons\\UI-StopButton"
+        local allChildrenCompleted = false
+
         if nodeCompleted or false then
             nodeImageCompletion = "Interface\\Buttons\\UI-CheckBox-Check"
         end
+
         if item.children then
             children = scanData(item.children, depth + 1)
+            allChildrenCompleted = true
+            for _, child in pairs(children) do
+                allChildrenCompleted = allChildrenCompleted and child.allChildrenCompleted
+            end
+        else
+            allChildrenCompleted = nodeCompleted
         end
         local tmpItem = {
             id = item.id,
             name = nodeName or item.name or "Unknown Achievement",
-            icon = nodeImageAchiement or "Interface\\Icons\\INV_Misc_QuestionMark",
+            icon = nodeImageAchiement or item.icon or "Interface\\Icons\\INV_Misc_QuestionMark",
             completed = nodeCompleted,
             completedIcon = nodeImageCompletion,
             colapsed = false,
             children = children,
             hasChildren = #children > 0,
-            depth = depth
+            depth = depth,
+            allChildrenCompleted = allChildrenCompleted
         }
 
         tmpItems[#tmpItems+1] = tmpItem
@@ -47,11 +57,14 @@ local function flatData(input)
     local tmpItems = {}
 
     for _, item in ipairs(input) do
-        tmpItems[#tmpItems+1] = item
+        if not (item.allChildrenCompleted and MetaAchievementConfigurationDB.hideCompleted) then
+            tmpItems[#tmpItems+1] = item
 
-        if item.colapsed == false then
-            for i, tmpItem in ipairs(flatData(item.children)) do
-                tmpItems[#tmpItems+1] = tmpItem
+            if item.colapsed == false then 
+
+                for _, tmpItem in ipairs(flatData(item.children)) do
+                    tmpItems[#tmpItems+1] = tmpItem
+                end
             end
         end
     end
