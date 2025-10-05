@@ -155,7 +155,31 @@ WorldSoulSearchingAchievements = {
                             { id = 40705 } --  Azj-Kahet Glyph Hunter	
                         }
                     },
-                    { id = 40762 }, --  Khaz Algar Lore Hunter	
+                    {
+                        id = 40762, --  Khaz Algar Lore Hunter
+                        waypoints = {
+                            { criteriaId = 69373, mapId = MapZones.IsleOfDorn, x = 42, y = 80, title='Watcher of the South', note='On the top of the mountain' },
+                            { criteriaId = 69369, mapId = MapZones.IsleOfDorn, x = 37, y = 52.5, title="Galan's Edict", note='Under water' },
+                            { criteriaId = 69371, mapId = MapZones.IsleOfDorn, x = 44, y = 30, title = 'Stone of The Unbound', note = 'Between stone wall pieces' },
+                            { criteriaId = 69372, mapId = MapZones.IsleOfDorn, x = 52, y = 20, title = 'Watcher of the North', note = 'On the top of the mountain' },
+                            { criteriaId = 69370, mapId = MapZones.IsleOfDorn, x = 78, y = 29, title = 'Titan Console', note = 'On an island' },
+                            { criteriaId = 69377, mapId = MapZones.TheRingingDeeps, x = 50, y = 58, title = 'Wax-Drenched Sign', note = 'Near some rocks' },
+                            { criteriaId = 69378, mapId = MapZones.TheRingingDeeps, x = 65, y = 56, title = 'Kobold Warning Sign', note = 'On the northern wall in Tealloch' },
+                            { criteriaId = 69376, mapId = MapZones.TheRingingDeeps, x = 51.5, y = 72.5, title = 'Submerged Sign', note = 'In a small pond' },
+                            { criteriaId = 69375, mapId = MapZones.TheRingingDeeps, x = 71.5, y = 42.5, title = 'Warning: Collapsed Tunnel', note = 'In a cave' },
+                            { criteriaId = 69374, mapId = MapZones.TheRingingDeeps, x = 39, y = 17, title = 'A Skull on a Sign', note = 'Behind a pillar' },
+                            { criteriaId = 69381, mapId = MapZones.Hallowfall, x = 78, y = 40, title = 'A Weathered Tome', note = 'In a narrow passage' },
+                            { criteriaId = 69382, mapId = MapZones.Hallowfall, x = 71, y = 36, title = 'A Tattered Note', note = 'Hidden on some rocks' },
+                            { criteriaId = 69383, mapId = MapZones.Hallowfall, x = 62, y = 45.5, title = "A Scout's Journal", note = 'In the water' },
+                            { criteriaId = 69380, mapId = MapZones.Hallowfall, x = 25, y = 54, title = 'A Worn Down Book', note = 'Near some stones' },
+                            { criteriaId = 69379, mapId = MapZones.Hallowfall, x = 25.5, y = 38.5, title = "Captain's Chest", note = 'Between ship wricks, underground' },
+                            { criteriaId = 69388, mapId = MapZones.AzjKahet, x = 54, y = 19, title = "Mad Nerubian", note = 'On the wall' },
+                            { criteriaId = 69387, mapId = MapZones.AzjKahet, x = 75, y = 33, title = "Kah'teht", note = 'Near a waterfall' },
+                            { criteriaId = 69384, mapId = MapZones.AzjKahet, x = 71, y = 62, title = 'Weathered Shadecaster', note = 'On the top of the tower' },
+                            { criteriaId = 69385, mapId = MapZones.CityOfThreads, x = 58, y = 59.5, title = 'Forgotten Shadecaster', note = 'On the top platform' },
+                            { criteriaId = 69386, mapId = MapZones.CityOfThreads, x = 8.5, y = 30.5, title = 'Neglected Shadecaster', note = 'On the top level' },
+                        }
+                    },
                     { id = 40307 } --  Allied Races: Earthen
                 }
             },

@@ -67,7 +67,7 @@ function TreeView:draw()
             else
                 highlight:SetColorTexture(1, 0, 0, 0.1) -- semi-transparent red
             end
-            
+  
         else
             highlight:SetColorTexture(1, 1, 1, 0.1) -- translucent
         end
@@ -129,6 +129,21 @@ function TreeView:draw()
         completionIcon:SetTexture(node.completedIcon)
         if not node.completed then
             completionIcon:SetVertexColor(1, 0, 0)
+        end
+
+        -- Map integration icon
+        if MetaAchievementDB.mapIntegration:HasActiveIntegration() and node.waypoints then
+            local mapIntegrationButton = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+            mapIntegrationButton:SetSize(16, 16)
+            mapIntegrationButton:SetPoint("TOPRIGHT", completionIcon, "TOPLEFT", 0, 0)
+
+            local mapIntegrationIcon = mapIntegrationButton:CreateTexture(nil, "ARTWORK")
+            mapIntegrationIcon:SetAllPoints()
+            mapIntegrationIcon:SetTexture("Interface\\Icons\\INV_Misc_Map09")
+
+            mapIntegrationButton:SetScript("OnClick", function()
+                MetaAchievementDB.mapIntegration:ToggleWaypointsForAchievement(node.id, node.waypoints)
+            end)
         end
 
         prevRow = row

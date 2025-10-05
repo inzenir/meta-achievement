@@ -1,7 +1,10 @@
 function DefaultSettings()
     return {
         hideCompleted = false,
-        colouredHightlight = false
+        colouredHightlight = false,
+        removeCompletedWaypoints = true,
+        addWaypointsOnlyForUncompletedAchievementParts = true,
+        mapIntegration = {}
     }
 end
 

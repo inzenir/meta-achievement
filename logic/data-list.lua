@@ -2,12 +2,23 @@ DataList = {}
 DataList.__index = DataList
 
 local function scanData(inputData, depth, colapsedItems)
+    local hasMapIntegration = false
+    if MetaAchievementDB ~= nil then
+        hasMapIntegration = MetaAchievementDB.mapIntegration:HasActiveIntegration()
+    end
+
     local tmpItems = {}
     for _, item in ipairs(inputData) do
         local _, nodeName, _, nodeCompleted, _, _, _, _, _, nodeImageAchiement = GetAchievementInfo(item.id)
         local children = {}
         local nodeImageCompletion = "Interface\\Buttons\\UI-StopButton"
         local allChildrenCompleted = false
+
+        -- map integration
+        if hasMapIntegration and MetaAchievementConfigurationDB.removeCompletedWaypoints and nodeCompleted then
+            MetaAchievementDB.mapIntegration:RemoveWaypointsForAchievement(item.id)
+        end
+
 
         if nodeCompleted or false then
             nodeImageCompletion = "Interface\\Buttons\\UI-CheckBox-Check"
@@ -33,7 +44,8 @@ local function scanData(inputData, depth, colapsedItems)
             children = children,
             hasChildren = #children > 0,
             depth = depth,
-            allChildrenCompleted = allChildrenCompleted
+            allChildrenCompleted = allChildrenCompleted,
+            waypoints = item.waypoints
         }
 
         tmpItems[#tmpItems+1] = tmpItem

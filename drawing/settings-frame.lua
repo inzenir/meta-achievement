@@ -10,7 +10,6 @@ function SettingsFrame:new(parent)
     obj.frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -10)
     obj.frame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 10)
     obj.frame:SetWidth(parent:GetWidth() - 50)
-    obj.frame:SetHeight(1000)
 
     obj.checkBoxes = {}
 
@@ -42,6 +41,8 @@ end
 function SettingsFrame:registerOptions()
     self:addOption("Hide completed", "hideCompleted", "If checked, completed achievements will be hidden, unless they have uncompleted sub-achievements")
     self:addOption("Coloured highlight", "colouredHightlight", "If checked, hovering on achievement will be green/red, depending on wheter achievement is completed")
+    self:addOption("Remove waypoints for completed achievements", "removeCompletedWaypoints", "")
+    self:addOption("Add waypoints only to unfinished parts of achievement", "addWaypointsOnlyForUncompletedAchievementParts", "")
 end
 
 function SettingsFrame:addOption(title, storageIndex, hint)
