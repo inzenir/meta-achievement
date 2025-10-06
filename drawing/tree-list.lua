@@ -62,12 +62,12 @@ function TreeView:draw()
         local highlight = row:CreateTexture(nil, "HIGHLIGHT")
         highlight:SetAllPoints()
         if MetaAchievementConfigurationDB.colouredHightlight then
-            if node.completed then
+            if node.data.completed then
                 highlight:SetColorTexture(0, 1, 0, 0.1) -- semi-transparent gren
             else
                 highlight:SetColorTexture(1, 0, 0, 0.1) -- semi-transparent red
             end
-            
+  
         else
             highlight:SetColorTexture(1, 1, 1, 0.1) -- translucent
         end
@@ -92,12 +92,13 @@ function TreeView:draw()
         local depthOffset = node.depth * DEPTH_OFFSET
 
         -- Toggle icon
-        if node.hasChildren then
+        if #node.data.children > 0 then
             local toggle = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
             toggle:SetPoint("TOPLEFT", row, "TOPLEFT", depthOffset + 15, 0)
             toggle:SetSize(15, 15)
             local toggleText = node.colapsed and "+" or "-"
-            toggle:SetText(node.hasChildren and toggleText)
+            --toggle:SetText(node.data.hasChildren and toggleText)
+            toggle:SetText(toggleText)
             toggle.id = node.id
 
             toggle:SetScript("OnClick", function(frame, button)
@@ -115,20 +116,35 @@ function TreeView:draw()
 
         local achievementIcon = achievementButton:CreateTexture(nil, "ARTWORK")
         achievementIcon:SetAllPoints()
-        achievementIcon:SetTexture(node.icon)
+        achievementIcon:SetTexture(node.data.icon)
 
         -- Text
         local text = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         text:SetPoint("TOPLEFT", achievementIcon, "TOPRIGHT", 5, -2)
-        text:SetText(node.name)
+        text:SetText(node.data.name)
 
         -- Completion icon
         local completionIcon = row:CreateTexture(nil, "ARTWORK")
         completionIcon:SetSize(16, 16)
         completionIcon:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, 0)
         completionIcon:SetTexture(node.completedIcon)
-        if not node.completed then
+        if not node.data.completed then
             completionIcon:SetVertexColor(1, 0, 0)
+        end
+
+        -- Map integration
+        if MetaAchievementDB.mapIntegration:HasActiveIntegration() and #node.data:GetFilteredWaypoints() > 0 then
+            local mapIntegrationButton = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+            mapIntegrationButton:SetSize(16, 16)
+            mapIntegrationButton:SetPoint("TOPRIGHT", completionIcon, "TOPLEFT", 0, 0)
+
+            local mapIntegrationIcon = mapIntegrationButton:CreateTexture(nil, "ARTWORK")
+            mapIntegrationIcon:SetAllPoints()
+            mapIntegrationIcon:SetTexture("Interface\\Icons\\INV_Misc_Map09")
+
+            mapIntegrationButton:SetScript("OnClick", function()
+                MetaAchievementDB.mapIntegration:ToggleWaypointsForAchievement(node.id, node.data:GetFilteredWaypoints())
+            end)
         end
 
         prevRow = row

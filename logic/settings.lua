@@ -1,7 +1,18 @@
 function DefaultSettings()
     return {
         hideCompleted = false,
-        colouredHightlight = false
+        colouredHightlight = false,
+        removeCompletedWaypoints = false,
+        addWaypointsOnlyForUncompletedAchievementParts = true,
+        mapIntegration = {},
+        mainFrame = {
+            closed = false,
+            height = nil,
+            width = nil,
+            anchor = nil,
+            x = nil,
+            y = nil
+        }
     }
 end
 

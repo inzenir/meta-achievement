@@ -1,6 +1,11 @@
 MainFrame = {}
 MainFrame.__index = MainFrame
 
+DEFAULT_FRAME_HEIGHT = 200
+DEFAULT_FRAME_WIDTH = 300
+DEFAULT_POSITION_X = 0
+DEFAULT_POSITION_Y = 0
+
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1")
 local DBIcon = LibStub("LibDBIcon-1.0")
 
@@ -20,8 +25,9 @@ function MainFrame:new()
     obj.scrollBar = {}
     obj.scrollBarChildren = {}
     obj.drawnScrollElement = nil
-    
+
     obj.previousDrawnElement = nil
+    obj.onEventHandlers = {}
 
     obj:createMainFrame()
     obj:createMinimapButton()
@@ -35,9 +41,9 @@ end
 
 function MainFrame:createMainFrame()
     self.mainFrame = CreateFrame("Frame", "MetaAchievementsTracker", UIParent, "BasicFrameTemplateWithInset")
-    self.mainFrame:SetSize(300, 200)
-    self.mainFrame:SetResizeBounds(300, 200)
-    self.mainFrame:SetPoint("CENTER", 0, 0)
+    self.mainFrame:SetSize(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT)
+    self.mainFrame:SetResizeBounds(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT)
+    self.mainFrame:SetPoint("CENTER", DEFAULT_POSITION_X, DEFAULT_POSITION_Y)
     self.mainFrame:SetMovable(true)
     self.mainFrame:SetResizable(true)
     self.mainFrame:EnableMouse(true)
@@ -52,6 +58,49 @@ function MainFrame:createMainFrame()
     self.mainFrame.title:SetPoint("LEFT", self.mainFrame.TitleBg, "LEFT", 5, 0)
 end
 
+function MainFrame:resetFrame()
+    MetaAchievementConfigurationDB.mainFrame.closed = false
+    MetaAchievementConfigurationDB.mainFrame.height = DEFAULT_FRAME_HEIGHT
+    MetaAchievementConfigurationDB.mainFrame.width = DEFAULT_FRAME_WIDTH
+    MetaAchievementConfigurationDB.mainFrame.anchor = "CENTER"
+    MetaAchievementConfigurationDB.mainFrame.x = DEFAULT_POSITION_X
+    MetaAchievementConfigurationDB.mainFrame.y = DEFAULT_POSITION_Y
+
+    self:onFrameLoaded()
+end
+
+function MainFrame:RegisterOnEventHander(eventName, arg1Check, callback)
+    self.onEventHandlers[#self.onEventHandlers+1] = {
+        eventName = eventName,
+        arg1Check = arg1Check,
+        callback = callback
+    }
+end
+
+function MainFrame:onFrameLoaded()
+    if MetaAchievementConfigurationDB.mainFrame.height and MetaAchievementConfigurationDB.mainFrame.width then
+        self.mainFrame:SetSize(
+            MetaAchievementConfigurationDB.mainFrame.width, 
+            MetaAchievementConfigurationDB.mainFrame.height
+        )
+    end
+
+    if MetaAchievementConfigurationDB.mainFrame.x
+        and MetaAchievementConfigurationDB.mainFrame.y
+        and MetaAchievementConfigurationDB.mainFrame.anchor
+    then
+        self.mainFrame:SetPoint(
+            MetaAchievementConfigurationDB.mainFrame.anchor,
+            MetaAchievementConfigurationDB.mainFrame.x,
+            MetaAchievementConfigurationDB.mainFrame.y
+        )
+    end
+
+    if MetaAchievementConfigurationDB.mainFrame.closed then
+        self.mainFrame:Hide()
+    end
+end
+
 function MainFrame:ChangeTitle(name)
     name = name or ""
     self.mainFrame.title:SetText("Meta Achievements Tracker - " .. name)
@@ -62,16 +111,73 @@ function MainFrame:registerEvents()
     self.mainFrame:RegisterEvent("ACHIEVEMENT_EARNED")
     self.mainFrame:RegisterEvent("ADDON_LOADED")
 
-    self.mainFrame:SetScript("OnEvent", function(element, event, arg1)
-        if event == "PLAYER_ENTERING_WORLD" or event == "ACHIEVEMENT_EARNED" then
+    self:RegisterOnEventHander(
+        "PLAYER_ENTERING_WORLD",
+        nil,
+        function ()
             refrestAchievementsLists()
         end
+    )
 
-        if arg1 == "Worldsoul_Searching" and event == "ADDON_LOADED" then
+    self:RegisterOnEventHander(
+        "ACHIEVEMENT_EARNED",
+        nil,
+        function ()
+            refrestAchievementsLists()
+        end
+    )
+
+    self:RegisterOnEventHander(
+        "ADDON_LOADED",
+        "Worldsoul_Searching",
+        function()
             UpdateSettings()
+            self:onFrameLoaded()
             EntryPoint()
         end
+    )
+
+    self.mainFrame:SetScript("OnHide", function () 
+        MetaAchievementConfigurationDB.mainFrame.closed = true
     end)
+
+    self.mainFrame:SetScript("OnShow", function () 
+        MetaAchievementConfigurationDB.mainFrame.closed = false
+    end)
+
+    self.mainFrame:SetScript("OnSizeChanged", function (element, width, height)
+        MetaAchievementConfigurationDB.mainFrame.width = width
+        MetaAchievementConfigurationDB.mainFrame.height = height
+    end)
+
+    self.mainFrame:SetScript("OnDragStop", function (element)
+        element:StopMovingOrSizing()
+        local point, _, _, x, y = element:GetPoint()
+
+        MetaAchievementConfigurationDB.mainFrame.anchor = point
+        MetaAchievementConfigurationDB.mainFrame.x = x
+        MetaAchievementConfigurationDB.mainFrame.y = y
+    end)
+
+    self.mainFrame:SetScript("OnEvent", function(element, event, arg1)
+        for _, registeredEvent in pairs(self.onEventHandlers) do
+            if registeredEvent.eventName == event then
+                if registeredEvent.arg1Check == arg1
+                    or registeredEvent.arg1Check == nil
+                then
+                    registeredEvent.callback(element, event, arg1)
+                end
+            end
+        end
+    end)
+end
+
+function MainFrame:toggleVisibility()
+    if self.mainFrame:IsShown() then
+        self.mainFrame:Hide()
+    else
+        self.mainFrame:Show()
+    end
 end
 
 function MainFrame:createMinimapButton()
@@ -80,14 +186,13 @@ function MainFrame:createMinimapButton()
         icon = "Interface\\Icons\\achievement_zone_isleofdorn",
         OnClick = function(element, button)
             if button == "LeftButton" then
-                if self.mainFrame:IsShown() then
-                    self.mainFrame:Hide()
-                else
-                    self.mainFrame:Show()
-                end
+                self:toggleVisibility()
             end
             if button == "RightButton" then
                 refrestAchievementsLists()
+            end
+            if button == "MiddleButton" then
+                self:resetFrame()
             end
         end,
         OnTooltipShow = function(tooltip)

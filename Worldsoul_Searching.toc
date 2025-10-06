@@ -12,11 +12,22 @@ Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
 # achievement data
+map-zones.lua
 achi-list\WorldSoulSearching.lua
 
 # logic loading
 logic\data-list.lua
 logic\settings.lua
+logic\debug.lua
+logic\waypoint.lua
+logic\achievement.lua
+logic\achievement-criteria.lua
+logic\wow-achievements.lua
+
+# map integrations
+map-integration\map-integration.lua
+map-integration\tomtom\tomtom-waypoint.lua
+map-integration\tomtom\tomtom.lua
 
 # drawing loading
 drawing\tree-list.lua
