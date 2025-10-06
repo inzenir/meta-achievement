@@ -20,12 +20,21 @@ WindowTabs = {
 local mainFrame = MainFrame:new()
 MetaAchievementDB.mapIntegration = MapIntegrationBase:new()
 
+if TomTom then
+    MetaAchievementDB.mapIntegration:RegisterMapIntegration(MapIntegrationOptions.tomtom, TomTomMap:new())
+    MetaAchievementDB.mapIntegration:SetActiveIntegration(MapIntegrationOptions.tomtom)
+    mainFrame:RegisterOnEventHander(
+        "PLAYER_ENTERING_WORLD",
+        function()
+            local integration = MetaAchievementDB.mapIntegration:GetIntegrationIfActive(MapIntegrationOptions.tomtom)
+            if integration ~= nil then
+                integration:OnTomTomLoaded()
+            end
+        end)
+end
+
 function EntryPoint()
-    print("entry point")
-    if TomTom then
-        MetaAchievementDB.mapIntegration:RegisterMapIntegration(MapIntegrationOptions.tomtom, TomTomMap:new())
-        MetaAchievementDB.mapIntegration:SetActiveIntegration(MapIntegrationOptions.tomtom)
-    end
+    MetaAchievementDB.mapIntegration:OnLoaded()
 
     local settingsFrame = SettingsFrame:new(mainFrame:getFrame())
     MetaAchievementDB.achievementLists.worldSoulSearching.treeView = TreeView:new(mainFrame:getFrame(), MetaAchievementDB.achievementLists.worldSoulSearching.data, "Worldsoul Searching")

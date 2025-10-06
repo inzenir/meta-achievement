@@ -1,19 +1,20 @@
-Achievement = {}
-Achievement.__index = Achievement
+WoWAchievement = {}
+WoWAchievement.__index = WoWAchievement
 
 AchievementCriteriaTypes = {
     CompletingAQuest = 27
 }
 
-function Achievement:new(id)
-    local obj = setmetatable({}, Achievement)
+function WoWAchievement:new(id)
+    local obj = setmetatable({}, WoWAchievement)
 
     obj.id = id
 
     return obj
 end
 
-function Achievement:dumpinfo()
+--[[
+function WoWAchievement:dumpinfo()
     print("info")
     local numCriteria = GetAchievementNumCriteria(self.id)
     for i = 1, numCriteria do
@@ -33,8 +34,9 @@ function Achievement:dumpinfo()
 --        print("eligible: " .. tostring(eligible))
     end
 end
+]]
 
-function Achievement:filterWaypoints(waypoints)
+function WoWAchievement:filterWaypoints(waypoints)
     local returnData = {}
     local numCriteria = GetAchievementNumCriteria(self.id)
 

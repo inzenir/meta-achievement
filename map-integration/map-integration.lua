@@ -5,27 +5,6 @@ MapIntegrationOptions = {
     tomtom = "tomtom"
 }
 
-function PrepareWaypoint(waypoint)
-    return { 
-        criteriaId = waypoint.criteriaId or nil,
-        mapId = waypoint.mapId,
-        x = waypoint.x,
-        y = waypoint.x,
-        title = waypoint.title,
-        note = waypoint.note or ''
-    }
-end
-
-function PrepareWaypoints(waypoints)
-    local returnData = {}
-
-    for _, wp in pairs(waypoints) do
-        returnData[#returnData+1] = PrepareWaypoint(wp)
-    end
-
-    return returnData
-end
-
 function MapIntegrationBase:new()
     local obj = setmetatable({}, self)
 
@@ -35,16 +14,17 @@ function MapIntegrationBase:new()
     return obj
 end
 
-function MapIntegrationBase:FilterWaypoints(achievementId, waypoints)
-    waypoints = PrepareWaypoints(waypoints)
-
-    if MetaAchievementConfigurationDB.addWaypointsOnlyForUncompletedAchievementParts then
-        local achievement = Achievement:new(achievementId)
-
-        return achievement:filterWaypoints(waypoints)
+function MapIntegrationBase:GetIntegrationIfActive(integration)
+    if integration == self.activeIntegration then
+        return self.integrations[integration]
     end
+    return nil
+end
 
-    return waypoints
+function MapIntegrationBase:OnLoaded()
+    if self:HasActiveIntegration() then
+        self.integrations[self.activeIntegration]:OnLoaded()
+    end
 end
 
 function MapIntegrationBase:RegisterMapIntegration(name, integration)
@@ -60,17 +40,25 @@ function MapIntegrationBase:HasActiveIntegration()
 end
 
 function MapIntegrationBase:ToggleWaypointsForAchievement(id, waypoints)
-    self.integrations[self.activeIntegration]:ToggleWaypointsForAchievement(id, waypoints)
+    if self:HasActiveIntegration() then
+        self.integrations[self.activeIntegration]:ToggleWaypointsForAchievement(id, waypoints)
+    end
 end
 
 function MapIntegrationBase:AddWaypointsForAchievement(id, waypoints)
-    self.integrations[self.activeIntegration]:AddWaypointsForAchievement(id, waypoints)
+    if self:HasActiveIntegration() then
+        self.integrations[self.activeIntegration]:AddWaypointsForAchievement(id, waypoints)
+    end
 end
 
 function MapIntegrationBase:RemoveWaypointsForAchievement(id)
-    self.integrations[self.activeIntegration]:RemoveWaypointsForAchievement(id)
+    if self:HasActiveIntegration() then
+        self.integrations[self.activeIntegration]:RemoveWaypointsForAchievement(id)
+    end
 end
 
 function MapIntegrationBase:RemoveAllWaypoints()
-    self.integrations[self.activeIntegration]:RemoveAllWaypoints()
+    if self:HasActiveIntegration() then
+        self.integrations[self.activeIntegration]:RemoveAllWaypoints()
+    end
 end

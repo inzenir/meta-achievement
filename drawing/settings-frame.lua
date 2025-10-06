@@ -41,8 +41,12 @@ end
 function SettingsFrame:registerOptions()
     self:addOption("Hide completed", "hideCompleted", "If checked, completed achievements will be hidden, unless they have uncompleted sub-achievements")
     self:addOption("Coloured highlight", "colouredHightlight", "If checked, hovering on achievement will be green/red, depending on wheter achievement is completed")
-    self:addOption("Remove waypoints for completed achievements", "removeCompletedWaypoints", "")
-    self:addOption("Add waypoints only to unfinished parts of achievement", "addWaypointsOnlyForUncompletedAchievementParts", "")
+
+    -- Only display waypoint options, if map integration is active
+    if MetaAchievementDB.mapIntegration:HasActiveIntegration() then
+        self:addOption("Remove waypoints for completed achievements", "removeCompletedWaypoints", "")
+        self:addOption("Add waypoints only to unfinished parts of achievement", "addWaypointsOnlyForUncompletedAchievementParts", "")
+    end
 end
 
 function SettingsFrame:addOption(title, storageIndex, hint)

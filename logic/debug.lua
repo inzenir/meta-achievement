@@ -7,6 +7,8 @@ function dumpRecursive(map, depth)
             dumpRecursive(v, depth+1)
         elseif type(v) == "boolean" then
             print(prefix .. i .. " - " .. (v and "true" or "false"))
+        elseif type(v) =="function" then
+            print(prefix .. i .. " - function")
         else
             print(prefix .. i .. " - " .. v)
         end

@@ -1,6 +1,9 @@
 DataList = {}
 DataList.__index = DataList
 
+NODE_ICON_COMPLETED = "Interface\\Buttons\\UI-CheckBox-Check"
+NODE_ICON_NOT_COMPLETED = "Interface\\Buttons\\UI-StopButton"
+
 local function scanData(inputData, depth, colapsedItems)
     local hasMapIntegration = false
     if MetaAchievementDB ~= nil then
@@ -9,42 +12,16 @@ local function scanData(inputData, depth, colapsedItems)
 
     local tmpItems = {}
     for _, item in ipairs(inputData) do
-        local _, nodeName, _, nodeCompleted, _, _, _, _, _, nodeImageAchiement = GetAchievementInfo(item.id)
-        local children = {}
-        local nodeImageCompletion = "Interface\\Buttons\\UI-StopButton"
-        local allChildrenCompleted = false
-
-        -- map integration
-        if hasMapIntegration and MetaAchievementConfigurationDB.removeCompletedWaypoints and nodeCompleted then
-            MetaAchievementDB.mapIntegration:RemoveWaypointsForAchievement(item.id)
-        end
-
-
-        if nodeCompleted or false then
-            nodeImageCompletion = "Interface\\Buttons\\UI-CheckBox-Check"
-        end
-
-        if item.children then
-            children = scanData(item.children, depth + 1, colapsedItems)
-            allChildrenCompleted = true
-            for _, child in pairs(children) do
-                allChildrenCompleted = allChildrenCompleted and child.allChildrenCompleted
-            end
-        else
-            allChildrenCompleted = nodeCompleted
-        end
+        local achiObj = Achievement:new(item)
 
         local tmpItem = {
             id = item.id,
-            name = nodeName or item.name or "Unknown Achievement",
-            icon = nodeImageAchiement or item.icon or "Interface\\Icons\\INV_Misc_QuestionMark",
-            completed = nodeCompleted,
-            completedIcon = nodeImageCompletion,
+            data = achiObj,
+            completedIcon = achiObj.completed and NODE_ICON_COMPLETED or NODE_ICON_NOT_COMPLETED,
             colapsed = colapsedItems[item.id] or false,
-            children = children,
-            hasChildren = #children > 0,
+            children = scanData(item.children or {}, depth + 1, colapsedItems),
+            allChildrenCompleted = achiObj.chidrenCompleted,
             depth = depth,
-            allChildrenCompleted = allChildrenCompleted,
             waypoints = item.waypoints
         }
 
