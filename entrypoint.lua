@@ -3,17 +3,16 @@ MetaAchievementTitle = "Meta Achievement Tracker"
 
 MetaAchievementDB = {
     mapIntegration = nil,
-    achievementLists = {
-        worldSoulSearching = {
-            data = DataList:new(WorldSoulSearchingAchievements),
-            treeView = {}
-        }
-    }
+    achievementLists = {}
 }
 
 WindowTabs = {
     worldSoulSearching = "worldSoulSearching",
-    settings = "settings"
+    settings = "settings",
+    farewellToArms = "farewellToArms",
+    backFromTheBeyond = "backFromTheBeyond",
+    aWorldAwoken = "aWorldAwoken",
+    whatALongStrangeTripItsBeen = "whatALongStrangeTripItsBeen"
 }
 
 
@@ -33,19 +32,69 @@ if TomTom then
         end)
 end
 
+local function createAchievementTab(name, tabName, icon, dataSource)
+    MetaAchievementDB.achievementLists[tabName] = {
+        data = DataList:new(dataSource),
+        treeView = nil
+    }
+
+    MetaAchievementDB.achievementLists[tabName].treeView = TreeView:new(
+        mainFrame:getFrame(),
+        MetaAchievementDB.achievementLists[tabName].data,
+        name
+    )
+
+    mainFrame:addScrollChild(tabName, MetaAchievementDB.achievementLists[tabName].treeView)
+    mainFrame:AddAchievementTab(tabName, icon)
+end
+
+
 function EntryPoint()
     MetaAchievementDB.mapIntegration:OnLoaded()
 
     local settingsFrame = SettingsFrame:new(mainFrame:getFrame())
-    MetaAchievementDB.achievementLists.worldSoulSearching.treeView = TreeView:new(mainFrame:getFrame(), MetaAchievementDB.achievementLists.worldSoulSearching.data, "Worldsoul Searching")
-    MetaAchievementDB.achievementLists.worldSoulSearching.treeView:draw()
 
-    mainFrame:addScrollChild(WindowTabs.worldSoulSearching, MetaAchievementDB.achievementLists.worldSoulSearching.treeView)
+    -- Settings
     mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
 
+    createAchievementTab(
+        "Worldsoul Searching",
+        WindowTabs.worldSoulSearching,
+        "Interface\\Icons\\achievement_zone_isleofdorn",
+        WorldSoulSearchingAchievements
+    )
+
+    createAchievementTab(
+        "A World Awoken",
+        WindowTabs.aWorldAwoken, 
+        "Interface\\Icons\\ability_evoker_furyoftheaspects",
+        AWorldAwokenAchievements
+    )
+
+    createAchievementTab(
+        "Back From The Beyond",
+        WindowTabs.backFromTheBeyond, 
+        "Interface\\Icons\\inv_torghast",
+        BackFromTheBeyondAchievements
+    )
+
+    createAchievementTab(
+        "A Farewell To Arms",
+        WindowTabs.farewellToArms, 
+        "Interface\\Icons\\Inv_radientazeriteheart",
+        AFarewellToArmsAchievements
+    )
+
+    createAchievementTab(
+        "What a Long, Strange Trip It's Been",
+        WindowTabs.whatALongStrangeTripItsBeen,
+        "Interface\\Icons\\achievement_bg_masterofallbgs",
+        WhatALongStrangeTripItsBeenAchievements
+    )
+
+    -- Draw default
     mainFrame:drawScrollContent(WindowTabs.worldSoulSearching)
-
-
 end
+
 
 

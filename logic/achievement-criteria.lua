@@ -2,6 +2,7 @@ AchievementCriteria = {}
 AchievementCriteria.__index = AchievementCriteria
 
 AchievementCriteriaTypes = {
+    AnotherAchievement = 8,
     CompletingAQuest = 27
 }
 
@@ -30,7 +31,7 @@ function AchievementCriteria:GetFilteredWaypoint()
 
         for i = 1, numCriteria do
             local criteriaString, criteriaType, completed, quantity, reqQuantity, charName, flags, assetID, quantityString, criteriaID, eligible = GetAchievementCriteriaInfo(self.achievementId, i)
-            
+
             if self.id == criteriaID and not completed then
                 return self.waypoint
             end
