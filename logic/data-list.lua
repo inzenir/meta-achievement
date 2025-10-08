@@ -5,13 +5,8 @@ NODE_ICON_COMPLETED = "Interface\\Buttons\\UI-CheckBox-Check"
 NODE_ICON_NOT_COMPLETED = "Interface\\Buttons\\UI-StopButton"
 
 local function scanData(inputData, depth, colapsedItems)
-    local hasMapIntegration = false
-    if MetaAchievementDB ~= nil then
-        hasMapIntegration = MetaAchievementDB.mapIntegration:HasActiveIntegration()
-    end
-
     local tmpItems = {}
-    for _, item in ipairs(inputData) do
+    for _, item in ipairs(inputData or {}) do
         local achiObj = Achievement:new(item)
 
         local tmpItem = {

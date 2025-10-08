@@ -11,8 +11,10 @@ local DBIcon = LibStub("LibDBIcon-1.0")
 
 local function refrestAchievementsLists()
     for _, achilist in pairs(MetaAchievementDB.achievementLists) do
-        achilist.data:rescanData()
-        achilist.treeView:draw()
+        if type(achilist.data.rescanData) == "function" and type(achilist.treeView.draw) == "function" then
+            achilist.data:rescanData()
+            --achilist.treeView:draw() -- most likely not needed
+        end
     end
 end
 
@@ -25,6 +27,8 @@ function MainFrame:new()
     obj.scrollBar = {}
     obj.scrollBarChildren = {}
     obj.drawnScrollElement = nil
+    obj.tabAnchor = {}
+    obj.achievementTabs = {}
 
     obj.previousDrawnElement = nil
     obj.onEventHandlers = {}
@@ -35,6 +39,7 @@ function MainFrame:new()
     obj:createSettingsButton()
     obj:registerEvents()
     obj:createScrollBar()
+    obj:createTabAnchor()
 
     return obj
 end
@@ -69,6 +74,38 @@ function MainFrame:resetFrame()
     self:onFrameLoaded()
 end
 
+function MainFrame:createTabAnchor()
+    self.tabAnchor = CreateFrame("Button", nil, self.mainFrame, "BackdropTemplate")
+    self.tabAnchor:SetPoint("TOPRIGHT", self.mainFrame, "TOPLEFT", 0, 0)
+    self.tabAnchor:SetSize(38, 22)
+end
+
+function MainFrame:AddAchievementTab(tabReference, icon)
+    self.achievementTabs[#self.achievementTabs+1] = {
+        tabReference = tabReference,
+        icon = icon
+    }
+end
+
+function MainFrame:drawAchievementTabs()
+    local prevTab = self.tabAnchor
+
+    for i, tabInfo in pairs(self.achievementTabs) do
+        local tab = CreateFrame("Button", nil, self.tabAnchor, "UIPanelButtonTemplate")
+        tab:SetPoint("TOPLEFT", prevTab, "BOTTOMLEFT", 0, -2)
+        tab:SetSize(36, 36)
+        local icon = tab:CreateTexture(nil, "ARTWORK")
+        icon:SetAllPoints()
+        icon:SetTexture(tabInfo.icon)
+
+        tab:SetScript("OnClick", function()
+            self:drawScrollContent(tabInfo.tabReference)
+        end)
+
+        prevTab = tab
+    end
+end
+
 function MainFrame:RegisterOnEventHander(eventName, arg1Check, callback)
     self.onEventHandlers[#self.onEventHandlers+1] = {
         eventName = eventName,
@@ -80,7 +117,7 @@ end
 function MainFrame:onFrameLoaded()
     if MetaAchievementConfigurationDB.mainFrame.height and MetaAchievementConfigurationDB.mainFrame.width then
         self.mainFrame:SetSize(
-            MetaAchievementConfigurationDB.mainFrame.width, 
+            MetaAchievementConfigurationDB.mainFrame.width,
             MetaAchievementConfigurationDB.mainFrame.height
         )
     end
@@ -95,6 +132,9 @@ function MainFrame:onFrameLoaded()
             MetaAchievementConfigurationDB.mainFrame.y
         )
     end
+
+    
+    self:drawAchievementTabs()
 
     if MetaAchievementConfigurationDB.mainFrame.closed then
         self.mainFrame:Hide()
@@ -132,8 +172,8 @@ function MainFrame:registerEvents()
         "Worldsoul_Searching",
         function()
             UpdateSettings()
-            self:onFrameLoaded()
             EntryPoint()
+            self:onFrameLoaded()
         end
     )
 

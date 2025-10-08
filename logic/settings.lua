@@ -12,7 +12,8 @@ function DefaultSettings()
             anchor = nil,
             x = nil,
             y = nil
-        }
+        },
+        tmp1 = {}
     }
 end
 

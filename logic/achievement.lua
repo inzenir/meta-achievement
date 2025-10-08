@@ -61,6 +61,10 @@ function Achievement:new(achievementEntry)
     return obj
 end
 
+function Achievement:createFromId(id)
+    return Achievement:new({ id = id })
+end
+
 function Achievement:GetAllWaypoints()
     local returnValue = getAchievementWaypoints(self)
 
