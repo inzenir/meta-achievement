@@ -28,6 +28,7 @@ logic\achievement.lua
 logic\achievement-criteria.lua
 logic\wow-achievements.lua
 logic\achievement-scan.lua
+logic\slash-commands.lua
 
 # map integrations
 map-integration\map-integration.lua
