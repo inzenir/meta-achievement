@@ -15,7 +15,6 @@ WindowTabs = {
     whatALongStrangeTripItsBeen = "whatALongStrangeTripItsBeen"
 }
 
-
 local mainFrame = MainFrame:new()
 MetaAchievementDB.mapIntegration = MapIntegrationBase:new()
 
@@ -48,11 +47,26 @@ local function createAchievementTab(name, tabName, icon, dataSource)
     mainFrame:AddAchievementTab(tabName, icon)
 end
 
-
 function EntryPoint()
+    SLASH_WORLDSOULSEARCHING1 = "/wss"
+    SlashCmdList["WORLDSOULSEARCHING"] = LoadSlashCommands
+
     MetaAchievementDB.mapIntegration:OnLoaded()
 
     local settingsFrame = SettingsFrame:new(mainFrame:getFrame())
+
+    RegisterSlashCommand("show",
+        function() 
+            mainFrame:showWindow()
+        end,
+        "Show addon window")
+
+    RegisterSlashCommand("hide",
+        function()
+            mainFrame:hideWindow()
+        end,
+        "Hide addon window")
+
 
     -- Settings
     mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
@@ -95,6 +109,3 @@ function EntryPoint()
     -- Draw default
     mainFrame:drawScrollContent(WindowTabs.worldSoulSearching)
 end
-
-
-

@@ -13,7 +13,7 @@ local function refrestAchievementsLists()
     for _, achilist in pairs(MetaAchievementDB.achievementLists) do
         if type(achilist.data.rescanData) == "function" and type(achilist.treeView.draw) == "function" then
             achilist.data:rescanData()
-            --achilist.treeView:draw() -- most likely not needed
+            achilist.treeView:draw() -- most likely not needed
         end
     end
 end
@@ -133,7 +133,6 @@ function MainFrame:onFrameLoaded()
         )
     end
 
-    
     self:drawAchievementTabs()
 
     if MetaAchievementConfigurationDB.mainFrame.closed then
@@ -216,6 +215,18 @@ function MainFrame:toggleVisibility()
     if self.mainFrame:IsShown() then
         self.mainFrame:Hide()
     else
+        self.mainFrame:Show()
+    end
+end
+
+function MainFrame:hideWindow()
+    if self.mainFrame:IsShown() then
+        self.mainFrame:Hide()
+    end
+end
+
+function MainFrame:showWindow()
+    if not self.mainFrame:IsShown() then
         self.mainFrame:Show()
     end
 end

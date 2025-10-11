@@ -102,7 +102,7 @@ function TreeView:draw()
                 else
                     highlight:SetColorTexture(1, 0, 0, 0.1) -- semi-transparent red
                 end
-    
+
             else
                 highlight:SetColorTexture(1, 1, 1, 0.1) -- translucent
             end
