@@ -45,18 +45,23 @@ function Achievement:new(achievementEntry)
 
     local _, name, _, completed, _, _, _, _, _, icon = GetAchievementInfo(obj.id)
 
-    local waypoints = {}
-    for _, wp in pairs(achievementEntry.waypoints or {}) do
-        waypoints[#waypoints+1] = Waypoint:new(wp)
-    end
-
     obj.children = achievementEntry.children or {}
-    obj.waypoints = waypoints
-    obj.criteria = loadCriteria(obj.id, achievementEntry.criteria or {})
     obj.completed = completed
     obj.name = name or achievementEntry.name or ACHIEVEMENT_DEFAULT_NAME
     obj.icon = icon or achievementEntry.icon or ACHIEVEMENT_DEFAULT_ICON
     obj.chidrenCompleted = figureOutIfChildrenAreCompleted(achievementEntry)
+
+    if obj.id == 40435 then
+        print ("num of criteria: " .. #achievementEntry.criteria)
+    end
+
+    obj.criteria = loadCriteria(obj.id, achievementEntry.criteria or {})
+
+    local waypoints = {}
+    for _, wp in pairs(achievementEntry.waypoints or {}) do
+        waypoints[#waypoints+1] = Waypoint:new(wp)
+    end
+    obj.waypoints = waypoints
 
     return obj
 end
@@ -69,10 +74,12 @@ function Achievement:GetAllWaypoints()
     local returnValue = getAchievementWaypoints(self)
 
     for _, criteria in pairs(self.criteria) do
-        local tmp = criteria:GetWaypoint()
+        local tmp = criteria:GetWaypoints()
 
-        if tmp then
-            returnValue[#returnValue+1] = tmp
+        if tmp and #tmp > 0 then
+            for _, wp in pairs(tmp) do
+                returnValue[#returnValue+1] = wp
+            end
         end
     end
 
@@ -83,10 +90,12 @@ function Achievement:GetFilteredWaypoints()
     local returnValue = getAchievementWaypoints({ waypoints = self.waypoints })
 
     for _, criteria in pairs(self.criteria or {}) do
-        local tmp = criteria:GetFilteredWaypoint()
+        local tmp = criteria:GetFilteredWaypoints()
 
-        if tmp then
-            returnValue[#returnValue+1] = tmp
+        if tmp and #tmp > 0 then
+            for _, wp in pairs(tmp) do
+            returnValue[#returnValue+1] = wp
+            end
         end
     end
 

@@ -75,7 +75,7 @@ function EntryPoint()
         "Worldsoul Searching",
         WindowTabs.worldSoulSearching,
         "Interface\\Icons\\achievement_zone_isleofdorn",
-        WorldSoulSearchingAchievements
+        WorldSoulSearchingAchievementsNew
     )
 
     createAchievementTab(
@@ -108,4 +108,5 @@ function EntryPoint()
 
     -- Draw default
     mainFrame:drawScrollContent(WindowTabs.worldSoulSearching)
+
 end

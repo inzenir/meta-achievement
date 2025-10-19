@@ -14,7 +14,7 @@ WorldSoulSearchingAchievements = {
                         children = {
                             { 
                                 id = 40435, -- Adventurer of the Isle of Dorn	
-                                waypoints = [
+                                waypoints = {
                                     {mapId = MapZones.IsleOfDorn, x = 36, y = 75, title='Rustul Titancap <King Mushroom>', note='Coordinates range (see NPC specific page)'},
                                     {mapId = MapZones.IsleOfDorn, x = 59, y = 61, title='Springbubble', note=''},
                                     {mapId = MapZones.IsleOfDorn, x = 42, y = 77, title='Bloodmaw', note='Coordinates range (see NPC specific page); Cannot be Tamed'},
@@ -37,46 +37,46 @@ WorldSoulSearchingAchievements = {
                                     {mapId = MapZones.IsleOfDorn, x = 23, y = 58, title='Alunira', note='Collect 10 Crackling Shards by killing any mobs in the Isle of Dorn and combine them to create a Storm Vessel. Use Storm Vessel to dispel Alunira\'s shield.'},
                                     {mapId = MapZones.IsleOfDorn, x = 74, y = 39, title='Tephratennae', note='Coordinates range (see NPC specific page)'},
                                     {mapId = MapZones.IsleOfDorn, x = 73, y = 41, title='Matriarch Charfuria', note=''}
-                                ]
+                                }
                             }, 
                             { 
                                 id = 40606, -- Flat Earthen
-                                waypoints = [
+                                waypoints = {
                                     {mapId = MapZones.Dornogal, x=50, y=61, title='Flat Earthen', note="Get crushed by the machine in central Dornogal forge" }
-                                ]
+                                }
                             }, 
                             {
-                                id = 40860 -- A Star of Dorn,
-                                waypoints = [
+                                id = 40860, -- A Star of Dorn
+                                waypoints = {
                                     {mapId = MapZones.IsleOfDorn, x=57, y=52, title="Achievement NPCs", note="Talk to NPCs at renown 3, 8, 14, and 21."}
-                                ]
+                                }
                             }, 
                             { 
-                                id = 40434 -- Treasures of the Isle of Dorn	
-                                waypoints = [
-                                    {mapId = MapZones.IsleOfDorn, x = 49, y = 30, title='Tree\'s Treasure' note='Get  Crab-Guiding Branch from Freysworn Letitia. Find 6 Pearlescent Shellcrab and bring them back to the cave'},
-                                    {mapId = MapZones.IsleOfDorn, x = 41, y = 60, title='Magical Treasure Chest' note='Use Lionel and find 5 Plump Snapcrab on the shore nearby'},
-                                    {mapId = MapZones.IsleOfDorn, x = 55, y = 66, title='Mushroom Cap' note='Find random spawn object  Boskroot Cap mushroom to the south. Turn it it to the U\'llort the Self-Exiled'},
-                                    {mapId = MapZones.IsleOfDorn, x = 60, y = 25, title='Mosswool Flower' note='Find Lost Mosswool 3 times and then wait for treasure to spawn'},
-                                    {mapId = MapZones.IsleOfDorn, x = 77, y = 24, title='Jade Pearl' note='Find it on the shore'},
-                                    {mapId = MapZones.IsleOfDorn, x = 56, y = 61, title='Infused Cinderbrew' note='Shared with other players, can take some time to respawn'},
-                                    {mapId = MapZones.IsleOfDorn, x = 41, y = 74, title='Turtle\'s Thanks' note='Fish or buy on the auction house following items: 5x Dornish Pike, 1x Fish and Chips, 1x Goldengill Trout. Turn in to the Dalaran Sewer Turtle there is a cd between requests.'},
-                                    {mapId = MapZones.IsleOfDorn, x = 54, y = 19, title='Mysterious Orb' note='Find a  Elemental Pearl to the west near the bottom of waterfall. Turn in to the Weary Water Elemental'},
-                                    {mapId = MapZones.IsleOfDorn, x = 38, y = 44, title='Thak\'s Treasure' note='Talk with One-Eyed Thak and follow him'},
-                                    {mapId = MapZones.IsleOfDorn, x = 63, y = 43, title='Kobold Pickaxe' note='Shared with other players, can take some time to respawn'},
-                                    {mapId = MapZones.IsleOfDorn, x = 49, y = 61, title='Shimmering Opal Lily' note='Underground'},
-                                    {mapId = MapZones.IsleOfDorn, x = 59, y = 23, title='Web-Wrapped Axe' note='Shared with other players, can take some time to respawn'},
-                                ]
+                                id = 40434, -- Treasures of the Isle of Dorn	
+                                waypoints = {
+                                    {mapId = MapZones.IsleOfDorn, x = 49, y = 30, title='Tree\'s Treasure', note='Get  Crab-Guiding Branch from Freysworn Letitia. Find 6 Pearlescent Shellcrab and bring them back to the cave'},
+                                    {mapId = MapZones.IsleOfDorn, x = 41, y = 60, title='Magical Treasure Chest', note='Use Lionel and find 5 Plump Snapcrab on the shore nearby'},
+                                    {mapId = MapZones.IsleOfDorn, x = 55, y = 66, title='Mushroom Cap', note='Find random spawn object  Boskroot Cap mushroom to the south. Turn it it to the U\'llort the Self-Exiled'},
+                                    {mapId = MapZones.IsleOfDorn, x = 60, y = 25, title='Mosswool Flower', note='Find Lost Mosswool 3 times and then wait for treasure to spawn'},
+                                    {mapId = MapZones.IsleOfDorn, x = 77, y = 24, title='Jade Pearl', note='Find it on the shore'},
+                                    {mapId = MapZones.IsleOfDorn, x = 56, y = 61, title='Infused Cinderbrew', note='Shared with other players, can take some time to respawn'},
+                                    {mapId = MapZones.IsleOfDorn, x = 41, y = 74, title='Turtle\'s Thanks', note='Fish or buy on the auction house following items: 5x Dornish Pike, 1x Fish and Chips, 1x Goldengill Trout. Turn in to the Dalaran Sewer Turtle there is a cd between requests.'},
+                                    {mapId = MapZones.IsleOfDorn, x = 54, y = 19, title='Mysterious Orb', note='Find a  Elemental Pearl to the west near the bottom of waterfall. Turn in to the Weary Water Elemental'},
+                                    {mapId = MapZones.IsleOfDorn, x = 38, y = 44, title='Thak\'s Treasure', note='Talk with One-Eyed Thak and follow him'},
+                                    {mapId = MapZones.IsleOfDorn, x = 63, y = 43, title='Kobold Pickaxe', note='Shared with other players, can take some time to respawn'},
+                                    {mapId = MapZones.IsleOfDorn, x = 49, y = 61, title='Shimmering Opal Lily', note='Underground'},
+                                    {mapId = MapZones.IsleOfDorn, x = 59, y = 23, title='Web-Wrapped Axe', note='Shared with other players, can take some time to respawn'},
+                                }
                             }, 
                             { 
                                 id = 40859, -- We're Here All Night 
-                                waypoints = [
+                                waypoints = {
                                     {mapId = MapZones.IsleOfDorn, x = 56, y = 51, title='Theater Troupe location'}
-                                ]
+                                }
                             }, 
                             { 
                                 id = 40504, -- Rocked to Sleep 
-                                waypoints = [
+                                waypoints = {
                                     {mapId = MapZones.TheRingingDeeps, x=58.7, y=36.3, title='Attwogaz'},
                                     {mapId = MapZones.TheRingingDeeps, x=39, y=40.9, title='Krattdaz'},
                                     {mapId = MapZones.TheRingingDeeps, x=44.4, y=31.75, title='Venedaz'},
@@ -87,7 +87,7 @@ WorldSoulSearchingAchievements = {
                                     {mapId = MapZones.TheRingingDeeps, x=55, y=93.5, title='Merunth'},
                                     {mapId = MapZones.TheRingingDeeps, x=44.4, y=70.6, title='Alfritha'},
                                     {mapId = MapZones.TheRingingDeeps, x=60, y=55.75, title='Sathilga'},
-                                ]
+                                }
                             }
                         }
                     },
@@ -95,73 +95,73 @@ WorldSoulSearchingAchievements = {
                         id = 41188, -- Crystal Chronicled	
                         children = {
                             { 
-                                id = 40851 -- Adventurer of Hallowfall,
-                                waypoints = [
-                                    {mapId = MapZones.Hallowfall, x=72, y=64, title='Deepfiend Azellix'}
-                                    {mapId = MapZones.Hallowfall, x=52, y=27, title='Murkshade'}
-                                    {mapId = MapZones.Hallowfall, x=37, y=72, title='Funglour'}
-                                    {mapId = MapZones.Hallowfall, x=73.5, y=52, title='Sloshmuck'}
-                                    {mapId = MapZones.Hallowfall, x=44.5, y=16.5, title='The Perchfather'}
-                                    {mapId = MapZones.Hallowfall, x=36, y=35.5, title='Sir Alastair Purefire'}
-                                    {mapId = MapZones.Hallowfall, x=43.5, y=30, title='Strength of Beledar'}
-                                    {mapId = MapZones.Hallowfall, x=44, y=43, title='Deathtide'}
-                                    {mapId = MapZones.Hallowfall, x=66, y=28, title='Crazed Cabbage Smacker'}
-                                    {mapId = MapZones.Hallowfall, x=67, y=23, title='Croakit'}
-                                    {mapId = MapZones.Hallowfall, x=64, y=19.5, title='Duskshadow'}
-                                    {mapId = MapZones.Hallowfall, x=62, y=33.5, title='Ravageant'}
-                                    {mapId = MapZones.Hallowfall, x=63.5, y=14, title='Murkspike'}
-                                    {mapId = MapZones.Hallowfall, x=57, y=64, title='Ixlorb the Spinner'}
-                                    {mapId = MapZones.Hallowfall, x=33, y=53.5, title='Grimslice', note="Patrols in that general area"}
-                                    {mapId = MapZones.Hallowfall, x=56.5, y=69, title='The Taskmaker'}
-                                    {mapId = MapZones.Hallowfall, x=23, y=59, title='Lytfang the Lost'}
-                                    {mapId = MapZones.Hallowfall, x=27, y=32, title='Horror of the Shallows', note="Swims near the entire western coast. Just fly at around the entire coast."}
-                                    {mapId = MapZones.Hallowfall, x=42, y=55, title="Beledar's Spawn (Auralia Steelstrike item vendor)", note="Spawns when crystal turns dark. It has at least 20 spawn points, so reach renown 24 with Hallowfall Arathi to purchase Beledar's Attunement to see where it is."}
-                                    {mapId = MapZones.Hallowfall, x=57.5, y=49, title='Pride of Beledar'}
-                                    {mapId = MapZones.Hallowfall, x=63.5, y=29, title="Moth'ethk"}
-                                    {mapId = MapZones.Hallowfall, x=65.5, y=33, title='Deathpetal', note="Spawns in this area"}
-                                    {mapId = MapZones.Hallowfall, x=67.5, y=24, title='Toadstomper'}
-                                    {mapId = MapZones.Hallowfall, x=62, y=32.5, title='Parasidious'}
-                                    {mapId = MapZones.Hallowfall, x=62.5, y=17.5, title='Finclaw Bloodtide' note="Spawns in this area"}
-                                ]
+                                id = 40851, -- Adventurer of Hallowfall
+                                waypoints = {
+                                    {mapId = MapZones.Hallowfall, x=72, y=64, title='Deepfiend Azellix'},
+                                    {mapId = MapZones.Hallowfall, x=52, y=27, title='Murkshade'},
+                                    {mapId = MapZones.Hallowfall, x=37, y=72, title='Funglour'},
+                                    {mapId = MapZones.Hallowfall, x=73.5, y=52, title='Sloshmuck'},
+                                    {mapId = MapZones.Hallowfall, x=44.5, y=16.5, title='The Perchfather'},
+                                    {mapId = MapZones.Hallowfall, x=36, y=35.5, title='Sir Alastair Purefire'},
+                                    {mapId = MapZones.Hallowfall, x=43.5, y=30, title='Strength of Beledar'},
+                                    {mapId = MapZones.Hallowfall, x=44, y=43, title='Deathtide'},
+                                    {mapId = MapZones.Hallowfall, x=66, y=28, title='Crazed Cabbage Smacker'},
+                                    {mapId = MapZones.Hallowfall, x=67, y=23, title='Croakit'},
+                                    {mapId = MapZones.Hallowfall, x=64, y=19.5, title='Duskshadow'},
+                                    {mapId = MapZones.Hallowfall, x=62, y=33.5, title='Ravageant'},
+                                    {mapId = MapZones.Hallowfall, x=63.5, y=14, title='Murkspike'},
+                                    {mapId = MapZones.Hallowfall, x=57, y=64, title='Ixlorb the Spinner'},
+                                    {mapId = MapZones.Hallowfall, x=33, y=53.5, title='Grimslice', note="Patrols in that general area"},
+                                    {mapId = MapZones.Hallowfall, x=56.5, y=69, title='The Taskmaker'},
+                                    {mapId = MapZones.Hallowfall, x=23, y=59, title='Lytfang the Lost'},
+                                    {mapId = MapZones.Hallowfall, x=27, y=32, title='Horror of the Shallows', note="Swims near the entire western coast. Just fly at around the entire coast."},
+                                    {mapId = MapZones.Hallowfall, x=42, y=55, title="Beledar's Spawn (Auralia Steelstrike item vendor)", note="Spawns when crystal turns dark. It has at least 20 spawn points, so reach renown 24 with Hallowfall Arathi to purchase Beledar's Attunement to see where it is."},
+                                    {mapId = MapZones.Hallowfall, x=57.5, y=49, title='Pride of Beledar'},
+                                    {mapId = MapZones.Hallowfall, x=63.5, y=29, title="Moth'ethk"},
+                                    {mapId = MapZones.Hallowfall, x=65.5, y=33, title='Deathpetal', note="Spawns in this area"},
+                                    {mapId = MapZones.Hallowfall, x=67.5, y=24, title='Toadstomper'},
+                                    {mapId = MapZones.Hallowfall, x=62, y=32.5, title='Parasidious'},
+                                    {mapId = MapZones.Hallowfall, x=62.5, y=17.5, title='Finclaw Bloodtide', note="Spawns in this area"},
+                                }
                             }, 	
                             { 
                                 id = 40625, -- The Missing Lynx	
-                                waypoints = [
-                                    {mapId = MapZones.Hallowfall, x = 69, y = 44, title='Iggy' note=''}
-                                    {mapId = MapZones.Hallowfall, x = 69, y = 44, title='Moog' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 61, y = 31, title='Miral Murder-Mittens' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 64, y = 29, title='Purrlock' note="Available when Light's Blooming Keyflame is active"},
-                                    {mapId = MapZones.Hallowfall, x = 63, y = 28, title='Shadowpouncer' note="Available when Light's Blooming Keyflame is active"},
-                                    {mapId = MapZones.Hallowfall, x = 63, y = 29, title='Nightclaw' note="Available when Lesser Keyflame is active"},
-                                    {mapId = MapZones.Hallowfall, x = 62, y = 21, title='Dander' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 64, y = 19, title='Fuzzy' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 64, y = 19, title='Furball' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 42, y = 54, title='Jinx' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 42, y = 54, title='Gobbo' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 43, y = 54, title='Emery' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 43, y = 54, title='Evan' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 60, y = 60, title='Magpie' note=''}
-                                ]
+                                waypoints = {
+                                    {mapId = MapZones.Hallowfall, x = 69, y = 44, title='Iggy', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 69, y = 44, title='Moog', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 61, y = 31, title='Miral Murder-Mittens', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 64, y = 29, title='Purrlock', note="Available when Light's Blooming Keyflame is active"},
+                                    {mapId = MapZones.Hallowfall, x = 63, y = 28, title='Shadowpouncer', note="Available when Light's Blooming Keyflame is active"},
+                                    {mapId = MapZones.Hallowfall, x = 63, y = 29, title='Nightclaw', note="Available when Lesser Keyflame is active"},
+                                    {mapId = MapZones.Hallowfall, x = 62, y = 21, title='Dander', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 64, y = 19, title='Fuzzy', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 64, y = 19, title='Furball', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 42, y = 54, title='Jinx', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 42, y = 54, title='Gobbo', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 43, y = 54, title='Emery', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 43, y = 54, title='Evan', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 60, y = 60, title='Magpie', note=''}
+                                }
                             }, 
                             { 
                                 id = 40622, -- Biblo Archivist
-                                waypoints = [
-                                    {mapId = MapZones.Hallowfall, x = 48, y = 40, title='The Big Book of Arathi Idioms' note='In house to the left'},
-                                    {mapId = MapZones.Hallowfall, x = 69, y = 44, title='Care and Feeding of the Imperial Lynx' note='In house to the right'},
-                                    {mapId = MapZones.Hallowfall, x = 58, y = 52, title='From the Depths They Come' note='On the ground near water'},
-                                    {mapId = MapZones.Hallowfall, x = 64, y = 28, title='Shadow Curfew Guidelines' note='In house - near the carrot near wall'},
-                                    {mapId = MapZones.Hallowfall, x = 70, y = 57, title='The Song of Renilash' note='In a tent'},
-                                    {mapId = MapZones.Hallowfall, x = 53, y = 60, title='Lightspark Grade Book' note=''},
-                                    {mapId = MapZones.Hallowfall, x = 44, y = 50, title='500 Dishes Using Cave Fish and Mushrooms' note='In house to the right'},
-                                    {mapId = MapZones.Hallowfall, x = 69, y = 41, title="Light's Gambit Playbook" note='On the Bridge'},
-                                    {mapId = MapZones.Hallowfall, x = 49, y = 65, title="Palawltar's Codex of Dimensional Structure" note=''},
-                                    {mapId = MapZones.Hallowfall, x = 60, y = 22, title='Shadow Curfew Journal' note='In the destroyed house'},
-                                    {mapId = MapZones.Hallowfall, x = 57, y = 65, title="Beledar - The Emperor's Vision" note='In Captain Room'}
-                                ]
+                                waypoints = {
+                                    {mapId = MapZones.Hallowfall, x = 48, y = 40, title='The Big Book of Arathi Idioms', note='In house to the left'},
+                                    {mapId = MapZones.Hallowfall, x = 69, y = 44, title='Care and Feeding of the Imperial Lynx', note='In house to the right'},
+                                    {mapId = MapZones.Hallowfall, x = 58, y = 52, title='From the Depths They Come', note='On the ground near water'},
+                                    {mapId = MapZones.Hallowfall, x = 64, y = 28, title='Shadow Curfew Guidelines', note='In house - near the carrot near wall'},
+                                    {mapId = MapZones.Hallowfall, x = 70, y = 57, title='The Song of Renilash', note='In a tent'},
+                                    {mapId = MapZones.Hallowfall, x = 53, y = 60, title='Lightspark Grade Book', note=''},
+                                    {mapId = MapZones.Hallowfall, x = 44, y = 50, title='500 Dishes Using Cave Fish and Mushrooms', note='In house to the right'},
+                                    {mapId = MapZones.Hallowfall, x = 69, y = 41, title="Light's Gambit Playbook", note='On the Bridge'},
+                                    {mapId = MapZones.Hallowfall, x = 49, y = 65, title="Palawltar's Codex of Dimensional Structure", note=''},
+                                    {mapId = MapZones.Hallowfall, x = 60, y = 22, title='Shadow Curfew Journal', note='In the destroyed house'},
+                                    {mapId = MapZones.Hallowfall, x = 57, y = 65, title="Beledar - The Emperor's Vision", note='In Captain Room'}
+                                }
                             }, 	
                             { 
                                 id = 40311, -- Sharing the Light	
-                                waypoints = [
+                                waypoints = {
                                     {mapId = MapZones.Hallowfall, x = 62, y = 13, title="Bleak Sand" },
                                     {mapId = MapZones.Hallowfall, x = 62, y = 32, title="Lurking Below" },
                                     {mapId = MapZones.Hallowfall, x = 66.5, y = 24, title="Bog Beast Banishment" },
@@ -170,14 +170,14 @@ WorldSoulSearchingAchievements = {
                                     {mapId = MapZones.Hallowfall, x = 64, y = 19.5, title="The Midnight Sentry" },
                                     {mapId = MapZones.Hallowfall, x = 64, y = 32, title="Cutting Edge" },
                                     {mapId = MapZones.Hallowfall, x = 65, y = 29, title="A Better Cabbage Smacker" },
-                                ]
+                                }
                             }, 
                             { id = 40313 }, -- Igniting the Keyflames	
                             { 
-                                id = 40848 -- Treasures of Hallowfall,
-                                waypoints = [
+                                id = 40848, -- Treasures of Hallowfall
+                                waypoints = {
                                     
-                                ]
+                                }
                             }, 
                             { id = 40151 }, -- Mereldar Menace	
                             { id = 40308 }, -- Beacon of Hope	
