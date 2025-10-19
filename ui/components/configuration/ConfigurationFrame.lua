@@ -1,0 +1,2 @@
+function ConfigurationFrame_OnLoad(self)
+end

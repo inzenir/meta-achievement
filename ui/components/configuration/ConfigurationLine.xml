@@ -1,0 +1,27 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="ConfigurationLine" virtual="true" inherits="BackdropTemplate">
+    <Size>
+      <AbsDimension x="300" y="24"/> <!-- You can override height in Lua -->
+    </Size>
+
+    <Frames>
+      <CheckButton name="$parentCheckBox" inherits="InterfaceOptionsCheckButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="0" y="0"/>
+        </Anchors>
+        <Scripts>
+            <OnClick>
+                ConfigurationLine_OnClick(self)
+            </OnClick>
+        </Scripts>
+      </CheckButton>
+
+      <FontString name="$parentLabel" inherits="GameFontNormal">
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="$parentCheckBox" relativePoint="RIGHT" x="5" y="0"/>
+        </Anchors>
+        <Text>Label</Text> <!-- Will be overridden in Lua -->
+      </FontString>
+    </Frames>
+  </Frame>
+</Ui>

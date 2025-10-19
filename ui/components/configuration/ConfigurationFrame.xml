@@ -1,0 +1,22 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="ConfigurationFrame" parent="UIParent">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="parent" relativePoint="TOPLEFT" x="10" y="-10" />
+            <Anchor point="BOTTOMRIGHT" relativeTo="parent" relativePoint="BOTTOMRIGHT" x="-10" y="10" />
+        </Anchors>
+
+
+        <Scripts>
+            <OnLoad>
+                ConfigurationFrame_OnLoad(self)
+            </OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>
+
+
+<!--
+    obj.frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -10)
+    obj.frame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 10)
+
+-->
