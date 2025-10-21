@@ -51,10 +51,6 @@ function Achievement:new(achievementEntry)
     obj.icon = icon or achievementEntry.icon or ACHIEVEMENT_DEFAULT_ICON
     obj.chidrenCompleted = figureOutIfChildrenAreCompleted(achievementEntry)
 
-    if obj.id == 40435 then
-        print ("num of criteria: " .. #achievementEntry.criteria)
-    end
-
     obj.criteria = loadCriteria(obj.id, achievementEntry.criteria or {})
 
     local waypoints = {}

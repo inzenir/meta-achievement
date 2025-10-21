@@ -45,7 +45,7 @@ function SettingsFrame:registerOptions()
     -- Only display waypoint options, if map integration is active
     if MetaAchievementDB.mapIntegration:HasActiveIntegration() then
         self:addOption("Remove waypoints for completed achievements", "removeCompletedWaypoints", "")
-        self:addOption("Add waypoints only to unfinished parts of achievement", "addWaypointsOnlyForUncompletedAchievementParts", "")
+        self:addOption("Add waypoints only to unfinished parts of achievement", "addWpsOnlyForUncompletedAchis", "")
     end
 end
 

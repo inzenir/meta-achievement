@@ -67,6 +67,12 @@ function EntryPoint()
         end,
         "Hide addon window")
 
+    RegisterSlashCommand("reset",
+        function() 
+            mainFrame:resetFrame()
+        end,
+        "Reset window position")
+
 
     -- Settings
     mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
