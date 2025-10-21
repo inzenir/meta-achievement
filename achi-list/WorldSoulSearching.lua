@@ -3453,7 +3453,7 @@ WorldSoulSearchingAchievements = {
                             {
                                 ["id"] = 106296,
                                 ["name"] = "Spear of Fallen Memories",
-                                waypoint = { mapId = MapZones.TWW_ZONE_Karesh, x = 23.7, y = 46.8, note = "Untethered space" }
+                                waypoint = { mapId = MapZones.TWW_ZONE_TazaveshCity, x = 23.7, y = 46.8, note = "Untethered space" }
                             },
                             {
                                 ["id"] = 106283,
@@ -3626,7 +3626,7 @@ WorldSoulSearchingAchievements = {
                             {
                                 ["id"] = 107306,
                                 ["name"] = "I Have Become Void!",
-                                waypoint = { mapId = MapZones.TWW_ZONE_Karesh, x = 36.8, y = 58, note = "Untethered space" }
+                                waypoint = { mapId = MapZones.TWW_ZONE_TazaveshCity, x = 36.8, y = 58, note = "Untethered space" }
                             },
                             {
                                 ["id"] = 107307,
