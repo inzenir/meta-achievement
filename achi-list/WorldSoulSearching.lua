@@ -3106,17 +3106,17 @@ WorldSoulSearchingAchievements = {
                             {
                                 ["id"] = 69374,
                                 ["name"] = "A Skull on a Sign",
-                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 39, y = 17, note = 'Behind a pillar' }
+                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 35, y = 17, note = 'Behind a pillar' }
                             },
                             {
                                 ["id"] = 69375,
                                 ["name"] = "Warning: Collapsed Tunnel",
-                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 71.5, y = 42.5, note = 'In a cave' }
+                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 67.2, y = 42.5, note = 'In a cave' }
                             },
                             {
                                 ["id"] = 69376,
                                 ["name"] = "Submerged Sign",
-                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 51.5, y = 72.5, note = 'In a small pond' }
+                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 47.3, y = 72.5, note = 'In a small pond' }
                             },
                             {
                                 ["id"] = 69377,
@@ -3126,7 +3126,7 @@ WorldSoulSearchingAchievements = {
                             {
                                 ["id"] = 69378,
                                 ["name"] = "Kobold Warning Sign",
-                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 65, y = 56, note = 'On the northern wall in Tealloch' }
+                                waypoint = { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.8, y = 56, note = 'On the northern wall in Tealloch' }
                             },
                             {
                                 ["id"] = 69379,
@@ -3161,7 +3161,7 @@ WorldSoulSearchingAchievements = {
                             {
                                 ["id"] = 69385,
                                 ["name"] = "Forgotten Shadecaster",
-                                waypoint = { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 58, y = 59.5, note = 'On the top platform' }
+                                waypoint = { mapId = MapZones.TWW_ZONE_AzjKahet, x = 58, y = 89.6, note = 'On the top platform' }
                             },
                             {
                                 ["id"] = 69386,
