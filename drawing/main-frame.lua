@@ -5,6 +5,7 @@ DEFAULT_FRAME_HEIGHT = 200
 DEFAULT_FRAME_WIDTH = 300
 DEFAULT_POSITION_X = 0
 DEFAULT_POSITION_Y = 0
+DEFAULT_FRAME_ANCHOR = "CENTER"
 
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1")
 local DBIcon = LibStub("LibDBIcon-1.0")
@@ -48,7 +49,7 @@ function MainFrame:createMainFrame()
     self.mainFrame = CreateFrame("Frame", "MetaAchievementsTracker", UIParent, "BasicFrameTemplateWithInset")
     self.mainFrame:SetSize(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT)
     self.mainFrame:SetResizeBounds(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT)
-    self.mainFrame:SetPoint("CENTER", DEFAULT_POSITION_X, DEFAULT_POSITION_Y)
+    self.mainFrame:SetPoint(DEFAULT_FRAME_ANCHOR, DEFAULT_POSITION_X, DEFAULT_POSITION_Y)
     self.mainFrame:SetMovable(true)
     self.mainFrame:SetResizable(true)
     self.mainFrame:EnableMouse(true)
@@ -67,7 +68,7 @@ function MainFrame:resetFrame()
     MetaAchievementConfigurationDB.mainFrame.closed = false
     MetaAchievementConfigurationDB.mainFrame.height = DEFAULT_FRAME_HEIGHT
     MetaAchievementConfigurationDB.mainFrame.width = DEFAULT_FRAME_WIDTH
-    MetaAchievementConfigurationDB.mainFrame.anchor = "CENTER"
+    MetaAchievementConfigurationDB.mainFrame.anchor = DEFAULT_FRAME_ANCHOR
     MetaAchievementConfigurationDB.mainFrame.x = DEFAULT_POSITION_X
     MetaAchievementConfigurationDB.mainFrame.y = DEFAULT_POSITION_Y
 
@@ -126,6 +127,7 @@ function MainFrame:onFrameLoaded()
         and MetaAchievementConfigurationDB.mainFrame.y
         and MetaAchievementConfigurationDB.mainFrame.anchor
     then
+        self.mainFrame:ClearAllPoints()
         self.mainFrame:SetPoint(
             MetaAchievementConfigurationDB.mainFrame.anchor,
             MetaAchievementConfigurationDB.mainFrame.x,

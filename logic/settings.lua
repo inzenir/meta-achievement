@@ -3,7 +3,7 @@ function DefaultSettings()
         hideCompleted = false,
         colouredHightlight = false,
         removeCompletedWaypoints = false,
-        addWaypointsOnlyForUncompletedAchievementParts = true,
+        addWpsOnlyForUncompletedAchis = true,
         mapIntegration = {},
         mainFrame = {
             closed = false,
@@ -19,7 +19,7 @@ end
 
 function UpdateSettings()
     for key, value in pairs(DefaultSettings()) do
-        if not MetaAchievementConfigurationDB[key] then
+        if MetaAchievementConfigurationDB[key] == nil then
             MetaAchievementConfigurationDB[key] = value
         end
     end

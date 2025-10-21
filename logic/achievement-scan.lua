@@ -12,7 +12,7 @@ function achiInfo(achievementId, depth)
     local achiCriteriaNumber = GetAchievementNumCriteria(achievementId)
 
     for i = 1, achiCriteriaNumber do
-        local _, criteriaType, _, _, _, _, _, assetID, _, criteriaID, _, _, _ = GetAchievementCriteriaInfo(achievementId, i)
+        local criteriaString, criteriaType, _, _, _, _, _, assetID, _, criteriaID, _, _, _ = GetAchievementCriteriaInfo(achievementId, i)
 
         print(o .. " >" .. i .. " - " .. criteriaType)
 
@@ -20,7 +20,7 @@ function achiInfo(achievementId, depth)
             print(o .. ".")
             tmpChildren[#tmpChildren+1] = achiInfo(assetID)
         else
-            tmpCriteria[#tmpCriteria+1] = { id = criteriaID }
+            tmpCriteria[#tmpCriteria+1] = { id = criteriaID, name = criteriaString }
         end
     end
 
