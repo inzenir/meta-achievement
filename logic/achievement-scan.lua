@@ -1,11 +1,28 @@
 function achiInfo(achievementId, depth)
     depth = depth or 0
+
+    local _, achiName = GetAchievementInfo(achievementId)
     local o = string.rep(" ", depth * 2)
     print(o .. "#" .. achievementId)
 
     local returnData = {
-        id = achievementId
+        id = achievementId,
+        name = achiName
     }
+
+    local rewards = {}
+    local numberOfRewards = GetAchievementNumRewards(achievementId)
+
+    if type(numberOfRewards) == "number" then
+        for i = 1, numberOfRewards do
+            rewards[i] = {GetAchievementCriteriaInfoByID(achievementId, i)}
+        end
+
+        if #rewards > 0 then
+            returnData[rewards] = rewards
+        end
+    end
+
     local tmpChildren = {}
     local tmpCriteria = {}
 
@@ -20,7 +37,11 @@ function achiInfo(achievementId, depth)
             print(o .. ".")
             tmpChildren[#tmpChildren+1] = achiInfo(assetID)
         else
-            tmpCriteria[#tmpCriteria+1] = { id = criteriaID, name = criteriaString }
+            tmpCriteria[#tmpCriteria+1] = {
+                id = criteriaID,
+                name = criteriaString,
+                criteriaType = criteriaType
+            }
         end
     end
 

@@ -13,6 +13,7 @@ function DefaultSettings()
             x = nil,
             y = nil
         },
+        dataList = {},
         tmp1 = {}
     }
 end

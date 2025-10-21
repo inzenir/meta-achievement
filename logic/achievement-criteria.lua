@@ -6,7 +6,7 @@ AchievementCriteriaTypes = {
     CompletingAQuest = 27
 }
 
-function AchievementCriteria:new(achievementId, entry)
+function AchievementCriteria:new(achievementId, entry, achievementRequirement)
     local criteriaString = GetAchievementCriteriaInfoByID(achievementId, entry.id)
 
     local obj = setmetatable({}, AchievementCriteria)
@@ -14,6 +14,15 @@ function AchievementCriteria:new(achievementId, entry)
     obj.achievementId = achievementId
     obj.id = entry.id
     obj.criteriaType = entry.type or AchievementCriteriaTypes.CompletingAQuest
+    obj.requirements = nil
+
+    if entry.requirements then
+        obj.requirements = AchievementRequirement:new(entry.requirements)
+    end
+
+    if not entry.requirements then
+        entry.requirements = achievementRequirement or nil
+    end
 
     local waypoints = {}
 
