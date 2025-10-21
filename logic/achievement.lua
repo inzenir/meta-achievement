@@ -38,7 +38,7 @@ local function getAchievementWaypoints(achi)
     return returnValue
 end
 
-function Achievement:new(achievementEntry)
+function Achievement:new(achievementEntry, parentAchievementRequirements)
     local obj = setmetatable({}, Achievement)
 
     obj.id = achievementEntry.id
@@ -50,6 +50,14 @@ function Achievement:new(achievementEntry)
     obj.name = name or achievementEntry.name or ACHIEVEMENT_DEFAULT_NAME
     obj.icon = icon or achievementEntry.icon or ACHIEVEMENT_DEFAULT_ICON
     obj.chidrenCompleted = figureOutIfChildrenAreCompleted(achievementEntry)
+
+    if achievementEntry.requirements then
+        obj.requirements = AchievementRequirement:new(achievementEntry.requirements)
+    end
+
+    if not obj.requirements then
+        obj.requirements = parentAchievementRequirements or nil
+    end
 
     obj.criteria = loadCriteria(obj.id, achievementEntry.criteria or {})
 

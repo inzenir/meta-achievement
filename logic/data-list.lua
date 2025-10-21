@@ -28,8 +28,18 @@ end
 
 function DataList:new(achievementItems)
     local obj = setmetatable({}, DataList)
+
+    obj.topAchievementId = achievementItems[1].id or nil
     obj.achievements = achievementItems
+
     obj.colapsedItems = {}
+    if MetaAchievementConfigurationDB.mapIntegration
+        and MetaAchievementConfigurationDB.mapIntegration[obj.topAchievementId]
+        and MetaAchievementConfigurationDB.mapIntegration[obj.topAchievementId].colapsedItems
+    then
+        obj.colapsedItems = MetaAchievementConfigurationDB.mapIntegration[obj.topAchievementId].colapsedItems
+    end
+
     obj.items = scanData(obj.achievements, 0, obj.colapsedItems)
 
     return obj
@@ -73,4 +83,12 @@ function DataList:toggleColapsed(id)
     else
         self.colapsedItems[id] = true
     end
+
+    if not MetaAchievementConfigurationDB["mapIntegration"] then
+        MetaAchievementConfigurationDB["mapIntegration"] = {}
+    end
+    if not MetaAchievementConfigurationDB["mapIntegration"][self.topAchievementId] then
+        MetaAchievementConfigurationDB["mapIntegration"][self.topAchievementId] = {}
+    end
+    MetaAchievementConfigurationDB["mapIntegration"][self.topAchievementId].colapsedItems = self.colapsedItems
 end
