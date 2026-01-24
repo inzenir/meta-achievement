@@ -7,6 +7,7 @@ MetaAchievementDB = {
 }
 
 WindowTabs = {
+    lightUpTheNight = "lightUpTheNight",
     worldSoulSearching = "worldSoulSearching",
     settings = "settings",
     farewellToArms = "farewellToArms",
@@ -78,6 +79,13 @@ function EntryPoint()
     mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
 
     createAchievementTab(
+        "Light Up The Night",
+        WindowTabs.lightUpTheNight,
+        "Interface\\Icons\\inv_12_dualityphoenix_lightvoid_explosion",
+        LightUpTheNightAchievements
+    )
+
+    createAchievementTab(
         "Worldsoul Searching",
         WindowTabs.worldSoulSearching,
         "Interface\\Icons\\achievement_zone_isleofdorn",
@@ -113,5 +121,5 @@ function EntryPoint()
     )
 
     -- Draw default
-    mainFrame:drawScrollContent(WindowTabs.worldSoulSearching)
+    mainFrame:drawScrollContent(WindowTabs.lightUpTheNight)
 end
