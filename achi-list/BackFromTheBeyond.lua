@@ -1,3630 +1,2036 @@
 BackFromTheBeyondAchievements = {
     {
-        id = 19458,
-        mountId = 2114,
+        ["id"] = 20501,
+        ["name"] = "Back from the Beyond",
         ["children"] = {
             {
-                ["id"] = 16343,
+                ["id"] = 14715,
+                ["name"] = "Castle Nathria",
                 ["criteria"] = {
                     {
-                        ["id"] = 55109,
+                        ["id"] = 48950,
+                        ["name"] = "Shriekwing",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55110,
+                        ["id"] = 48951,
+                        ["name"] = "Huntsman Altimor",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55111,
+                        ["id"] = 48954,
+                        ["name"] = "Sun King's Salvation",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55113,
+                        ["id"] = 48953,
+                        ["name"] = "Artificer Xy'mox",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55114,
+                        ["id"] = 48952,
+                        ["name"] = "Hungering Destroyer",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55115,
+                        ["id"] = 48955,
+                        ["name"] = "Lady Inerva Darkvein",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55116,
+                        ["id"] = 48956,
+                        ["name"] = "The Council of Blood",
+                        ["criteriaType"] = 165,
                     },
                     {
-                        ["id"] = 55117,
+                        ["id"] = 48957,
+                        ["name"] = "Sludgefist",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 48958,
+                        ["name"] = "Stone Legion Generals",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 48959,
+                        ["name"] = "Sire Denathrius",
+                        ["criteriaType"] = 165,
                     },
                 },
             },
             {
-                ["id"] = 18160,
+                ["id"] = 14961,
+                ["name"] = "Chains of Domination",
                 ["criteria"] = {
                     {
-                        ["id"] = 58866,
+                        ["id"] = 51692,
+                        ["name"] = "Battle of Ardenweald",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58867,
+                        ["id"] = 51693,
+                        ["name"] = "Maw Walkers",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58868,
+                        ["id"] = 52490,
+                        ["name"] = "Focusing the Eye",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58869,
+                        ["id"] = 51694,
+                        ["name"] = "The Last Sigil",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58870,
+                        ["id"] = 51695,
+                        ["name"] = "An Army of Bone and Steel",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58871,
+                        ["id"] = 51696,
+                        ["name"] = "The Unseen Guests",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58881,
+                        ["id"] = 51697,
+                        ["name"] = "The Power of Night",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58882,
+                        ["id"] = 52457,
+                        ["name"] = "A New Path",
+                        ["criteriaType"] = 27,
                     },
                     {
-                        ["id"] = 58883,
+                        ["id"] = 52235,
+                        ["name"] = "What Lies Ahead",
+                        ["criteriaType"] = 27,
                     },
                 },
             },
             {
-                ["id"] = 19331,
+                ["id"] = 15647,
+                ["name"] = "Dead Men Tell Some Tales",
                 ["criteria"] = {
                     {
-                        ["id"] = 63095,
+                        ["id"] = 0,
+                        ["name"] = "Kyrian Campaign",
+                        ["criteriaType"] = 0,
                     },
                     {
-                        ["id"] = 63096,
+                        ["id"] = 0,
+                        ["name"] = "Necrolords Campaign",
+                        ["criteriaType"] = 0,
                     },
                     {
-                        ["id"] = 63097,
+                        ["id"] = 0,
+                        ["name"] = "Night Fae Campaign",
+                        ["criteriaType"] = 0,
                     },
                     {
-                        ["id"] = 63098,
-                    },
-                    {
-                        ["id"] = 63099,
-                    },
-                    {
-                        ["id"] = 63100,
-                    },
-                    {
-                        ["id"] = 63101,
-                    },
-                    {
-                        ["id"] = 63102,
-                    },
-                    {
-                        ["id"] = 63103,
+                        ["id"] = 0,
+                        ["name"] = "Venthyr Campaign",
+                        ["criteriaType"] = 0,
                     },
                 },
             },
             {
-                ["id"] = 16339,
+                ["id"] = 15178,
+                ["name"] = "Fake It 'Til You Make It",
+            },
+            {
+                ["id"] = 15336,
+                ["name"] = "From A to Zereth",
                 ["children"] = {
                     {
-                        ["id"] = 16271,
+                        ["id"] = 15259,
+                        ["name"] = "Secrets of the First Ones",
+                        ["criteria"] = {
+                            {
+                                ["id"] = 52701,
+                                ["name"] = "Into the Unknown",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52703,
+                                ["name"] = "We Battle Onward",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52702,
+                                ["name"] = "Forming an Understanding",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52704,
+                                ["name"] = "Forging a New Path",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52705,
+                                ["name"] = "Crown of Wills",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52706,
+                                ["name"] = "A Means to an End",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52707,
+                                ["name"] = "Starting Over",
+                                ["criteriaType"] = 27,
+                            },
+                        },
                     },
                     {
-                        ["id"] = 16257,
+                        ["id"] = 15331,
+                        ["name"] = "Treasures of Zereth Mortis",
+                        ["criteria"] = {
+                            {
+                                ["id"] = 52887,
+                                ["name"] = "Library Vault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52964,
+                                ["name"] = "Submerged Chest",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52965,
+                                ["name"] = "Damaged Jiro Stash",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52966,
+                                ["name"] = "Template Archive",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52967,
+                                ["name"] = "Forgotten Proto-Vault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52968,
+                                ["name"] = "Symphonic Vault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52969,
+                                ["name"] = "Mawsworn Cache",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52970,
+                                ["name"] = "Stolen Relic",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53016,
+                                ["name"] = "Fallen Vault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53017,
+                                ["name"] = "Gnawed Valise",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53018,
+                                ["name"] = "Domination Cache",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53052,
+                                ["name"] = "Filched Artifact",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53053,
+                                ["name"] = "Architect's Reserve",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53054,
+                                ["name"] = "Crushed Supply Crate",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53056,
+                                ["name"] = "Overgrown Protofruit",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53060,
+                                ["name"] = "Mistaken Ovoid",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53061,
+                                ["name"] = "Drowned Broker Supplies",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53062,
+                                ["name"] = "Offering to the First Ones",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53063,
+                                ["name"] = "Protomineral Extractor",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53064,
+                                ["name"] = "Pilfered Curio",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53065,
+                                ["name"] = "Stolen Scroll",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53066,
+                                ["name"] = "Grateful Boon",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53067,
+                                ["name"] = "Protoflora Harvester",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53068,
+                                ["name"] = "Syntactic Vault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53069,
+                                ["name"] = "Ripened Protopear",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53070,
+                                ["name"] = "Undulating Foliage",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 53071,
+                                ["name"] = "Bushel of Progenitor Produce",
+                                ["criteriaType"] = 27,
+                            },
+                        },
                     },
                     {
-                        ["id"] = 16262,
+                        ["id"] = 15392,
+                        ["name"] = "Dune Dominance",
+                        ["criteria"] = {
+                            {
+                                ["id"] = 52992,
+                                ["name"] = "Iska, Outrider of Ruin",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52993,
+                                ["name"] = "High Reaver Damaris",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52994,
+                                ["name"] = "Reanimatrox Marzan",
+                                ["criteriaType"] = 0,
+                            },
+                        },
                     },
                     {
-                        ["id"] = 16265,
+                        ["id"] = 15391,
+                        ["name"] = "Adventurer of Zereth Mortis",
+                        ["criteria"] = {
+                            {
+                                ["id"] = 52971,
+                                ["name"] = "Gluttonous Overgrowth",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52972,
+                                ["name"] = "Otiosen",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52973,
+                                ["name"] = "Feasting",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52974,
+                                ["name"] = "Destabilized Core",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52975,
+                                ["name"] = "Sand Matriarch Ileus",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52976,
+                                ["name"] = "Xy'rath the Covetous",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52977,
+                                ["name"] = "Akkaris",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52978,
+                                ["name"] = "Chitali the Eldest",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52979,
+                                ["name"] = "Tahkwitz",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52980,
+                                ["name"] = "Sorranos",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52981,
+                                ["name"] = "Orixal",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52982,
+                                ["name"] = "Euv'ouk",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52983,
+                                ["name"] = "Vitiane",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52984,
+                                ["name"] = "Hadeon the Stonebreaker",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52985,
+                                ["name"] = "General Zarathura",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52986,
+                                ["name"] = "Gorkek",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52987,
+                                ["name"] = "Tethos",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52988,
+                                ["name"] = "Shifting Stargorger",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52989,
+                                ["name"] = "Protector of the First Ones",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53020,
+                                ["name"] = "Mother Phestis",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53025,
+                                ["name"] = "Garudeon",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53031,
+                                ["name"] = "Furidian",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52990,
+                                ["name"] = "Hirukon",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53044,
+                                ["name"] = "Zatojin",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53046,
+                                ["name"] = "Otaris the Provoked",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53047,
+                                ["name"] = "Corrupted Architect",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53048,
+                                ["name"] = "Helmix",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53049,
+                                ["name"] = "Vexis",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 53050,
+                                ["name"] = "The Engulfer",
+                                ["criteriaType"] = 0,
+                            },
+                        },
                     },
                     {
-                        ["id"] = 16268,
+                        ["id"] = 15402,
+                        ["name"] = "Cyphers of the First Ones",
+                        ["criteria"] = {
+                            {
+                                ["id"] = 0,
+                                ["name"] = "All Metrial Cyphers",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 0,
+                                ["name"] = "All Aealic Cyphers",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 0,
+                                ["name"] = "All Dealic Cyphers",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 0,
+                                ["name"] = "All Trebalim Cyphers",
+                                ["criteriaType"] = 0,
+                            },
+                        },
                     },
                     {
-                        ["id"] = 16274,
+                        ["id"] = 15407,
+                        ["name"] = "Synthe-fived!",
                     },
                     {
-                        ["id"] = 16277,
-                    },
-                    {
-                        ["id"] = 16280,
+                        ["id"] = 15220,
+                        ["name"] = "The Enlightened",
                     },
                 },
             },
             {
-                ["id"] = 16585,
-                ["children"] = {
-                    {
-                        ["id"] = 16334,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16401,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 55229,
-                            },
-                            {
-                                ["id"] = 55243,
-                            },
-                            {
-                                ["id"] = 55227,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 55241,
-                            },
-                            {
-                                ["id"] = 55242,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 15394,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16405,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 55230,
-                            },
-                            {
-                                ["id"] = 55231,
-                            },
-                            {
-                                ["id"] = 55232,
-                            },
-                            {
-                                ["id"] = 55233,
-                            },
-                            {
-                                ["id"] = 55235,
-                            },
-                            {
-                                ["id"] = 55236,
-                            },
-                            {
-                                ["id"] = 55238,
-                            },
-                            {
-                                ["id"] = 55240,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16336,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16428,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 55335,
-                            },
-                            {
-                                ["id"] = 55336,
-                            },
-                            {
-                                ["id"] = 55337,
-                            },
-                            {
-                                ["id"] = 55338,
-                            },
-                            {
-                                ["id"] = 55339,
-                            },
-                            {
-                                ["id"] = 55340,
-                            },
-                            {
-                                ["id"] = 55341,
-                            },
-                            {
-                                ["id"] = 55342,
-                            },
-                            {
-                                ["id"] = 55343,
-                            },
-                            {
-                                ["id"] = 55344,
-                            },
-                            {
-                                ["id"] = 55345,
-                            },
-                            {
-                                ["id"] = 55346,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16363,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16398,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 55213,
-                            },
-                            {
-                                ["id"] = 55214,
-                            },
-                            {
-                                ["id"] = 55215,
-                            },
-                            {
-                                ["id"] = 55216,
-                            },
-                            {
-                                ["id"] = 55217,
-                            },
-                            {
-                                ["id"] = 55218,
-                            },
-                            {
-                                ["id"] = 55219,
-                            },
-                            {
-                                ["id"] = 55220,
-                            },
-                        },
-                    },
-                },
-            },
-            {
-                ["id"] = 16808,
+                ["id"] = 15079,
+                ["name"] = "Many, Many Things",
                 ["criteria"] = {
                     {
-                        ["id"] = 57032,
-                    },
-                    {
-                        ["id"] = 57033,
-                    },
-                    {
-                        ["id"] = 57035,
-                    },
-                    {
-                        ["id"] = 57036,
-                    },
-                    {
-                        ["id"] = 57034,
-                    },
-                    {
-                        ["id"] = 57037,
+                        ["id"] = 0,
+                        ["name"] = "All talents researched.",
+                        ["criteriaType"] = 0,
                     },
                 },
             },
             {
-                ["id"] = 19463,
+                ["id"] = 15651,
+                ["name"] = "Myths of the Shadowlands Dungeons",
                 ["children"] = {
                     {
-                        ["id"] = 17773,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                        },
+                        ["id"] = 14368,
+                        ["name"] = "Mythic: The Necrotic Wake",
                     },
                     {
-                        ["id"] = 17734,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 59094,
-                            },
-                        },
+                        ["id"] = 14415,
+                        ["name"] = "Mythic: Plaguefall",
                     },
                     {
-                        ["id"] = 18958,
+                        ["id"] = 14413,
+                        ["name"] = "Mythic: Mists of Tirna Scithe",
                     },
                     {
-                        ["id"] = 17546,
+                        ["id"] = 14411,
+                        ["name"] = "Mythic: Halls of Atonement",
                     },
                     {
-                        ["id"] = 16683,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
+                        ["id"] = 14325,
+                        ["name"] = "Mythic: Spires of Ascension",
                     },
                     {
-                        ["id"] = 19507,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 64642,
-                            },
-                            {
-                                ["id"] = 64643,
-                            },
-                            {
-                                ["id"] = 64644,
-                            },
-                            {
-                                ["id"] = 64645,
-                            },
-                            {
-                                ["id"] = 64646,
-                            },
-                            {
-                                ["id"] = 64647,
-                            },
-                            {
-                                ["id"] = 64648,
-                            },
-                            {
-                                ["id"] = 64649,
-                            },
-                            {
-                                ["id"] = 64650,
-                            },
-                            {
-                                ["id"] = 64651,
-                            },
-                            {
-                                ["id"] = 64654,
-                            },
-                            {
-                                ["id"] = 60757,
-                            },
-                            {
-                                ["id"] = 64657,
-                            },
-                            {
-                                ["id"] = 64658,
-                            },
-                            {
-                                ["id"] = 64659,
-                            },
-                            {
-                                ["id"] = 64660,
-                            },
-                        },
+                        ["id"] = 14417,
+                        ["name"] = "Mythic: Theater of Pain",
+                    },
+                    {
+                        ["id"] = 14409,
+                        ["name"] = "Mythic: De Other Side",
+                    },
+                    {
+                        ["id"] = 14199,
+                        ["name"] = "Mythic: Sanguine Depths",
+                    },
+                    {
+                        ["id"] = 15177,
+                        ["name"] = "Tazavesh, the Veiled Market",
                     },
                 },
             },
             {
-                ["id"] = 19466,
+                ["id"] = 15035,
+                ["name"] = "On the Offensive",
                 ["children"] = {
                     {
-                        ["id"] = 41174,
+                        ["id"] = 15000,
+                        ["name"] = "United Front",
                         ["criteria"] = {
                             {
-                                ["id"] = 71186,
+                                ["id"] = 51720,
+                                ["name"] = "Necrolord Assault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51721,
+                                ["name"] = "Venthyr Assault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51722,
+                                ["name"] = "Night Fae Assault",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51723,
+                                ["name"] = "Kyrian Assault",
+                                ["criteriaType"] = 27,
                             },
                         },
                     },
                     {
-                        ["id"] = 41180,
+                        ["id"] = 15001,
+                        ["name"] = "Jailer's Personal Stash",
                         ["criteria"] = {
                             {
-                                ["id"] = 71187,
+                                ["id"] = 0,
+                                ["name"] = "Rift Hidden Caches opened",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 41181,
+                        ["id"] = 15037,
+                        ["name"] = "This Army",
                         ["criteria"] = {
                             {
-                                ["id"] = 71185,
+                                ["id"] = 52044,
+                                ["name"] = "Cutter Fin",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52045,
+                                ["name"] = "Kearnen the Blade",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52046,
+                                ["name"] = "Winslow Swan",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52047,
+                                ["name"] = "Boil Master Yetch",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 52048,
+                                ["name"] = "Flytrap",
+                                ["criteriaType"] = 27,
                             },
                         },
                     },
                     {
-                        ["id"] = 41182,
+                        ["id"] = 15039,
+                        ["name"] = "Up For Grabs",
                         ["criteria"] = {
                             {
-                                ["id"] = 71184,
+                                ["id"] = 0,
+                                ["name"] = "Mawsworn Caches opened",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 41183,
+                        ["id"] = 15041,
+                        ["name"] = "The Zovaal Shuffle",
                         ["criteria"] = {
                             {
-                                ["id"] = 71183,
+                                ["id"] = 0,
+                                ["name"] =
+                                "Dance near five different Forges in Zovaal's Cauldron while holding a Mawproof Parasol.",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 41177,
+                        ["id"] = 15043,
+                        ["name"] = "Hoarder of Torghast",
                         ["criteria"] = {
                             {
-                                ["id"] = 71182,
+                                ["id"] = 0,
+                                ["name"] = "Collect ten items that Fangcrack pulls out of the Portal to Torghast.",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 18615,
-                    },
-                    {
-                        ["id"] = 16494,
+                        ["id"] = 15004,
+                        ["name"] = "A Sly Fox",
                         ["criteria"] = {
                             {
-                                ["id"] = 0,
+                                ["id"] = 51734,
+                                ["name"] = "",
+                                ["criteriaType"] = 27,
                             },
                         },
                     },
                     {
-                        ["id"] = 16760,
+                        ["id"] = 15042,
+                        ["name"] = "Tea for the Troubled",
                         ["criteria"] = {
                             {
-                                ["id"] = 0,
+                                ["id"] = 52065,
+                                ["name"] = "Simone",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52066,
+                                ["name"] = "Laurent",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52067,
+                                ["name"] = "Archivist Fane",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52068,
+                                ["name"] = "The Countess",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52069,
+                                ["name"] = "Kael'thas Sunstrider",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52070,
+                                ["name"] = "Lost Sybille",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52071,
+                                ["name"] = "Vulca",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 52072,
+                                ["name"] = "Iven",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 16539,
-                    },
-                    {
-                        ["id"] = 16537,
-                    },
-                    {
-                        ["id"] = 17427,
+                        ["id"] = 15044,
+                        ["name"] = "Krrprripripkraak's Heroes",
                         ["criteria"] = {
                             {
-                                ["id"] = 58373,
-                            },
-                        },
-                    },
-                },
-            },
-            {
-                ["id"] = 19307,
-                ["children"] = {
-                    {
-                        ["id"] = 16334,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
+                                ["id"] = 52078,
+                                ["name"] = "Elder Gwenna",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 0,
+                                ["id"] = 52079,
+                                ["name"] = "Foreman Thorodir",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 0,
+                                ["id"] = 52080,
+                                ["name"] = "Te'zan",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 0,
+                                ["id"] = 52081,
+                                ["name"] = "Warden Casad",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 15394,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
+                                ["id"] = 52082,
+                                ["name"] = "Kivarr",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16336,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16363,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17739,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16761,
-                        ["children"] = {
-                            {
-                                ["id"] = 16400,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55875,
-                                    },
-                                    {
-                                        ["id"] = 55876,
-                                    },
-                                    {
-                                        ["id"] = 55878,
-                                    },
-                                    {
-                                        ["id"] = 55879,
-                                    },
-                                    {
-                                        ["id"] = 55880,
-                                    },
-                                    {
-                                        ["id"] = 55881,
-                                    },
-                                    {
-                                        ["id"] = 55882,
-                                    },
-                                    {
-                                        ["id"] = 55883,
-                                    },
-                                    {
-                                        ["id"] = 55884,
-                                    },
-                                    {
-                                        ["id"] = 55885,
-                                    },
-                                    {
-                                        ["id"] = 55886,
-                                    },
-                                    {
-                                        ["id"] = 55877,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16457,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55434,
-                                    },
-                                    {
-                                        ["id"] = 55435,
-                                    },
-                                    {
-                                        ["id"] = 55436,
-                                    },
-                                    {
-                                        ["id"] = 55437,
-                                    },
-                                    {
-                                        ["id"] = 55438,
-                                    },
-                                    {
-                                        ["id"] = 55439,
-                                    },
-                                    {
-                                        ["id"] = 55440,
-                                    },
-                                    {
-                                        ["id"] = 55441,
-                                    },
-                                    {
-                                        ["id"] = 55442,
-                                    },
-                                    {
-                                        ["id"] = 55443,
-                                    },
-                                    {
-                                        ["id"] = 55444,
-                                    },
-                                    {
-                                        ["id"] = 55445,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16460,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55450,
-                                    },
-                                    {
-                                        ["id"] = 55451,
-                                    },
-                                    {
-                                        ["id"] = 55452,
-                                    },
-                                    {
-                                        ["id"] = 55453,
-                                    },
-                                    {
-                                        ["id"] = 55454,
-                                    },
-                                    {
-                                        ["id"] = 55455,
-                                    },
-                                    {
-                                        ["id"] = 55456,
-                                    },
-                                    {
-                                        ["id"] = 55457,
-                                    },
-                                    {
-                                        ["id"] = 55458,
-                                    },
-                                    {
-                                        ["id"] = 55459,
-                                    },
-                                    {
-                                        ["id"] = 55460,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16518,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55635,
-                                    },
-                                    {
-                                        ["id"] = 55636,
-                                    },
-                                    {
-                                        ["id"] = 55637,
-                                    },
-                                    {
-                                        ["id"] = 55638,
-                                    },
-                                    {
-                                        ["id"] = 55639,
-                                    },
-                                    {
-                                        ["id"] = 55640,
-                                    },
-                                    {
-                                        ["id"] = 55641,
-                                    },
-                                    {
-                                        ["id"] = 55643,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17766,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 59159,
-                            },
-                            {
-                                ["id"] = 59160,
-                            },
-                            {
-                                ["id"] = 59161,
-                            },
-                            {
-                                ["id"] = 59162,
-                            },
-                            {
-                                ["id"] = 59163,
-                            },
-                            {
-                                ["id"] = 59165,
-                            },
-                            {
-                                ["id"] = 59166,
-                            },
-                            {
-                                ["id"] = 59167,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19309,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 63051,
-                            },
-                            {
-                                ["id"] = 63052,
-                            },
-                            {
-                                ["id"] = 63053,
-                            },
-                            {
-                                ["id"] = 63054,
-                            },
-                            {
-                                ["id"] = 63055,
-                            },
-                            {
-                                ["id"] = 63056,
-                            },
-                            {
-                                ["id"] = 63057,
-                            },
-                            {
-                                ["id"] = 63058,
-                            },
-                            {
-                                ["id"] = 63059,
-                            },
-                            {
-                                ["id"] = 63060,
+                                ["id"] = 52083,
+                                ["name"] = "Guardian Kota",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                 },
             },
             {
-                ["id"] = 19486,
+                ["id"] = 15646,
+                ["name"] = "Re-Re-Re-Renowned",
+                ["criteria"] = {
+                    {
+                        ["id"] = 0,
+                        ["name"] = "Kyrian",
+                        ["criteriaType"] = 0,
+                    },
+                    {
+                        ["id"] = 0,
+                        ["name"] = "Necrolords",
+                        ["criteriaType"] = 0,
+                    },
+                    {
+                        ["id"] = 0,
+                        ["name"] = "Night Fae",
+                        ["criteriaType"] = 0,
+                    },
+                    {
+                        ["id"] = 0,
+                        ["name"] = "Venthyr",
+                        ["criteriaType"] = 0,
+                    },
+                },
+            },
+            {
+                ["id"] = 15025,
+                ["name"] = "Sanctum Superior",
+            },
+            {
+                ["id"] = 15126,
+                ["name"] = "Sanctum of Domination",
+                ["criteria"] = {
+                    {
+                        ["id"] = 52471,
+                        ["name"] = "The Tarragrue",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52473,
+                        ["name"] = "The Eye of the Jailer",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52475,
+                        ["name"] = "The Nine",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52477,
+                        ["name"] = "Remnant of Ner'zhul",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52479,
+                        ["name"] = "Soulrender Dormazain",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52481,
+                        ["name"] = "Painsmith Raznal",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52483,
+                        ["name"] = "Guardian of the First Ones",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52485,
+                        ["name"] = "Fatescribe Roh-Kalo",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52487,
+                        ["name"] = "Kel'Thuzad",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 52489,
+                        ["name"] = "Sylvanas Windrunner",
+                        ["criteriaType"] = 165,
+                    },
+                },
+            },
+            {
+                ["id"] = 15259,
+                ["name"] = "Secrets of the First Ones",
+                ["criteria"] = {
+                    {
+                        ["id"] = 52701,
+                        ["name"] = "Into the Unknown",
+                        ["criteriaType"] = 27,
+                    },
+                    {
+                        ["id"] = 52703,
+                        ["name"] = "We Battle Onward",
+                        ["criteriaType"] = 27,
+                    },
+                    {
+                        ["id"] = 52702,
+                        ["name"] = "Forming an Understanding",
+                        ["criteriaType"] = 27,
+                    },
+                    {
+                        ["id"] = 52704,
+                        ["name"] = "Forging a New Path",
+                        ["criteriaType"] = 27,
+                    },
+                    {
+                        ["id"] = 52705,
+                        ["name"] = "Crown of Wills",
+                        ["criteriaType"] = 27,
+                    },
+                    {
+                        ["id"] = 52706,
+                        ["name"] = "A Means to an End",
+                        ["criteriaType"] = 27,
+                    },
+                    {
+                        ["id"] = 52707,
+                        ["name"] = "Starting Over",
+                        ["criteriaType"] = 27,
+                    },
+                },
+            },
+            {
+                ["id"] = 15417,
+                ["name"] = "Sepulcher of the First Ones",
+                ["criteria"] = {
+                    {
+                        ["id"] = 53151,
+                        ["name"] = "Vigilant Guardian",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53152,
+                        ["name"] = "Skolex",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53153,
+                        ["name"] = "Artificer Xy'mox",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53154,
+                        ["name"] = "Dausegne",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53155,
+                        ["name"] = "Prototype Pantheon",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53156,
+                        ["name"] = "Lihuvim",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53157,
+                        ["name"] = "Halondrus",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53158,
+                        ["name"] = "Anduin Wrynn",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53148,
+                        ["name"] = "Lords of Dread",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53149,
+                        ["name"] = "Rygelon",
+                        ["criteriaType"] = 165,
+                    },
+                    {
+                        ["id"] = 53150,
+                        ["name"] = "The Jailer",
+                        ["criteriaType"] = 165,
+                    },
+                },
+            },
+            {
+                ["id"] = 15649,
+                ["name"] = "Shadowlands Dilettante",
                 ["children"] = {
                     {
-                        ["id"] = 19479,
-                        ["children"] = {
-                            {
-                                ["id"] = 16570,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55758,
-                                    },
-                                    {
-                                        ["id"] = 55759,
-                                    },
-                                    {
-                                        ["id"] = 55771,
-                                    },
-                                    {
-                                        ["id"] = 55772,
-                                    },
-                                    {
-                                        ["id"] = 55773,
-                                    },
-                                    {
-                                        ["id"] = 55774,
-                                    },
-                                    {
-                                        ["id"] = 55775,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16568,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55756,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16587,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16588,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15890,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16571,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16676,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 56033,
-                                    },
-                                    {
-                                        ["id"] = 56034,
-                                    },
-                                    {
-                                        ["id"] = 56035,
-                                    },
-                                    {
-                                        ["id"] = 56036,
-                                    },
-                                    {
-                                        ["id"] = 56037,
-                                    },
-                                    {
-                                        ["id"] = 56038,
-                                    },
-                                    {
-                                        ["id"] = 56039,
-                                    },
-                                    {
-                                        ["id"] = 56040,
-                                    },
-                                    {
-                                        ["id"] = 56041,
-                                    },
-                                    {
-                                        ["id"] = 56042,
-                                    },
-                                    {
-                                        ["id"] = 56043,
-                                    },
-                                    {
-                                        ["id"] = 56044,
-                                    },
-                                    {
-                                        ["id"] = 56045,
-                                    },
-                                    {
-                                        ["id"] = 56046,
-                                    },
-                                    {
-                                        ["id"] = 56047,
-                                    },
-                                    {
-                                        ["id"] = 56048,
-                                    },
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                    {
-                                        ["id"] = 56049,
-                                    },
-                                    {
-                                        ["id"] = 56050,
-                                    },
-                                    {
-                                        ["id"] = 56052,
-                                    },
-                                    {
-                                        ["id"] = 56053,
-                                    },
-                                    {
-                                        ["id"] = 56054,
-                                    },
-                                    {
-                                        ["id"] = 56055,
-                                    },
-                                    {
-                                        ["id"] = 56056,
-                                    },
-                                    {
-                                        ["id"] = 56057,
-                                    },
-                                    {
-                                        ["id"] = 56058,
-                                    },
-                                    {
-                                        ["id"] = 56059,
-                                    },
-                                    {
-                                        ["id"] = 56060,
-                                    },
-                                    {
-                                        ["id"] = 56061,
-                                    },
-                                    {
-                                        ["id"] = 56988,
-                                    },
-                                    {
-                                        ["id"] = 56989,
-                                    },
-                                    {
-                                        ["id"] = 57003,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16297,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 54698,
-                                    },
-                                    {
-                                        ["id"] = 54699,
-                                    },
-                                    {
-                                        ["id"] = 54713,
-                                    },
-                                    {
-                                        ["id"] = 54701,
-                                    },
-                                    {
-                                        ["id"] = 54702,
-                                    },
-                                    {
-                                        ["id"] = 54703,
-                                    },
-                                    {
-                                        ["id"] = 55403,
-                                    },
-                                    {
-                                        ["id"] = 55448,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19481,
-                        ["children"] = {
-                            {
-                                ["id"] = 16540,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55677,
-                                    },
-                                    {
-                                        ["id"] = 55678,
-                                    },
-                                    {
-                                        ["id"] = 55679,
-                                    },
-                                    {
-                                        ["id"] = 55680,
-                                    },
-                                    {
-                                        ["id"] = 55681,
-                                    },
-                                    {
-                                        ["id"] = 55682,
-                                    },
-                                    {
-                                        ["id"] = 55683,
-                                    },
-                                    {
-                                        ["id"] = 55684,
-                                    },
-                                    {
-                                        ["id"] = 55685,
-                                    },
-                                    {
-                                        ["id"] = 55686,
-                                    },
-                                    {
-                                        ["id"] = 55687,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16541,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16545,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16542,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55692,
-                                    },
-                                    {
-                                        ["id"] = 55693,
-                                    },
-                                    {
-                                        ["id"] = 55694,
-                                    },
-                                    {
-                                        ["id"] = 55695,
-                                    },
-                                    {
-                                        ["id"] = 55696,
-                                    },
-                                    {
-                                        ["id"] = 55697,
-                                    },
-                                    {
-                                        ["id"] = 55698,
-                                    },
-                                    {
-                                        ["id"] = 55699,
-                                    },
-                                    {
-                                        ["id"] = 55700,
-                                    },
-                                    {
-                                        ["id"] = 55701,
-                                    },
-                                    {
-                                        ["id"] = 55702,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16543,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55746,
-                                    },
-                                    {
-                                        ["id"] = 55747,
-                                    },
-                                    {
-                                        ["id"] = 55748,
-                                    },
-                                    {
-                                        ["id"] = 55749,
-                                    },
-                                    {
-                                        ["id"] = 55750,
-                                    },
-                                    {
-                                        ["id"] = 55751,
-                                    },
-                                    {
-                                        ["id"] = 55752,
-                                    },
-                                    {
-                                        ["id"] = 55753,
-                                    },
-                                    {
-                                        ["id"] = 55754,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16424,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55348,
-                                    },
-                                    {
-                                        ["id"] = 55316,
-                                    },
-                                    {
-                                        ["id"] = 55329,
-                                    },
-                                    {
-                                        ["id"] = 55326,
-                                    },
-                                    {
-                                        ["id"] = 55317,
-                                    },
-                                    {
-                                        ["id"] = 55321,
-                                    },
-                                    {
-                                        ["id"] = 55315,
-                                    },
-                                    {
-                                        ["id"] = 55320,
-                                    },
-                                    {
-                                        ["id"] = 55327,
-                                    },
-                                    {
-                                        ["id"] = 55323,
-                                    },
-                                    {
-                                        ["id"] = 55331,
-                                    },
-                                    {
-                                        ["id"] = 55328,
-                                    },
-                                    {
-                                        ["id"] = 55319,
-                                    },
-                                    {
-                                        ["id"] = 55330,
-                                    },
-                                    {
-                                        ["id"] = 55347,
-                                    },
-                                    {
-                                        ["id"] = 55325,
-                                    },
-                                    {
-                                        ["id"] = 55318,
-                                    },
-                                    {
-                                        ["id"] = 55322,
-                                    },
-                                    {
-                                        ["id"] = 55324,
-                                    },
-                                    {
-                                        ["id"] = 55314,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16677,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 56062,
-                                    },
-                                    {
-                                        ["id"] = 56063,
-                                    },
-                                    {
-                                        ["id"] = 56064,
-                                    },
-                                    {
-                                        ["id"] = 56065,
-                                    },
-                                    {
-                                        ["id"] = 56066,
-                                    },
-                                    {
-                                        ["id"] = 56067,
-                                    },
-                                    {
-                                        ["id"] = 56068,
-                                    },
-                                    {
-                                        ["id"] = 56069,
-                                    },
-                                    {
-                                        ["id"] = 56070,
-                                    },
-                                    {
-                                        ["id"] = 56071,
-                                    },
-                                    {
-                                        ["id"] = 56072,
-                                    },
-                                    {
-                                        ["id"] = 56073,
-                                    },
-                                    {
-                                        ["id"] = 56074,
-                                    },
-                                    {
-                                        ["id"] = 56075,
-                                    },
-                                    {
-                                        ["id"] = 56076,
-                                    },
-                                    {
-                                        ["id"] = 56077,
-                                    },
-                                    {
-                                        ["id"] = 56078,
-                                    },
-                                    {
-                                        ["id"] = 56079,
-                                    },
-                                    {
-                                        ["id"] = 56080,
-                                    },
-                                    {
-                                        ["id"] = 56081,
-                                    },
-                                    {
-                                        ["id"] = 56082,
-                                    },
-                                    {
-                                        ["id"] = 56083,
-                                    },
-                                    {
-                                        ["id"] = 56084,
-                                    },
-                                    {
-                                        ["id"] = 56085,
-                                    },
-                                    {
-                                        ["id"] = 56086,
-                                    },
-                                    {
-                                        ["id"] = 56087,
-                                    },
-                                    {
-                                        ["id"] = 56088,
-                                    },
-                                    {
-                                        ["id"] = 56089,
-                                    },
-                                    {
-                                        ["id"] = 56090,
-                                    },
-                                    {
-                                        ["id"] = 56091,
-                                    },
-                                    {
-                                        ["id"] = 56092,
-                                    },
-                                    {
-                                        ["id"] = 56093,
-                                    },
-                                    {
-                                        ["id"] = 56094,
-                                    },
-                                    {
-                                        ["id"] = 56095,
-                                    },
-                                    {
-                                        ["id"] = 56096,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16299,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 54707,
-                                    },
-                                    {
-                                        ["id"] = 54708,
-                                    },
-                                    {
-                                        ["id"] = 54700,
-                                    },
-                                    {
-                                        ["id"] = 54709,
-                                    },
-                                    {
-                                        ["id"] = 54710,
-                                    },
-                                    {
-                                        ["id"] = 54711,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19482,
-                        ["children"] = {
-                            {
-                                ["id"] = 16443,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55380,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16444,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55381,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16317,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 54944,
-                                    },
-                                    {
-                                        ["id"] = 55017,
-                                    },
-                                    {
-                                        ["id"] = 55016,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16553,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55710,
-                                    },
-                                    {
-                                        ["id"] = 55711,
-                                    },
-                                    {
-                                        ["id"] = 55712,
-                                    },
-                                    {
-                                        ["id"] = 55713,
-                                    },
-                                    {
-                                        ["id"] = 55023,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16563,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55689,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16580,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55822,
-                                    },
-                                    {
-                                        ["id"] = 55823,
-                                    },
-                                    {
-                                        ["id"] = 55824,
-                                    },
-                                    {
-                                        ["id"] = 55825,
-                                    },
-                                    {
-                                        ["id"] = 55826,
-                                    },
-                                    {
-                                        ["id"] = 55827,
-                                    },
-                                    {
-                                        ["id"] = 55828,
-                                    },
-                                    {
-                                        ["id"] = 55829,
-                                    },
-                                    {
-                                        ["id"] = 55830,
-                                    },
-                                    {
-                                        ["id"] = 55831,
-                                    },
-                                    {
-                                        ["id"] = 55832,
-                                    },
-                                    {
-                                        ["id"] = 55833,
-                                    },
-                                    {
-                                        ["id"] = 55834,
-                                    },
-                                    {
-                                        ["id"] = 55835,
-                                    },
-                                    {
-                                        ["id"] = 55836,
-                                    },
-                                    {
-                                        ["id"] = 55837,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16678,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 56097,
-                                    },
-                                    {
-                                        ["id"] = 56098,
-                                    },
-                                    {
-                                        ["id"] = 56099,
-                                    },
-                                    {
-                                        ["id"] = 56100,
-                                    },
-                                    {
-                                        ["id"] = 56101,
-                                    },
-                                    {
-                                        ["id"] = 56102,
-                                    },
-                                    {
-                                        ["id"] = 56103,
-                                    },
-                                    {
-                                        ["id"] = 56104,
-                                    },
-                                    {
-                                        ["id"] = 56105,
-                                    },
-                                    {
-                                        ["id"] = 56106,
-                                    },
-                                    {
-                                        ["id"] = 56107,
-                                    },
-                                    {
-                                        ["id"] = 56108,
-                                    },
-                                    {
-                                        ["id"] = 56109,
-                                    },
-                                    {
-                                        ["id"] = 56110,
-                                    },
-                                    {
-                                        ["id"] = 56111,
-                                    },
-                                    {
-                                        ["id"] = 56112,
-                                    },
-                                    {
-                                        ["id"] = 56114,
-                                    },
-                                    {
-                                        ["id"] = 56115,
-                                    },
-                                    {
-                                        ["id"] = 56116,
-                                    },
-                                    {
-                                        ["id"] = 56117,
-                                    },
-                                    {
-                                        ["id"] = 56118,
-                                    },
-                                    {
-                                        ["id"] = 56119,
-                                    },
-                                    {
-                                        ["id"] = 56120,
-                                    },
-                                    {
-                                        ["id"] = 55381,
-                                    },
-                                    {
-                                        ["id"] = 56122,
-                                    },
-                                    {
-                                        ["id"] = 56124,
-                                    },
-                                    {
-                                        ["id"] = 56125,
-                                    },
-                                    {
-                                        ["id"] = 56126,
-                                    },
-                                    {
-                                        ["id"] = 56127,
-                                    },
-                                    {
-                                        ["id"] = 56128,
-                                    },
-                                    {
-                                        ["id"] = 56129,
-                                    },
-                                    {
-                                        ["id"] = 56130,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16300,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 54804,
-                                    },
-                                    {
-                                        ["id"] = 54805,
-                                    },
-                                    {
-                                        ["id"] = 54806,
-                                    },
-                                    {
-                                        ["id"] = 54807,
-                                    },
-                                    {
-                                        ["id"] = 54808,
-                                    },
-                                    {
-                                        ["id"] = 54809,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19483,
-                        ["children"] = {
-                            {
-                                ["id"] = 16411,
-                            },
-                            {
-                                ["id"] = 16410,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55262,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16412,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55264,
-                                    },
-                                    {
-                                        ["id"] = 55266,
-                                    },
-                                    {
-                                        ["id"] = 55265,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16497,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                    {
-                                        ["id"] = 55864,
-                                    },
-                                    {
-                                        ["id"] = 57972,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16495,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55865,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16496,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 57868,
-                                    },
-                                    {
-                                        ["id"] = 56053,
-                                    },
-                                    {
-                                        ["id"] = 56988,
-                                    },
-                                    {
-                                        ["id"] = 56054,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18384,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 60132,
-                                    },
-                                    {
-                                        ["id"] = 60133,
-                                    },
-                                    {
-                                        ["id"] = 60134,
-                                    },
-                                    {
-                                        ["id"] = 60135,
-                                    },
-                                    {
-                                        ["id"] = 60136,
-                                    },
-                                    {
-                                        ["id"] = 60137,
-                                    },
-                                    {
-                                        ["id"] = 60138,
-                                    },
-                                    {
-                                        ["id"] = 60139,
-                                    },
-                                    {
-                                        ["id"] = 60140,
-                                    },
-                                    {
-                                        ["id"] = 60141,
-                                    },
-                                    {
-                                        ["id"] = 60142,
-                                    },
-                                    {
-                                        ["id"] = 60143,
-                                    },
-                                    {
-                                        ["id"] = 60144,
-                                    },
-                                    {
-                                        ["id"] = 60145,
-                                    },
-                                    {
-                                        ["id"] = 60146,
-                                    },
-                                    {
-                                        ["id"] = 60147,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 17782,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 59192,
-                                    },
-                                    {
-                                        ["id"] = 59194,
-                                    },
-                                    {
-                                        ["id"] = 59193,
-                                    },
-                                    {
-                                        ["id"] = 59195,
-                                    },
-                                    {
-                                        ["id"] = 59196,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18383,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 60127,
-                                    },
-                                    {
-                                        ["id"] = 60128,
-                                    },
-                                    {
-                                        ["id"] = 60129,
-                                    },
-                                    {
-                                        ["id"] = 60130,
-                                    },
-                                    {
-                                        ["id"] = 60131,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16679,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 56133,
-                                    },
-                                    {
-                                        ["id"] = 56135,
-                                    },
-                                    {
-                                        ["id"] = 56136,
-                                    },
-                                    {
-                                        ["id"] = 56137,
-                                    },
-                                    {
-                                        ["id"] = 56138,
-                                    },
-                                    {
-                                        ["id"] = 56140,
-                                    },
-                                    {
-                                        ["id"] = 56141,
-                                    },
-                                    {
-                                        ["id"] = 56142,
-                                    },
-                                    {
-                                        ["id"] = 56144,
-                                    },
-                                    {
-                                        ["id"] = 56146,
-                                    },
-                                    {
-                                        ["id"] = 56147,
-                                    },
-                                    {
-                                        ["id"] = 56148,
-                                    },
-                                    {
-                                        ["id"] = 56149,
-                                    },
-                                    {
-                                        ["id"] = 56150,
-                                    },
-                                    {
-                                        ["id"] = 56151,
-                                    },
-                                    {
-                                        ["id"] = 56152,
-                                    },
-                                    {
-                                        ["id"] = 56153,
-                                    },
-                                    {
-                                        ["id"] = 56154,
-                                    },
-                                    {
-                                        ["id"] = 56155,
-                                    },
-                                    {
-                                        ["id"] = 56156,
-                                    },
-                                    {
-                                        ["id"] = 56157,
-                                    },
-                                    {
-                                        ["id"] = 56158,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16301,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 54810,
-                                    },
-                                    {
-                                        ["id"] = 54811,
-                                    },
-                                    {
-                                        ["id"] = 54812,
-                                    },
-                                    {
-                                        ["id"] = 54813,
-                                    },
-                                    {
-                                        ["id"] = 54814,
-                                    },
-                                    {
-                                        ["id"] = 54815,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19485,
-                        ["children"] = {
-                            {
-                                ["id"] = 17342,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 57965,
-                                    },
-                                    {
-                                        ["id"] = 57966,
-                                    },
-                                    {
-                                        ["id"] = 0,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18635,
-                            },
-                            {
-                                ["id"] = 18637,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 61885,
-                                    },
-                                    {
-                                        ["id"] = 61884,
-                                    },
-                                    {
-                                        ["id"] = 61886,
-                                    },
-                                    {
-                                        ["id"] = 61887,
-                                    },
-                                    {
-                                        ["id"] = 61888,
-                                    },
-                                    {
-                                        ["id"] = 61889,
-                                    },
-                                    {
-                                        ["id"] = 61890,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18636,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 60717,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18638,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 60718,
-                                    },
-                                    {
-                                        ["id"] = 60719,
-                                    },
-                                    {
-                                        ["id"] = 60751,
-                                    },
-                                    {
-                                        ["id"] = 60720,
-                                    },
-                                    {
-                                        ["id"] = 60721,
-                                    },
-                                    {
-                                        ["id"] = 60722,
-                                    },
-                                    {
-                                        ["id"] = 60723,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18639,
-                            },
-                            {
-                                ["id"] = 18640,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 60726,
-                                    },
-                                    {
-                                        ["id"] = 60727,
-                                    },
-                                    {
-                                        ["id"] = 60728,
-                                    },
-                                    {
-                                        ["id"] = 60729,
-                                    },
-                                    {
-                                        ["id"] = 60730,
-                                    },
-                                    {
-                                        ["id"] = 60731,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 18641,
-                            },
-                            {
-                                ["id"] = 18703,
-                            },
-                            {
-                                ["id"] = 18704,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16492,
-                        ["children"] = {
-                            {
-                                ["id"] = 16490,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 16468,
-                                        ["children"] = {
-                                            {
-                                                ["id"] = 16463,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55483,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16465,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55484,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16466,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55494,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16467,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55495,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    },
-                                    {
-                                        ["id"] = 16476,
-                                        ["children"] = {
-                                            {
-                                                ["id"] = 16475,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55501,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16477,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55502,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16478,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55503,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16479,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55504,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    },
-                                    {
-                                        ["id"] = 16484,
-                                        ["children"] = {
-                                            {
-                                                ["id"] = 16480,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55509,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16481,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55510,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16482,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55511,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16483,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55512,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    },
-                                    {
-                                        ["id"] = 16489,
-                                        ["children"] = {
-                                            {
-                                                ["id"] = 16485,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55517,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16486,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55518,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16487,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55519,
-                                                    },
-                                                },
-                                            },
-                                            {
-                                                ["id"] = 16488,
-                                                ["criteria"] = {
-                                                    {
-                                                        ["id"] = 55520,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16461,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55461,
-                                    },
-                                    {
-                                        ["id"] = 55462,
-                                    },
-                                    {
-                                        ["id"] = 55463,
-                                    },
-                                    {
-                                        ["id"] = 55464,
-                                    },
-                                    {
-                                        ["id"] = 55465,
-                                    },
-                                    {
-                                        ["id"] = 55466,
-                                    },
-                                    {
-                                        ["id"] = 55467,
-                                    },
-                                    {
-                                        ["id"] = 55468,
-                                    },
-                                    {
-                                        ["id"] = 55469,
-                                    },
-                                    {
-                                        ["id"] = 55470,
-                                    },
-                                    {
-                                        ["id"] = 55471,
-                                    },
-                                    {
-                                        ["id"] = 55472,
-                                    },
-                                    {
-                                        ["id"] = 55473,
-                                    },
-                                    {
-                                        ["id"] = 55474,
-                                    },
-                                    {
-                                        ["id"] = 55475,
-                                    },
-                                    {
-                                        ["id"] = 55476,
-                                    },
-                                    {
-                                        ["id"] = 55477,
-                                    },
-                                    {
-                                        ["id"] = 55478,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16500,
-                                ["criteria"] = {
-                                    {
-                                        ["id"] = 55531,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 16502,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 18209,
+                        ["id"] = 14502,
+                        ["name"] = "Pursuing Loyalty",
                         ["criteria"] = {
                             {
-                                ["id"] = 59670,
+                                ["id"] = 48622,
+                                ["name"] = "Kalisthene",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48623,
+                                ["name"] = "Echthra",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48624,
+                                ["name"] = "Alderyn and Myn'ir",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48625,
+                                ["name"] = "Nuuminuuru",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48626,
+                                ["name"] = "Craven Corinth",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48627,
+                                ["name"] = "Splinterbark Nightmare",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48628,
+                                ["name"] = "Thran'tiok",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 48629,
+                                ["name"] = "Mad Mortimer",
+                                ["criteriaType"] = 27,
                             },
                         },
                     },
                     {
-                        ["id"] = 18867,
+                        ["id"] = 14723,
+                        ["name"] = "Be Our Guest",
                         ["criteria"] = {
                             {
-                                ["id"] = 61623,
+                                ["id"] = 49730,
+                                ["name"] = "Baroness Vashj",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49731,
+                                ["name"] = "Lady Moonberry",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49732,
+                                ["name"] = "Mikanikos",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49733,
+                                ["name"] = "The Countess",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49734,
+                                ["name"] = "Alexandros Mograine",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49735,
+                                ["name"] = "Hunt-Captain Korayn",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49736,
+                                ["name"] = "Polemarch Adrestes",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49737,
+                                ["name"] = "Rendle and Cudgelface",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49738,
+                                ["name"] = "Choofa",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49739,
+                                ["name"] = "Cryptkeeper Kassir",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49740,
+                                ["name"] = "Droman Aliothe",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49741,
+                                ["name"] = "Grandmaster Vole",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49742,
+                                ["name"] = "Kleia and Pelagos",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49743,
+                                ["name"] = "Plague Deviser Marileth",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49744,
+                                ["name"] = "Sika",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 49745,
+                                ["name"] = "Stonehead",
+                                ["criteriaType"] = 27,
                             },
                         },
                     },
                     {
-                        ["id"] = 19008,
-                        ["criteria"] = {
+                        ["id"] = 14752,
+                        ["name"] = "Things To Do When You're Dead",
+                        ["children"] = {
                             {
-                                ["id"] = 62018,
+                                ["id"] = 14684,
+                                ["name"] = "Abominable Lives",
+                                ["criteria"] = {
+                                    {
+                                        ["id"] = 49659,
+                                        ["name"] = "Asset Extraction",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49660,
+                                        ["name"] = "A Brokered Deal",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49661,
+                                        ["name"] = "Supply Chain",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49662,
+                                        ["name"] = "A Bountiful Haul",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49663,
+                                        ["name"] = "Shinies of Bastion",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49664,
+                                        ["name"] = "Something Old, Something Used",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49665,
+                                        ["name"] = "Things They Leave Behind",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49699,
+                                        ["name"] = "Corpse Run",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49700,
+                                        ["name"] = "Field Training",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49701,
+                                        ["name"] = "Training Program",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49702,
+                                        ["name"] = "Arboreal Tactics",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49703,
+                                        ["name"] = "In A Bad Light",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49704,
+                                        ["name"] = "Cure For All Ills",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49705,
+                                        ["name"] = "Scrounging for Scrolls",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49706,
+                                        ["name"] = "The Two Sides of History",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49707,
+                                        ["name"] = "One Lich's Trash...",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49708,
+                                        ["name"] = "Fighting Words",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49709,
+                                        ["name"] = "Say The Magic Words",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49710,
+                                        ["name"] = "The Last Word",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49711,
+                                        ["name"] = "Digging Around",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49712,
+                                        ["name"] = "Old Stomping Grounds",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49713,
+                                        ["name"] = "Special Formula",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49714,
+                                        ["name"] = "Herbicidal Tendencies",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49715,
+                                        ["name"] = "Hands on Approach",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49716,
+                                        ["name"] = "Grinder",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49717,
+                                        ["name"] = "Cut 'Em Down to Size",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49718,
+                                        ["name"] = "Baker's Dozen",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49719,
+                                        ["name"] = "Give A Dog A Bone",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49720,
+                                        ["name"] = "Pie Not?",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49721,
+                                        ["name"] = "Bring Your Own",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49722,
+                                        ["name"] = "Drink to the Dead",
+                                        ["criteriaType"] = 27,
+                                    },
+                                },
+                            },
+                            {
+                                ["id"] = 14748,
+                                ["name"] = "Wardrobe Makeover",
+                                ["criteria"] = {
+                                    {
+                                        ["id"] = 50541,
+                                        ["name"] = "Chef Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49864,
+                                        ["name"] = "Dapper Top Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50546,
+                                        ["name"] = "Dundae's Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50550,
+                                        ["name"] = "Egg Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49865,
+                                        ["name"] = "Flower Crown",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49866,
+                                        ["name"] = "Halo of Purity",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49867,
+                                        ["name"] = "Holiday Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49916,
+                                        ["name"] = "Magician's Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50549,
+                                        ["name"] = "Pirate Hat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49868,
+                                        ["name"] = "Red Eye Lens",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50551,
+                                        ["name"] = "Skull Fungus",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49869,
+                                        ["name"] = "Skull Protector",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50553,
+                                        ["name"] = "Unworthy Crown",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49871,
+                                        ["name"] = "Happiness Bird",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49926,
+                                        ["name"] = "Hitchhiker",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50554,
+                                        ["name"] = "Lovely Candle Display",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50556,
+                                        ["name"] = "Shoulder Sprouts",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49918,
+                                        ["name"] = "Sticky Cat",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50560,
+                                        ["name"] = "Trained Corpselice",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49870,
+                                        ["name"] = "Trustworthy Doll",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49922,
+                                        ["name"] = "Armor Plating",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50558,
+                                        ["name"] = "Back Mushrooms",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49919,
+                                        ["name"] = "Collector Kash's Pack",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49872,
+                                        ["name"] = "Engineering Pack",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49921,
+                                        ["name"] = "Plague Pack",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49920,
+                                        ["name"] = "Safe Fall Pack",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49874,
+                                        ["name"] = "Six-League Pack",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49875,
+                                        ["name"] = "Vestigial Wings",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49925,
+                                        ["name"] = "Barrel O' Fish",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 50559,
+                                        ["name"] = "Underpowered Gravity Pack",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49923,
+                                        ["name"] = "Butterflies",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49917,
+                                        ["name"] = "Spare Weapon",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49924,
+                                        ["name"] = "Faction Flag",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49876,
+                                        ["name"] = "Operational Instructions",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49873,
+                                        ["name"] = "Outlaw Flag",
+                                        ["criteriaType"] = 27,
+                                    },
+                                },
+                            },
+                            {
+                                ["id"] = 14751,
+                                ["name"] = "The Gang's All Here",
+                                ["criteria"] = {
+                                    {
+                                        ["id"] = 49891,
+                                        ["name"] = "Chordy",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49893,
+                                        ["name"] = "Flytrap",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49936,
+                                        ["name"] = "Marz",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49937,
+                                        ["name"] = "Atticus",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49938,
+                                        ["name"] = "Roseboil",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49939,
+                                        ["name"] = "Sabrina",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49940,
+                                        ["name"] = "Toothpick",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 49941,
+                                        ["name"] = "The Professor",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51470,
+                                        ["name"] = "Gas Bag",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51471,
+                                        ["name"] = "Guillotine",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51472,
+                                        ["name"] = "Mama Tomalin",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51473,
+                                        ["name"] = "Naxx",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51474,
+                                        ["name"] = "Iron Phillip",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51475,
+                                        ["name"] = "Miru Soulblossom",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51476,
+                                        ["name"] = "Neena",
+                                        ["criteriaType"] = 27,
+                                    },
+                                    {
+                                        ["id"] = 51477,
+                                        ["name"] = "Unity",
+                                        ["criteriaType"] = 27,
+                                    },
+                                },
+                            },
+                            {
+                                ["id"] = 14753,
+                                ["name"] = "It's a Wrap",
+                                ["criteria"] = {
+                                    {
+                                        ["id"] = 49886,
+                                        ["name"] = "Anima-Bound Wraps contributed",
+                                        ["criteriaType"] = 0,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    {
+                        ["id"] = 14775,
+                        ["name"] = "Mush Appreciated",
+                    },
+                },
+            },
+            {
+                ["id"] = 15324,
+                ["name"] = "Tower Ranger",
+                ["children"] = {
+                    {
+                        ["id"] = 15322,
+                        ["name"] = "Flawless Master (Layer 16)",
+                        ["children"] = {
+                            {
+                                ["id"] = 15320,
+                                ["name"] = "Flawless: The Upper Reaches (Layer 16)",
+                            },
+                            {
+                                ["id"] = 15319,
+                                ["name"] = "Flawless: Mort'regar (Layer 16)",
+                            },
+                            {
+                                ["id"] = 15317,
+                                ["name"] = "Flawless: The Soulforges (Layer 16)",
+                            },
+                            {
+                                ["id"] = 15318,
+                                ["name"] = "Flawless: Coldheart Interstitia (Layer 16)",
+                            },
+                            {
+                                ["id"] = 15314,
+                                ["name"] = "Flawless: Skoldus Hall (Layer 16)",
+                            },
+                            {
+                                ["id"] = 15316,
+                                ["name"] = "Flawless: Fracture Chambers (Layer 16)",
+                            },
+                        },
+                    },
+                    {
+                        ["id"] = 15067,
+                        ["name"] = "Adamant Vaults",
+                    },
+                    {
+                        ["id"] = 14570,
+                        ["name"] = "Twisting Corridors: Layer 8",
+                    },
+                    {
+                        ["id"] = 15254,
+                        ["name"] = "The Jailer's Gauntlet: Layer 4",
+                    },
+                    {
+                        ["id"] = 15092,
+                        ["name"] = "Master of Torment",
+                        ["children"] = {
+                            {
+                                ["id"] = 15093,
+                                ["name"] = "Avenge Me!",
+                                ["criteria"] = {
+                                    {
+                                        ["id"] = 52199,
+                                        ["name"] = "Elite Enemy Slain With 10 Stacks of Vengeance",
+                                        ["criteriaType"] = 0,
+                                    },
+                                },
+                            },
+                            {
+                                ["id"] = 15095,
+                                ["name"] = "No Doubt",
+                            },
+                            {
+                                ["id"] = 15094,
+                                ["name"] = "Rampage",
+                            },
+                            {
+                                ["id"] = 15096,
+                                ["name"] = "Crowd Pleaser",
                             },
                         },
                     },
                 },
             },
             {
-                ["id"] = 17543,
+                ["id"] = 15648,
+                ["name"] = "Walking in Maw-mphis",
                 ["children"] = {
                     {
-                        ["id"] = 17534,
+                        ["id"] = 14895,
+                        ["name"] = "'Ghast Five",
                         ["criteria"] = {
                             {
-                                ["id"] = 58510,
+                                ["id"] = 51251,
+                                ["name"] = "Vessel of Unfortunate Spirits",
+                                ["criteriaType"] = 27,
                             },
                             {
-                                ["id"] = 58511,
+                                ["id"] = 51253,
+                                ["name"] = "Extradimensional Pockets",
+                                ["criteriaType"] = 27,
                             },
                             {
-                                ["id"] = 58512,
+                                ["id"] = 51255,
+                                ["name"] = "Encased Riftwalker Essence",
+                                ["criteriaType"] = 27,
                             },
                             {
-                                ["id"] = 58513,
+                                ["id"] = 51254,
+                                ["name"] = "Animated Levitating Chain",
+                                ["criteriaType"] = 27,
                             },
                             {
-                                ["id"] = 58514,
+                                ["id"] = 51258,
+                                ["name"] = "Animaflow Stabilizer",
+                                ["criteriaType"] = 27,
                             },
                             {
-                                ["id"] = 58515,
+                                ["id"] = 51256,
+                                ["name"] = "Soul-Stabilizing Salve",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51252,
+                                ["name"] = "Ritual Prism of Fortune",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51248,
+                                ["name"] = "Bangle of Seniority",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51257,
+                                ["name"] = "Talisman of Destined Defiance",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51249,
+                                ["name"] = "Rank Insignia: Acquisitionist",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51464,
+                                ["name"] = "Possibility Matrix",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51250,
+                                ["name"] = "Loupe of Unusual Charm",
+                                ["criteriaType"] = 27,
+                            },
+                            {
+                                ["id"] = 51573,
+                                ["name"] = "Broker Traversal Enhancer",
+                                ["criteriaType"] = 27,
                             },
                         },
                     },
                     {
-                        ["id"] = 17526,
+                        ["id"] = 14744,
+                        ["name"] = "Better to Be Lucky Than Dead",
                         ["criteria"] = {
                             {
-                                ["id"] = 58487,
+                                ["id"] = 49841,
+                                ["name"] = "Adjutant Dekaris",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58488,
+                                ["id"] = 49842,
+                                ["name"] = "Apholeias, Herald of Loss",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58489,
+                                ["id"] = 49843,
+                                ["name"] = "Borr-Geth",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58490,
+                                ["id"] = 49844,
+                                ["name"] = "Conjured Death",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58491,
+                                ["id"] = 49845,
+                                ["name"] = "Darithis the Bleak",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58492,
+                                ["id"] = 49846,
+                                ["name"] = "Darklord Taraxis",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58493,
+                                ["id"] = 49847,
+                                ["name"] = "Dolos",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58494,
+                                ["id"] = 49848,
+                                ["name"] = "Eketra",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58495,
+                                ["id"] = 49849,
+                                ["name"] = "Ekphoras, Herald of Grief",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58496,
+                                ["id"] = 49850,
+                                ["name"] = "Eternas the Tormentor",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58497,
+                                ["id"] = 49851,
+                                ["name"] = "Exos, Herald of Domination",
+                                ["criteriaType"] = 0,
                             },
                             {
-                                ["id"] = 58498,
+                                ["id"] = 49852,
+                                ["name"] = "Morguliax",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49853,
+                                ["name"] = "Nascent Devourer",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49854,
+                                ["name"] = "Obolos",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49855,
+                                ["name"] = "Orophea",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49856,
+                                ["name"] = "Shadeweaver Zeris",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49857,
+                                ["name"] = "Soulforger Rhovus",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49858,
+                                ["name"] = "Talaporas, Herald of Pain",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49859,
+                                ["name"] = "Thanassos",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49860,
+                                ["name"] = "Yero the Skittish",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 50621,
+                                ["name"] = "Ikras the Devourer",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 17528,
+                        ["id"] = 14660,
+                        ["name"] = "It's About Sending a Message",
                         ["criteria"] = {
                             {
-                                ["id"] = 58499,
+                                ["id"] = 49475,
+                                ["name"] = "Drifting Sorrow",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49476,
+                                ["name"] = "Dartanos",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49479,
+                                ["name"] = "Razkazzar",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49480,
+                                ["name"] = "Orrholyn",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49481,
+                                ["name"] = "Huwerath",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49482,
+                                ["name"] = "Soulsmith Yol-Mattar",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49484,
+                                ["name"] = "Cyrixia",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49485,
+                                ["name"] = "Agonix",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49486,
+                                ["name"] = "Krala",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49487,
+                                ["name"] = "Akros",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49488,
+                                ["name"] = "Malevolent Stygia",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49489,
+                                ["name"] = "Sanngror the Torturer",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49490,
+                                ["name"] = "Houndmaster Vasanok",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49491,
+                                ["name"] = "Skittering Broodmother",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 49492,
+                                ["name"] = "Valis the Cruel",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 50408,
+                                ["name"] = "Odalrik",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 50409,
+                                ["name"] = "Stygian Incinerator",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 50410,
+                                ["name"] = "Dath Rezara",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 51058,
+                                ["name"] = "Ratgusher",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 17525,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 58458,
-                            },
-                            {
-                                ["id"] = 58459,
-                            },
-                            {
-                                ["id"] = 58460,
-                            },
-                            {
-                                ["id"] = 58461,
-                            },
-                            {
-                                ["id"] = 58462,
-                            },
-                            {
-                                ["id"] = 58463,
-                            },
-                            {
-                                ["id"] = 58464,
-                            },
-                            {
-                                ["id"] = 58465,
-                            },
-                            {
-                                ["id"] = 58466,
-                            },
-                            {
-                                ["id"] = 58467,
-                            },
-                            {
-                                ["id"] = 58468,
-                            },
-                            {
-                                ["id"] = 58469,
-                            },
-                            {
-                                ["id"] = 58470,
-                            },
-                            {
-                                ["id"] = 58471,
-                            },
-                            {
-                                ["id"] = 58472,
-                            },
-                            {
-                                ["id"] = 58473,
-                            },
-                            {
-                                ["id"] = 58474,
-                            },
-                            {
-                                ["id"] = 58475,
-                            },
-                            {
-                                ["id"] = 58476,
-                            },
-                            {
-                                ["id"] = 58477,
-                            },
-                            {
-                                ["id"] = 58478,
-                            },
-                            {
-                                ["id"] = 58479,
-                            },
-                            {
-                                ["id"] = 58480,
-                            },
-                            {
-                                ["id"] = 58481,
-                            },
-                            {
-                                ["id"] = 58482,
-                            },
-                            {
-                                ["id"] = 58483,
-                            },
-                            {
-                                ["id"] = 58484,
-                            },
-                            {
-                                ["id"] = 58485,
-                            },
-                            {
-                                ["id"] = 58486,
-                            },
-                            {
-                                ["id"] = 58830,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17529,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 58500,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17530,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 58501,
-                            },
-                            {
-                                ["id"] = 58502,
-                            },
-                            {
-                                ["id"] = 58503,
-                            },
-                            {
-                                ["id"] = 58504,
-                            },
-                            {
-                                ["id"] = 58505,
-                            },
-                            {
-                                ["id"] = 58506,
-                            },
-                            {
-                                ["id"] = 58660,
-                            },
-                            {
-                                ["id"] = 58661,
-                            },
-                            {
-                                ["id"] = 58507,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17532,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 58508,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17540,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 58567,
-                            },
-                            {
-                                ["id"] = 58568,
-                            },
-                            {
-                                ["id"] = 58569,
-                            },
-                            {
-                                ["id"] = 58570,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17413,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 58209,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17509,
-                    },
-                    {
-                        ["id"] = 17315,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                },
-            },
-            {
-                ["id"] = 17785,
-                ["children"] = {
-                    {
-                        ["id"] = 17739,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17783,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 59188,
-                            },
-                            {
-                                ["id"] = 59185,
-                            },
-                            {
-                                ["id"] = 59202,
-                            },
-                            {
-                                ["id"] = 59212,
-                            },
-                            {
-                                ["id"] = 59209,
-                            },
-                            {
-                                ["id"] = 59207,
-                            },
-                            {
-                                ["id"] = 59190,
-                            },
-                            {
-                                ["id"] = 59186,
-                            },
-                            {
-                                ["id"] = 59200,
-                            },
-                            {
-                                ["id"] = 59206,
-                            },
-                            {
-                                ["id"] = 59199,
-                            },
-                            {
-                                ["id"] = 59184,
-                            },
-                            {
-                                ["id"] = 59198,
-                            },
-                            {
-                                ["id"] = 59183,
-                            },
-                            {
-                                ["id"] = 59203,
-                            },
-                            {
-                                ["id"] = 59189,
-                            },
-                            {
-                                ["id"] = 59205,
-                            },
-                            {
-                                ["id"] = 59187,
-                            },
-                            {
-                                ["id"] = 59208,
-                            },
-                            {
-                                ["id"] = 59191,
-                            },
-                            {
-                                ["id"] = 59210,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17781,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 59179,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17766,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 59159,
-                            },
-                            {
-                                ["id"] = 59160,
-                            },
-                            {
-                                ["id"] = 59161,
-                            },
-                            {
-                                ["id"] = 59162,
-                            },
-                            {
-                                ["id"] = 59163,
-                            },
-                            {
-                                ["id"] = 59165,
-                            },
-                            {
-                                ["id"] = 59166,
-                            },
-                            {
-                                ["id"] = 59167,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 41183,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 71183,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17786,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 59222,
-                            },
-                            {
-                                ["id"] = 59220,
-                            },
-                            {
-                                ["id"] = 59225,
-                            },
-                            {
-                                ["id"] = 59226,
-                            },
-                            {
-                                ["id"] = 59224,
-                            },
-                            {
-                                ["id"] = 59228,
-                            },
-                            {
-                                ["id"] = 59223,
-                            },
-                            {
-                                ["id"] = 59227,
-                            },
-                            {
-                                ["id"] = 59219,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17832,
+                        ["id"] = 14738,
+                        ["name"] = "Hunting Party",
                         ["criteria"] = {
                             {
                                 ["id"] = 0,
+                                ["name"] = "Complete Hunt: Shadehounds",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 0,
+                                ["name"] = "Complete Hunt: Soul Eaters",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 0,
+                                ["name"] = "Complete Hunt: Death Elemental",
+                                ["criteriaType"] = 0,
+                            },
+                            {
+                                ["id"] = 0,
+                                ["name"] = "Complete Hunt: Winged Soul Eaters",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
-                },
-            },
-            {
-                ["id"] = 19318,
-                ["children"] = {
                     {
-                        ["id"] = 19026,
+                        ["id"] = 14656,
+                        ["name"] = "Trading Partners",
+                    },
+                    {
+                        ["id"] = 14658,
+                        ["name"] = "Soulkeeper's Burden",
                         ["criteria"] = {
                             {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
-                            },
-                            {
-                                ["id"] = 0,
+                                ["id"] = 51469,
+                                ["name"] = "200 souls freed.",
+                                ["criteriaType"] = 0,
                             },
                         },
                     },
                     {
-                        ["id"] = 19316,
+                        ["id"] = 14663,
+                        ["name"] = "Explore The Maw",
                         ["criteria"] = {
                             {
-                                ["id"] = 62929,
+                                ["id"] = 49501,
+                                ["name"] = "Calcis",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62930,
+                                ["id"] = 49502,
+                                ["name"] = "Cocyrus",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62931,
+                                ["id"] = 49503,
+                                ["name"] = "Crucible of the Damned",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62932,
+                                ["id"] = 49504,
+                                ["name"] = "Desmotaeron",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62933,
+                                ["id"] = 49505,
+                                ["name"] = "Gorgoa: River of Souls",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62934,
+                                ["id"] = 49506,
+                                ["name"] = "Marrow's Coppice",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62935,
+                                ["id"] = 49507,
+                                ["name"] = "Perdition Hold",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62936,
+                                ["id"] = 49508,
+                                ["name"] = "Planes of Torment",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62937,
+                                ["id"] = 49509,
+                                ["name"] = "Ravener's Lament",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62938,
+                                ["id"] = 49510,
+                                ["name"] = "The Altar of Domination",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62939,
+                                ["id"] = 49511,
+                                ["name"] = "The Beastwarrens",
+                                ["criteriaType"] = 43,
                             },
                             {
-                                ["id"] = 62940,
-                            },
-                            {
-                                ["id"] = 62941,
-                            },
-                            {
-                                ["id"] = 62942,
-                            },
-                            {
-                                ["id"] = 62943,
-                            },
-                            {
-                                ["id"] = 62944,
-                            },
-                            {
-                                ["id"] = 62945,
-                            },
-                            {
-                                ["id"] = 62944,
-                            },
-                            {
-                                ["id"] = 62947,
-                            },
-                            {
-                                ["id"] = 62948,
-                            },
-                            {
-                                ["id"] = 62949,
-                            },
-                            {
-                                ["id"] = 62950,
-                            },
-                            {
-                                ["id"] = 62951,
-                            },
-                            {
-                                ["id"] = 64492,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19317,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 62952,
-                            },
-                            {
-                                ["id"] = 62953,
-                            },
-                            {
-                                ["id"] = 62954,
-                            },
-                            {
-                                ["id"] = 62956,
-                            },
-                            {
-                                ["id"] = 62960,
-                            },
-                            {
-                                ["id"] = 62961,
-                            },
-                            {
-                                ["id"] = 62955,
-                            },
-                            {
-                                ["id"] = 62957,
-                            },
-                            {
-                                ["id"] = 62958,
-                            },
-                            {
-                                ["id"] = 62959,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19013,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 62028,
-                            },
-                            {
-                                ["id"] = 62029,
-                            },
-                            {
-                                ["id"] = 62032,
-                            },
-                            {
-                                ["id"] = 62035,
-                            },
-                            {
-                                ["id"] = 62038,
-                            },
-                            {
-                                ["id"] = 62039,
-                            },
-                            {
-                                ["id"] = 62030,
-                            },
-                            {
-                                ["id"] = 62036,
-                            },
-                            {
-                                ["id"] = 62037,
-                            },
-                            {
-                                ["id"] = 62041,
-                            },
-                            {
-                                ["id"] = 62040,
-                            },
-                            {
-                                ["id"] = 62027,
-                            },
-                            {
-                                ["id"] = 62031,
-                            },
-                            {
-                                ["id"] = 62185,
-                            },
-                            {
-                                ["id"] = 62186,
-                            },
-                            {
-                                ["id"] = 62189,
-                            },
-                            {
-                                ["id"] = 62396,
-                            },
-                            {
-                                ["id"] = 62397,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19309,
-                        ["criteria"] = {
-                            {
-                                ["id"] = 63051,
-                            },
-                            {
-                                ["id"] = 63052,
-                            },
-                            {
-                                ["id"] = 63053,
-                            },
-                            {
-                                ["id"] = 63054,
-                            },
-                            {
-                                ["id"] = 63055,
-                            },
-                            {
-                                ["id"] = 63056,
-                            },
-                            {
-                                ["id"] = 63057,
-                            },
-                            {
-                                ["id"] = 63058,
-                            },
-                            {
-                                ["id"] = 63059,
-                            },
-                            {
-                                ["id"] = 63060,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19312,
-                    },
-                },
-            },
-            {
-                ["id"] = 19478,
-                ["children"] = {
-                    {
-                        ["id"] = 15939,
-                        ["children"] = {
-                            {
-                                ["id"] = 15915,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15696,
-                                    },
-                                    {
-                                        ["id"] = 15712,
-                                    },
-                                    {
-                                        ["id"] = 15724,
-                                    },
-                                    {
-                                        ["id"] = 15730,
-                                    },
-                                    {
-                                        ["id"] = 15736,
-                                    },
-                                    {
-                                        ["id"] = 15742,
-                                    },
-                                    {
-                                        ["id"] = 15705,
-                                    },
-                                    {
-                                        ["id"] = 15718,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15918,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15757,
-                                    },
-                                    {
-                                        ["id"] = 15763,
-                                    },
-                                    {
-                                        ["id"] = 15769,
-                                    },
-                                    {
-                                        ["id"] = 15775,
-                                    },
-                                    {
-                                        ["id"] = 15782,
-                                    },
-                                    {
-                                        ["id"] = 15785,
-                                    },
-                                    {
-                                        ["id"] = 16302,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15921,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15788,
-                                    },
-                                    {
-                                        ["id"] = 15799,
-                                    },
-                                    {
-                                        ["id"] = 15818,
-                                    },
-                                    {
-                                        ["id"] = 15835,
-                                    },
-                                    {
-                                        ["id"] = 15841,
-                                    },
-                                    {
-                                        ["id"] = 15847,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15924,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15827,
-                                    },
-                                    {
-                                        ["id"] = 15855,
-                                    },
-                                    {
-                                        ["id"] = 15891,
-                                    },
-                                    {
-                                        ["id"] = 15897,
-                                    },
-                                    {
-                                        ["id"] = 15903,
-                                    },
-                                    {
-                                        ["id"] = 15909,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15927,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15702,
-                                    },
-                                    {
-                                        ["id"] = 15715,
-                                    },
-                                    {
-                                        ["id"] = 15727,
-                                    },
-                                    {
-                                        ["id"] = 15733,
-                                    },
-                                    {
-                                        ["id"] = 15739,
-                                    },
-                                    {
-                                        ["id"] = 15745,
-                                    },
-                                    {
-                                        ["id"] = 15709,
-                                    },
-                                    {
-                                        ["id"] = 15721,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15930,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15760,
-                                    },
-                                    {
-                                        ["id"] = 15766,
-                                    },
-                                    {
-                                        ["id"] = 15772,
-                                    },
-                                    {
-                                        ["id"] = 15778,
-                                    },
-                                    {
-                                        ["id"] = 16305,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15933,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15791,
-                                    },
-                                    {
-                                        ["id"] = 15802,
-                                    },
-                                    {
-                                        ["id"] = 15821,
-                                    },
-                                    {
-                                        ["id"] = 15838,
-                                    },
-                                    {
-                                        ["id"] = 15844,
-                                    },
-                                    {
-                                        ["id"] = 15850,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 15936,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 15830,
-                                    },
-                                    {
-                                        ["id"] = 15858,
-                                    },
-                                    {
-                                        ["id"] = 15894,
-                                    },
-                                    {
-                                        ["id"] = 15900,
-                                    },
-                                    {
-                                        ["id"] = 15906,
-                                    },
-                                    {
-                                        ["id"] = 15912,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17294,
-                        ["children"] = {
-                            {
-                                ["id"] = 17279,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 17214,
-                                    },
-                                    {
-                                        ["id"] = 17223,
-                                    },
-                                    {
-                                        ["id"] = 17243,
-                                    },
-                                    {
-                                        ["id"] = 17252,
-                                    },
-                                    {
-                                        ["id"] = 17261,
-                                    },
-                                    {
-                                        ["id"] = 17270,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 17284,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 17217,
-                                    },
-                                    {
-                                        ["id"] = 17237,
-                                    },
-                                    {
-                                        ["id"] = 17246,
-                                    },
-                                    {
-                                        ["id"] = 17255,
-                                    },
-                                    {
-                                        ["id"] = 17264,
-                                    },
-                                    {
-                                        ["id"] = 17273,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 17288,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 17220,
-                                    },
-                                    {
-                                        ["id"] = 17240,
-                                    },
-                                    {
-                                        ["id"] = 17249,
-                                    },
-                                    {
-                                        ["id"] = 17258,
-                                    },
-                                    {
-                                        ["id"] = 17267,
-                                    },
-                                    {
-                                        ["id"] = 17276,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17492,
-                        ["children"] = {
-                            {
-                                ["id"] = 17483,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 17429,
-                                    },
-                                    {
-                                        ["id"] = 17438,
-                                    },
-                                    {
-                                        ["id"] = 17447,
-                                    },
-                                    {
-                                        ["id"] = 17456,
-                                    },
-                                    {
-                                        ["id"] = 17465,
-                                    },
-                                    {
-                                        ["id"] = 17474,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 17486,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 17432,
-                                    },
-                                    {
-                                        ["id"] = 17441,
-                                    },
-                                    {
-                                        ["id"] = 17450,
-                                    },
-                                    {
-                                        ["id"] = 17459,
-                                    },
-                                    {
-                                        ["id"] = 17468,
-                                    },
-                                    {
-                                        ["id"] = 17477,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 17489,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 17435,
-                                    },
-                                    {
-                                        ["id"] = 17444,
-                                    },
-                                    {
-                                        ["id"] = 17453,
-                                    },
-                                    {
-                                        ["id"] = 17462,
-                                    },
-                                    {
-                                        ["id"] = 17471,
-                                    },
-                                    {
-                                        ["id"] = 17480,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19118,
-                        ["children"] = {
-                            {
-                                ["id"] = 19109,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 18943,
-                                    },
-                                    {
-                                        ["id"] = 18978,
-                                    },
-                                    {
-                                        ["id"] = 18993,
-                                    },
-                                    {
-                                        ["id"] = 19032,
-                                    },
-                                    {
-                                        ["id"] = 19047,
-                                    },
-                                    {
-                                        ["id"] = 19062,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 19112,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 18946,
-                                    },
-                                    {
-                                        ["id"] = 18981,
-                                    },
-                                    {
-                                        ["id"] = 18996,
-                                    },
-                                    {
-                                        ["id"] = 19035,
-                                    },
-                                    {
-                                        ["id"] = 19050,
-                                    },
-                                    {
-                                        ["id"] = 19065,
-                                    },
-                                },
-                            },
-                            {
-                                ["id"] = 19115,
-                                ["children"] = {
-                                    {
-                                        ["id"] = 18949,
-                                    },
-                                    {
-                                        ["id"] = 18984,
-                                    },
-                                    {
-                                        ["id"] = 18999,
-                                    },
-                                    {
-                                        ["id"] = 19038,
-                                    },
-                                    {
-                                        ["id"] = 19053,
-                                    },
-                                    {
-                                        ["id"] = 19068,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16575,
-                        ["children"] = {
-                            {
-                                ["id"] = 15985,
-                            },
-                            {
-                                ["id"] = 16668,
-                            },
-                            {
-                                ["id"] = 16669,
-                            },
-                            {
-                                ["id"] = 15988,
-                            },
-                            {
-                                ["id"] = 15986,
-                            },
-                            {
-                                ["id"] = 15987,
-                            },
-                            {
-                                ["id"] = 15989,
-                            },
-                            {
-                                ["id"] = 15990,
-                            },
-                            {
-                                ["id"] = 15991,
-                            },
-                            {
-                                ["id"] = 16051,
-                            },
-                            {
-                                ["id"] = 16052,
-                            },
-                            {
-                                ["id"] = 16053,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16576,
-                        ["children"] = {
-                            {
-                                ["id"] = 16054,
-                            },
-                            {
-                                ["id"] = 16055,
-                            },
-                            {
-                                ["id"] = 16056,
-                            },
-                            {
-                                ["id"] = 16057,
-                            },
-                            {
-                                ["id"] = 16058,
-                            },
-                            {
-                                ["id"] = 16059,
-                            },
-                            {
-                                ["id"] = 16060,
-                            },
-                            {
-                                ["id"] = 16061,
-                            },
-                            {
-                                ["id"] = 16062,
-                            },
-                            {
-                                ["id"] = 16063,
-                            },
-                            {
-                                ["id"] = 16670,
-                            },
-                            {
-                                ["id"] = 16671,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16577,
-                        ["children"] = {
-                            {
-                                ["id"] = 16064,
-                            },
-                            {
-                                ["id"] = 16065,
-                            },
-                            {
-                                ["id"] = 16066,
-                            },
-                            {
-                                ["id"] = 16067,
-                            },
-                            {
-                                ["id"] = 16068,
-                            },
-                            {
-                                ["id"] = 16069,
-                            },
-                            {
-                                ["id"] = 16070,
-                            },
-                            {
-                                ["id"] = 16071,
-                            },
-                            {
-                                ["id"] = 16072,
-                            },
-                            {
-                                ["id"] = 16073,
-                            },
-                            {
-                                ["id"] = 16672,
-                            },
-                            {
-                                ["id"] = 16673,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 16578,
-                        ["children"] = {
-                            {
-                                ["id"] = 16098,
-                            },
-                            {
-                                ["id"] = 16099,
-                            },
-                            {
-                                ["id"] = 16100,
-                            },
-                            {
-                                ["id"] = 16101,
-                            },
-                            {
-                                ["id"] = 16102,
-                            },
-                            {
-                                ["id"] = 16103,
-                            },
-                            {
-                                ["id"] = 16104,
-                            },
-                            {
-                                ["id"] = 16105,
-                            },
-                            {
-                                ["id"] = 16106,
-                            },
-                            {
-                                ["id"] = 16107,
-                            },
-                            {
-                                ["id"] = 16666,
-                            },
-                            {
-                                ["id"] = 16667,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 17411,
-                        ["children"] = {
-                            {
-                                ["id"] = 17398,
-                            },
-                            {
-                                ["id"] = 17399,
-                            },
-                            {
-                                ["id"] = 17400,
-                            },
-                            {
-                                ["id"] = 17401,
-                            },
-                            {
-                                ["id"] = 17402,
-                            },
-                            {
-                                ["id"] = 17403,
-                            },
-                            {
-                                ["id"] = 17404,
-                            },
-                            {
-                                ["id"] = 17405,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 18150,
-                        ["children"] = {
-                            {
-                                ["id"] = 17510,
-                            },
-                            {
-                                ["id"] = 17511,
-                            },
-                            {
-                                ["id"] = 17512,
-                            },
-                            {
-                                ["id"] = 17513,
-                            },
-                            {
-                                ["id"] = 17514,
-                            },
-                            {
-                                ["id"] = 17515,
-                            },
-                            {
-                                ["id"] = 17516,
-                            },
-                            {
-                                ["id"] = 17517,
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = 19306,
-                        ["children"] = {
-                            {
-                                ["id"] = 19296,
-                            },
-                            {
-                                ["id"] = 19297,
-                            },
-                            {
-                                ["id"] = 19298,
-                            },
-                            {
-                                ["id"] = 19299,
-                            },
-                            {
-                                ["id"] = 19300,
-                            },
-                            {
-                                ["id"] = 19301,
-                            },
-                            {
-                                ["id"] = 19302,
-                            },
-                            {
-                                ["id"] = 19303,
+                                ["id"] = 49512,
+                                ["name"] = "Zovaal's Cauldron",
+                                ["criteriaType"] = 43,
                             },
                         },
                     },
