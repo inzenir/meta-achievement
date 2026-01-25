@@ -1,0 +1,44 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Row template (reused by journal list element) -->
+    <Button name="MetaAchievementJournalListRowTemplate" virtual="true">
+        <Size y="22"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentSelected" hidden="true" alphaMode="ADD" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture name="$parentIcon" hidden="true">
+                    <Size x="16" y="16"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="6" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="26" y="0"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentStatus" file="Interface\Buttons\UI-CheckBox-Check">
+                    <Size x="14" y="14"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="290" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture alphaMode="ADD" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+        </HighlightTexture>
+        <Scripts>
+            <OnClick>MetaAchievementJournalListRow_OnClick(self, button)</OnClick>
+        </Scripts>
+    </Button>
+</Ui>

@@ -1,0 +1,30 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Button name="MetaAchievementMapRequirementRowTemplate" virtual="true">
+        <Size x="1" y="20"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentCheck" hidden="false">
+                    <Size x="14" y="14"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="6" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="26" y="0"/>
+                        <Anchor point="RIGHT" x="-6" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <HighlightTexture alphaMode="ADD" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+        </HighlightTexture>
+        <Scripts>
+            <OnClick>MetaAchievementMapRequirementRow_OnClick(self, button)</OnClick>
+        </Scripts>
+    </Button>
+</Ui>

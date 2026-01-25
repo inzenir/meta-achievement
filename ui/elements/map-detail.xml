@@ -1,0 +1,185 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="ui\elements\scrollbar.xml"/>
+    <Include file="ui\elements\map-requirement-row.xml"/>
+    <Script file="ui\elements\map-detail.lua"/>
+
+    <!-- Map detail element: header, description, reward, requirements -->
+    <Frame name="MetaAchievementMapDetailTemplate" virtual="true">
+        <Size x="1" y="1"/>
+        <Scripts>
+            <OnLoad>MetaAchievementMapDetail_OnLoad(self)</OnLoad>
+        </Scripts>
+
+        <Frames>
+            <!-- Header -->
+            <Frame name="$parentHeader">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="TOPRIGHT"/>
+                </Anchors>
+                <Size x="1" y="70"/>
+
+                <Frames>
+                    <!-- Left embellished icon -->
+                    <Frame name="$parentLeftIcon">
+                        <Size x="64" y="64"/>
+                        <Anchors>
+                            <Anchor point="LEFT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture name="$parentIcon" file="Interface\Icons\INV_Misc_QuestionMark">
+                                    <Anchors>
+                                        <!-- Inset so the frame doesn't cover the icon -->
+                                        <Anchor point="TOPLEFT" />
+                                        <Anchor point="BOTTOMRIGHT"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <!-- Anchor to fill parent so it stretches/scales correctly -->
+                                <Texture name="$parentFrame" file="Interface\AchievementFrame\UI-Achievement-IconFrame" alphaMode="BLEND">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="-8" y="8"/>
+                                        <Anchor point="BOTTOMRIGHT" x="72" y="-72"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+
+                    <!-- Right badge -->
+                    <Frame name="$parentRightBadge">
+                        <Size x="64" y="64"/>
+                        <Anchors>
+                            <Anchor point="RIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <!-- Default: feat of strength shield -->
+                                <Texture name="$parentFeat" file="Interface\AchievementFrame\UI-Achievement-Shields-NOPOINTS" alphaMode="BLEND">
+                                    <Size x="72" y="72"/>
+                                    <TexCoords left="0" right="0.5" top="0" bottom="0.5"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER" y="-6"/>
+                                    </Anchors>
+                                </Texture>
+                                <!-- Embellished frame around the points badge -->
+                                <Texture name="$parentPointsFrame" hidden="true" file="Interface\AchievementFrame\UI-ACHIEVEMENT-SHIELDS" alphaMode="BLEND">
+                                    <Size x="72" y="72"/>
+                                    <TexCoords left="0" right="0.5" top="0" bottom="0.5"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER" y="-6"/>
+                                    </Anchors>
+                                </Texture>
+                                <FontString name="$parentPointsText" hidden="true" inherits="GameFontNormal" justifyH="CENTER">
+                                    <Size x="68" y="72"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER" x="0" y="-4"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+
+                    <!-- Center area between icon and points/shield -->
+                    <Frame name="$parentTitleArea">
+                        <Size x="1" y="56"/>
+                        <Anchors>
+                            <Anchor point="RIGHT" relativeTo="$parentRightBadge" relativePoint="RIGHT" x="0" y="0"/>
+                            <Anchor point="LEFT" relativeTo="$parentLeftIcon" relativePoint="LEFT" x="0" y="0"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+
+                <Layers>
+                    <!-- Banner behind the title+subtitle for readability -->
+                    <Layer level="BACKGROUND">
+                        <Texture name="$parentTitleBanner" file="Interface\Buttons\WHITE8x8" alpha="0.28">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeTo="$parentTitleArea" relativePoint="TOPLEFT"/>
+                                <Anchor point="BOTTOMRIGHT" relativeTo="$parentTitleArea" relativePoint="BOTTOMRIGHT" x="0"/>
+                            </Anchors>
+                            <Color r="0" g="0" b="0"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="ARTWORK">
+                        <!-- Title (top of banner) -->
+                        <FontString name="$parentTitle" inherits="GameFontNormalLarge" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeTo="$parentTitleArea" relativePoint="TOPLEFT" x="8" y="-4"/>
+                                <Anchor point="TOPRIGHT" relativeTo="$parentTitleArea" relativePoint="TOPRIGHT" x="-8" y="-4"/>
+                            </Anchors>
+                        </FontString>
+
+                        <!-- Short description under the title (still inside banner) -->
+                        <FontString name="$parentSubtitle" inherits="GameFontHighlightSmall" justifyH="CENTER" justifyV="TOP">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT" x="72" y="-2"/>
+                                <Anchor point="BOTTOMRIGHT" relativeTo="$parentTitleArea" relativePoint="BOTTOMRIGHT" x="-72" y="4"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+
+            <!-- Reward box -->
+            <Frame name="$parentRewardBox" inherits="InsetFrameTemplate3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentHeader" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+                    <Anchor point="TOPRIGHT" relativeTo="$parentHeader" relativePoint="BOTTOMRIGHT" x="0" y="-6"/>
+                </Anchors>
+                <Size x="1" y="60"/>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+
+            <!-- Requirements -->
+            <Frame name="$parentRequirementsBox" inherits="InsetFrameTemplate3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentRewardBox" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormalSmall" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-8"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+
+                <Frames>
+                    <ScrollFrame name="$parentScrollFrame">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="6" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="-24" y="8"/>
+                        </Anchors>
+                        <ScrollChild>
+                            <Frame name="$parentScrollChild">
+                                <Size x="1" y="1"/>
+                            </Frame>
+                        </ScrollChild>
+                    </ScrollFrame>
+
+                    <Slider name="$parentScrollBar" inherits="MetaAchievementScrollBarTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-8" y="-32"/>
+                            <Anchor point="BOTTOMRIGHT" x="-8" y="24"/>
+                        </Anchors>
+                    </Slider>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>

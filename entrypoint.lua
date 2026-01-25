@@ -74,6 +74,14 @@ function EntryPoint()
         end,
         "Reset window position")
 
+    RegisterSlashCommand("journal",
+        function()
+            if MetaAchievementJournalMap and type(MetaAchievementJournalMap.Toggle) == "function" then
+                MetaAchievementJournalMap:Toggle()
+            end
+        end,
+        "Toggle retail-style journal + map UI")
+
 
     -- Settings
     mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
@@ -119,6 +127,59 @@ function EntryPoint()
         "Interface\\Icons\\achievement_bg_masterofallbgs",
         WhatALongStrangeTripItsBeenAchievements
     )
+
+    -- Register existing achievement lists as dropdown data sources for the journal+map UI
+    if MetaAchievementJournalMap and type(MetaAchievementJournalMap.RegisterDataSource) == "function" then
+        local function registerJournalSource(key, displayName, achievementList)
+            local data = DataList:new(achievementList)
+
+            MetaAchievementJournalMap:RegisterDataSource(key, displayName, {
+                GetList = function()
+                    data:rescanData()
+                    return data:getFlatData()
+                end,
+                OnItemSelected = function(_, item)
+                    -- Intentionally no-op: selecting in our journal should not open Blizzard's Achievement UI.
+                    -- (The right pane uses map-detail to show the info.)
+                end,
+                RenderMap = function(_, _, content, node)
+                    local id = node and node.id or nil
+                    if not id then
+                        return true
+                    end
+
+                    local detailName = "MetaAchievementJournalMapDetail"
+                    local detail = _G[detailName]
+                    if not detail then
+                        detail = CreateFrame("Frame", detailName, content, "MetaAchievementMapDetailTemplate")
+                    else
+                        detail:SetParent(content)
+                    end
+
+                    detail:ClearAllPoints()
+                    -- The content frame already has padding; don't add another large inset here.
+                    detail:SetPoint("TOPLEFT", content, "TOPLEFT", 0, 0)
+                    detail:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
+                    detail:Show()
+
+                    if type(MetaAchievementMapDetail_SetFromAchievementId) == "function" then
+                        MetaAchievementMapDetail_SetFromAchievementId(detail, id, node)
+                    end
+
+                    return true
+                end
+            })
+        end
+
+        registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements)
+        registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements)
+        registerJournalSource(WindowTabs.aWorldAwoken, "A World Awoken", AWorldAwokenAchievements)
+        registerJournalSource(WindowTabs.backFromTheBeyond, "Back From The Beyond", BackFromTheBeyondAchievements)
+        registerJournalSource(WindowTabs.farewellToArms, "A Farewell To Arms", AFarewellToArmsAchievements)
+        registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements)
+
+        MetaAchievementJournalMap:Toggle()
+    end
 
     -- Draw default
     mainFrame:drawScrollContent(WindowTabs.lightUpTheNight)

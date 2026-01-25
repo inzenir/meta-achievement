@@ -37,6 +37,9 @@ map-integration\map-integration.lua
 map-integration\tomtom\tomtom-waypoint.lua
 map-integration\tomtom\tomtom.lua
 
+# ui loading
+ui\journal-map.xml
+
 # drawing loading
 drawing\tree-list.lua
 drawing\main-frame.lua

@@ -1,0 +1,74 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="ui\elements\journal-list.xml"/>
+    <Include file="ui\elements\map-detail.xml"/>
+    <Script file="ui\journal-map.lua"/>
+
+    <!-- Main frame: quest journal (left) + map canvas (right) -->
+    <Frame name="MetaAchievementJournalMapFrame" parent="UIParent" inherits="ButtonFrameTemplate" hidden="true">
+        <Size x="980" y="620"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Scripts>
+            <OnLoad>MetaAchievementJournalMapFrame_OnLoad(self)</OnLoad>
+            <OnShow>MetaAchievementJournalMapFrame_OnShow(self)</OnShow>
+        </Scripts>
+
+        <Frames>
+            <!-- Top selection: data source dropdown -->
+            <Frame name="$parentSourceDropdown" inherits="UIDropDownMenuTemplate">
+                <Size x="280" y="32"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="50" y="-28"/>
+                </Anchors>
+            </Frame>
+
+            <!-- Left: journal list element -->
+            <Frame name="$parentJournalList" inherits="MetaAchievementJournalListTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-62"/>
+                    <Anchor point="BOTTOMLEFT" x="16" y="25"/>
+                </Anchors>
+                <Size x="340" y="1"/>
+            </Frame>
+
+            <!-- Right: map canvas (content is dynamic/plug-in) -->
+            <Frame name="$parentMapInset" inherits="InsetFrameTemplate3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentJournalList" relativePoint="TOPRIGHT" x="10" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="25"/>
+                </Anchors>
+                <Frames>
+                    <Frame name="$parentMapCanvas" inherits="BackdropTemplate">
+                        <Anchors>
+                            <!-- Fill the whole inset so the background covers the entire canvas -->
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="BOTTOMRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <!-- Parchment-like background similar to quest/map panels -->
+                                <Texture name="$parentBackground" file="Interface\AchievementFrame\UI-Achievement-StatsBackground" alphaMode="BLEND" >
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="2" y="-2"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+
+                        <!-- Dynamic content container (pins, overlays, widgets, etc.) -->
+                        <Frames>
+                            <Frame name="$parentContent">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                </Anchors>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>
