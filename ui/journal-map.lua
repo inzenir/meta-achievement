@@ -71,40 +71,36 @@ function MetaAchievementJournalMap:GetDataSourcesSorted()
 end
 
 function MetaAchievementJournalMap:RefreshDropdown(frame)
-    if not frame or not frame.SourceDropdown then
+    if not frame then
         return
     end
 
     local sources = self:GetDataSourcesSorted()
 
-    UIDropDownMenu_SetWidth(frame.SourceDropdown, 240)
-    UIDropDownMenu_JustifyText(frame.SourceDropdown, "LEFT")
+    -- Cache sources directly on breadcrumbs so it can access without callbacks.
+    if frame.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetDataSources) == "function" then
+        MetaAchievementBreadcrumbsDropdown_SetDataSources(frame.Breadcrumbs, sources)
+    elseif frame.Breadcrumbs then
+        frame.Breadcrumbs._cachedDataSources = sources
+    end
 
-    UIDropDownMenu_Initialize(frame.SourceDropdown, function(dropdown, level)
-        for _, src in ipairs(sources) do
-            local info = UIDropDownMenu_CreateInfo()
-            info.text = src.name
-            info.value = src.key
-            info.func = function()
-                MetaAchievementJournalMap:SelectSource(frame, src.key)
-            end
+    -- Update breadcrumbs with new source selection
+    if frame.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback) == "function" then
+        MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
+            frame.Breadcrumbs,
+            function()
+                return MetaAchievementJournalMap:GetDataSourcesSorted()
+            end,
+            function(key)
+                MetaAchievementJournalMap:SelectSource(frame, key)
+            end,
+            frame._selectedSourceKey
+        )
+    end
 
-            -- Radio style: always show a circle; selected one is filled (gold dot)
-            info.isNotRadio = false
-            info.notCheckable = false
-            info.checked = (frame._selectedSourceKey == src.key)
-
-            UIDropDownMenu_AddButton(info, level)
-        end
-    end)
-
-    if frame._selectedSourceKey and self.dataSources and self.dataSources[frame._selectedSourceKey] then
-        UIDropDownMenu_SetSelectedValue(frame.SourceDropdown, frame._selectedSourceKey)
-        UIDropDownMenu_SetText(frame.SourceDropdown, self.dataSources[frame._selectedSourceKey].name)
-    elseif sources[1] then
+    -- Auto-select first source if none selected
+    if not frame._selectedSourceKey and sources[1] then
         self:SelectSource(frame, sources[1].key)
-    else
-        UIDropDownMenu_SetText(frame.SourceDropdown, "No sources registered")
     end
 end
 
@@ -114,6 +110,18 @@ local function buildModelFromProvider(provider)
         items = {}
     end
     return items
+end
+
+local function findIndexById(items, id)
+    if type(items) ~= "table" or not id then
+        return nil
+    end
+    for i, node in ipairs(items) do
+        if node and node.id == id then
+            return i
+        end
+    end
+    return nil
 end
 
 local function setFramePortrait(frame, texturePath)
@@ -181,8 +189,19 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
     frame._modelItems = buildModelFromProvider(src.provider)
     frame._selectedIndex = nil
 
-    UIDropDownMenu_SetSelectedValue(frame.SourceDropdown, key)
-    UIDropDownMenu_SetText(frame.SourceDropdown, src.name)
+    -- Update breadcrumbs with new source selection
+    if frame.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback) == "function" then
+        MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
+            frame.Breadcrumbs,
+            function()
+                return MetaAchievementJournalMap:GetDataSourcesSorted()
+            end,
+            function(key)
+                MetaAchievementJournalMap:SelectSource(frame, key)
+            end,
+            frame._selectedSourceKey
+        )
+    end
 
     -- Update the ButtonFrameTemplate portrait to the "top achievement" icon for this source.
     local portraitIcon =
@@ -197,6 +216,11 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
 
     if frame.JournalList and type(MetaAchievementJournalList_SetItems) == "function" then
         MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems)
+    end
+
+    -- Reset breadcrumbs for this source (selection will re-set it).
+    if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
+        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, nil)
     end
 
     -- When switching/opening a source, default to the first item so the map is populated immediately.
@@ -221,6 +245,9 @@ function MetaAchievementJournalMap:SetSelectedIndex(frame, index)
         MetaAchievementJournalList_SetSelectedIndex(frame.JournalList, index)
     end
     local item = frame._modelItems and frame._modelItems[index] or nil
+    if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
+        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, item)
+    end
     self:RenderMap(frame, item)
 end
 
@@ -320,17 +347,25 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     self.SourceDropdown = _G[self:GetName() .. "SourceDropdown"]
     self.JournalList = _G[self:GetName() .. "JournalList"]
     self.MapInset = _G[self:GetName() .. "MapInset"]
+    self.Breadcrumbs = _G[self:GetName() .. "Breadcrumbs"]
 
-    -- Force dropdown above template artwork
-    local baseLevel = self:GetFrameLevel() or 0
+    -- Hide the old dropdown (functionality moved to breadcrumbs)
     if self.SourceDropdown then
-        self.SourceDropdown:SetFrameLevel(baseLevel + 20)
-        self.SourceDropdown:Show()
+        self.SourceDropdown:Hide()
+    end
 
-        local btn = _G[self.SourceDropdown:GetName() .. "Button"]
-        if btn and btn.SetFrameLevel then
-            btn:SetFrameLevel(baseLevel + 21)
-        end
+    -- Set up breadcrumbs data source callback
+    if self.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback) == "function" then
+        MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
+            self.Breadcrumbs,
+            function()
+                return MetaAchievementJournalMap:GetDataSourcesSorted()
+            end,
+            function(key)
+                MetaAchievementJournalMap:SelectSource(self, key)
+            end,
+            self._selectedSourceKey
+        )
     end
     -- Subscribe to list element events
     if MetaAchievementUIBus and type(MetaAchievementUIBus.Register) == "function" then
@@ -344,6 +379,16 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
                     safeCall(src.provider.OnItemSelected, src.provider, item, button)
                     safeCall(src.provider.onItemSelected, src.provider, item, button)
                 end
+            end
+        end)
+
+        MetaAchievementUIBus:Register("MA_BREADCRUMB_CLICKED", function(owner, nodeId, node, button)
+            if not frameRef or owner ~= frameRef.Breadcrumbs then
+                return
+            end
+            local idx = findIndexById(frameRef._modelItems, nodeId)
+            if idx then
+                MetaAchievementJournalMap:SetSelectedIndex(frameRef, idx)
             end
         end)
     end

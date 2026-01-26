@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\breadcrumbs.lua"/>
+    <Script file="ui\elements\breadcrumbs-dropdown.lua"/>
+
+    <!-- Breadcrumbs element: shows Parent > Child > Selected -->
+    <Frame name="MetaAchievementBreadcrumbsTemplate" inherits="NavBarTemplate" virtual="true">
+        <Size x="1" y="34"/>
+        <Scripts>
+            <OnLoad>MetaAchievementBreadcrumbs_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

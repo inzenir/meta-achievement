@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Include file="ui\elements\journal-list.xml"/>
     <Include file="ui\elements\map-detail.xml"/>
+    <Include file="ui\elements\breadcrumbs.xml"/>
     <Script file="ui\journal-map.lua"/>
 
     <!-- Main frame: quest journal (left) + map canvas (right) -->
@@ -15,11 +16,12 @@
         </Scripts>
 
         <Frames>
-            <!-- Top selection: data source dropdown -->
-            <Frame name="$parentSourceDropdown" inherits="UIDropDownMenuTemplate">
-                <Size x="280" y="32"/>
+            <!-- Breadcrumbs: selected achievement + parents (includes data source dropdown in first button) -->
+            <Frame name="$parentBreadcrumbs" inherits="MetaAchievementBreadcrumbsTemplate">
+                <Size x="1" y="34"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="50" y="-28"/>
+                    <Anchor point="TOPLEFT" x="54" y="-24"/>
+                    <Anchor point="TOPRIGHT" x="0" y="-24"/>
                 </Anchors>
             </Frame>
 
