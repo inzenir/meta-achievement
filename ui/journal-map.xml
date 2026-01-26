@@ -28,7 +28,7 @@
             <!-- Left: journal list element -->
             <Frame name="$parentJournalList" inherits="MetaAchievementJournalListTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-62"/>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
                     <Anchor point="BOTTOMLEFT" x="16" y="25"/>
                 </Anchors>
                 <Size x="340" y="1"/>
@@ -37,7 +37,7 @@
             <!-- Right: map canvas (content is dynamic/plug-in) -->
             <Frame name="$parentMapInset" inherits="InsetFrameTemplate3">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="$parentJournalList" relativePoint="TOPRIGHT" x="10" y="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$parentJournalList" relativePoint="TOPRIGHT" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="-6" y="25"/>
                 </Anchors>
                 <Frames>
