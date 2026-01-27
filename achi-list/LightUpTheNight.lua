@@ -5,6 +5,9 @@ LightUpTheNightAchievements = {
         icon="Interface\\Icons\\inv_12_dualityphoenix_lightvoid_explosion",
         ["children"] = {
             {
+                id=15643
+            },
+            {
                 -- Forever Song
                 id=62261,
                 ["children"] = {

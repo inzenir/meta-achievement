@@ -302,7 +302,8 @@ function MetaAchievementJournalMap:RenderMap(frame, selectedItem)
         detail:Show()
 
         if selectedItem and selectedItem.id and type(MetaAchievementMapDetail_SetFromAchievementId) == "function" then
-            MetaAchievementMapDetail_SetFromAchievementId(detail, selectedItem.id, selectedItem)
+            local topId = (src and src.provider and src.provider.topAchievementId) or nil
+            MetaAchievementMapDetail_SetFromAchievementId(detail, selectedItem.id, selectedItem, topId)
         elseif type(MetaAchievementMapDetail_SetData) == "function" then
             MetaAchievementMapDetail_SetData(detail, {
                 title = "Select an item",

@@ -15,13 +15,16 @@ Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 # achievement data
 map-zones.lua
 achi-list\WorldSoulSearching.lua
+achi-list\WorldSoulSearching.waypoints.lua
 achi-list\AFarewellToArms.lua
 achi-list\AWorldAwoken.lua
 achi-list\BackFromTheBeyond.lua
 achi-list\WhatALongStrangeTripItsBeen.lua
 achi-list\LightUpTheNight.lua
+achi-list\LightUpTheNight.waypoints.lua
 
 # logic loading
+logic\modern\achievement-data.lua
 logic\data-list.lua
 logic\settings.lua
 logic\debug.lua

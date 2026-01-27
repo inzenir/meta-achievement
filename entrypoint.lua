@@ -86,6 +86,11 @@ function EntryPoint()
     -- Settings
     mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
 
+
+
+    AchievementData:RegisterDataSource(61451, WorldSoulSearchingWaypoints)
+    AchievementData:RegisterDataSource(62386, LightUpTheNightWaypoints)
+
     createAchievementTab(
         "Light Up The Night",
         WindowTabs.lightUpTheNight,
@@ -134,6 +139,7 @@ function EntryPoint()
             local data = DataList:new(achievementList)
 
             MetaAchievementJournalMap:RegisterDataSource(key, displayName, {
+                topAchievementId = data.topAchievementId,
                 GetList = function()
                     data:rescanData()
                     return data:getFlatData()
@@ -163,7 +169,7 @@ function EntryPoint()
                     detail:Show()
 
                     if type(MetaAchievementMapDetail_SetFromAchievementId) == "function" then
-                        MetaAchievementMapDetail_SetFromAchievementId(detail, id, node)
+                        MetaAchievementMapDetail_SetFromAchievementId(detail, id, node, data.topAchievementId)
                     end
 
                     return true

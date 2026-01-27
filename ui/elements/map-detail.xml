@@ -95,7 +95,7 @@
                 <Layers>
                     <!-- Banner behind the title+subtitle for readability -->
                     <Layer level="BACKGROUND">
-                        <Texture name="$parentTitleBanner" file="Interface\Buttons\WHITE8x8" alpha="0.28">
+                        <Texture name="$parentTitleBanner" file="Interface\Buttons\WHITE8x8" alpha="0.45"> <!-- alpha="0.28" -->
                             <Anchors>
                                 <Anchor point="TOPLEFT" relativeTo="$parentTitleArea" relativePoint="TOPLEFT"/>
                                 <Anchor point="BOTTOMRIGHT" relativeTo="$parentTitleArea" relativePoint="BOTTOMRIGHT" x="0"/>
@@ -142,6 +142,53 @@
                 </Layers>
             </Frame>
 
+            <!-- Note/help (flatInfo.helpText), between rewards and requirements -->
+            <Frame name="$parentHelpBox" inherits="InsetFrameTemplate3" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentRewardBox" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+                    <Anchor point="TOPRIGHT" relativeTo="$parentRewardBox" relativePoint="BOTTOMRIGHT" x="0" y="-6"/>
+                </Anchors>
+                <Size x="1" y="88"/>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormalSmall" justifyH="LEFT" text="QUEST HELP">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-8"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <ScrollFrame name="$parentScrollFrame">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="6" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="-24" y="8"/>
+                        </Anchors>
+                        <ScrollChild>
+                            <Frame name="$parentScrollChild">
+                                <Size x="1" y="1"/>
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="8" y="0"/>
+                                                <Anchor point="RIGHT" x="-8" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                            </Frame>
+                        </ScrollChild>
+                    </ScrollFrame>
+                    <Slider name="$parentScrollBar" inherits="MetaAchievementScrollBarTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-8" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="-8" y="24"/>
+                        </Anchors>
+                    </Slider>
+                </Frames>
+            </Frame>
+
             <!-- Requirements -->
             <Frame name="$parentRequirementsBox" inherits="InsetFrameTemplate3">
                 <Anchors>
@@ -175,6 +222,53 @@
                     <Slider name="$parentScrollBar" inherits="MetaAchievementScrollBarTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="-8" y="-32"/>
+                            <Anchor point="BOTTOMRIGHT" x="-8" y="24"/>
+                        </Anchors>
+                    </Slider>
+                </Frames>
+            </Frame>
+
+            <!-- Criteria information (flatInfo.criteria[criteriaId]) when a requirement row is clicked -->
+            <Frame name="$parentCriteriaInfoBox" inherits="InsetFrameTemplate3" hidden="true">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Size x="1" y="80"/>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormalSmall" justifyH="LEFT" text="CRITERIA INFORMATION">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-8"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <ScrollFrame name="$parentScrollFrame">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="6" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="-24" y="8"/>
+                        </Anchors>
+                        <ScrollChild>
+                            <Frame name="$parentScrollChild">
+                                <Size x="1" y="1"/>
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="8" y="0"/>
+                                                <Anchor point="RIGHT" x="-8" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                            </Frame>
+                        </ScrollChild>
+                    </ScrollFrame>
+                    <Slider name="$parentScrollBar" inherits="MetaAchievementScrollBarTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-8" y="-24"/>
                             <Anchor point="BOTTOMRIGHT" x="-8" y="24"/>
                         </Anchors>
                     </Slider>

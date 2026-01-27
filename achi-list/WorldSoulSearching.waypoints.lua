@@ -6,12 +6,13 @@
 WorldSoulSearchingWaypoints = {
     -- Main achievement: Worldsoul-Searching (61451)
     [61451] = {
-        -- This achievement has no criteria, only children
+        helpText = "Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning",
+        _helpText = " Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning",
     },
     
     -- Achievement 40435: Adventurer of the Isle of Dorn
     [40435] = {
-        helpText = "",
+        helpText = "test 123",
         criteria = {
             [68210] = {
                 helpText = "General area (Check WoWHead for more info)",
