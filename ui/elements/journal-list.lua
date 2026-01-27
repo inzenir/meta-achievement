@@ -1,5 +1,5 @@
--- Journal list UI element (inset + scrollframe + separate scrollbar).
--- Renders items, manages selection UI, and communicates with parent via MetaAchievementUIBus events.
+-- Journal list UI element: Blizzard WowScrollBoxList + MinimalScrollBar (pet/mount journal look).
+-- Uses CreateScrollBoxListLinearView + SetElementInitializer + ScrollUtil.InitScrollBoxListWithScrollBar.
 
 local ROW_HEIGHT = 22
 local ROW_GAP = 0
@@ -17,183 +17,139 @@ local function ensureBus()
     if type(MetaAchievementUIBus.Emit) ~= "function" then
         function MetaAchievementUIBus:Emit(eventName, ...)
             local list = self._listeners and self._listeners[eventName]
-            if not list then
-                return
-            end
-            for _, handler in ipairs(list) do
-                pcall(handler, ...)
-            end
+            if not list then return end
+            for _, handler in ipairs(list) do pcall(handler, ...) end
         end
     end
-end
-
-local function updateScrollChildWidth(self)
-    if not self or not self.ScrollFrame or not self.ScrollFrame.ScrollChild then
-        return
-    end
-
-    local scrollChild = self.ScrollFrame.ScrollChild
-    -- IMPORTANT: Do NOT touch ScrollChild points here.
-    -- ScrollFrame moves the scroll child while scrolling; clearing/setting points breaks hit rects after scroll.
-    local w = self.ScrollFrame:GetWidth() or 0
-    if w > 0 then
-        scrollChild:SetWidth(w)
-    end
-end
-
-local function acquireRow(self, idx)
-    self._rowPool = self._rowPool or {}
-    local row = self._rowPool[idx]
-    if row then
-        row:Show()
-        return row
-    end
-
-    local scrollChild = self.ScrollFrame and self.ScrollFrame.ScrollChild or nil
-    if not scrollChild then
-        return nil
-    end
-
-    local rowName = self:GetName() .. "Row" .. tostring(idx)
-    row = CreateFrame("Button", rowName, scrollChild, "MetaAchievementJournalListRowTemplate")
-    row:SetHeight(ROW_HEIGHT)
-    row:EnableMouse(true)
-    row:RegisterForClicks("AnyUp")
-    row:SetScript("OnClick", MetaAchievementJournalListRow_OnClick)
-    row._index = idx
-    row._owner = self
-
-    row.Text = _G[rowName .. "Text"]
-    row.Icon = _G[rowName .. "Icon"]
-    row.Status = _G[rowName .. "Status"]
-    row.Selected = _G[rowName .. "Selected"]
-
-    self._rowPool[idx] = row
-    return row
-end
-
-local function render(self)
-    if not self.ScrollFrame or not self.ScrollFrame.ScrollChild then
-        return
-    end
-
-    local model = self._items or {}
-    local scrollChild = self.ScrollFrame.ScrollChild
-
-    -- Ensure the scroll child matches the visible scrollframe width,
-    -- otherwise rows can end up effectively 1px wide (looks fine, but isn't clickable).
-    updateScrollChildWidth(self)
-
-    self._rowPool = self._rowPool or {}
-
-    -- hide extra
-    for i = #model + 1, #self._rowPool do
-        if self._rowPool[i] then
-            self._rowPool[i]:Hide()
-        end
-    end
-
-    for i, item in ipairs(model) do
-        local row = acquireRow(self, i)
-        if not row then
-            return
-        end
-
-        row._index = i
-        row:ClearAllPoints()
-        if i == 1 then
-            row:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, -2)
-        else
-            row:SetPoint("TOPLEFT", self._rowPool[i - 1], "BOTTOMLEFT", 0, -ROW_GAP)
-        end
-        row:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
-
-        local text = item.title or item.data.name or tostring(item.id or "")
-        local depth = tonumber(item.depth or 0) or 0
-        if depth > 0 then
-            text = string.rep("   ", depth) .. text
-        end
-
-        if row.Text and row.Text.SetText then
-            row.Text:SetText(text)
-        end
-
-        if row.Icon then
-            if item.data.icon then
-                row.Icon:SetTexture(item.data.icon)
-                row.Icon:Show()
-            else
-                row.Icon:Hide()
-            end
-        end
-
-        if row.Status then
-            row.Status:SetTexture(item.completedIcon)
-            
-        end
-
-        if row.Selected then
-            row.Selected:SetShown(self._selectedIndex == i)
-        end
-    end
-
-    scrollChild:SetHeight((#model * (ROW_HEIGHT + ROW_GAP)) + 8)
 end
 
 function MetaAchievementJournalList_OnLoad(self)
     ensureBus()
 
-    self.ScrollFrame = _G[self:GetName() .. "ScrollFrame"]
-    if self.ScrollFrame then
-        self.ScrollFrame.ScrollChild = _G[self.ScrollFrame:GetName() .. "ScrollChild"]
-    end
-    self.ScrollBar = _G[self:GetName() .. "ScrollBar"]
+    self.ScrollBox = self.ScrollBox or _G[self:GetName() .. "ScrollBox"]
+    self.ScrollBar = self.ScrollBar or _G[self:GetName() .. "ScrollBar"]
 
     self._items = {}
     self._selectedIndex = nil
-    self._rowPool = {}
 
-    if self.ScrollFrame then
-        self.ScrollFrame:HookScript("OnSizeChanged", function()
-            updateScrollChildWidth(self)
-            render(self)
-        end)
+    if not self.ScrollBox or not self.ScrollBar or not CreateScrollBoxListLinearView or not ScrollUtil or not ScrollUtil.InitScrollBoxListWithScrollBar then
+        return
     end
 
-    if self.ScrollBar and self.ScrollFrame and type(MetaAchievementScrollBar_Attach) == "function" then
-        MetaAchievementScrollBar_Attach(self.ScrollBar, self.ScrollFrame)
-    end
+    local scrollBox, scrollBar = self.ScrollBox, self.ScrollBar
+    local list = self
 
-    -- Forward scrollbar events as list events
-    MetaAchievementUIBus:Register("MA_SCROLLBAR_VALUE_CHANGED", function(scrollBar, scrollFrame, value)
-        if scrollBar == self.ScrollBar and scrollFrame == self.ScrollFrame then
-            MetaAchievementUIBus:Emit("MA_JOURNAL_LIST_SCROLL_CHANGED", self, value)
+    local view = CreateScrollBoxListLinearView()
+    view:SetElementExtent(ROW_HEIGHT)
+
+    view:SetElementInitializer("MetaAchievementJournalListRowTemplate", function(frame, elementData)
+        local item = elementData and elementData.item
+        local index = elementData and elementData.index or 0
+        if not frame or not item then return end
+
+        frame._owner = list
+        frame._index = index
+        frame._item = item
+
+        if not frame.Text then
+            local name = frame:GetName()
+            if name then
+                frame.Text = _G[name .. "Text"]
+                frame.Icon = _G[name .. "Icon"]
+                frame.Status = _G[name .. "Status"]
+                frame.Selected = _G[name .. "Selected"]
+            else
+                -- ScrollBox creates frames without global names; find regions by type
+                local highlightTex = frame.GetHighlightTexture and frame:GetHighlightTexture()
+                local regions = { frame:GetRegions() }
+                local texIdx = 0
+                for _, r in ipairs(regions) do
+                    if r and r.GetObjectType then
+                        local t = r:GetObjectType()
+                        if t == "FontString" then
+                            frame.Text = r
+                        elseif t == "Texture" and r ~= highlightTex then
+                            texIdx = texIdx + 1
+                            if texIdx == 1 then frame.Selected = r
+                            elseif texIdx == 2 then frame.Icon = r
+                            elseif texIdx == 3 then frame.Status = r
+                            end
+                        end
+                    end
+                end
+            end
         end
+
+        local text = item.title or (item.data and item.data.name) or tostring(item.id or "")
+        local depth = tonumber(item.depth or 0) or 0
+        if depth > 0 then
+            text = string.rep("   ", depth) .. text
+        end
+
+        if frame.Text and frame.Text.SetText then
+            frame.Text:SetText(text)
+        end
+        if frame.Icon then
+            if item.data and item.data.icon then
+                frame.Icon:SetTexture(item.data.icon)
+                frame.Icon:Show()
+            else
+                frame.Icon:Hide()
+            end
+        end
+        if frame.Status then
+            frame.Status:SetTexture(item.completedIcon or "")
+        end
+        if frame.Selected then
+            frame.Selected:SetShown(list._selectedIndex == index)
+        end
+
+        frame:SetScript("OnClick", function(f, btn)
+            list._selectedIndex = f._index
+            if list._view and list._view.Refresh then list._view:Refresh() end
+            local it = list._items and list._items[f._index]
+            MetaAchievementUIBus:Emit("MA_JOURNAL_LIST_ITEM_CLICKED", list, f._index, it, btn)
+        end)
     end)
+
+    ScrollUtil.InitScrollBoxListWithScrollBar(scrollBox, scrollBar, view)
+
+    local dataProvider = CreateDataProvider()
+    scrollBox:SetDataProvider(dataProvider)
+
+    self._dataProvider = dataProvider
+    self._view = view
 end
 
 function MetaAchievementJournalList_SetItems(self, items)
     self._items = items or {}
     self._selectedIndex = nil
-    render(self)
+    local dp = self._dataProvider
+    if not dp then return end
+    dp:Flush()
+    for i, item in ipairs(self._items) do
+        dp:Insert({ index = i, item = item })
+    end
+    if self._view and self._view.Refresh then
+        self._view:Refresh()
+    end
 end
 
 function MetaAchievementJournalList_SetSelectedIndex(self, index)
     self._selectedIndex = index
-    render(self)
+    if self._view and self._view.Refresh then
+        self._view:Refresh()
+    end
 end
 
 function MetaAchievementJournalListRow_OnClick(row, button)
     ensureBus()
     local list = row._owner
-    if not list then
-        return
-    end
-
+    if not list then return end
     list._selectedIndex = row._index
-    render(list)
-
-    local item = list._items and list._items[row._index] or nil
+    if list._view and list._view.Refresh then
+        list._view:Refresh()
+    end
+    local item = list._items and list._items[row._index]
     MetaAchievementUIBus:Emit("MA_JOURNAL_LIST_ITEM_CLICKED", list, row._index, item, button)
 end
-

@@ -30,6 +30,17 @@ local function setScrollChildWidth(self)
     end
 end
 
+local function refreshRequirementsDataProvider(self)
+    local box = self.RequirementsBox
+    if not box or not box._dataProvider then return end
+    local dp = box._dataProvider
+    dp:Flush()
+    for i, req in ipairs(self._requirements or {}) do
+        dp:Insert({ index = i, req = req })
+    end
+    if box._view and box._view.Refresh then box._view:Refresh() end
+end
+
 local function updateHelpBoxContent(self, helpText)
     if not self.HelpBox or not self.HelpBox.ScrollFrame or not self.HelpBox.ScrollFrame.ScrollChild or not self.HelpBox.Text then
         return
@@ -199,8 +210,8 @@ function MetaAchievementMapDetail_OnLoad(self)
             end
         end
         self.HelpBox.ScrollBar = _G[self.HelpBox:GetName() .. "ScrollBar"]
-        if self.HelpBox.ScrollBar and self.HelpBox.ScrollFrame and type(MetaAchievementScrollBar_Attach) == "function" then
-            MetaAchievementScrollBar_Attach(self.HelpBox.ScrollBar, self.HelpBox.ScrollFrame)
+        if self.HelpBox.ScrollBar and self.HelpBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
+            ScrollUtil.InitScrollFrameWithScrollBar(self.HelpBox.ScrollFrame, self.HelpBox.ScrollBar)
         end
     end
     if self.RequirementsBox then
@@ -208,18 +219,79 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.RequirementsBox.Label and self.RequirementsBox.Label.SetText then
             self.RequirementsBox.Label:SetText("REQUIREMENTS")
         end
-        self.RequirementsBox.ScrollFrame = _G[self.RequirementsBox:GetName() .. "ScrollFrame"]
-        if self.RequirementsBox.ScrollFrame then
-            self.RequirementsBox.ScrollFrame.ScrollChild = _G[self.RequirementsBox.ScrollFrame:GetName() .. "ScrollChild"]
-            self.RequirementsBox.ScrollFrame:HookScript("OnSizeChanged", function()
-                setScrollChildWidth(self)
-                renderRequirements(self)
-            end)
-        end
+        self.RequirementsBox.ScrollBox = _G[self.RequirementsBox:GetName() .. "ScrollBox"]
         self.RequirementsBox.ScrollBar = _G[self.RequirementsBox:GetName() .. "ScrollBar"]
 
-        if self.RequirementsBox.ScrollBar and self.RequirementsBox.ScrollFrame and type(MetaAchievementScrollBar_Attach) == "function" then
-            MetaAchievementScrollBar_Attach(self.RequirementsBox.ScrollBar, self.RequirementsBox.ScrollFrame)
+        if self.RequirementsBox.ScrollBox and self.RequirementsBox.ScrollBar and CreateScrollBoxListLinearView and ScrollUtil and ScrollUtil.InitScrollBoxListWithScrollBar and CreateDataProvider then
+            local box = self.RequirementsBox
+            local scrollBox, scrollBar = box.ScrollBox, box.ScrollBar
+            local detail = self
+
+            local view = CreateScrollBoxListLinearView()
+            view:SetElementExtent(REQUIREMENT_ROW_HEIGHT)
+
+            view:SetElementInitializer("MetaAchievementMapRequirementRowTemplate", function(frame, elementData)
+                local req = elementData and elementData.req
+                local index = elementData and elementData.index or 0
+                if not frame or not req then return end
+
+                frame._owner = detail
+                frame._index = index
+
+                if not frame.Text then
+                    local name = frame:GetName()
+                    if name then
+                        frame.Text = _G[name .. "Text"]
+                        frame.Check = _G[name .. "Check"]
+                    else
+                        local highlightTex = frame.GetHighlightTexture and frame:GetHighlightTexture()
+                        local function isHighlightTexture(tex)
+                            if not tex or tex == highlightTex then return true end
+                            local path = tex.GetTexture and tex:GetTexture()
+                            if type(path) == "string" and path:find("QuestTitleHighlight", 1, true) then
+                                return true
+                            end
+                            return false
+                        end
+                        local regions = { frame:GetRegions() }
+                        for _, r in ipairs(regions) do
+                            if r and r.GetObjectType then
+                                if r:GetObjectType() == "FontString" then
+                                    frame.Text = r
+                                elseif r:GetObjectType() == "Texture" and not isHighlightTexture(r) and not frame.Check then
+                                    frame.Check = r
+                                end
+                            end
+                        end
+                    end
+                end
+                if frame.Text and frame.Text.SetText then
+                    frame.Text:SetText(req.text or "")
+                end
+                if frame.Check then
+                    if req.completed == true then
+                        frame.Check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+                        frame.Check:SetVertexColor(1, 1, 1)
+                    else
+                        frame.Check:SetTexture("Interface\\Buttons\\UI-StopButton")
+                        frame.Check:SetVertexColor(1, 0, 0)
+                    end
+                end
+
+                frame:SetScript("OnClick", function(f, btn)
+                    if MetaAchievementMapRequirementRow_OnClick then
+                        MetaAchievementMapRequirementRow_OnClick(f, btn or "LeftButton")
+                    end
+                end)
+            end)
+
+            ScrollUtil.InitScrollBoxListWithScrollBar(scrollBox, scrollBar, view)
+
+            local dataProvider = CreateDataProvider()
+            scrollBox:SetDataProvider(dataProvider)
+
+            box._dataProvider = dataProvider
+            box._view = view
         end
     end
     self.CriteriaInfoBox = _G[self:GetName() .. "CriteriaInfoBox"]
@@ -233,8 +305,8 @@ function MetaAchievementMapDetail_OnLoad(self)
             end
         end
         self.CriteriaInfoBox.ScrollBar = _G[self.CriteriaInfoBox:GetName() .. "ScrollBar"]
-        if self.CriteriaInfoBox.ScrollBar and self.CriteriaInfoBox.ScrollFrame and type(MetaAchievementScrollBar_Attach) == "function" then
-            MetaAchievementScrollBar_Attach(self.CriteriaInfoBox.ScrollBar, self.CriteriaInfoBox.ScrollFrame)
+        if self.CriteriaInfoBox.ScrollBar and self.CriteriaInfoBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
+            ScrollUtil.InitScrollFrameWithScrollBar(self.CriteriaInfoBox.ScrollFrame, self.CriteriaInfoBox.ScrollBar)
         end
     end
 
@@ -447,7 +519,7 @@ function MetaAchievementMapDetail_SetData(self, data)
     updateRewardHelpAndRequirementsLayout(self, data.reward, data.helpText)
 
     self._requirements = data.requirements or {}
-    renderRequirements(self)
+    refreshRequirementsDataProvider(self)
 end
 
 local function getAchievementInfoSafe(achievementId)

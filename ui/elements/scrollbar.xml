@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Script file="ui\elements\scrollbar.lua"/>
 
-    <!-- Standalone scrollbar element (separate from the scroll frame) -->
-    <Slider name="MetaAchievementScrollBarTemplate" virtual="true" inherits="UIPanelScrollBarTemplate">
+    <!-- Scrollbar: MinimalScrollBarTemplate (WowTrimScrollBarTemplate is for ScrollBox only and stays invisible as standalone). -->
+    <Slider name="MetaAchievementScrollBarTemplate" virtual="true" inherits="MinimalScrollBarTemplate">
         <Size x="16" y="1"/>
         <Scripts>
             <OnLoad>MetaAchievementScrollBar_OnLoad(self)</OnLoad>
