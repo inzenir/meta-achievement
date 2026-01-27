@@ -3,7 +3,7 @@
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
 ## Version: @project-version@
-## IconTexture: images\achievement_zone_isleofdorn.jpg
+## IconTexture: Interface\AddOns\Worldsoul_Searching\images\achievement_zone_isleofdorn
 ## SavedVariables: MetaAchievementConfigurationDB
 
 # libs
