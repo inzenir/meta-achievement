@@ -1,0 +1,26 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\waypoint-button.lua"/>
+    <Button name="MetaAchievementWaypointButtonTemplate" virtual="true">
+        <Size x="36" y="36"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentIcon" file="Interface\MINIMAP\Minimap-Waypoint-MapPin-Tracked">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture file="Interface\Waypoint\WaypoinMapPinUI">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+            <TexCoords left="0.295" right="0.58" top="-0.05" bottom="0.55"/>
+        </HighlightTexture>
+        <Scripts>
+            <OnLoad>MetaAchievementWaypointButton_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Button>
+</Ui>
