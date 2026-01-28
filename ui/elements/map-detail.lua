@@ -297,6 +297,7 @@ function MetaAchievementMapDetail_OnLoad(self)
     self.CriteriaInfoBox = _G[self:GetName() .. "CriteriaInfoBox"]
     if self.CriteriaInfoBox then
         self.CriteriaInfoBox.Label = _G[self.CriteriaInfoBox:GetName() .. "Label"]
+        self.CriteriaInfoBox.WaypointButton = _G[self.CriteriaInfoBox:GetName() .. "WaypointButton"]
         self.CriteriaInfoBox.ScrollFrame = _G[self.CriteriaInfoBox:GetName() .. "ScrollFrame"]
         if self.CriteriaInfoBox.ScrollFrame then
             self.CriteriaInfoBox.ScrollFrame.ScrollChild = _G[self.CriteriaInfoBox.ScrollFrame:GetName() .. "ScrollChild"]

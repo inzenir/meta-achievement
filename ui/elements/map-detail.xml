@@ -239,6 +239,31 @@
                     </Layer>
                 </Layers>
                 <Frames>
+                    <!-- Waypoint button: shown when criteria has a waypoint; position + icon only, no logic -->
+                    <Button name="$parentWaypointButton" hidden="false">
+                        <Size x="36" y="36"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-8" y="12"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\MINIMAP\Minimap-Waypoint-MapPin-Tracked">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT"/>
+                                        <Anchor point="BOTTOMRIGHT"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <HighlightTexture file="Interface\Waypoint\WaypoinMapPinUI">
+                            <Anchors>
+                                <Anchor point="TOPLEFT"/>
+                                <Anchor point="BOTTOMRIGHT"/>
+                            </Anchors>
+                            <!-- Top row, 2nd icon (yellow diamond outline / targeted highlight) -->
+                            <TexCoords left="0.295" right="0.58" top="-0.05" bottom="0.55"/>
+                        </HighlightTexture>
+                    </Button>
                     <ScrollFrame name="$parentScrollFrame">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="6" y="-24"/>
