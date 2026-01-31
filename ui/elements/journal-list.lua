@@ -99,6 +99,12 @@ function MetaAchievementJournalList_OnLoad(self)
         end
         if frame.Status then
             frame.Status:SetTexture(item.completedIcon or "")
+            -- Red color for incomplete (X icon), default for completed (checkmark)
+            if item.completedIcon and item.completedIcon:find("StopButton", 1, true) then
+                frame.Status:SetVertexColor(1, 0, 0, 1)  -- Red
+            else
+                frame.Status:SetVertexColor(1, 1, 1, 1)  -- Default (white/gold)
+            end
         end
         if frame.Selected then
             frame.Selected:SetShown(list._selectedIndex == index)

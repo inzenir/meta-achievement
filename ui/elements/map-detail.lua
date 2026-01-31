@@ -219,6 +219,10 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.RequirementsBox.Label and self.RequirementsBox.Label.SetText then
             self.RequirementsBox.Label:SetText("REQUIREMENTS")
         end
+        self.RequirementsBox.WaypointButton = _G[self.RequirementsBox:GetName() .. "WaypointButton"]
+        if self.RequirementsBox.WaypointButton and MetaAchievementWaypointButton_SetTooltip then
+            MetaAchievementWaypointButton_SetTooltip(self.RequirementsBox.WaypointButton, "Add all waypoints")
+        end
         self.RequirementsBox.ScrollBox = _G[self.RequirementsBox:GetName() .. "ScrollBox"]
         self.RequirementsBox.ScrollBar = _G[self.RequirementsBox:GetName() .. "ScrollBar"]
 
@@ -298,6 +302,9 @@ function MetaAchievementMapDetail_OnLoad(self)
     if self.CriteriaInfoBox then
         self.CriteriaInfoBox.Label = _G[self.CriteriaInfoBox:GetName() .. "Label"]
         self.CriteriaInfoBox.WaypointButton = _G[self.CriteriaInfoBox:GetName() .. "WaypointButton"]
+        if self.CriteriaInfoBox.WaypointButton and MetaAchievementWaypointButton_SetTooltip then
+            MetaAchievementWaypointButton_SetTooltip(self.CriteriaInfoBox.WaypointButton, "Add waypoint")
+        end
         self.CriteriaInfoBox.ScrollFrame = _G[self.CriteriaInfoBox:GetName() .. "ScrollFrame"]
         if self.CriteriaInfoBox.ScrollFrame then
             self.CriteriaInfoBox.ScrollFrame.ScrollChild = _G[self.CriteriaInfoBox.ScrollFrame:GetName() .. "ScrollChild"]
@@ -634,6 +641,20 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     self._flatInfo = flatInfo
     data.helpText = (flatInfo and type(flatInfo.helpText) == "string" and flatInfo.helpText ~= "") and flatInfo.helpText or nil
     MetaAchievementMapDetail_SetData(self, data)
+
+    -- Show/hide RequirementsBox waypoint button based on whether any criteria has waypoints
+    local hasAnyWaypoint = false
+    if flatInfo and type(flatInfo.criteria) == "table" then
+        for _, cinfo in pairs(flatInfo.criteria) do
+            if type(cinfo.waypoints) == "table" and #cinfo.waypoints > 0 then
+                hasAnyWaypoint = true
+                break
+            end
+        end
+    end
+    if self.RequirementsBox and self.RequirementsBox.WaypointButton then
+        self.RequirementsBox.WaypointButton:SetShown(hasAnyWaypoint)
+    end
 end
 
 -- Map: criteriaType -> function(owner, criteriaInfo, achievementId, criteriaIndex).

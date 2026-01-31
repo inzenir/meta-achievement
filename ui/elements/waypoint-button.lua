@@ -36,4 +36,27 @@ function MetaAchievementWaypointButton_OnLoad(self)
     self:SetScript("OnMouseDown", nudgeDown)
     self:SetScript("OnMouseUp", resetNudge)
     self:SetScript("OnLeave", resetNudge)
+    self._waypointButtonOnLeave = resetNudge
+end
+
+--- Set optional hover tooltip text. Call after the button is created.
+--- @param button frame The waypoint button frame
+--- @param text string|nil Tooltip text; nil to remove tooltip
+function MetaAchievementWaypointButton_SetTooltip(button, text)
+    if not button then return end
+    if not text or text == "" then
+        button:SetScript("OnEnter", nil)
+        button:SetScript("OnLeave", button._waypointButtonOnLeave)
+        return
+    end
+    local baseOnLeave = button._waypointButtonOnLeave or button:GetScript("OnLeave")
+    button:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
+        GameTooltip:SetText(text, nil, nil, nil, nil, true)
+        GameTooltip:Show()
+    end)
+    button:SetScript("OnLeave", function()
+        if baseOnLeave then baseOnLeave() end
+        GameTooltip:Hide()
+    end)
 end
