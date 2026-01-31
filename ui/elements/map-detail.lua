@@ -400,6 +400,7 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
 
     local hasReward = not isRewardEmpty(rewardText)
     local hasHelp = self.HelpBox and hasHelpText(helpText)
+    local hasRequirements = self._requirements and #self._requirements > 0
 
     self.RewardBox:SetShown(hasReward)
 
@@ -417,6 +418,12 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
             -- Refresh scroll content with correct width now that the box is laid out
             updateHelpBoxContent(self, helpText)
         end
+    end
+
+    -- Hide RequirementsBox if there are no requirements
+    self.RequirementsBox:SetShown(hasRequirements)
+    if not hasRequirements then
+        return
     end
 
     -- Requirements anchor below help (if shown), else reward, else header. Bottom is above Criteria information when that box is shown.
@@ -523,10 +530,10 @@ function MetaAchievementMapDetail_SetData(self, data)
 
     self._currentRewardText = data.reward or ""
     self._currentHelpText = data.helpText or ""
+    self._requirements = data.requirements or {}
+
     setCriteriaInfoBox(self, nil)
     updateRewardHelpAndRequirementsLayout(self, data.reward, data.helpText)
-
-    self._requirements = data.requirements or {}
     refreshRequirementsDataProvider(self)
 end
 
