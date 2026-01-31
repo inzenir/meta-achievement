@@ -385,6 +385,21 @@ local function isRewardEmpty(rewardText)
     return false
 end
 
+local DEFAULT_WAYPOINT_HELP = "Use the waypoint button to add this location to your map."
+
+local function criterionHasWaypoints(cinfo)
+    if not cinfo or type(cinfo.waypoints) ~= "table" then
+        return false
+    end
+    if #cinfo.waypoints > 0 then
+        return true
+    end
+    for _ in pairs(cinfo.waypoints) do
+        return true
+    end
+    return false
+end
+
 local function hasHelpText(helpText)
     if type(helpText) ~= "string" then
         return false
@@ -707,7 +722,11 @@ local function criteriaTypeHandler_Default(owner, criteriaInfo, achievementId, c
         return
     end
     -- Show criteria-level helpText in the "Criteria information" box below requirements. Title includes criteria name when available.
+    -- If criterion has waypoints but no helpText, use default so the box (and waypoint button) are shown.
     local ht = (type(cinfo.helpText) == "string" and cinfo.helpText ~= "") and normalizeForWrap(cinfo.helpText) or ""
+    if ht == "" and criterionHasWaypoints(cinfo) then
+        ht = DEFAULT_WAYPOINT_HELP
+    end
     local criteriaName = (criteriaInfo and type(criteriaInfo.criteriaString) == "string") and criteriaInfo.criteriaString or nil
     setCriteriaInfoBox(owner, ht, criteriaName)
 end

@@ -6,254 +6,255 @@
 WorldSoulSearchingWaypoints = {
     -- Main achievement: Worldsoul-Searching (61451)
     [61451] = {
-        _helpText = "Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning",
-        helpText = " Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning",
+        helpText = "Complete The War Within exploration, dungeons, and reputation achievements.",
     },
     
     -- Achievement 40435: Adventurer of the Isle of Dorn
     [40435] = {
-        _helpText = "test 123",
-        helpText = " Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning",
+        helpText = "Defeat 10 of 22 rare enemies in the Isle of Dorn. Each rare grants 150 Council of Dornogal rep once per week.",
         criteria = {
+            -- One-time rare spawns (only count as rare on first kill per character)
             [68210] = {
-                _helpText = "General area (Check WoWHead for more info)",
-                helpText = " Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning Released on December 2, 2025. Patch 11.2.7, Midnight Prologue: The Warning",
+                helpText = "One-time rare spawn. Only counts as rare on first kill.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 36, y = 75, title = "Rustul Titancap <King Mushroom>" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 35.8, y = 74.8, title = "Rustul Titancap" }
                         }
                     }
                 }
             },
             [68211] = {
-                helpText = "",
+                helpText = "One-time rare spawn. Only counts as rare on first kill.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 63, y = 68, title = "Sandres the Relicbearer" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 62.8, y = 68.4, title = "Sandres the Relicbearer" }
                         }
                     }
                 }
             },
             [68212] = {
-                helpText = "",
+                helpText = "One-time rare spawn. Only counts as rare on first kill.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 59, y = 61, title = "Springbubble" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 58.6, y = 60.6, title = "Springbubble" }
                         }
                     }
                 }
             },
             [68213] = {
-                helpText = "General area (Check WoWHead for more info)",
+                helpText = "One-time rare spawn. Patrols the area between multiple points.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 59, y = 61, title = "Warphorn" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 57.0, y = 34.6, title = "Warphorn (spawn 1)" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56.4, y = 36.4, title = "Warphorn (spawn 2)" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56.6, y = 38.2, title = "Warphorn (spawn 3)" }
                         }
                     }
                 }
             },
             [68214] = {
-                helpText = "General area (Check WoWHead for more info)",
+                helpText = "One-time rare spawn. Only counts as rare on first kill.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 42, y = 77, title = "Bloodmaw" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 41.8, y = 76.2, title = "Bloodmaw" }
                         }
                     }
                 }
             },
             [68215] = {
-                helpText = "",
+                helpText = "One-time rare spawn. Only counts as rare on first kill.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 48, y = 61, title = "Emperor Pitfang" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 47.8, y = 60.2, title = "Emperor Pitfang" }
                         }
                     }
                 }
             },
+            -- Repeatable rare spawns (always count as rare)
             [68216] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 51, y = 70, title = "Plaguehart" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 50.8, y = 69.8, title = "Plaguehart" }
                         }
                     }
                 }
             },
             [68217] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 54, y = 80, title = "Gar'loc <High Sea Shaman>" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 53.6, y = 79.8, title = "Gar'loc" }
                         }
                     }
                 }
             },
             [68218] = {
-                helpText = "",
+                helpText = "Repeatable rare. Under an overturned boat on the shore. 10-15 min respawn.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 26, y = 45, title = "Escaped Cutthroat" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 25.8, y = 45.0, title = "Escaped Cutthroat" }
                         }
                     }
                 }
             },
             [68219] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 58, y = 17, title = "Tempest Lord Incarnus" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 57.4, y = 16.2, title = "Tempest Lord Incarnus" }
                         }
                     }
                 }
             },
             [68220] = {
-                helpText = "On top of mountain, can knock you off with slam",
+                helpText = "Repeatable rare. On top of mountain, can knock you off with slam ability.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 48, y = 27, title = "Kronolith, Might of the Mountain" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 48.0, y = 27.0, title = "Kronolith, Might of the Mountain" }
                         }
                     }
                 }
             },
             [68221] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 75, y = 28, title = "Shallowshell the Clacker" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 74.0, y = 27.6, title = "Shallowshell the Clacker" }
                         }
                     }
                 }
             },
             [68222] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 57, y = 23, title = "Twice-Stinger the Wretched" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 57.0, y = 22.6, title = "Twice-Stinger the Wretched" }
                         }
                     }
                 }
             },
             [68223] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 64, y = 41, title = "Flamekeeper Graz" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 64.0, y = 40.6, title = "Flamekeeper Graz" }
                         }
                     }
                 }
             },
             [68224] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56, y = 28, title = "Clawbreaker K'zithix" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 55.6, y = 27.0, title = "Clawbreaker K'zithix" }
                         }
                     }
                 }
             },
             [68225] = {
-                helpText = "Collect 10 Crackling Shards by killing any mobs in the Isle of Dorn and combine them to create a Storm Vessel. Use Storm Vessel to dispel Alunira's shield.",
+                helpText = "Collect 10 Crackling Shards from any mobs in Isle of Dorn to create Storm Vessel. Use it to break her shield. Rewards Alunira mount to player who breaks shield!",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 23, y = 58, title = "Alunira" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 23.2, y = 58.4, title = "Alunira" }
                         }
                     }
                 }
             },
             [68226] = {
-                helpText = "On rotation with: Zovex, Kereke, Rotfist",
+                helpText = "Violet Hold Prisoner. Rotates spawn with Kereke and Rotfist at same location.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 31, y = 52, title = "Zovex <Violet Hold Prisoner>" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 30.8, y = 52.4, title = "Zovex" }
                         }
                     }
                 }
             },
             [68227] = {
-                helpText = "On rotation with: Zovex, Kereke, Rotfist",
+                helpText = "Violet Hold Prisoner. Rotates spawn with Zovex and Rotfist at same location.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 31, y = 52, title = "Kereke <Violet Hold Prisoner>" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 30.8, y = 52.4, title = "Kereke" }
                         }
                     }
                 }
             },
             [68228] = {
-                helpText = "On rotation with: Zovex, Kereke, Rotfist",
+                helpText = "Violet Hold Prisoner. Rotates spawn with Zovex and Kereke. Can drop Coagulating Phlegm Churner cosmetic.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 31, y = 52, title = "Rotfist <Violet Hold Prisoner>" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 30.8, y = 52.4, title = "Rotfist" }
                         }
                     }
                 }
             },
             [68229] = {
-                helpText = "General area, check WoWHead for more info",
+                helpText = "Elite rare. Right next to Matriarch Charfuria, can pull both.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 74, y = 39, title = "Tephratennae" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 72.6, y = 40.0, title = "Tephratennae" }
                         }
                     }
                 }
             },
             [68230] = {
-                helpText = "",
+                helpText = "Repeatable rare. Always level 80.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 70, y = 39, title = "Sweetspark the Oozeful" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 71.4, y = 38.0, title = "Sweetspark the Oozeful" }
                         }
                     }
                 }
             },
             [68231] = {
-                helpText = "",
+                helpText = "Elite rare. Right next to Tephratennae, can pull both.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 73, y = 41, title = "Matriarch Charfuria" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 72.8, y = 40.4, title = "Matriarch Charfuria" }
                         }
                     }
                 }
@@ -263,143 +264,144 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40434: Treasures of the Isle of Dorn
     [40434] = {
-        helpText = "",
+        helpText = "Collect 12 hidden treasures across Isle of Dorn. Each grants 150 Council of Dornogal rep.",
         criteria = {
             [68197] = {
-                helpText = "Get Crab-Guiding Branch from Freysworn Letitia. When you have the branch, find 6 Pearlescent Shellcrabs",
+                helpText = "Get Crab-Guiding Branch from Freysworn Letitia in cave. Find 6 Pearlescent Shellcrabs, then return to her. Reward: Hanna's Locket.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 49, y = 30, title = "Tree's Treasure" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 38.5, y = 42, title = "Pearlescent Shellcrab 1" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 20, y = 58.5, title = "Pearlescent Shellcrab 2" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 50.5, y = 70.5, title = "Pearlescent Shellcrab 3" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 75, y = 49.5, title = "Pearlescent Shellcrab 4" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 70.5, y = 20, title = "Pearlescent Shellcrab 5" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 42, y = 27, title = "Pearlescent Shellcrab 6" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 48.6, y = 30.1, title = "Freysworn Letitia (cave)" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 19.6, y = 58.4, title = "Crab 1 - Dhar Oztan coast" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 50.6, y = 70.6, title = "Crab 2 - Boskroot Basin" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 74.8, y = 49.4, title = "Crab 3 - Cinderbrew Meadery" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 70.8, y = 20.0, title = "Crab 4 - Three Shields" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 41.8, y = 27.0, title = "Crab 5 - North of Dornogal" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 38.2, y = 42.0, title = "Crab 6 - Storm's Watch tree" }
                         }
                     }
                 }
             },
             [68198] = {
-                helpText = "Fish or buy on the auction house following items: 5x Dornish Pike, 1x Fish and Chips, 1x Goldengill Trout. Turn in to the Dalaran Sewer Turtle.",
+                helpText = "Need 5x Dornish Pike + 1x Goldengill Trout (fish or buy on AH). Give to turtle in Freywold, leave and return, then find turtle in Dornogal. Reward: Sewer Turtle Whistle pet.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 41, y = 74, title = "Turtle's Thanks" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 40.9, y = 73.8, title = "Dalaran Sewer Turtle (Freywold)" },
+                            { mapId = MapZones.TWW_ZONE_Dornogal, x = 58.3, y = 30.3, title = "Turtle in Dornogal (final turn-in)" }
                         }
                     }
                 }
             },
             [68199] = {
-                helpText = "Use Lionel and find 5 Plump Snapcrab on the shore nearby",
+                helpText = "Speak to Lionel the fish, help him into water. Find 5 Plump Snapcrabs along shore nearby, bring to Lionel. Reward: Sapphire Crab pet.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 41, y = 60, title = "Magical Treasure Chest" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 40.6, y = 60.0, title = "Lionel the fish" }
                         }
                     }
                 }
             },
             [68201] = {
-                helpText = "",
+                helpText = "Talk to Weary Water Elemental, loot Elemental Pearl from bottom of nearby waterfall, return it. Reward: Waterlord's Iridescent Gem (342g).",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 54, y = 19, title = "Mysterious Orb - Turn in location" },
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 53, y = 18.5, title = "Mysterious Orb - Find Peral first" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 54.0, y = 19.0, title = "Weary Water Elemental" },
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 53.1, y = 18.6, title = "Elemental Pearl (waterfall bottom)" }
                         }
                     }
                 }
             },
             [68202] = {
-                helpText = "Find Boskroot Cap mushroom to the south It has a random spawn point. Turn it it to the U'llort the Self-Exiled",
+                helpText = "Find Boskroot Cap mushroom (skinny red mushroom) nearby and bring to U'llort the Self-Exiled. Reward: Mycobloom.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 55, y = 66, title = "Mushroom Cap" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 55.0, y = 65.6, title = "U'llort the Self-Exiled" }
                         }
                     }
                 }
             },
             [68203] = {
-                helpText = "Talk with One-Eyed Thak and follow him",
+                helpText = "Talk to One-Eyed Thak at Storm's Watch and follow him. Reward: Ostentatious Onyx / Ambivalent Amber.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 38, y = 44, title = "Thak's Treasure" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 38.1, y = 43.6, title = "One-Eyed Thak" }
                         }
                     }
                 }
             },
             [68204] = {
-                helpText = "Find Lost Mosswool 3 times and then wait for treasure to spawn",
+                helpText = "Find Lost Mosswool, interact with it. It runs and reappears nearby (minimap marker). Repeat 3 times for treasure. Reward: Lil' Moss Rosy pet.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 60, y = 25, title = "Mosswool Flower" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 59.6, y = 24.6, title = "Lost Mosswool (Rambleshire)" }
                         }
                     }
                 }
             },
             [68205] = {
-                helpText = "Shared with other players, can take some time to respawn",
+                helpText = "On broken statue base at Mourning Rise. Shared spawn, may need to wait. Reward: Kobold Mastermind's 'Pivel'.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 63, y = 43, title = "Kobold Pickaxe" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 62.6, y = 43.3, title = "Kobold Pickaxe" }
                         }
                     }
                 }
             },
             [68206] = {
-                helpText = "Find it on the shore",
+                helpText = "Southeastern shore of largest island of The Three Shields. Reward: Jade Pearl (200g).",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 77, y = 24, title = "Jade Pearl" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 77.3, y = 24.5, title = "Jade Pearl" }
                         }
                     }
                 }
             },
             [68207] = {
-                helpText = "Underground",
+                helpText = "In pool at bottom of Opalcrag cave. Reward: Null Lotus / Luredrop.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 49, y = 61, title = "Shimmering Opal Lily" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 48.9, y = 60.8, title = "Shimmering Opal Lily" }
                         }
                     }
                 }
             },
             [68208] = {
-                helpText = "Shared with other players, can take some time to respawn",
+                helpText = "On table in front of Leifar at Boulder Springs. Reward: Infused Fire-Honey Milk (saves you from death once in Khaz Algar).",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56, y = 61, title = "Infused Cinderbrew" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56.3, y = 60.9, title = "Infused Cinderbrew" }
                         }
                     }
                 }
             },
             [68209] = {
-                helpText = "Shared with other players, can take some time to respawn",
+                helpText = "Bottom floor of Dhar Kazhad tower, against crates. Reward: Storm Defender's Axe.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 59, y = 23, title = "Web-Wrapped Axe" }
+                            { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 59.1, y = 23.5, title = "Web-Wrapped Axe" }
                         }
                     }
                 }
@@ -409,12 +411,12 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40606: Flat Earthen
     [40606] = {
-        helpText = "Get crushed by the machine in central Dornogal forge",
+        helpText = "Stand under the stamping machine in the Forgegrounds and let it crush you to complete the 'Crushed!' objective.",
         waypoints = {
             {
                 kind = "point",
                 coordinates = {
-                    { mapId = MapZones.TWW_ZONE_Dornogal, x = 50, y = 61, title = "Flat Earthen" }
+                    { mapId = MapZones.TWW_ZONE_Dornogal, x = 50, y = 60, title = "Stamping machine (Forgegrounds)" }
                 }
             }
         }
@@ -422,12 +424,12 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40859: We're Here All Night
     [40859] = {
-        helpText = "",
+        helpText = "Complete 5 different Theater Troupe plays: The Rivals, Forget Me Not, The Wanderer, The Cruelty of Dornic, The Thraegar's Descent. Event starts every hour on the hour.",
         waypoints = {
             {
                 kind = "point",
                 coordinates = {
-                    { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56, y = 51, title = "Theater Troupe location" }
+                    { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56, y = 51, title = "Stage Manager Huberta" }
                 }
             }
         }
@@ -435,12 +437,12 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40860: A Star of Dorn
     [40860] = {
-        helpText = "Talk to NPCs at renown 3, 8, 14, and 21.",
+        helpText = "Unlock all 4 Theater Troupe actor perks at Council of Dornogal renown 8, 10, 14, and 21. Talk to Wedneline, Elma, Rabaan, and Burkhalt at the Proscenium after reaching each renown.",
         waypoints = {
             {
                 kind = "point",
                 coordinates = {
-                    { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 57, y = 52, title = "Achievement NPCs" }
+                    { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56.4, y = 51.4, title = "Proscenium (Theater Troupe)" }
                 }
             }
         }
@@ -448,114 +450,114 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40504: Rocked to Sleep
     [40504] = {
-        helpText = "",
+        helpText = "Read plaques on 10 inert earthen scattered across The Ringing Deeps. Interact with each plaque to register it.",
         criteria = {
             [68684] = {
-                helpText = "",
+                helpText = "Edge of cliff in The Warrens.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 58.7, y = 36.3, title = "Attwogaz" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62.89, y = 36.48, title = "Attwogaz" }
                         }
                     }
                 }
             },
             [68682] = {
-                helpText = "",
+                helpText = "Candleslag Quarry, near metal wall in The Earthenworks.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 41.3, y = 13.5, title = "Hathlaz" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 44.23, y = 13.63, title = "Hathlaz" }
                         }
                     }
                 }
             },
             [68685] = {
-                helpText = "",
+                helpText = "Edge of cliff between waterfalls in The Waterworks.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 39, y = 40.9, title = "Krattdaz" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 43.14, y = 40.88, title = "Krattdaz" }
                         }
                     }
                 }
             },
             [68686] = {
-                helpText = "",
+                helpText = "Near two dead creatures at cliff edge in Lost Mines.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 51, y = 30, title = "Uisgaz" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 55.03, y = 30.27, title = "Uisgaz" }
                         }
                     }
                 }
             },
             [68687] = {
-                helpText = "",
+                helpText = "Button on side of large metal pipe in Gundargaz.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 44.4, y = 31.75, title = "Venedaz" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.59, y = 31.74, title = "Venedaz" }
                         }
                     }
                 }
             },
             [68688] = {
-                helpText = "",
+                helpText = "Surface of large metal pipe in Abyssal Excavation.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 55, y = 93.5, title = "Merunth" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.22, y = 93.73, title = "Merunth" }
                         }
                     }
                 }
             },
             [68689] = {
-                helpText = "",
+                helpText = "Near foliage in The Waterworks.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 45.2, y = 49, title = "Varerko" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 49.39, y = 49.06, title = "Varerko" }
                         }
                     }
                 }
             },
             [68690] = {
-                helpText = "",
+                helpText = "Edge of mountain in The Living Grotto.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 44.4, y = 70.6, title = "Alfritha" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.56, y = 70.71, title = "Alfritha" }
                         }
                     }
                 }
             },
             [68691] = {
-                helpText = "",
+                helpText = "Edge of cliff behind large rocks in Lightless Chasm.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 61.3, y = 73.7, title = "Gundrig" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 65.48, y = 83.81, title = "Gundrig" }
                         }
                     }
                 }
             },
             [68692] = {
-                helpText = "",
+                helpText = "Near giant mining structure in Taelloch.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60, y = 55.75, title = "Sathilga" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 64.04, y = 55.76, title = "Sathilga" }
                         }
                     }
                 }
@@ -565,10 +567,10 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40837: Adventurer of The Ringing Deeps
     [40837] = {
-        helpText = "",
+        helpText = "Defeat 10 of 18 rare enemies in The Ringing Deeps. Each grants 150 Assembly of the Deeps rep once per week.",
         criteria = {
             [69623] = {
-                helpText = "",
+                helpText = "One-time rare spawn.",
                 waypoints = {
                     {
                         kind = "point",
@@ -579,7 +581,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69624] = {
-                helpText = "",
+                helpText = "One-time rare spawn.",
                 waypoints = {
                     {
                         kind = "point",
@@ -601,7 +603,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69626] = {
-                helpText = "",
+                helpText = "One-time rare spawn.",
                 waypoints = {
                     {
                         kind = "point",
@@ -623,7 +625,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69628] = {
-                helpText = "",
+                helpText = "Repeatable rare.",
                 waypoints = {
                     {
                         kind = "point",
@@ -645,7 +647,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69630] = {
-                helpText = "",
+                helpText = "Repeatable rare.",
                 waypoints = {
                     {
                         kind = "point",
@@ -656,18 +658,19 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69631] = {
-                helpText = "",
+                helpText = "Cave at 72.9, 44.4. Kill Roots of Trungal inside to summon.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 71.6, y = 46.2, title = "Trungal" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 72.9, y = 44.4, title = "Cave entrance" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 71.7, y = 46.3, title = "Trungal" }
                         }
                     }
                 }
             },
             [69632] = {
-                helpText = "",
+                helpText = "Repeatable rare.",
                 waypoints = {
                     {
                         kind = "point",
@@ -689,7 +692,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69634] = {
-                helpText = "",
+                helpText = "Repeatable rare.",
                 waypoints = {
                     {
                         kind = "point",
@@ -700,7 +703,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69635] = {
-                helpText = "",
+                helpText = "Repeatable rare.",
                 waypoints = {
                     {
                         kind = "point",
@@ -711,7 +714,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69636] = {
-                helpText = "Respawn can take up to 6 hours",
+                helpText = "Elite. Respawn can take up to 6 hours. Chance to drop Earthen Adventurer's Tabard cosmetic.",
                 waypoints = {
                     {
                         kind = "point",
@@ -722,23 +725,23 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69637] = {
-                helpText = "Need to pull 5 levers, you need a group of 5 people",
+                helpText = "Elite. Pull all 5 levers within ~10 seconds. Need a group of 5 people.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.8, y = 76.6, title = "Lurker of the Deeps" },
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 49.5, y = 8.75, title = "Lever 1" },
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 54, y = 25.25, title = "Lever 2" },
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 57.5, y = 23.5, title = "Lever 3" },
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62.75, y = 44.5, title = "Lever 4" },
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59, y = 92.5, title = "Lever 5" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.8, y = 76.7, title = "Lurker of the Deeps" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 49.5, y = 8.8, title = "Lever 1" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 53.9, y = 25.3, title = "Lever 2" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 57.6, y = 23.6, title = "Lever 3" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62.8, y = 44.6, title = "Lever 4" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.0, y = 92.4, title = "Lever 5" }
                         }
                     }
                 }
             },
             [69638] = {
-                helpText = "General area, check WoWhead for more information",
+                helpText = "Patrols the spore-infested tunnels.",
                 waypoints = {
                     {
                         kind = "point",
@@ -749,7 +752,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69639] = {
-                helpText = "",
+                helpText = "Repeatable rare.",
                 waypoints = {
                     {
                         kind = "point",
@@ -760,12 +763,12 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69640] = {
-                helpText = "",
+                helpText = "Elite. Use 'Stomp' ability when close to draw it out of the ground.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 67.0, y = 52.6, title = "Disturbed Earthgorger" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 66.9, y = 52.5, title = "Disturbed Earthgorger" }
                         }
                     }
                 }
@@ -775,22 +778,22 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 40724: Treasures of The Ringing Deeps
     [40724] = {
-        helpText = "",
+        helpText = "Collect 10 hidden treasures in The Ringing Deeps. Each grants 150 Assembly of the Deeps rep.",
         criteria = {
             [69280] = {
-                helpText = "",
+                helpText = "Back of spider cave (Chittering Den).",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 68.7, y = 40.8, title = "Cave entrance" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 68.7, y = 40.9, title = "Cave entrance" },
                             { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 68.9, y = 38.8, title = "Webbed Knapsack" }
                         }
                     }
                 }
             },
             [69281] = {
-                helpText = "",
+                helpText = "On boulder in Taelloch Mine. Reward: Cursed Pickaxe.",
                 waypoints = {
                     {
                         kind = "point",
@@ -801,19 +804,18 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69282] = {
-                helpText = "",
+                helpText = "Small cave in Nibelgaz Mine.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 54.6, y = 14.2, title = "Cave entrance" },
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 55.4, y = 13.9, title = "Munderut's Forgotten Stash" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 54.7, y = 14.2, title = "Munderut's Forgotten Stash" }
                         }
                     }
                 }
             },
             [69283] = {
-                helpText = "",
+                helpText = "Between two lava waterfalls in The Earthenworks. Reward: Lava-Forged Cogwheel.",
                 waypoints = {
                     {
                         kind = "point",
@@ -824,7 +826,7 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69304] = {
-                helpText = "",
+                helpText = "Top of waterfall in The Warrens.",
                 waypoints = {
                     {
                         kind = "point",
@@ -835,18 +837,18 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69307] = {
-                helpText = "",
+                helpText = "Light all 10 nearby candles quickly. Reward: Oop'lajax pet.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59, y = 30.3, title = "Scary Dark Chest" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 58.9, y = 30.3, title = "Scary Dark Chest" }
                         }
                     }
                 }
             },
             [69308] = {
-                helpText = "Bluesberry Blast > Orange O-pocalypse > Oyster Outburst > Mangoro Mania",
+                helpText = "Inn at Camp Murroch. Press buttons in order: Bluesberry (3rd) > Orange (bottom) > Oyster (top) > Mangoro (2nd). Reward: Goblin Mini Fridge.",
                 waypoints = {
                     {
                         kind = "point",
@@ -857,32 +859,1050 @@ WorldSoulSearchingWaypoints = {
                 }
             },
             [69311] = {
-                helpText = "",
+                helpText = "Solve pipe puzzle at Blocked Intake grate. Reward: Blightbud pet.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.25, y = 49, title = "Dislodged Blockage" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.2, y = 48.9, title = "Dislodged Blockage" }
                         }
                     }
                 }
             },
             [69312] = {
-                helpText = "",
+                helpText = "Bottom room of inn in Gundargaz. Loot 5 gems from Loose Crystal Shards: Deepamethyst (57.2, 21.8), Deepemerald (59.0, 38.0), Deepdiamond (68.1, 53.1), Deepruby (57.4, 49.4), Deeptopaz (62.5, 63.0).",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 49, y = 31.5, title = "Dusty Prospector's Chest" }
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 49.0, y = 31.6, title = "Dusty Prospector's Chest" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 57.2, y = 21.8, title = "Deepamethyst Shard" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.0, y = 38.0, title = "Deepemerald Shard" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 68.1, y = 53.1, title = "Deepdiamond Shard" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 57.4, y = 49.4, title = "Deepruby Shard" },
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62.5, y = 63.0, title = "Deeptopaz Shard" }
                         }
                     }
                 }
             },
             [69313] = {
-                helpText = "",
-                waypoints = {}
+                helpText = "Cave behind waterfall in Cataract River. Open other chests for Forgotten Key. Reward: Sovereign's Finery Chest.",
+                waypoints = {
+                    {
+                        kind = "point",
+                        coordinates = {
+                            { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 52.0, y = 53.1, title = "Forgotten Treasure" }
+                        }
+                    }
+                }
             },
         }
+    },
+    
+    -- Achievement 41187: Rage Aside the Machine (parent)
+    [41187] = {
+        helpText = "Complete all Ringing Deeps achievements: Adventurer, Treasures, Awakening the Machine, Notable Machines, Not So Quick Fix, To All the Slimes I Love, Super Size Snuffling.",
+    },
+    
+    -- Achievement 40662: It's Not Much, But It's Honest Work
+    [40662] = {
+        helpText = "Defeat Awakened Phalanx in Awakening the Machine event. Start in Gundargaz. Survive 20 waves with Speaker Kuldas. Reward: Machine-Warden title.",
+        waypoints = {
+            {
+                kind = "point",
+                coordinates = {
+                    { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48, y = 35, title = "Gundargaz (event start)" }
+                }
+            }
+        }
+    },
+    
+    -- Achievement 40585: Super Size Snuffling
+    [40585] = {
+        helpText = "Obtain 100 Odd Globs of Wax via Snuffling activity in The Ringing Deeps.",
+    },
+    
+    -- Achievement 40628: Notable Machines
+    [40628] = {
+        helpText = "Read 6 Notes On The Machine Speakers fragments scattered in The Ringing Deeps.",
+        criteria = {
+            [68991] = { helpText = "Fragment I", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 41.7, y = 28.8, title = "Fragment I" } } } } },
+            [68992] = { helpText = "Fragment II", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 44.7, y = 25.9, title = "Fragment II" } } } } },
+            [68993] = { helpText = "Fragment III", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 46.9, y = 14.5, title = "Fragment III" } } } } },
+            [68994] = { helpText = "Fragment IV", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 35.7, y = 21, title = "Fragment IV" } } } } },
+            [68995] = { helpText = "Fragment V", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.5, y = 58.8, title = "Fragment V" } } } } },
+            [68996] = { helpText = "Fragment VI", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.9, y = 79.6, title = "Fragment VI" } } } } },
+        }
+    },
+    
+    -- Achievement 40473: Not So Quick Fix
+    [40473] = {
+        helpText = "Repair 6 busted earthen consoles in The Ringing Deeps.",
+        criteria = {
+            [68658] = { helpText = "Water Console", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 41.2, y = 46.4, title = "Water Console" } } } } },
+            [68659] = { helpText = "Abyssal Console", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 54.8, y = 93.4, title = "Abyssal Console" } } } } },
+            [68660] = { helpText = "Taelloch Console", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.5, y = 61.1, title = "Taelloch Console" } } } } },
+            [68661] = { helpText = "Obsidian Console", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 64.9, y = 48.75, title = "Obsidian Console" } } } } },
+            [68662] = { helpText = "Lost Console", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 52.25, y = 22.55, title = "Lost Console" } } } } },
+            [68663] = { helpText = "Earthen Console", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 42.1, y = 14.1, title = "Earthen Console" } } } } },
+        }
+    },
+    
+    -- Achievement 40475: To All the Slimes I Love
+    [40475] = {
+        helpText = "Use /love on 18 different critters in The Ringing Deeps.",
+        criteria = {
+            [68670] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 53.5, y = 67.6, title = "Spring Mole" } } } } },
+            [68673] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 47.3, y = 15.4, title = "Snake" } } } } },
+            [68674] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.5, y = 32.4, title = "Lightdarter" } } } } },
+            [68676] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.9, y = 54.7, title = "Tiny Sporbit" } } } } },
+            [68677] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 42, y = 16.4, title = "Dustcrawler Beetle" } } } } },
+            [68675] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.3, y = 92.2, title = "Mass of Worms" } } } } },
+            [68731] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 58.8, y = 68.6, title = "Grottoscale Hatchling" } } } } },
+            [68729] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 54.7, y = 29.9, title = "Crackcreeper" } } } } },
+            [68730] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.5, y = 12.6, title = "Lava Slug" } } } } },
+            [68732] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 45.8, y = 13.5, title = "Earthenwork Stoneskitterer" } } } } },
+            [68733] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 72.8, y = 39.6, title = "Cavern Skiplet" } } } } },
+            [68734] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 57.3, y = 65.7, title = "Moss Sludglet" } } } } },
+            [68747] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 42, y = 16.4, title = "Cavern Mote" } } } } },
+            [68748] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62, y = 30.3, title = "Stumblegrub" } } } } },
+            [69805] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 54.4, y = 34.7, title = "Darkgrotto Hopper" } } } } },
+            [68749] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 67, y = 38.8, title = "Oozeling" } } } } },
+            [68750] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.4, y = 45.9, title = "Pebble Scarab" } } } } },
+            [68751] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 42.4, y = 14.4, title = "Rock Snail" } } } } },
+        }
+    },
+    
+    -- Achievement 41188: Crystal Chronicled (parent - Hallowfall + Azj-Kahet)
+    [41188] = {
+        helpText = "Complete all Hallowfall and Azj-Kahet achievements: Adventurer, Treasures, The Missing Lynx, Mereldar Menace, Biblo Archivist, Beacon of Hope, Sharing the Light, Lost and Found, and more.",
+    },
+    
+    -- Achievement 40851: Adventurer of Hallowfall
+    [40851] = {
+        helpText = "Defeat 10 of 25 rare enemies in Hallowfall. Each grants 150 Hallowfall Arathi rep once per week.",
+        criteria = {
+            [69703] = { helpText = "One-time rare spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 72.0, y = 64.2, title = "Deepfiend Azellix" } } } } },
+            [69704] = { helpText = "One-time rare spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 57.0, y = 64.2, title = "Ixlorb the Spinner" } } } } },
+            [69705] = { helpText = "One-time rare spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 51.9, y = 27.4, title = "Murkshade" } } } } },
+            [69706] = { helpText = "One-time rare spawn. Patrols the area.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 34.2, y = 52.0, title = "Grimslice" } } } } },
+            [69707] = { helpText = "One-time rare spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 36.8, y = 71.8, title = "Funglour" } } } } },
+            [69708] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 56.5, y = 69, title = "The Taskmaker" } } } } },
+            [69709] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 73.5, y = 52, title = "Sloshmuck" } } } } },
+            [69710] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 23, y = 59, title = "Lytfang the Lost" } } } } },
+            [69711] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 44.5, y = 16.5, title = "The Perchfather" } } } } },
+            [69712] = { helpText = "Patrols western coast from Veneration Grounds to Lorel's Crossing.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 22.1, y = 49.0, title = "Horror of the Shallows" } } } } },
+            [69714] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 36, y = 35.5, title = "Sir Alastair Purefire" } } } } },
+            [69716] = { helpText = "Elite. Spawns when Beledar goes dark. 20+ spawn points. Get Beledar's Attunement (Renown 23) to see location on map. Drops mount!", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 42, y = 55, title = "Beledar's Spawn" } } } } },
+            [69713] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 43.5, y = 30, title = "Strength of Beledar" } } } } },
+            [69715] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 57.5, y = 49, title = "Pride of Beledar" } } } } },
+            [69717] = { helpText = "Elite. Use Ominous Offering at altar. Craft from Offering of Pure Water + Jar of Mucus. Drops Earthen Adventurer's Spaulders.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 44.7, y = 42.4, title = "Deathtide" } } } } },
+            [69719] = { helpText = "Elite. Spawns when Light's Blooming Keyflame goes out (Spreading the Light event).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63.4, y = 28.8, title = "Moth'ethk" } } } } },
+            [69720] = { helpText = "Elite. Spawns when Whirring Field Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 64.7, y = 29.7, title = "Crazed Cabbage Smacker" } } } } },
+            [69721] = { helpText = "Elite. Spawns when Fungal Field Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63.2, y = 31.4, title = "Deathpetal" } } } } },
+            [69722] = { helpText = "Elite. Fish 10 Shadowblind Grouper and throw at him to aggro.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 67.4, y = 23.4, title = "Croakit" } } } } },
+            [69723] = { helpText = "Elite. Spawns when Stillstone Pond Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 66.4, y = 24.2, title = "Toadstomper" } } } } },
+            [69724] = { helpText = "Elite. Spawns when Torchlight Mine Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 64.4, y = 18.8, title = "Duskshadow" } } } } },
+            [69725] = { helpText = "Elite. Buy Darkroot Grippers from Chef Dinaire (Lesser Keyflame), tug Shadowrooted Vines to spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 64.4, y = 31.0, title = "Parasidious" } } } } },
+            [69726] = { helpText = "Elite. Spawns when Duskrise Acreage Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 61.8, y = 31.8, title = "Ravageant" } } } } },
+            [69727] = { helpText = "Elite. Spawns when Faded Shore Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 60.5, y = 18.4, title = "Finclaw Bloodtide" } } } } },
+            [69728] = { helpText = "Elite. Spawns when Bleak Sand Keyflame goes out.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 62.4, y = 13.2, title = "Murkspike" } } } } },
+        }
+    },
+    
+    -- Achievement 40848: Treasures of Hallowfall
+    [40848] = {
+        helpText = "Collect 11 hidden treasures in Hallowfall. Each grants 150 Hallowfall Arathi rep.",
+        criteria = {
+            [69692] = { helpText = "Buy Meaty Haunch from Torran Dellain (69.2, 43.8), give to Caesper at Mereldar stables (41.8, 58.2).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 69.2, y = 43.8, title = "Buy Meaty Haunch" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 41.8, y = 58.2, title = "Caesper" } } } } },
+            [69693] = { helpText = "Loot Smuggler's Key from Dead Arathi below cliff, open chest above.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 55.4, y = 51.6, title = "Dead Arathi (key)" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 55, y = 52, title = "Smuggler's Treasure" } } } } },
+            [69694] = { helpText = "Cave in Stagnant Mire. Defeat waves of Shadow mobs.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 59.7, y = 60.7, title = "Dark Ritual" } } } } },
+            [69695] = { helpText = "Collect 6 books, solve Ryfus's riddle at Church of Sacred Flame (40.0, 51.0).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 40, y = 51, title = "Ryfus Sacredpyr" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 56.6, y = 65.2, title = "Beledar book" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 69.4, y = 44, title = "Imperial Lynx book" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 48.8, y = 64.7, title = "Palawltar book" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 59.8, y = 22.1, title = "Shadow Curfew book" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 48.1, y = 39.6, title = "Arathi Idioms book" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 70.2, y = 56.9, title = "Song of Renilash book" } } } } },
+            [69696] = { helpText = "Loot 4 items from kobyss: Sunless Lure (54.8, 27.2), Ragefin Necrostaff (35.6, 55), Hungering Shimmerfin (51.8, 48.6), Murkfin Lure (47, 15.2). Combine to create.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 54.8, y = 27.2, title = "Sunless Lure" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 35.6, y = 55, title = "Ragefin Necrostaff" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 51.8, y = 48.6, title = "Hungering Shimmerfin" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 47, y = 15.2, title = "Murkfin Lure" } } } } },
+            [69697] = { helpText = "Near Tenir's Ascent, in stalactite formation.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 55.8, y = 69.6, title = "Jewel of the Cliffs" } } } } },
+            [69698] = { helpText = "Hanging from southwest corner of Priory of Sacred Flame.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 30.2, y = 38.8, title = "Priory Satchel" } } } } },
+            [69699] = { helpText = "On grave north of Velhan's Claim.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 50.1, y = 13.9, title = "Lost Necklace" } } } } },
+            [69700] = { helpText = "Talk to 4 Sky-Captains on airships, then find cache underwater off Mereldar coast.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 45.9, y = 45.1, title = "Sky-Captains' Sunken Cache" } } } } },
+            [69701] = { helpText = "Cave north of Sina's Yearning. Get 5 stacks of Star Glimmer from Starblessed Glimmerlfy.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 57.5, y = 27.4, title = "Illuminated Footlocker" } } } } },
+            [69702] = { helpText = "Cave in Shadowmire. Shared spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 76.1, y = 53.7, title = "Spore-covered Coffer" } } } } },
+        }
+    },
+    
+    -- Achievement 40625: The Missing Lynx
+    [40625] = {
+        helpText = "Pet 14 ferocious warcats in Hallowfall. Nightclaw, Shadowpouncer, Purrlock require Spreading the Light Keyflame events.",
+        criteria = {
+            [68975] = { helpText = "In Dunelle's Kindness / Mereldar area.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 60.4, y = 60.2, title = "Magpie" } } } } },
+            [68998] = { helpText = "In Mereldar.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 42.6, y = 53.8, title = "Evan" } } } } },
+            [68999] = { helpText = "In Mereldar.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 42.6, y = 53.8, title = "Emery" } } } } },
+            [69000] = { helpText = "In Mereldar.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 42.2, y = 53.8, title = "Jinx" } } } } },
+            [69001] = { helpText = "In Dunelle's Kindness.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 69.2, y = 43.6, title = "Moog" } } } } },
+            [69002] = { helpText = "In Dunelle's Kindness.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 69.2, y = 43.6, title = "Iggy" } } } } },
+            [69003] = { helpText = "Available when Lesser Keyflame is active (Spreading the Light).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63.2, y = 29.2, title = "Nightclaw" } } } } },
+            [69004] = { helpText = "Available when Light's Blooming Keyflame is active.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63.2, y = 28.0, title = "Shadowpouncer" } } } } },
+            [69005] = { helpText = "Available when Light's Blooming Keyflame is active.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63.8, y = 29.6, title = "Purrlock" } } } } },
+            [69006] = { helpText = "Patrols multiple spawn points.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 60.2, y = 21.2, title = "Miral Murder-Mittens" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 60.0, y = 24.2, title = "Miral Murder-Mittens (alt)" }, { mapId = MapZones.TWW_ZONE_Hallowfall, x = 61.2, y = 30.4, title = "Miral Murder-Mittens (alt)" } } } } },
+            [69007] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 64.2, y = 18.8, title = "Fuzzy" } } } } },
+            [69008] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 64.4, y = 18.6, title = "Furball" } } } } },
+            [69009] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 61.8, y = 20.8, title = "Dander" } } } } },
+            [69010] = { helpText = "In Mereldar.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 42.2, y = 53.6, title = "Gobbo" } } } } },
+        }
+    },
+    
+    -- Achievement 40151: Mereldar Menace
+    [40151] = {
+        helpText = "Throw rocks at 10 different targets in Mereldar to 'set a bad example'. Pick up stones from the ground (marked with sparkles) and aim at each target. There are 3 stone locations: near the Orphanage (41.9, 55.5), at the Training Grounds (42.25, 52.5), and by Steelstrike Residence (44.25, 51.25). Each stone can hit multiple targets in its area.",
+        criteria = {
+            -- Criteria 67121: Orphanage Window
+            [67121] = {
+                helpText = "Pick up a stone near the Orphanage (41.9, 55.5) and throw it at the Orphanage Window. The window is on the building directly south of the stone location.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 41.9, 55.5, "Stone (Orphanage)", "Pick up the stone here" }, { 2215, 41.82, 55.61, "Orphanage Window", "Throw at this window" } } }
+                }
+            },
+            -- Criteria 67122: Notice Board
+            [67122] = {
+                helpText = "Pick up a stone near the Orphanage (41.9, 55.5) and throw it at the Notice Board located east of the fountain.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 41.9, 55.5, "Stone (Orphanage)", "Pick up the stone here" }, { 2215, 42.55, 55.5, "Notice Board", "Throw at this board" } } }
+                }
+            },
+            -- Criteria 67123: Food Stall
+            [67123] = {
+                helpText = "Pick up a stone near the Orphanage (41.9, 55.5) and throw it at the Food Stall in the market area southeast of the fountain.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 41.9, 55.5, "Stone (Orphanage)", "Pick up the stone here" }, { 2215, 42.45, 54.39, "Food Stall", "Throw at this stall" } } }
+                }
+            },
+            -- Criteria 67124: Fountain
+            [67124] = {
+                helpText = "Pick up a stone near the Orphanage (41.9, 55.5) and throw it at the Fountain in the center of the market square.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 41.9, 55.5, "Stone (Orphanage)", "Pick up the stone here" }, { 2215, 42.33, 54.92, "Fountain", "Throw at the fountain" } } }
+                }
+            },
+            -- Criteria 67125: Spice Stall
+            [67125] = {
+                helpText = "Pick up a stone near the Orphanage (41.9, 55.5) and throw it at the Spice Stall in the market area south of the fountain.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 41.9, 55.5, "Stone (Orphanage)", "Pick up the stone here" }, { 2215, 42.28, 54.38, "Spice Stall", "Throw at this stall" } } }
+                }
+            },
+            -- Criteria 67126: Light and Flame
+            [67126] = {
+                helpText = "Pick up a stone at the Training Grounds (42.25, 52.5) and throw it at the Light and Flame building entrance to the east.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 42.25, 52.5, "Stone (Training Grounds)", "Pick up the stone here" }, { 2215, 42.98, 52.69, "Light and Flame", "Throw at this doorway" } } }
+                }
+            },
+            -- Criteria 67127: Lamplighter Doorway
+            [67127] = {
+                helpText = "Pick up a stone at the Training Grounds (42.25, 52.5) and throw it at the Lamplighter Doorway to the west.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 42.25, 52.5, "Stone (Training Grounds)", "Pick up the stone here" }, { 2215, 43.0, 52.2, "Lamplighter Doorway", "Throw at this doorway" } } }
+                }
+            },
+            -- Criteria 67128: Barracks Doorway
+            [67128] = {
+                helpText = "Pick up a stone at the Training Grounds (42.25, 52.5) and throw it at the Barracks Doorway to the southwest.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 42.25, 52.5, "Stone (Training Grounds)", "Pick up the stone here" }, { 2215, 41.4, 52.8, "Barracks Doorway", "Throw at this doorway" } } }
+                }
+            },
+            -- Criteria 67129: Holy Oil
+            [67129] = {
+                helpText = "Pick up a stone by Steelstrike Residence (44.25, 51.25) and throw it at the Holy Oil barrel near the cathedral steps.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 44.25, 51.25, "Stone (Steelstrike)", "Pick up the stone here" }, { 2215, 43.6, 50.8, "Holy Oil", "Throw at the oil barrel" } } }
+                }
+            },
+            -- Criteria 67130: Airship Drafting Board
+            [67130] = {
+                helpText = "Pick up a stone by Steelstrike Residence (44.25, 51.25) and throw it at the Airship Drafting Board on the platform to the southeast.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 44.25, 51.25, "Stone (Steelstrike)", "Pick up the stone here" }, { 2215, 44.6, 51.6, "Airship Drafting Board", "Throw at this board" } } }
+                }
+            },
+        },
+    },
+    
+    -- Achievement 40622: Biblo Archivist
+    [40622] = {
+        helpText = "Read 11 lore books scattered across Hallowfall. After collecting all books, visit Ryfus Sacredpyr (40.0, 51.1) to answer 6 riddles and receive the Arathi Book Collection toy as a reward.",
+        criteria = {
+            -- Criteria 68954: The Big Book of Arathi Idioms
+            [68954] = {
+                helpText = "Found inside a house in Mereldar. Look on a table to the left when entering.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 48.11, 39.56, "The Big Book of Arathi Idioms", "In a house in Mereldar" } } }
+                }
+            },
+            -- Criteria 68955: 500 Dishes Using Cave Fish and Mushrooms
+            [68955] = {
+                helpText = "Found inside a house in Mereldar near the cathedral. Look on a table to the right.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 43.91, 49.95, "500 Dishes Using Cave Fish and Mushrooms", "In a house near the cathedral" } } }
+                }
+            },
+            -- Criteria 68957: Care and Feeding of the Imperial Lynx
+            [68957] = {
+                helpText = "Found inside a house in Dunelle's Kindness. Look to the right when entering.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 69.36, 43.98, "Care and Feeding of the Imperial Lynx", "In a house in Dunelle's Kindness" } } }
+                }
+            },
+            -- Criteria 68958: Light's Gambit Playbook
+            [68958] = {
+                helpText = "Found on the bridge in Dunelle's Kindness, lying on a railing.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 68.69, 41.42, "Light's Gambit Playbook", "On the bridge" } } }
+                }
+            },
+            -- Criteria 68960: From the Depths They Come
+            [68960] = {
+                helpText = "Found on the ground near the water at Velhan's Claim, close to the shore.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 57.79, 51.77, "From the Depths They Come", "On the ground near water" } } }
+                }
+            },
+            -- Criteria 68961: Palawltar's Codex of Dimensional Structure
+            [68961] = {
+                helpText = "Found in the Priory of the Sacred Flame area, inside a building.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 48.75, 64.71, "Palawltar's Codex of Dimensional Structure", "In the Priory area" } } }
+                }
+            },
+            -- Criteria 68963: Shadow Curfew Guidelines
+            [68963] = {
+                helpText = "Found inside a house in Lorel's Crossing. Look near the wall by some carrots.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 64.21, 28.09, "Shadow Curfew Guidelines", "In a house near the carrots" } } }
+                }
+            },
+            -- Criteria 68965: Shadow Curfew Journal
+            [68965] = {
+                helpText = "Found in a destroyed house in the northern Hallowfall area, among the ruins.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 59.81, 22.11, "Shadow Curfew Journal", "In the destroyed house" } } }
+                }
+            },
+            -- Criteria 68967: The Song of Renilash
+            [68967] = {
+                helpText = "Found inside a tent at Light's Blooming, resting on a surface.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 70.21, 56.85, "The Song of Renilash", "In a tent" } } }
+                }
+            },
+            -- Criteria 68968: Beledar - The Emperor's Vision
+            [68968] = {
+                helpText = "Found in the Captain's room aboard the airship at the Priory of the Sacred Flame.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 56.56, 65.18, "Beledar - The Emperor's Vision", "In the Captain's room on the airship" } } }
+                }
+            },
+            -- Criteria 69729: Lightspark Grade Book
+            [69729] = {
+                helpText = "Found near the Priory of the Sacred Flame, in the Lightspark training area.",
+                waypoints = {
+                    { kind = "point", coordinates = { { 2215, 52.64, 60.01, "Lightspark Grade Book", "In the Lightspark area" } } }
+                }
+            },
+        },
+        waypoints = {
+            { kind = "point", coordinates = { { 2215, 40.04, 51.13, "Ryfus Sacredpyr (Loremaster)", "Answer riddles here after collecting all books to get the Arathi Book Collection toy" } } }
+        },
+    },
+    
+    -- Achievement 40308: Beacon of Hope
+    [40308] = {
+        helpText = "Complete 17 world quests in Hallowfall as part of Spreading the Light event.",
+    },
+    
+    -- Achievement 40311: Sharing the Light
+    [40311] = {
+        helpText = "Complete 9 world quests in Hallowfall.",
+    },
+    
+    -- Achievement 40618: Lost and Found
+    [40618] = {
+        helpText = "Collect 6 lost items. Maera Ashyld gives replacement satchel if you lose a quest item.",
+        waypoints = {
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 60.4, y = 60, title = "Maera Ashyld" } } },
+        },
+    },
+    
+    -- Achievement 41189: Azj the World Turns (meta - Azj-Kahet)
+    [41189] = {
+        helpText = "Complete all Azj-Kahet achievements: Adventurer of Azj-Kahet, Treasures of Azj-Kahet, You Can't Hang With Us, The Unseeming, Worm Theory, Itsy Bitsy Spider, Smelling History, and Bookworm.",
+    },
+    
+    -- Achievement 40840: Adventurer of Azj-Kahet
+    [40840] = {
+        helpText = "Defeat 10 of 19 rare enemies in Azj-Kahet. Each rare grants 50 rep with each Severed Threads Pact leader once per week. One-time rares (level 78) only count on first kill per character.",
+        criteria = {
+            -- One-time rares (level 78)
+            [69651] = { helpText = "One-time rare. Only counts on first kill per character.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 46.3, y = 38.5, title = "Abyssal Devourer" } } } } },
+            [69653] = { helpText = "One-time rare. Only counts on first kill per character.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 44.8, y = 39.8, title = "Rhak'ik & Khak'ik" } } } } },
+            [69654] = { helpText = "One-time rare. Only counts on first kill per character.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 37.9, y = 42.6, title = "Ahg'zagall" } } } } },
+            [69655] = { helpText = "One-time rare. Only counts on first kill per character.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 61.2, y = 27.2, title = "Webspeaker Grik'ik" } } } } },
+            [69656] = { helpText = "One-time rare. Only counts on first kill per character.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 35.1, y = 38.4, title = "Vilewing" } } } } },
+            -- Repeatable rares (level 80)
+            [69657] = { helpText = "Repeatable rare. May appear as Chitin Hulk.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 31.0, y = 56.2, title = "The Groundskeeper" } } } } },
+            [69658] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 67.8, y = 58.2, title = "Xishorr" } } } } },
+            [69659] = { helpText = "Repeatable rare. May appear as Siegehold Scouts. City of Threads map.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreadsAzjKahet, x = 67.8, y = 58.2, title = "Kaheti Silk Hauler" } } } } },
+            [69660] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 76.6, y = 57.8, title = "The XT-Minecrusher 8700" } } } } },
+            [69661] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 70.6, y = 21.6, title = "Cha'tak" } } } } },
+            [69662] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 70, y = 69, title = "Monstrous Lasharoth" } } } } },
+            [69663] = { helpText = "Repeatable rare. Flying mob.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 65.6, y = 63.6, title = "Maddened Siegebomber" } } } } },
+            [69664] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 58.2, y = 62.8, title = "Enduring Gutterface" } } } } },
+            [69665] = { helpText = "Repeatable rare. Maddening Deep (check lower level map).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 67.2, y = 83, title = "Jix'ak the Crazed" } } } } },
+            [69666] = { helpText = "Repeatable rare. Maddening Deep (check lower level map).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 62, y = 89, title = "The Oozekhan" } } } } },
+            [69667] = { helpText = "Repeatable rare. Maddening Deep (check lower level map).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 65, y = 82.5, title = "Harvester Qixt" } } } } },
+            [69668] = { helpText = "Repeatable rare. Elite.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 64.6, y = 3.6, title = "Umbraclaw Matra" } } } } },
+            [69669] = { helpText = "Repeatable rare.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 64.6, y = 8.6, title = "Deepcrawler Tx'kesh" } } } } },
+            [69670] = { helpText = "Repeatable rare. Elite. May appear as Kaheti Bladeguard.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 61.8, y = 8.6, title = "Skirmisher Sa'zryk" } } } } },
+        },
+    },
+    
+    -- Achievement 40828: Treasures of Azj-Kahet
+    [40828] = {
+        helpText = "Collect 10 hidden treasures in Azj-Kahet. Each grants 150 Severed Threads rep. Some treasures have special unlock requirements.",
+        criteria = {
+            [70381] = { helpText = "Path north of City of Threads in Breathing Pit. Click Web Cocoon 3 times to reveal. Reward: junk items.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 35.1, y = 59.4, title = "Concealed Contraband" } } } } },
+            [69615] = { helpText = "Acquire 25 stacks Unseeming Shift in Maddening Deep (swim in ooze pools). Kill Corrupted Memory for Cache Key, use on treasure. Reward: Mind Slurp pet.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 62.7, y = 87.9, title = "Memory Cache" } } } } },
+            [69643] = { helpText = "Loot Violet (74.8,42.8), Crimson (72.7,39.7), Gold (74.1,37.7) silk scraps from dye pools in Rak-Ahat. Take to tower at 78.6,33.2. Reward: Shadowed Essence trinket.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 78.6, y = 33.2, title = "Weaving Supplies" }, { mapId = MapZones.TWW_ZONE_AzjKahet, x = 74.8, y = 42.8, title = "Violet Thread" }, { mapId = MapZones.TWW_ZONE_AzjKahet, x = 72.7, y = 39.7, title = "Crimson Thread" }, { mapId = MapZones.TWW_ZONE_AzjKahet, x = 74.2, y = 37.7, title = "Gold Thread" } } } } },
+            [69644] = { helpText = "The Transformatory, City of Threads. Building hanging from ceiling. Avoid stepping on webs. Can fly directly in. Reward: Spinner pet.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 67.4, y = 74.4, title = "Trapped Trove" } } } } },
+            [69645] = { helpText = "Southwest of Weaver's Lair on webbing shelf near ceiling. Reward: Pillarnest Bonedrinker pet.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 49.5, y = 43.8, title = "Nest Egg" } } } } },
+            [69646] = { helpText = "Maddening Deep south wall shelf. Shared spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 67.5, y = 90.7, title = "Disturbed Soil" } } } } },
+            [69647] = { helpText = "Cave in Rak-Zakaz (entrance 65.5,27.7). Ramp left to tent. Shared spawn. Reward: Weavercloth.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 65.5, y = 27.7, title = "Cave entrance" }, { mapId = MapZones.TWW_ZONE_AzjKahet, x = 64.3, y = 29.5, title = "Silk-spun Supplies" } } } } },
+            [69648] = { helpText = "The Skeins, City of Threads. Small webbed shelf north, hanging from ceiling.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 42.4, y = 72.3, title = "Nerubian Offerings" } } } } },
+            [69649] = { helpText = "Silken Ward, bag hanging from bridge south of Weaver's Lair.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 54.5, y = 50.8, title = "Niffen Stash" } } } } },
+            [69650] = { helpText = "East of Hallowfall entrance, behind webbing on wall. Shared spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 38.8, y = 37.2, title = "Missing Scout's Pack" } } } } },
+        }
+    },
+    
+    -- Achievement 40634: You Can't Hang With Us
+    [40634] = {
+        helpText = "Attack a Bazaar Guard sentry in the City of Threads while NOT under the effects of any Nerubian pheromone buff. Remove pheromones from your Nerubian Pheromone Secreter trinket or unequip it, then attack a sentry to get arrested and earn the achievement.",
+    },
+    
+    -- Achievement 40633: The Unseeming
+    [40633] = {
+        helpText = "Acquire 100 stacks of Unseeming Shift in the Maddening Deep or Writhing Fields. Get stacks from Black Blood Extractors (~5 each) at 66.5,84.4 and 61.6,83.8, or stand in blood pools (~5/sec, take damage). Do NOT use Harmonizing Instrument or cleanse abilities. Unseeming Shift lets you see hidden objects like Memory Cache treasure.",
+    },
+    
+    -- Achievement 40869: Worm Theory
+    [40869] = {
+        helpText = "Complete 3 worm-related world quests in Rak-Ush and the Wormlands: Grub Run, Worm Sign Sealed Delivered, and Wormcraft Rumble. Unlock Rak-Ush Stagshell World Quests via the 'Permanent Hire' quest chain first. Reward: Lil' Bonechewer pet.",
+        criteria = {
+            [69840] = { helpText = "World quest: Gather grubs for the worm farm.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 64.7, y = 29.7, title = "Rak-Ush / Wormlands" } } } } },
+            [69841] = { helpText = "World quest: Battle creatures like the giant Shyalude.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 64.7, y = 29.7, title = "Rak-Ush / Wormlands" } } } } },
+            [69842] = { helpText = "World quest: Deliver items for the worm farm.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 64.7, y = 29.7, title = "Rak-Ush / Wormlands" } } } } },
+        },
+    },
+    
+    -- Achievement 40624: Itsy Bitsy Spider
+    [40624] = {
+        helpText = "Wave at 6 Weave-Rats (baby Nerubians) in Azj-Kahet and City of Threads. Only friendly green versions count. Some may be in cages or move with Rumor Brokers.",
+        criteria = {
+            [68972] = { helpText = "Weaver's Lair. Use Dornogal portal, look right.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 57, y = 41.75, title = "Webster" } } } } },
+            [68973] = { helpText = "Behind pillar by Faerin Lothar in Dornogal, or Weaver's Lair by Widow Arak'nai, or in cage in floating tower east of City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 55.6, y = 43.9, title = "Spindle" } } } } },
+            [68976] = { helpText = "Location varies with Rumor Brokers. Look for purple circles with spider icons on minimap.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 79.6, y = 56.8, title = "Ru'murh" } } } } },
+            [68977] = { helpText = "Southern Umbral Bazaar, alleyway on top of box behind Bazaar Guard.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 69.9, y = 82.75, title = "Thimble" } } } } },
+            [68978] = { helpText = "Three run in circles in western Umbral Bazaar.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 49.2, y = 15.7, title = "Scampering Weave-Rat" } } } } },
+            [3236] = { helpText = "Weaver's Lair. From Dornogal portal, go straight off ledge toward tent where Bobbin sells items.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 56.4, y = 43.3, title = "Bobbin" } } } } },
+        },
+    },
+    
+    -- Achievement 40542: Smelling History
+    [40542] = {
+        helpText = "Read 12 Nerubian books while under Potion of Polymorphic Translation: Nerubian (buy from Assistant Ulo'vix or Apothecary Rz in City of Threads at 45.6,12.4). Buff lasts 10 minutes. Books: Strands of Memory, 4 Treatise on Forms, 4 Ethos of War, 3 Queen books.",
+        waypoints = {
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 45.6, y = 12.4, title = "Potion vendor", note = "Assistant Ulo'vix / Apothecary Rz" } } }
+        },
+        criteria = {
+            [68818] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 27.8, y = 54.5, title = "Strands of Memory" } } } } },
+            [68971] = { helpText = "In cave in Rak-Zakaz. Entrance 64.7,29.7.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 62.9, y = 31.1, title = "Ethos of War Part 1" } } } } },
+            [68980] = { helpText = "In cave in Rak-Zakaz. Entrance 64.7,29.7.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 66.7, y = 31.2, title = "Ethos of War Part 2" } } } } },
+            [68981] = { helpText = "Azj-Kahet.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 48.9, y = 23.9, title = "Ethos of War Part 3" } } } } },
+            [68982] = { helpText = "Azj-Kahet.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 43.3, y = 25.5, title = "Ethos of War Part 4" } } } } },
+            [68984] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 38.3, y = 35.3, title = "Queen Xekatha" } } } } },
+            [68985] = { helpText = "City of Threads. Room beneath the statue.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 37.1, y = 32.9, title = "Queen Anub'izek" } } } } },
+            [68986] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 38.5, y = 32.5, title = "Queen Zaltra" } } } } },
+            [68987] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 38.5, y = 39.1, title = "Treatise on Forms: Sages" } } } } },
+            [68988] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 38.6, y = 37.9, title = "Treatise on Forms: Skitterlings" } } } } },
+            [69446] = { helpText = "City of Threads. Entrance above the fountain.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 23.7, y = 51.3, title = "Treatise on Forms: Lords" } } } } },
+            [69447] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 78.1, y = 40.9, title = "Treatise on Forms: Ascended" } } } } },
+        },
+    },
+    
+    -- Achievement 40629: Bookworm
+    [40629] = {
+        helpText = "Read 3 Entomological Essay on Grubs books while under Potion of Polymorphic Translation: Nerubian. Buy potion from Assistant Ulo'vix or Apothecary Rz in City of Threads (45.6,12.4). All 3 books are in the same cave - entrance at Azj-Kahet 40,39.9.",
+        waypoints = {
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 45.6, y = 12.4, title = "Potion vendor", note = "Polymorphic Translation: Nerubian" } } },
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 40, y = 39.9, title = "Cave entrance", note = "Essays on Grubs inside" } } }
+        },
+        criteria = {
+            [68983] = { helpText = "In cave. All 3 volumes in same cave.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 40.1, y = 39.8, title = "Entomological Essay Vol 1" } } } } },
+            [68989] = { helpText = "In cave. All 3 volumes in same cave.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 39.8, y = 40.5, title = "Entomological Essay Vol 2" } } } } },
+            [68990] = { helpText = "In cave. All 3 volumes in same cave.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 39.1, y = 42.5, title = "Entomological Essay Vol 3" } } } } },
+        },
+    },
+    
+    -- ==================== Isle Remember You (41133) - Siren Isle ====================
+    
+    -- Achievement 41133: Isle Remember You (meta)
+    [41133] = {
+        helpText = "Complete all Siren Isle achievements for The Breaker's Song mount: A Song of Secrets, Siren-ity Now!, Excavation Projects, Clean Up on Isle Siren, Treasures of the Storm, and A Choir of Citrines. Unlock Siren Isle via questline from Dawn Heights.",
+    },
+    
+    -- Achievement 41045: A Song of Secrets
+    [41045] = {
+        helpText = "Complete the full Siren Isle questline. 12 quests in order: The Expedition Awaits, To the Siren Isle!, Friendly Competition, To Scan a Crystal, Facet-nating Signals, The Second Signal, Cave Barging, Buried Secrets, The Radiant Vault, Reforged Anew, The Circlet Calls, Uncovered Mysteries. Uncovered Mysteries teaches Runecaster's Eye for finding treasures.",
+    },
+    
+    -- Achievement 41042: Siren-ity Now!
+    [41042] = {
+        helpText = "Complete 18 specific weekly quests on Siren Isle. Quest rotation is random—the most time-consuming requirement. Quests: Legacy of the Vrykul, Tides of Greed, Serpent's Wrath, Historical Documents, Rock 'n' Stone Revival, Longship Landing, Secure the Perimeter, A Ritual of Runes, Cannon Karma, Pirate Plunder, Ooker Dooker Literature Club, Silence the Song, Cart Blanche, Ruffled Pages, Crystal Crusade, Beach Comber, Three Heads of the Deep.",
+    },
+    
+    -- Achievement 41043: Excavation Projects
+    [41043] = {
+        helpText = "Contribute to all 3 Major Excavations. Use Siren Isle Command Map at Flotsam Shoal (69,43). Each needs 150 Flame-Blessed Iron (5 per contribution). When 100% full, entrance opens after 3 min. Defeat the boss inside to credit: The Drowned Lair (Nerathor), The Drain (Gravesludge), Shuddering Hollow (Stalagnarok). Tag boss for credit.",
+        waypoints = {
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 69, y = 43, title = "Command Map", note = "Flotsam Shoal - contribute Flame-Blessed Iron" } } }
+        },
+        criteria = {
+            [70787] = { helpText = "The Drowned Lair. Boss: Nerathor. Contribute Flame-Blessed Iron at Command Map until 100%.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 33, y = 65, title = "The Drowned Lair" } } } } },
+            [70788] = { helpText = "The Drain. Boss: Gravesludge. Contribute Flame-Blessed Iron at Command Map until 100%.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 62, y = 75, title = "The Drain" } } } } },
+            [70789] = { helpText = "Shuddering Hollow. Boss: Stalagnarok. Contribute Flame-Blessed Iron at Command Map until 100%.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 44, y = 56, title = "Shuddering Hollow" } } } } },
+        },
+    },
+    
+    -- Achievement 41046: Clean Up on Isle Siren
+    [41046] = {
+        helpText = "Defeat all 16 rares on Siren Isle. All spawn in non-storm phase. Excavation bosses spawn when contribution hits 100%. Invasion rares require Vrykul/Naga/Pirate week. Use Singing Tablet in Sacred Hollow to reach The Forgotten Vault for Shardsong and Gunnlod.",
+        criteria = {
+            [70791] = { helpText = "Excavation boss. Spawns when The Drowned Lair hits 100%. Bring a group.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 33, y = 65, title = "Nerathor (The Drowned Lair)" } } } } },
+            [70792] = { helpText = "Excavation boss. Spawns when The Drain hits 100%. Bring a group.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 62, y = 75, title = "Gravesludge (The Drain)" } } } } },
+            [70793] = { helpText = "Excavation boss. Spawns when Shuddering Hollow hits 100%. Bring a group.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 44, y = 56, title = "Stalagnarok (Shuddering Hollow)" } } } } },
+            [70794] = { helpText = "Random spawn. Very long respawn. Consider group finder.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 32, y = 73, title = "Bloodbrine" } } } } },
+            [70795] = { helpText = "Inside The Forgotten Vault. Use Singing Tablet in Sacred Hollow cave to reach.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 44, y = 23, title = "Shardsong" } } } } },
+            [70796] = { helpText = "Random spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 54, y = 32, title = "Ghostmaker" } } } } },
+            [70797] = { helpText = "Random spawn. Patrols in ocean off coast.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 34, y = 15, title = "Grimgull" } } } } },
+            [70798] = { helpText = "Inside The Forgotten Vault. Use Singing Tablet in Sacred Hollow cave to reach.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 44, y = 23, title = "Gunnlod the Sea-Drinker" } } } } },
+            [70799] = { helpText = "Random spawn. Patrols in water northeast of coast.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 67, y = 19, title = "Snacker" } } } } },
+            [70800] = { helpText = "Random spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 46, y = 78, title = "Wreckwater" } } } } },
+            [70801] = { helpText = "Naga week only.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 62, y = 89, title = "Coralweaver Calliso" } } } } },
+            [70802] = { helpText = "Naga week only.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 56, y = 84, title = "Siris the Sea Scorpion" } } } } },
+            [70803] = { helpText = "Pirate week only.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 66, y = 85, title = "Chef Chum Platter" } } } } },
+            [70804] = { helpText = "Pirate week only. Patrols northwest.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 60, y = 89, title = "Plank-Master Bluebelly" } } } } },
+            [70805] = { helpText = "Vrykul week only.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 32, y = 74, title = "Ikir the Flotsurge" } } } } },
+            [70806] = { helpText = "Vrykul week only.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 64, y = 87, title = "Asbjorn the Bloodsoaked" } } } } },
+        },
+    },
+    
+    -- Achievement 41131: Treasures of the Storm
+    [41131] = {
+        helpText = "Open 10 Runed Storm Caches. Requires Runecaster's Eye from 'Uncovered Mysteries' quest. Equip Cyrce's Circlet. 7 caches in calm phase, 3 in The Storm. Complete weekly Tempest quest, talk to Suzie Boltwrench to phase into storm. Gust of wind guides you; use Runecaster's Eye when on top of ghostly chest outline.",
+    },
+    
+    -- Achievement 41050: A Choir of Citrines
+    [41050] = {
+        helpText = "Collect all 12 Singing Citrines for Cyrce's Circlet. Complete The Circlet Calls for Windsinger's. Others from world quests (Vrykul/Naga/Pirate weeks) and excavation events. Can buy discovered gems from Angorla, Apprentice Tanmar, Talijora at main camp.",
+        criteria = {
+            [70827] = { helpText = "Storm Sewer's Citrine.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70825] = { helpText = "Old Salt's Bardic Citrine. From world quest.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70826] = { helpText = "Mariner's Hallowed Citrine. Complete The Drowned Lair excavation.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 33, y = 65, title = "The Drowned Lair" } } } } },
+            [70828] = { helpText = "Legendary Skipper's Citrine. Storm's a Brewin' world quest (Pirate week).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70829] = { helpText = "Seabed Leviathan's Citrine. Serpent's Wrath world quest (Naga week).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70830] = { helpText = "Roaring War-Queen's Citrine. Legacy of the Vrykul world quest (Vrykul week).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70831] = { helpText = "Stormbringer's Runed Citrine.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70832] = { helpText = "Fathomdweller's Runed Citrine.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70834] = { helpText = "Windsinger's Runed Citrine. From The Circlet Calls quest.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70835] = { helpText = "Thunderlord's Crackling Citrine. Complete The Drain excavation.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 62, y = 75, title = "The Drain" } } } } },
+            [70836] = { helpText = "Undersea Overseer's Citrine.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+            [70837] = { helpText = "Squall Sailor's Citrine.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_SirenIsle, x = 50, y = 50, title = "Siren Isle" } } } } },
+        },
+    },
+    
+    -- ==================== Glory of the Delver (40438) ====================
+    
+    -- Achievement 40438: Glory of the War Within Delver (meta)
+    [40438] = {
+        helpText = "Complete all delve achievements for the Ivory Goliathus mount: Delve Loremaster, Leave No Treasure Unfound, Sporesweeper, Spider Senses, Daystormer, Brann Development (or Branntastic), and defeat the seasonal Nemesis boss (My First Nemesis, My New Nemesis, or My Stab-Happy Nemesis depending on season).",
+    },
+    
+    -- Achievement 40537: Delve Loremaster: War Within
+    [40537] = {
+        helpText = "Complete all 15 delve story achievements. Each delve has 3-5 story quest variants that rotate. Complete all story quests in: Fungal Folly, Kriegval's Rest, Earthcrawl Mines, The Waterworks, The Dread Pit, Nightfall Sanctum, Mycomancer Cavern, The Sinkhole, Skittering Breach, The Underkeep, Tak-Rethan Abyss, The Spiral Weave, Excavation Site 9, Sidestreet Sluice, Archival Assault.",
+    },
+    
+    -- Achievement 40506: Leave No Treasure Unfound
+    [40506] = {
+        helpText = "Open all Sturdy Chests in each of the 15 delves. Chest locations vary by delve layout. Use addons like ZamestoTV Delves Helper (with HandyNotes) for map markers. Delves: Fungal Folly, Kriegval's Rest, Earthcrawl Mines, The Waterworks, The Dread Pit, Nightfall Sanctum, Mycomancer Cavern, The Sinkhole, Skittering Breach, The Underkeep, Tak-Rethan Abyss, The Spiral Weave, Excavation Site 9, Sidestreet Sluice, Archival Assault. Rewards title 'Seeker of Loot'.",
+    },
+    
+    -- Achievement 40445: Sporesweeper
+    [40445] = {
+        helpText = "Complete a Fungal-type delve (Fungal Folly or Mycomancer Cavern) on Tier 8 or higher without being hit by Explosive Spores. Dodge the spore explosions throughout the delve.",
+    },
+    
+    -- Achievement 40453: Spider Senses
+    [40453] = {
+        helpText = "Complete a Nerubian delve (Earthcrawl Mines, Skittering Breach, The Dread Pit, The Spiral Weave, or The Underkeep) on Tier 8+ without spawning ambushers from Nerubian Webs or taking damage from Nerubian Eggs. Avoid stepping on webs; use grappling hooks or burn them. Pick a story variant that has fewer webs if possible.",
+    },
+    
+    -- Achievement 40454: Daystormer
+    [40454] = {
+        helpText = "Complete an Order of Night delve (Nightfall Sanctum or The Sinkhole) on Tier 8 or higher without being targeted by Artillery fire. Avoid the artillery AoE markers.",
+    },
+    
+    -- Achievement 40538: Brann Development
+    [40538] = {
+        helpText = "Raise Brann Bronzebeard to level 25. Brann gains XP from Tier 4+ Bountiful Delves. There is a weekly XP cap; excess becomes inventory items. Run bountiful delves regularly. Alternative: Branntastic (different achievement) may also count.",
+    },
+    
+    -- Achievement 40103: My First Nemesis
+    [40103] = {
+        helpText = "Defeat Zekvir in his lair (Season 1 seasonal boss) before the next delve season. Unobtainable after Season 1 ended. Rewards Zekvir's Raptorial Spine transmog.",
+    },
+    
+    -- Achievement 41530: My New Nemesis
+    [41530] = {
+        helpText = "Defeat The Underpin in its lair (Season 2 seasonal boss) before the next delve season. Unobtainable after Season 2 ended.",
+    },
+    
+    -- Achievement 42193: My Stab-Happy Nemesis
+    [42193] = {
+        helpText = "Defeat Nexus-Princess Ky'veza in Voidrazor Sanctuary (Season 3 seasonal boss) before the next delve season. Access via Tazavesh behind drapes. Key mechanics: dodge Nexus Daggers, avoid Nether Rift portals, face Dark Massacre clones, identify correct Ky'veza during Invoke Shadows. Rewards Hal'hadar's Phasebound Visor.",
+    },
+    
+    -- ==================== All That Khaz (41555) ====================
+    
+    -- Achievement 41555: All That Khaz (meta)
+    [41555] = {
+        helpText = "Complete all Khaz Algar exploration achievements for Freywold Spring Warband Campsite and faster flight paths: Khaz Algar Flight Master, Khaz Algar Glyph Hunter, Loremaster of Khaz Algar, Khaz Algar Lore Hunter, Khaz Algar Diplomat, Allied Races: Earthen.",
+    },
+    
+    -- Achievement 40430: Khaz Algar Flight Master
+    [40430] = {
+        helpText = "Discover all 22 flight masters across Khaz Algar. Reward: 25% faster Flight Path travel for your Warband. Zones: Isle of Dorn (4), The Ringing Deeps (4), Hallowfall (8), Azj-Kahet (6).",
+        criteria = {
+            [68170] = { helpText = "Main hub.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 44.7, y = 51.2, title = "Dornogal, Isle of Dorn" } } } } },
+            [68172] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 67.5, y = 43.3, title = "Durgaz Cabin, Isle of Dorn" } } } } },
+            [68171] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 41, y = 73, title = "Freywold Village, Isle of Dorn" } } } } },
+            [68173] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 59.2, y = 28.6, title = "Rambleshire, Isle of Dorn" } } } } },
+            [68184] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 58.2, y = 64, title = "Camp Murroch, The Ringing Deeps" } } } } },
+            [68190] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 46.9, y = 33.4, title = "Gundargaz, The Ringing Deeps" } } } } },
+            [68183] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 64.7, y = 78.1, title = "Opportunity Point, The Ringing Deeps" } } } } },
+            [68191] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 61.4, y = 47.9, title = "Shadowvein Point, The Ringing Deeps" } } } } },
+            [68180] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 67.5, y = 44.5, title = "Dunelle's Kindness, Hallowfall" } } } } },
+            [68182] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 40.5, y = 71.3, title = "Light's Redoubt, Hallowfall" } } } } },
+            [68188] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 61.3, y = 31, title = "Hillhelm Family Farm, Hallowfall" } } } } },
+            [68181] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 52.8, y = 61.3, title = "Lightspark, Hallowfall" } } } } },
+            [68187] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 48.4, y = 40.7, title = "Lorel's Crossing, Hallowfall" } } } } },
+            [68185] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 41.6, y = 52.6, title = "Mereldar, Hallowfall" } } } } },
+            [68189] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 71.3, y = 56.5, title = "The Aegis Wall, Hallowfall" } } } } },
+            [68186] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 41.1, y = 33.6, title = "Priory of the Sacred Flame, Hallowfall" } } } } },
+            [68178] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 60, y = 18.7, title = "Faerin's Advance, Azj-Kahet" } } } } },
+            [68179] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 76.8, y = 64.4, title = "Mmarl, Azj-Kahet" } } } } },
+            [68176] = { helpText = "City of Threads map.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreadsAzjKahet, x = 54, y = 44.4, title = "The Burrows, Azj-Kahet" } } } } },
+            [68174] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 56.9, y = 47, title = "Weaver's Lair, Azj-Kahet" } } } } },
+            [68175] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 23.1, y = 51.1, title = "Wildcamp Or'lay, Azj-Kahet" } } } } },
+            [68177] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 44.5, y = 67.5, title = "Wildcamp Ul'ar, Azj-Kahet" } } } } },
+        },
+    },
+    
+    -- Achievement 40702: Khaz Algar Glyph Hunter
+    [40702] = {
+        helpText = "Collect all Skyriding Glyphs across Khaz Algar. Reward: Swarmite Skyhunter mount. Complete: Isle of Dorn (10), The Ringing Deeps (9), Hallowfall (10), Azj-Kahet (11). Glyphs are on peaks, under structures, in caves. Requires Skyriding.",
+    },
+    
+    -- Achievement 40166: Isle of Dorn Glyph Hunter
+    [40166] = {
+        helpText = "Collect 10 Skyriding Glyphs on Isle of Dorn. Found on mountain peaks, beneath structures, in hard-to-reach areas.",
+        criteria = {
+            [40152] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 75.7, y = 22.2, title = "Glyph" } } } } },
+            [40663] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 23.1, y = 58.5, title = "Glyph" } } } } },
+            [40664] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 38.1, y = 40.8, title = "Glyph" } } } } },
+            [40665] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 44.5, y = 80, title = "Glyph" } } } } },
+            [40666] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 68.2, y = 71.7, title = "Glyph" } } } } },
+            [40667] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 47.8, y = 27.2, title = "Glyph" } } } } },
+            [40668] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 56.4, y = 17.7, title = "Glyph" } } } } },
+            [40669] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 78.2, y = 42.7, title = "Glyph" } } } } },
+            [40670] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 62, y = 44.8, title = "Glyph" } } } } },
+            [40671] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 72, y = 47.2, title = "Glyph" } } } } },
+        },
+    },
+    
+    -- Achievement 40703: The Ringing Deeps Glyph Hunter
+    [40703] = {
+        helpText = "Collect 9 Skyriding Glyphs in The Ringing Deeps.",
+        criteria = {
+            [40672] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 48.7, y = 31.9, title = "Glyph" } } } } },
+            [40673] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 46.9, y = 9.9, title = "Glyph" } } } } },
+            [40674] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 57.2, y = 31.3, title = "Glyph" } } } } },
+            [40675] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 69.4, y = 34.2, title = "Glyph" } } } } },
+            [40676] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 56.1, y = 56.1, title = "Glyph" } } } } },
+            [40677] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 49.9, y = 66.1, title = "Glyph" } } } } },
+            [40678] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 63.8, y = 95.4, title = "Glyph" } } } } },
+            [40679] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62.9, y = 66.1, title = "Glyph" } } } } },
+            [40680] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 46.4, y = 51.8, title = "Glyph" } } } } },
+        },
+    },
+    
+    -- Achievement 40704: Hallowfall Glyph Hunter
+    [40704] = {
+        helpText = "Collect 10 Skyriding Glyphs in Hallowfall.",
+        criteria = {
+            [40681] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 62.9, y = 51.8, title = "Glyph" } } } } },
+            [40682] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 57.2, y = 32.4, title = "Glyph" } } } } },
+            [40683] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63.7, y = 65.5, title = "Glyph" } } } } },
+            [40684] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 70, y = 44.2, title = "Glyph" } } } } },
+            [40685] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 62.8, y = 7.2, title = "Glyph" } } } } },
+            [40686] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 43.4, y = 52.9, title = "Glyph" } } } } },
+            [40687] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 35.5, y = 34, title = "Glyph" } } } } },
+            [40688] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 30.9, y = 51.6, title = "Glyph" } } } } },
+            [40689] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 45.7, y = 12.4, title = "Glyph" } } } } },
+            [40690] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 57.6, y = 64.9, title = "Glyph" } } } } },
+        },
+    },
+    
+    -- Achievement 40705: Azj-Kahet Glyph Hunter
+    [40705] = {
+        helpText = "Collect 11 Skyriding Glyphs in Azj-Kahet. One is in City of Threads (40695).",
+        criteria = {
+            [40691] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 63.5, y = 13.9, title = "Glyph" } } } } },
+            [40692] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 46.6, y = 21.3, title = "Glyph" } } } } },
+            [40693] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 24.7, y = 41.6, title = "Glyph" } } } } },
+            [40694] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 43, y = 57.3, title = "Glyph" } } } } },
+            [40695] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 13.9, y = 34, title = "Glyph" } } } } },
+            [40696] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 58.5, y = 89.7, title = "Glyph" } } } } },
+            [40697] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 66.4, y = 84.6, title = "Glyph" } } } } },
+            [40698] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 73.3, y = 84.4, title = "Glyph" } } } } },
+            [40699] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 57.6, y = 57.5, title = "Glyph" } } } } },
+            [40700] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 70.5, y = 25.5, title = "Glyph" } } } } },
+            [40701] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 65.5, y = 51.8, title = "Glyph" } } } } },
+        },
+    },
+    
+    -- Achievement 20596: Loremaster of Khaz Algar
+    [20596] = {
+        helpText = "Complete zone story achievements and Sojourner questlines for Isle of Dorn, The Ringing Deeps, Hallowfall, and Azj-Kahet. Includes main campaign quests and optional Sojourner side quests.",
+    },
+    
+    -- Achievement 20118: The Isle of Dorn
+    [20118] = {
+        helpText = "Complete the Isle of Dorn campaign: Breaking Point, Earthen Fissures, The First Blow.",
+    },
+    
+    -- Achievement 19560: The Ringing Deeps
+    [19560] = {
+        helpText = "Complete The Ringing Deeps campaign: By Candlelight, Dark Revelations, The Monster and the Machine.",
+    },
+    
+    -- Achievement 20598: Hallowfall
+    [20598] = {
+        helpText = "Complete the Hallowfall campaign: The Guiding Star, Gathering Shadows, Hope in Solidarity.",
+    },
+    
+    -- Achievement 19559: Azj-Kahet
+    [19559] = {
+        helpText = "Complete the Azj-Kahet campaign: Friends in the Dark, Unraveling the Trapped, Plans Within Plans.",
+    },
+    
+    -- Achievement 20595: Sojourner of Isle of Dorn
+    [20595] = {
+        helpText = "Complete 10 Sojourner questlines on Isle of Dorn. Questlines rotate; complete all variants over time.",
+    },
+    
+    -- Achievement 40799: Sojourner of The Ringing Deeps
+    [40799] = {
+        helpText = "Complete 17 Sojourner questlines in The Ringing Deeps. Questlines rotate weekly.",
+    },
+    
+    -- Achievement 40844: Sojourner of Hallowfall
+    [40844] = {
+        helpText = "Complete 17 Sojourner questlines in Hallowfall. Questlines rotate weekly.",
+    },
+    
+    -- Achievement 40636: Sojourner of Azj-Kahet
+    [40636] = {
+        helpText = "Complete 15 Sojourner questlines in Azj-Kahet. Questlines rotate weekly.",
+    },
+    
+    -- Achievement 40762: Khaz Algar Lore Hunter
+    [40762] = {
+        helpText = "Discover 20 lore objects across Khaz Algar (5 per zone). Each grants 250 rep with the zone faction. Objects show spyglass icon on minimap when nearby. Reward: 10 achievement points.",
+        criteria = {
+            [69369] = { helpText = "Under water.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 37, y = 52.5, title = "Galan's Edict" } } } } },
+            [69370] = { helpText = "On an island.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 78, y = 29, title = "Titan Console" } } } } },
+            [69371] = { helpText = "Between stone wall pieces.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 44, y = 30, title = "Stone of The Unbound" } } } } },
+            [69372] = { helpText = "On the top of the mountain.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 57, y = 20, title = "Watcher of the North" } } } } },
+            [69373] = { helpText = "On the top of the mountain.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 42, y = 80, title = "Watcher of the South" } } } } },
+            [69374] = { helpText = "Behind a pillar.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 35, y = 17, title = "A Skull on a Sign" } } } } },
+            [69375] = { helpText = "In a cave.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 67.2, y = 42.5, title = "Warning: Collapsed Tunnel" } } } } },
+            [69376] = { helpText = "In a small pond.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 47.3, y = 72.5, title = "Submerged Sign" } } } } },
+            [69377] = { helpText = "Near some rocks.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 50, y = 58, title = "Wax-Drenched Sign" } } } } },
+            [69378] = { helpText = "On the northern wall in Tealloch.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 60.8, y = 56, title = "Kobold Warning Sign" } } } } },
+            [69379] = { helpText = "Between ship wrecks, underground.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 25.5, y = 38.5, title = "Captain's Chest" } } } } },
+            [69380] = { helpText = "Near some stones.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 25, y = 54, title = "A Worn Down Book" } } } } },
+            [69381] = { helpText = "In a narrow passage.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 78, y = 40, title = "A Weathered Tome" } } } } },
+            [69382] = { helpText = "Hidden on some rocks.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 71, y = 36, title = "A Tattered Note" } } } } },
+            [69383] = { helpText = "In the water.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 62, y = 45.5, title = "A Scout's Journal" } } } } },
+            [69384] = { helpText = "On the top of the tower.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 71, y = 62, title = "Weathered Shadecaster" } } } } },
+            [69385] = { helpText = "On the top platform.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 58, y = 89.6, title = "Forgotten Shadecaster" } } } } },
+            [69386] = { helpText = "On the top level. City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 8.5, y = 30.5, title = "Neglected Shadecaster" } } } } },
+            [69387] = { helpText = "Near a waterfall.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 75, y = 33, title = "Kah'teht" } } } } },
+            [69388] = { helpText = "On the wall.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 54, y = 19, title = "Mad Nerubian" } } } } },
+        },
+    },
+    
+    -- Achievement 41169: Khaz Algar Diplomat
+    [41169] = {
+        helpText = "Reach Renown 25 with all four Khaz Algar factions: Council of Dornogal, The Assembly of the Deeps, Hallowfall Arathi, The Severed Threads. Earn renown through quests, world quests, rares, treasures, and activities in each zone.",
+        criteria = {
+            [71181] = { helpText = "Isle of Dorn faction.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 44.7, y = 51.2, title = "Dornogal" } } } } },
+            [71180] = { helpText = "The Ringing Deeps faction.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 46.9, y = 33.4, title = "Gundargaz" } } } } },
+            [71179] = { helpText = "Hallowfall faction.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 41.6, y = 52.6, title = "Mereldar" } } } } },
+            [71177] = { helpText = "Azj-Kahet faction.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 56.9, y = 47, title = "Weaver's Lair" } } } } },
+        },
+    },
+    
+    -- Achievement 40307: Allied Races: Earthen
+    [40307] = {
+        helpText = "Unlock the Earthen allied race. Complete The War Within campaign, Mourning Rise, Broken Tools, Merrix and Steelvein questlines. Unlock Earthen for your account.",
+    },
+    
+    -- ==================== Unraveled and Persevering (60889) - K'aresh ====================
+    
+    [60889] = {
+        helpText = "Complete all K'aresh and Tazavesh achievements: Remnants of a Shattered World, Explore K'aresh, Dangerous Prowlers of K'aresh, Secrets of the K'areshi, Treasures of K'aresh, Bounty Seeker, Power of the Reshii. Unlock K'aresh via questline.",
+    },
+    
+    [42761] = {
+        helpText = "Find and interact with 20 NPCs/rares across Tazavesh and K'aresh. Includes Chowdar, Arcana-Monger So'zer, Grubber in Tazavesh; Heka'tamos (collect items + Brazier), Malek'ta (jump to summon), and 16 rares in K'aresh Untethered space. Many require entering Untethered space.",
+        criteria = {
+            [106331] = { helpText = "Tazavesh.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TazaveshCity, x = 72.6, y = 81.4, title = "Chowdar" } } } } },
+            [106332] = { helpText = "Tazavesh.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TazaveshCity, x = 34.7, y = 36.1, title = "Arcana-Monger So'zer" } } } } },
+            [106333] = { helpText = "Tazavesh.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TazaveshCity, x = 71.1, y = 57.1, title = "Grubber" } } } } },
+            [106334] = { helpText = "Collect Dewminder, Spectral Lantern, Earthy Succulent, Windcatcher. Use Brazier of Elemental Union to summon.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 75.4, y = 30.3, title = "Brazier" }, { mapId = MapZones.TWW_ZONE_Karesh, x = 72.8, y = 31.3, title = "Dewminder" }, { mapId = MapZones.TWW_ZONE_Karesh, x = 72, y = 30.7, title = "Spectral Lantern" }, { mapId = MapZones.TWW_ZONE_Karesh, x = 71.8, y = 34.6, title = "Earthy Succulent" }, { mapId = MapZones.TWW_ZONE_Karesh, x = 75.6, y = 33.4, title = "Windcatcher" } } } } },
+            [106245] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 63.8, y = 43.6, title = "Ixthar the Unblinking" } } } } },
+            [106335] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 66.3, y = 42.6, title = "Korgorath the Ravager" } } } } },
+            [106336] = { helpText = "Jump to summon.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 54, y = 58.8, title = "Malek'ta" } } } } },
+            [106337] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 54.5, y = 54.5, title = "Maw of the Sands" } } } } },
+            [106338] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 56.2, y = 50.6, title = "Morgil the Netherspawn" } } } } },
+            [106339] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 52.8, y = 20.6, title = "Orith the Dreadful" } } } } },
+            [106341] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 45.8, y = 24.3, title = "Prototype MK-V" } } } } },
+            [106342] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 50.5, y = 64.77, title = "Revenant of the Wasteland" } } } } },
+            [106343] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 72.2, y = 55.2, title = "Sha'ryth the Cursed" } } } } },
+            [106344] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 54.1, y = 49.2, title = "Shadowhowl" } } } } },
+            [106345] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 76.7, y = 42.2, title = "Stalker of the Wastes" } } } } },
+            [106346] = { helpText = "Use portal in untethered space to teleport.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 75.9, y = 33.1, title = "Portal" }, { mapId = MapZones.TWW_ZONE_Karesh, x = 74, y = 32.5, title = "Sthaarbs" } } } } },
+            [106347] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 52.6, y = 56.2, title = "The Nightreaver" } } } } },
+            [106348] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 70.1, y = 49.8, title = "Urmag" } } } } },
+            [106349] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 65.1, y = 50, title = "Xarran the Binder" } } } } },
+        },
+    },
+    
+    [42741] = {
+        helpText = "Collect treasures and items across K'aresh and Tazavesh. Includes multi-step treasures (Gift of the Brothers, Ancient Coffer, Mailroom Distribution), single treasures, and transmog items in Untethered space. Some require Goblin Glider.",
+    },
+    
+    [42740] = {
+        helpText = "Explore all 10 areas of K'aresh: Eco-Dome Primus, Eco-Dome Rhovan, The Oasis, Overlook Zo'Shuul, Shadow Point, Fracture of Lacuuna, Tazavesh the Veiled Market, The Tempest Fields, Vanquisher's Wake.",
+    },
+    
+    [41979] = {
+        helpText = "Complete 6 bounty targets: Arcana-Monger So'zer, Grubber, Purple Peat, Shatterpulse, Hollowbane, Xy'vox the Twisted. Bounties appear on the bounty board.",
+    },
+    
+    [42729] = {
+        helpText = "Defeat 6 rare prowlers: C.T. (patrols), Empurror (on top), K'aresh'ire (on tree, visible every 15 sec), Little Ms. Phaser (visible every 15 sec), Mar (Tazavesh), The King in Silver (Untethered).",
+        criteria = {
+            [106220] = { helpText = "Patrols.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 47.9, y = 61.5, title = "C.T." } } } } },
+            [106225] = { helpText = "On the top.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 73.1, y = 23.7, title = "Empurror" } } } } },
+            [106226] = { helpText = "On a tree. Visible every 15 sec.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 70.2, y = 54.2, title = "K'aresh'ire" } } } } },
+            [106221] = { helpText = "Visible every 15 sec.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 50.3, y = 59.2, title = "Little Ms. Phaser" } } } } },
+            [106222] = { helpText = "Tazavesh.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TazaveshCity, x = 61, y = 55.5, title = "Mar" } } } } },
+            [106223] = { helpText = "Untethered space.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Karesh, x = 47.6, y = 37.4, title = "The King in Silver" } } } } },
+        },
+    },
+    
+    [42742] = {
+        helpText = "Complete the Power of the Reshii questline/activity in K'aresh.",
+    },
+    
+    [60890] = {
+        helpText = "Read 11 lore books across Tazavesh and K'aresh. Many are in Untethered space. Books: I Have Become Void!, Multiversal Energy Dynamics, From Vengeance to Void, The Facets of K'aresh, Checklist of Minor Pleasures, Ba'key's Recipes, A Dog-eared Book, Mysterious Notebook, Coins, Geologist Field Journal.",
+    },
+    
+    -- ==================== Going Goblin Mode (41586) - Undermine ====================
+    
+    [41586] = {
+        helpText = "Complete all Undermine achievements for Gallagio Grand Gallery Warband Campsite: Adventurer of Undermine, Treasures of Undermine, Nine-Tenths of the Law, Read Between the Lines, That Can-Do Attitude, You're My Friend Now. Undermine(d) update content.",
+    },
+    
+    [41216] = {
+        helpText = "Defeat 20 rares in Undermine. Some require Renown 6 with Cartels and cartel alignment (M.A.G.N.O. Bilgewater, Giovante Steamwheedle, Scrapchewer Venture Co., Volstrike Blackwater). Darkfuse Precipitant needs Canister of Darkfuse Solution.",
+        criteria = {
+            [71591] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 68.8, y = 80.4, title = "Scrap Beak" } } } } },
+            [71592] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 25.8, y = 35.6, title = "Ratspit" } } } } },
+            [71593] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 36.7, y = 45.5, title = "Tally Doublespeak" } } } } },
+            [71594] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 37.8, y = 78.6, title = "Slimesby" } } } } },
+            [71595] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 38, y = 78.9, title = "V.V. Goosworth" } } } } },
+            [71596] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 54.6, y = 50.6, title = "Thwack" } } } } },
+            [71597] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 41.1, y = 25.6, title = "S.A.L." } } } } },
+            [71598] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 47, y = 55.1, title = "Nitro" } } } } },
+            [71599] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 42.3, y = 77.3, title = "Candy Stickemup" } } } } },
+            [71600] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 66.9, y = 33.6, title = "Grimewick" } } } } },
+            [71601] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 41.4, y = 44, title = "Swigs Farsight" } } } } },
+            [71602] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 25.6, y = 68.4, title = "Ephemeral Agent Lathyd" } } } } },
+            [71603] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 64.2, y = 50.4, title = "The Junk-Wall" } } } } },
+            [71604] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 52, y = 41.2, title = "Slugger the Smart" } } } } },
+            [71605] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 57.5, y = 86.6, title = "Chief Foreman Gutso" } } } } },
+            [71606] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 61.9, y = 10.3, title = "Flyboy Snooty" } } } } },
+            [71608] = { helpText = "Renown 6, Bilgewater aligned.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 39.8, y = 22.2, title = "M.A.G.N.O." } } } } },
+            [71609] = { helpText = "Renown 6, Steamwheedle aligned.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 31.1, y = 75.5, title = "Giovante" } } } } },
+            [71610] = { helpText = "Renown 6, Venture Co. aligned.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 57.2, y = 78.6, title = "Scrapchewer" } } } } },
+            [71611] = { helpText = "Renown 6, Blackwater aligned.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 63.2, y = 26, title = "Volstrike the Charged" } } } } },
+            [71612] = { helpText = "Need Canister of Darkfuse Solution from vendor.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 40.9, y = 92, title = "Event" }, { mapId = MapZones.TWW_ZONE_Undermine, x = 30.6, y = 38.8, title = "Vendor" } } } } },
+        },
+    },
+    
+    [41217] = {
+        helpText = "Collect 15 treasures in Undermine. Scattered across the zone.",
+        criteria = {
+            [71613] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 48.5, y = 42.9, title = "Unexploded Fireworks" } } } } },
+            [71624] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 49.9, y = 66.2, title = "Suspicious Book" } } } } },
+            [71614] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 57.8, y = 52.7, title = "Fireworks Hat" } } } } },
+            [71615] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 49.7, y = 90.3, title = "Exploded Plunger" } } } } },
+            [71625] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 39, y = 59.6, title = "Blackened Dice" } } } } },
+            [71626] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 59.2, y = 18.9, title = "Lonely Tub" } } } } },
+            [71627] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 69.6, y = 21.6, title = "Potent Potable" } } } } },
+            [71628] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 40.8, y = 21.3, title = "Abandoned Toolbox" } } } } },
+            [71629] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 74.6, y = 80.1, title = "Papa's Prized Putter" } } } } },
+            [71630] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 26.7, y = 42.9, title = "Unsupervised Takeout" } } } } },
+            [71631] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 39.4, y = 61.1, title = "Particularly Nice Lamp" } } } } },
+            [71632] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 53.4, y = 52.7, title = "Uncracked Cold Ones" } } } } },
+            [71633] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 63.8, y = 32.2, title = "Marooned Floatmingo" } } } } },
+            [71634] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 43.6, y = 51.6, title = "Trick Deck of Cards" } } } } },
+            [71635] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 42.3, y = 82.3, title = "Crumpled Schematics" } } } } },
+        },
+    },
+    
+    [40948] = {
+        helpText = "Collect 5 Mega-Mecha parts to build the Mega-Mecha: Fork, Grease, Gorilla Batteries, Engine, Chassis. Plus Complex Treasures from 11.1 content.",
+        criteria = {
+            [85072] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 23.8, y = 45.4, title = "Mega-Mecha Fork" } } } } },
+            [85114] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 71.5, y = 85.9, title = "Mega-Mecha Grease" } } } } },
+            [85115] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 75.1, y = 23, title = "Mega-Mecha Gorilla Batteries" } } } } },
+            [85116] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 56.7, y = 55.5, title = "Mega-Mecha Engine" } } } } },
+            [85117] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 34.3, y = 82.9, title = "Mega-Mecha Chassis" } } } } },
+        },
+    },
+    
+    [41588] = {
+        helpText = "Collect 8 books in Undermine. Some in sewers and caves.",
+        criteria = {
+            [103107] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 72.9, y = 73.1, title = "Rocket Drill Safety Manual" } } } } },
+            [103108] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 27.3, y = 70.9, title = "A Threatening Letter" } } } } },
+            [103106] = { helpText = "Sewer entrance.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 40.4, y = 28.5, title = "First Half of Noggenfogger's Journal" } } } } },
+            [103109] = { helpText = "Sewer entrance.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 32.9, y = 58.8, title = "Second Half of Noggenfogger's Journal" } } } } },
+            [103110] = { helpText = "In a cave.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 68, y = 96.5, title = "Extractor Drill X-78 Safety Guide" } } } } },
+            [103111] = { helpText = "In a cave.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 58.6, y = 59.3, title = "Gallywix's Notes" } } } } },
+            [103112] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 65.6, y = 14.2, title = "Misplaced Work Order" } } } } },
+        },
+    },
+    
+    [41589] = {
+        helpText = "Complete the Kicking Cans minigame/activity in Undermine (11.1 content).",
+    },
+    
+    [41708] = {
+        helpText = "Grab all 5 Grabbable Rats. Use /tar Grabbable to find them. Locations: under stands on dumpster, second floor trash can, on railing, in burrow, next to palm tree.",
+        waypoints = {
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 43.6, y = 11.3, title = "Under stands", note = "/tar Grabbable" } } },
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 28.5, y = 55.8, title = "Second floor", note = "/tar Grabbable" } } },
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 36, y = 85.6, title = "On railing", note = "/tar Grabbable" } } },
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 65.3, y = 88.3, title = "In burrow", note = "/tar Grabbable" } } },
+            { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Undermine, x = 65.9, y = 44, title = "Next to palm tree", note = "/tar Grabbable" } } },
+        },
+    },
+    
+    -- ==================== The War Within Pathfinder (40231) ====================
+    
+    [40231] = {
+        helpText = "Unlock Steady Flight (classic flying) in Khaz Algar. Complete zone campaigns (Isle of Dorn, Ringing Deeps, Hallowfall, Azj-Kahet) and explore all four zones. Khaz Algar Explorer reveals subzones. Progress is Warband-wide.",
+    },
+    
+    [40790] = {
+        helpText = "Explore all subzones in Khaz Algar. Complete Explore achievements for Isle of Dorn, Ringing Deeps, Hallowfall, and Azj-Kahet.",
+    },
+    
+    [40831] = {
+        helpText = "Discover 10 areas on Isle of Dorn: Thunderhead Peak, Boulder Springs, Ironwold, Tranquil Strand, Dornogal, The Orecrag, Wanderer's Landing, Boskroot Basin, Mourning Rise, The Three Shields.",
+        criteria = {
+            [69786] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 47.9, y = 27.5, title = "Thunderhead Peak" } } } } },
+            [69787] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 58.3, y = 61.5, title = "Boulder Springs" } } } } },
+            [69788] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 68.6, y = 48.7, title = "Ironwold" } } } } },
+            [69789] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 30.6, y = 55.5, title = "Tranquil Strand" } } } } },
+            [69790] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 4.7, y = 50.9, title = "Dornogal" } } } } },
+            [69791] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 35.7, y = 75.5, title = "The Orecrag" } } } } },
+            [69792] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 54.6, y = 78.6, title = "Wanderer's Landing" } } } } },
+            [69793] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 54, y = 64, title = "Boskroot Basin" } } } } },
+            [69794] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 64.3, y = 44.1, title = "Mourning Rise" } } } } },
+            [69795] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_IsleOfDorn, x = 71, y = 21.4, title = "The Three Shields" } } } } },
+        },
+    },
+    
+    [40825] = {
+        helpText = "Discover 10 areas in The Ringing Deeps.",
+        criteria = {
+            [69766] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 47.2, y = 18.3, title = "The Earthenworks" } } } } },
+            [69767] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 59.4, y = 24.6, title = "Lost Mines" } } } } },
+            [69768] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 61.7, y = 41.8, title = "Shadowvein Extraction Site" } } } } },
+            [69775] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 64, y = 51.8, title = "The Rumbling Wastes" } } } } },
+            [69769] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 45.9, y = 43.9, title = "The Waterworks" } } } } },
+            [69770] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 62.3, y = 60.3, title = "Taelloch" } } } } },
+            [69771] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 55.7, y = 67.2, title = "The Living Grotto" } } } } },
+            [69772] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 64.7, y = 78.2, title = "Opportunity Point" } } } } },
+            [69773] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 40.9, y = 23.8, title = "The Hallowfall Gate" } } } } },
+            [69774] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_TheRingingDeeps, x = 47.1, y = 33.5, title = "Gundargaz" } } } } },
+        },
+    },
+    
+    [40826] = {
+        helpText = "Discover 9 areas in Hallowfall.",
+        criteria = {
+            [69776] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 68.5, y = 44.7, title = "Dunelle's Kindness" } } } } },
+            [69777] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 70.7, y = 58.7, title = "The Aegis Wall" } } } } },
+            [69778] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 57, y = 48.5, title = "The Fangs" } } } } },
+            [69779] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 48.5, y = 40.5, title = "Lorel's Crossing" } } } } },
+            [69780] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 41.5, y = 52.5, title = "Mereldar" } } } } },
+            [69781] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 40.5, y = 71.2, title = "Light's Redoubt" } } } } },
+            [69782] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 63, y = 28, title = "Light's Blooming" } } } } },
+            [69783] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 36.4, y = 35.4, title = "Priory of the Sacred Flame" } } } } },
+            [69784] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_Hallowfall, x = 30, y = 42, title = "The Undersea" } } } } },
+        },
+    },
+    
+    [40822] = {
+        helpText = "Discover 10 areas in Azj-Kahet. Includes City of Threads subzones (The Skeins, Umbral Bazaar, High Hollows).",
+        criteria = {
+            [69757] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 29.5, y = 45.1, title = "Ruptured Lake" } } } } },
+            [69758] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 46.6, y = 36.1, title = "Lightless Channels" } } } } },
+            [69759] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 61.8, y = 23.5, title = "Crawling Chasm" } } } } },
+            [69760] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 56, y = 44, title = "The Weaver's Lair" } } } } },
+            [69761] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 65, y = 52, title = "Untamed Valley" } } } } },
+            [69762] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 49.7, y = 61.4, title = "Twitching Gorge" } } } } },
+            [69763] = { helpText = "", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_AzjKahet, x = 74.8, y = 80.3, title = "Rak-Ush" } } } } },
+            [69764] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 31, y = 24, title = "The Skeins" } } } } },
+            [69808] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 60.9, y = 19.3, title = "Umbral Bazaar" } } } } },
+            [69765] = { helpText = "City of Threads.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.TWW_ZONE_CityOfThreads, x = 72, y = 48, title = "High Hollows" } } } } },
+        },
     },
     
     -- Note: This file contains waypoint structures for achievements with criteria found in WorldSoulSearching.lua
