@@ -202,6 +202,10 @@ function MetaAchievementMapDetail_OnLoad(self)
         self.RewardBox.Text = _G[self.RewardBox:GetName() .. "Text"]
     end
     if self.HelpBox then
+        self.HelpBox.WaypointButton = _G[self.HelpBox:GetName() .. "WaypointButton"]
+        if self.HelpBox.WaypointButton and MetaAchievementWaypointButton_SetTooltip then
+            MetaAchievementWaypointButton_SetTooltip(self.HelpBox.WaypointButton, "Add all waypoints")
+        end
         self.HelpBox.ScrollFrame = _G[self.HelpBox:GetName() .. "ScrollFrame"]
         if self.HelpBox.ScrollFrame then
             self.HelpBox.ScrollFrame.ScrollChild = _G[self.HelpBox.ScrollFrame:GetName() .. "ScrollChild"]
@@ -320,6 +324,23 @@ function MetaAchievementMapDetail_OnLoad(self)
 
     self._requirements = {}
     self._reqRowPool = {}
+
+    -- Set up waypoint button OnClick handlers
+    if self.HelpBox and self.HelpBox.WaypointButton then
+        self.HelpBox.WaypointButton:SetScript("OnClick", function()
+            MetaAchievementMapDetail_OnHelpBoxWaypointButtonClick(self)
+        end)
+    end
+    if self.RequirementsBox and self.RequirementsBox.WaypointButton then
+        self.RequirementsBox.WaypointButton:SetScript("OnClick", function()
+            MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
+        end)
+    end
+    if self.CriteriaInfoBox and self.CriteriaInfoBox.WaypointButton then
+        self.CriteriaInfoBox.WaypointButton:SetScript("OnClick", function()
+            MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
+        end)
+    end
 end
 
 local function normalizeForWrap(s)
@@ -400,6 +421,19 @@ local function criterionHasWaypoints(cinfo)
     return false
 end
 
+local function achievementHasDirectWaypoints(flatInfo)
+    if not flatInfo or type(flatInfo.waypoints) ~= "table" then
+        return false
+    end
+    if #flatInfo.waypoints > 0 then
+        return true
+    end
+    for _ in pairs(flatInfo.waypoints) do
+        return true
+    end
+    return false
+end
+
 local function hasHelpText(helpText)
     if type(helpText) ~= "string" then
         return false
@@ -467,7 +501,7 @@ end
 
 local CRITERIA_INFO_BOX_TITLE = "CRITERIA INFORMATION"
 
-local function setCriteriaInfoBox(self, content, criteriaName)
+local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
     if not self or not self.CriteriaInfoBox then
         return
     end
@@ -479,6 +513,20 @@ local function setCriteriaInfoBox(self, content, criteriaName)
         end
         self.CriteriaInfoBox.Label:SetText(title)
     end
+    
+    -- Store the selected criteria ID for waypoint button handler
+    self._selectedCriteriaId = criteriaId
+    
+    -- Show/hide waypoint button based on whether this criterion has waypoints
+    local hasWaypoints = false
+    if criteriaId and self._flatInfo and type(self._flatInfo.criteria) == "table" then
+        local cinfo = self._flatInfo.criteria[criteriaId]
+        hasWaypoints = criterionHasWaypoints(cinfo)
+    end
+    if self.CriteriaInfoBox.WaypointButton then
+        self.CriteriaInfoBox.WaypointButton:SetShown(hasWaypoints and hasContent)
+    end
+    
     if hasContent then
         updateCriteriaInfoBoxContent(self, content)
         self.CriteriaInfoBox:Show()
@@ -664,6 +712,12 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     data.helpText = (flatInfo and type(flatInfo.helpText) == "string" and flatInfo.helpText ~= "") and flatInfo.helpText or nil
     MetaAchievementMapDetail_SetData(self, data)
 
+    -- Show/hide HelpBox waypoint button based on whether achievement has direct waypoints
+    local hasDirectWaypoints = achievementHasDirectWaypoints(flatInfo)
+    if self.HelpBox and self.HelpBox.WaypointButton then
+        self.HelpBox.WaypointButton:SetShown(hasDirectWaypoints)
+    end
+
     -- Show/hide RequirementsBox waypoint button based on whether any criteria has waypoints
     local hasAnyWaypoint = false
     if flatInfo and type(flatInfo.criteria) == "table" then
@@ -728,7 +782,7 @@ local function criteriaTypeHandler_Default(owner, criteriaInfo, achievementId, c
         ht = DEFAULT_WAYPOINT_HELP
     end
     local criteriaName = (criteriaInfo and type(criteriaInfo.criteriaString) == "string") and criteriaInfo.criteriaString or nil
-    setCriteriaInfoBox(owner, ht, criteriaName)
+    setCriteriaInfoBox(owner, ht, criteriaName, criteriaId)
 end
 
 do
@@ -751,6 +805,68 @@ function MetaAchievementMapDetail_OnRequirementClicked(owner, criteriaInfo, achi
     if type(handler) == "function" then
         handler(owner, criteriaInfo, achievementId, criteriaIndex)
     end
+end
+
+-- Handler for HelpBox waypoint button: adds all direct achievement waypoints
+function MetaAchievementMapDetail_OnHelpBoxWaypointButtonClick(self)
+    if not self or not self._achievementId or not self._flatInfo then
+        return
+    end
+    if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
+        return
+    end
+    local waypoints = self._flatInfo.waypoints
+    if not waypoints or type(waypoints) ~= "table" then
+        return
+    end
+    -- Add all direct waypoints for this achievement
+    MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, waypoints)
+end
+
+-- Handler for RequirementsBox waypoint button: adds all criteria waypoints
+function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
+    if not self or not self._achievementId or not self._flatInfo then
+        return
+    end
+    if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
+        return
+    end
+    local criteria = self._flatInfo.criteria
+    if not criteria or type(criteria) ~= "table" then
+        return
+    end
+    -- Collect all waypoints from all criteria
+    local allWaypoints = {}
+    for criteriaId, cinfo in pairs(criteria) do
+        if type(cinfo.waypoints) == "table" then
+            for _, wp in ipairs(cinfo.waypoints) do
+                allWaypoints[#allWaypoints + 1] = wp
+            end
+        end
+    end
+    if #allWaypoints > 0 then
+        MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, allWaypoints)
+    end
+end
+
+-- Handler for CriteriaInfoBox waypoint button: adds waypoints for the selected criterion
+function MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
+    if not self or not self._achievementId or not self._flatInfo or not self._selectedCriteriaId then
+        return
+    end
+    if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
+        return
+    end
+    local criteria = self._flatInfo.criteria
+    if not criteria or type(criteria) ~= "table" then
+        return
+    end
+    local cinfo = criteria[self._selectedCriteriaId]
+    if not cinfo or type(cinfo.waypoints) ~= "table" then
+        return
+    end
+    -- Add waypoints for this specific criterion
+    MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, cinfo.waypoints)
 end
 
 function MetaAchievementMapRequirementRow_OnClick(row, button)

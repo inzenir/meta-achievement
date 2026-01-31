@@ -160,6 +160,12 @@
                     </Layer>
                 </Layers>
                 <Frames>
+                    <!-- Waypoint button: shown when achievement has direct waypoints -->
+                    <Button name="$parentWaypointButton" inherits="MetaAchievementWaypointButtonTemplate" hidden="true">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-8" y="12"/>
+                        </Anchors>
+                    </Button>
                     <ScrollFrame name="$parentScrollFrame">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="6" y="-24"/>
