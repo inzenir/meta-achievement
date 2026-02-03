@@ -19,6 +19,14 @@ achi-list\WorldSoulSearching.waypoints.lua
 achi-list\AFarewellToArms.lua
 achi-list\AFarewellToArms.waypoints.lua
 achi-list\AWorldAwoken.lua
+achi-list\AWorldAwoken\raids-and-dungeons.waypoints.lua
+achi-list\AWorldAwoken\questing.waypoints.lua
+achi-list\AWorldAwoken\zones.waypoints.lua
+achi-list\AWorldAwoken\dragon-isles-pathfinder.waypoints.lua
+achi-list\AWorldAwoken\friend-of-the-dragon-isles.waypoints.lua
+achi-list\AWorldAwoken\oh-my-god-they-were-clutchmates.waypoints.lua
+achi-list\AWorldAwoken\across-the-isles.waypoints.lua
+achi-list\AWorldAwoken\now-this-is-dragon-racing.waypoints.lua
 achi-list\AWorldAwoken.waypoints.lua
 achi-list\BackFromTheBeyond.lua
 achi-list\BackFromTheBeyond.waypoints.lua
