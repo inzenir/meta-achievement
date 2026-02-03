@@ -126,7 +126,6 @@ local function acquireReqRow(self, idx)
 end
 
 local function renderRequirements(self)
-    print("test")
     if not self.RequirementsBox or not self.RequirementsBox.ScrollFrame or not self.RequirementsBox.ScrollFrame.ScrollChild then
         return
     end
@@ -612,20 +611,33 @@ local function getAchievementInfoSafe(achievementId)
     return name, points, description, icon, reward
 end
 
-local function buildRequirementsFromCriteria(achievementId)
+local function buildRequirementsFromCriteria(achievementId, topAchievementId)
     local requirements = {}
-    if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
-        return requirements
-    end
 
-    local numCriteria = GetAchievementNumCriteria(achievementId) or 0
-    for i = 1, numCriteria do
-        local criteriaString, _, completed = GetAchievementCriteriaInfo(achievementId, i)
-        if criteriaString and criteriaString ~= "" then
+    local achievementInformation = AchievementData:GetInformation(topAchievementId, achievementId)
+    if achievementInformation and type(achievementInformation.virtualCriteria) == "table" then
+        for i, criterion in pairs(achievementInformation.virtualCriteria) do
             requirements[#requirements + 1] = {
-                text = criteriaString,
-                completed = completed == true
+                text = criterion.text or i,
+                completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType),
+                criteriaId = i,
+                criteriaType = criterion.criteriaType,
             }
+        end
+    else
+        if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
+            return requirements
+        end
+
+        local numCriteria = GetAchievementNumCriteria(achievementId) or 0
+        for i = 1, numCriteria do
+            local criteriaString, _, completed = GetAchievementCriteriaInfo(achievementId, i)
+            if criteriaString and criteriaString ~= "" then
+                requirements[#requirements + 1] = {
+                    text = criteriaString,
+                    completed = completed == true
+                }
+            end
         end
     end
 
@@ -678,7 +690,7 @@ function MetaAchievementMapDetail_BuildDataFromAchievementId(achievementId, node
     -- Prefer our filtered tree (flat data) over WoW API: it respects faction, eventId, etc.
     local requirements = buildRequirementsFromChildren(node)
     if #requirements == 0 then
-        requirements = buildRequirementsFromCriteria(achievementId)
+        requirements = buildRequirementsFromCriteria(achievementId, topAchievementId)
     end
 
     local pointsValue = (points and points > 0) and points or nil
@@ -729,9 +741,17 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
 
     -- Show/hide RequirementsBox waypoint button based on whether any criteria has waypoints
     local hasAnyWaypoint = false
-    if flatInfo and type(flatInfo.criteria) == "table" then
-        for _, cinfo in pairs(flatInfo.criteria) do
-            if type(cinfo.waypoints) == "table" and #cinfo.waypoints > 0 then
+
+    local criteria = nil
+    if flatInfo and type(flatInfo.virtualCriteria) == "table" then
+        criteria = flatInfo.virtualCriteria
+    elseif flatInfo and type(flatInfo.criteria) == "table" then
+        criteria = flatInfo.criteria
+    end
+
+    if criteria and type(criteria) == "table" then
+        for _, cinfo in pairs(criteria) do
+            if criterionHasWaypoints(cinfo) then
                 hasAnyWaypoint = true
                 break
             end
@@ -777,10 +797,11 @@ end
 local function criteriaTypeHandler_Default(owner, criteriaInfo, achievementId, criteriaIndex)
     -- When criteria is not another achievement, check waypoints flat table for additional criteria info.
     local criteriaId = criteriaInfo and criteriaInfo.criteriaID
-    if not criteriaId or not owner or not owner._flatInfo or type(owner._flatInfo.criteria) ~= "table" then
+    if not criteriaId or not owner or not owner._flatInfo then
         return
     end
-    local cinfo = owner._flatInfo.criteria[criteriaId]
+    local cinfo = (owner._flatInfo.virtualCriteria and owner._flatInfo.virtualCriteria[criteriaId])
+        or (owner._flatInfo.criteria and owner._flatInfo.criteria[criteriaId])
     if not cinfo then
         return
     end
@@ -832,6 +853,26 @@ function MetaAchievementMapDetail_OnHelpBoxWaypointButtonClick(self)
     MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, waypoints)
 end
 
+-- Flatten waypoints: each { kind="point", coordinates={c1,c2,...} } becomes one waypoint per coordinate.
+local function flattenWaypoints(waypoints)
+    if not waypoints or type(waypoints) ~= "table" then
+        return {}
+    end
+    local out = {}
+    for _, wp in pairs(waypoints) do
+        if type(wp) == "table" and wp.kind == "point" and wp.coordinates and type(wp.coordinates) == "table" then
+            for _, coord in pairs(wp.coordinates) do
+                if type(coord) == "table" and coord.mapId and coord.x and coord.y then
+                    out[#out + 1] = { kind = "point", coordinates = { coord } }
+                end
+            end
+        elseif type(wp) == "table" then
+            out[#out + 1] = wp
+        end
+    end
+    return out
+end
+
 -- Handler for RequirementsBox waypoint button: adds all criteria waypoints
 function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     if not self or not self._achievementId or not self._flatInfo then
@@ -840,15 +881,15 @@ function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
         return
     end
-    local criteria = self._flatInfo.criteria
+    local criteria = self._flatInfo.virtualCriteria or self._flatInfo.criteria
     if not criteria or type(criteria) ~= "table" then
         return
     end
-    -- Collect all waypoints from all criteria
+    -- Collect all waypoints from all criteria (virtualCriteria and criteria)
     local allWaypoints = {}
     for criteriaId, cinfo in pairs(criteria) do
         if type(cinfo.waypoints) == "table" then
-            for _, wp in ipairs(cinfo.waypoints) do
+            for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
                 allWaypoints[#allWaypoints + 1] = wp
             end
         end
@@ -866,16 +907,18 @@ function MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
     if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
         return
     end
-    local criteria = self._flatInfo.criteria
+    local criteria = self._flatInfo.virtualCriteria or self._flatInfo.criteria
     if not criteria or type(criteria) ~= "table" then
         return
     end
     local cinfo = criteria[self._selectedCriteriaId]
-    if not cinfo or type(cinfo.waypoints) ~= "table" then
+    if not cinfo or not criterionHasWaypoints(cinfo) then
         return
     end
-    -- Add waypoints for this specific criterion
-    MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, cinfo.waypoints)
+    local waypoints = flattenWaypoints(cinfo.waypoints)
+    if #waypoints > 0 then
+        MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, waypoints)
+    end
 end
 
 function MetaAchievementMapRequirementRow_OnClick(row, button)
@@ -888,14 +931,27 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
     local aid = owner._achievementId
     local idx = row._index
 
+    -- Virtual criteria path: use stored criteriaId from requirement
+    if aid and owner._flatInfo and type(owner._flatInfo.virtualCriteria) == "table" and req and req.criteriaId then
+        local vc = owner._flatInfo.virtualCriteria[req.criteriaId]
+        if vc then
+            MetaAchievementMapDetail_OnRequirementClicked(owner, {
+                criteriaString = req.text,
+                criteriaType = vc.criteriaType or 27,
+                criteriaID = req.criteriaId,
+            }, aid, idx)
+            if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
+                MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)
+            end
+            return
+        end
+    end
+
+    -- WoW API path
     if aid and idx and type(GetAchievementCriteriaInfo) == "function" then
         local ok, cs, ctype, completed, qty, reqQty, charName, flags, assetId, qtyStr, criteriaId, eligible =
             pcall(GetAchievementCriteriaInfo, aid, idx)
         if ok and cs ~= nil then
-            if owner._flatInfo and type(owner._flatInfo.criteria) == "table" and criteriaId then
-                local cinfo = owner._flatInfo.criteria[criteriaId]
-            end
-            -- Dispatch action by criteria type
             MetaAchievementMapDetail_OnRequirementClicked(owner, {
                 criteriaString = cs,
                 criteriaType = ctype,

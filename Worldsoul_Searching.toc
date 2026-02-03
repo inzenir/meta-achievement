@@ -44,6 +44,8 @@ logic\waypoint.lua
 logic\AchievementRequirement.lua
 logic\achievement.lua
 logic\achievement-criteria.lua
+logic\modern\criteria-completion.lua
+logic\modern\criteria-completion\quest-criteria.lua
 logic\wow-achievements.lua
 logic\achievement-scan.lua
 logic\slash-commands.lua

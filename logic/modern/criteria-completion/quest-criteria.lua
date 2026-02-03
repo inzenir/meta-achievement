@@ -1,0 +1,5 @@
+function IsQuestCriteriaCompleted(achievementId, criteriaId)
+    return C_QuestLog.IsQuestFlaggedCompleted(criteriaId)
+end
+
+RegisterCriteriaCompletionHandler(AchievementCriteriaTypes.CompletingAQuest, IsQuestCriteriaCompleted)

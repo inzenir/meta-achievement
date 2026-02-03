@@ -2021,20 +2021,21 @@ AWorldAwokenWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 12849
+    -- A Farewell to Arms: achievement 12849 (Treasures of Vol'dun)
+    -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [12849] = {
-        helpText = "",
+        helpText = "Treasures of Vol'dun: Discover 10 hidden treasures in Vol'dun. Loot each chest to earn credit.",
         criteria = {
-            [40966] = { helpText = "", waypoints = {} },
-            [40967] = { helpText = "", waypoints = {} },
-            [40968] = { helpText = "", waypoints = {} },
-            [40969] = { helpText = "", waypoints = {} },
-            [40970] = { helpText = "", waypoints = {} },
-            [40971] = { helpText = "", waypoints = {} },
-            [40972] = { helpText = "", waypoints = {} },
-            [41002] = { helpText = "", waypoints = {} },
-            [41003] = { helpText = "", waypoints = {} },
-            [41004] = { helpText = "", waypoints = {} },
+            [40966] = { helpText = "Ashvane Spoils - use mine cart to reach", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 46.59, y = 88.01, title = "Ashvane Spoils" } } } } },
+            [40967] = { helpText = "Grayal's Last Offering - door on East side", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 48.18, y = 64.69, title = "Grayal's Last Offering" } } } } },
+            [40968] = { helpText = "Lost Explorer's Bounty - climb the rock arch", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.78, y = 79.40, title = "Lost Explorer's Bounty" } } } } },
+            [40969] = { helpText = "Sandfury Reserve - path from South side", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 47.19, y = 58.46, title = "Sandfury Reserve" } } } } },
+            [40970] = { helpText = "Stranded Cache - climb fallen tree", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 44.50, y = 26.13, title = "Stranded Cache" } } } } },
+            [40971] = { helpText = "Excavator's Greed", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 57.74, y = 64.64, title = "Excavator's Greed" } } } } },
+            [40972] = { helpText = "Zem'lan's Buried Treasure - under Disturbed Sand", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 29.38, y = 87.42, title = "Zem'lan's Buried Treasure" } } } } },
+            [41002] = { helpText = "Lost Offerings of Kimbul - enter at top of temple", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 57.06, y = 11.21, title = "Lost Offerings of Kimbul" } } } } },
+            [41003] = { helpText = "Deadwood Chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 40.57, y = 85.74, title = "Deadwood Chest" } } } } },
+            [41004] = { helpText = "Sandsunken Treasure - use Abandoned Bobber", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 26.48, y = 45.34, title = "Sandsunken Treasure" } } } } },
         }
     },
 
@@ -2072,20 +2073,21 @@ AWorldAwokenWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12853
+    -- A Farewell to Arms: achievement 12853 (Treasures of Stormsong Valley)
+    -- Coordinates from Wowpedia (HandyNotes_BattleForAzerothTreasures)
     [12853] = {
-        helpText = "",
+        helpText = "Treasures of Stormsong Valley: Discover 10 hidden treasures in Stormsong Valley. Loot each chest to earn credit.",
         criteria = {
-            [41061] = { helpText = "", waypoints = {} },
-            [41062] = { helpText = "", waypoints = {} },
-            [41063] = { helpText = "", waypoints = {} },
-            [41064] = { helpText = "", waypoints = {} },
-            [41065] = { helpText = "", waypoints = {} },
-            [41066] = { helpText = "", waypoints = {} },
-            [41067] = { helpText = "", waypoints = {} },
-            [41068] = { helpText = "", waypoints = {} },
-            [41069] = { helpText = "", waypoints = {} },
-            [41070] = { helpText = "", waypoints = {} },
+            [41061] = { helpText = "Frosty Treasure Chest - top level of mountain waterfalls", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 48.96, y = 84.07, title = "Frosty Treasure Chest" } } } } },
+            [41062] = { helpText = "Hidden Scholar's Chest - on roof at Sagehold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.91, y = 39.00, title = "Hidden Scholar's Chest" } } } } },
+            [41063] = { helpText = "Old Ironbound Chest - inside cave with bears, Shepherd's Bluff", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 42.85, y = 47.23, title = "Old Ironbound Chest" } } } } },
+            [41064] = { helpText = "Smuggler's Stash - under wooden platform, Highland Pass", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.60, y = 83.88, title = "Smuggler's Stash" } } } } },
+            [41065] = { helpText = "Sunken Strongbox - under the ship at Port Fogtide", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 67.22, y = 43.21, title = "Sunken Strongbox" } } } } },
+            [41066] = { helpText = "Venture Co. Supply Chest - use ladder to get on ship, Jeweled Coast", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 36.69, y = 23.23, title = "Venture Co. Supply Chest" } } } } },
+            [41067] = { helpText = "Weathered Treasure Chest - underground cave hidden in trees", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 66.92, y = 12.03, title = "Weathered Treasure Chest" } } } } },
+            [41068] = { helpText = "Carved Wooden Chest - on Thornheart platform", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.44, y = 73.53, title = "Carved Wooden Chest" } } } } },
+            [41069] = { helpText = "Forgotten Chest - behind pillar, mountain near Warfang Hold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 46.00, y = 30.69, title = "Forgotten Chest" } } } } },
+            [41070] = { helpText = "Discarded Lunchbox - highest shelf in shed, Brennadam Square", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox" } } } } },
         }
     },
 
@@ -2211,43 +2213,44 @@ AWorldAwokenWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12940
+    -- A Farewell to Arms: achievement 12940 (Adventurer of Stormsong Valley)
+    -- Coordinates from WoWDB comment by Virag (HandyNotes_BattleForAzerothTreasures)
     [12940] = {
-        helpText = "",
+        helpText = "Adventurer of Stormsong Valley: Complete 33 special encounters with rare elites in Stormsong Valley. Defeat each rare to earn credit.",
         criteria = {
-            [41753] = { helpText = "", waypoints = {} },
-            [41754] = { helpText = "", waypoints = {} },
-            [41755] = { helpText = "", waypoints = {} },
-            [41756] = { helpText = "", waypoints = {} },
-            [41757] = { helpText = "", waypoints = {} },
-            [41758] = { helpText = "", waypoints = {} },
-            [41759] = { helpText = "", waypoints = {} },
-            [41760] = { helpText = "", waypoints = {} },
-            [41761] = { helpText = "", waypoints = {} },
-            [41762] = { helpText = "", waypoints = {} },
-            [41763] = { helpText = "", waypoints = {} },
-            [41765] = { helpText = "", waypoints = {} },
-            [41769] = { helpText = "", waypoints = {} },
-            [41772] = { helpText = "", waypoints = {} },
-            [41774] = { helpText = "", waypoints = {} },
-            [41775] = { helpText = "", waypoints = {} },
-            [41776] = { helpText = "", waypoints = {} },
-            [41777] = { helpText = "", waypoints = {} },
-            [41778] = { helpText = "", waypoints = {} },
-            [43470] = { helpText = "", waypoints = {} },
-            [41782] = { helpText = "", waypoints = {} },
-            [41787] = { helpText = "", waypoints = {} },
-            [41815] = { helpText = "", waypoints = {} },
-            [41816] = { helpText = "", waypoints = {} },
-            [41817] = { helpText = "", waypoints = {} },
-            [41818] = { helpText = "", waypoints = {} },
-            [41841] = { helpText = "", waypoints = {} },
-            [41842] = { helpText = "", waypoints = {} },
-            [41843] = { helpText = "", waypoints = {} },
-            [41844] = { helpText = "", waypoints = {} },
-            [41845] = { helpText = "", waypoints = {} },
-            [41846] = { helpText = "", waypoints = {} },
-            [41847] = { helpText = "", waypoints = {} },
+            [41753] = { helpText = "Song Mistress Dadalea", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 70.70, y = 33.28, title = "Song Mistress Dadalea" } } } } },
+            [41754] = { helpText = "Severus the Outcast", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 22.15, y = 72.83, title = "Severus the Outcast" } } } } },
+            [41755] = { helpText = "Seabreaker Skoloth", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 34.13, y = 38.44, title = "Seabreaker Skoloth" } } } } },
+            [41756] = { helpText = "Sabertron", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 34.30, y = 32.20, title = "Sabertron" } } } } },
+            [41757] = { helpText = "The Lichen King", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 51.79, y = 78.92, title = "The Lichen King" } } } } },
+            [41758] = { helpText = "Ragna", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 41.11, y = 74.93, title = "Ragna" } } } } },
+            [41759] = { helpText = "Slickspill", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 41.53, y = 28.50, title = "Slickspill" } } } } },
+            [41760] = { helpText = "Broodmother (spider in Millstone Hamlet cellar)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 29.25, y = 69.45, title = "Broodmother" } } } } },
+            [41761] = { helpText = "Galestorm", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 70.77, y = 54.64, title = "Galestorm" } } } } },
+            [41762] = { helpText = "Whirlwing", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 46.80, y = 41.98, title = "Whirlwing" } } } } },
+            [41763] = { helpText = "Kickers", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 31.48, y = 60.99, title = "Kickers" } } } } },
+            [41765] = { helpText = "Foreman Scripps", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 64.50, y = 65.80, title = "Foreman Scripps" } } } } },
+            [41769] = { helpText = "Poacher Zane", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 34.75, y = 67.98, title = "Poacher Zane" } } } } },
+            [41772] = { helpText = "Pinku'shon", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 38.48, y = 52.33, title = "Pinku'shon" } } } } },
+            [41774] = { helpText = "Grimscowl the Harebrained", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.21, y = 73.57, title = "Grimscowl the Harebrained" } } } } },
+            [41775] = { helpText = "Deepfang", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 53.07, y = 50.63, title = "Deepfang" } } } } },
+            [41776] = { helpText = "Croaker", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.67, y = 34.07, title = "Croaker" } } } } },
+            [41777] = { helpText = "Corrupted Pod (Corrupted Tideskipper)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 66.48, y = 48.62, title = "Corrupted Pod" } } } } },
+            [41778] = { helpText = "Crushtacean", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 51.44, y = 56.75, title = "Crushtacean" } } } } },
+            [43470] = { helpText = "Dagrus the Scorned", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 68.30, y = 39.58, title = "Dagrus the Scorned" } } } } },
+            [41782] = { helpText = "Vinespeaker Ratha", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 49.65, y = 70.05, title = "Vinespeaker Ratha" } } } } },
+            [41787] = { helpText = "Strange Mushroom Ring", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 53.07, y = 69.09, title = "Strange Mushroom Ring" } } } } },
+            [41815] = { helpText = "Haegol the Hammer", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 35.33, y = 78.26, title = "Haegol the Hammer" } } } } },
+            [41816] = { helpText = "Squall", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 57.55, y = 74.32, title = "Squall" } } } } },
+            [41817] = { helpText = "Ice Sickle", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.88, y = 83.99, title = "Ice Sickle" } } } } },
+            [41818] = { helpText = "Captain Razorspine", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 47.27, y = 65.82, title = "Captain Razorspine" } } } } },
+            [41841] = { helpText = "Whiplash", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 47.31, y = 65.89, title = "Whiplash" } } } } },
+            [41842] = { helpText = "Sister Absinthe", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.24, y = 56.78, title = "Sister Absinthe" } } } } },
+            [41843] = { helpText = "Wagga Snarltusk", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 42.41, y = 75.07, title = "Wagga Snarltusk" } } } } },
+            [41844] = { helpText = "Nestmother Acada", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 43.35, y = 45.26, title = "Nestmother Acada" } } } } },
+            [41845] = { helpText = "Osca the Bloodied", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 41.93, y = 62.39, title = "Osca the Bloodied" } } } } },
+            [41846] = { helpText = "Sandfang", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 72.70, y = 60.54, title = "Sandfang" } } } } },
+            [41847] = { helpText = "Doc Marrtens or Jakala the Cruel (complete either)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 53.35, y = 64.41, title = "Jakala the Cruel" } } } } },
         }
     },
 
@@ -2291,77 +2294,79 @@ AWorldAwokenWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12942
+    -- A Farewell to Arms: achievement 12942 (Adventurer of Nazmir)
+    -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [12942] = {
-        helpText = "",
+        helpText = "Adventurer of Nazmir: Complete 32 special encounters with rare elites in Nazmir.",
         criteria = {
-            [41440] = { helpText = "", waypoints = {} },
-            [41444] = { helpText = "", waypoints = {} },
-            [41447] = { helpText = "", waypoints = {} },
-            [41448] = { helpText = "", waypoints = {} },
-            [41450] = { helpText = "", waypoints = {} },
-            [41451] = { helpText = "", waypoints = {} },
-            [41452] = { helpText = "", waypoints = {} },
-            [41453] = { helpText = "", waypoints = {} },
-            [41454] = { helpText = "", waypoints = {} },
-            [41455] = { helpText = "", waypoints = {} },
-            [41456] = { helpText = "", waypoints = {} },
-            [41457] = { helpText = "", waypoints = {} },
-            [41458] = { helpText = "", waypoints = {} },
-            [41459] = { helpText = "", waypoints = {} },
-            [41460] = { helpText = "", waypoints = {} },
-            [41461] = { helpText = "", waypoints = {} },
-            [41462] = { helpText = "", waypoints = {} },
-            [41463] = { helpText = "", waypoints = {} },
-            [41464] = { helpText = "", waypoints = {} },
-            [41466] = { helpText = "", waypoints = {} },
-            [41467] = { helpText = "", waypoints = {} },
-            [41468] = { helpText = "", waypoints = {} },
-            [41469] = { helpText = "", waypoints = {} },
-            [41470] = { helpText = "", waypoints = {} },
-            [41472] = { helpText = "", waypoints = {} },
-            [41473] = { helpText = "", waypoints = {} },
-            [41474] = { helpText = "", waypoints = {} },
-            [41475] = { helpText = "", waypoints = {} },
-            [41476] = { helpText = "", waypoints = {} },
-            [41477] = { helpText = "", waypoints = {} },
-            [41478] = { helpText = "", waypoints = {} },
-            [41479] = { helpText = "", waypoints = {} },
+            [41440] = { helpText = "Ancient Jawbreaker", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 67.81, y = 29.72, title = "Ancient Jawbreaker" } } } } },
+            [41444] = { helpText = "Azerite-Infused Elemental", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 54.13, y = 28.11, title = "Azerite-Infused Elemental" } } } } },
+            [41447] = { helpText = "Azerite-Infused Slag", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 32.80, y = 26.90, title = "Azerite-Infused Slag" } } } } },
+            [41448] = { helpText = "Blood Priest Xak'lar - in cave, behind waterfall", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 43.07, y = 90.11, title = "Cave entrance" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 43.19, y = 91.31, title = "Blood Priest Xak'lar" } } } } },
+            [41450] = { helpText = "Uroku the Bound", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 44.22, y = 48.73, title = "Uroku the Bound" } } } } },
+            [41451] = { helpText = "King Kooba", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 53.69, y = 42.87, title = "King Kooba" } } } } },
+            [41452] = { helpText = "Chag's Challenge", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 68.10, y = 20.23, title = "Chag's Challenge" } } } } },
+            [41453] = { helpText = "Corpse Bringer Yal'kar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 41.67, y = 53.44, title = "Corpse Bringer Yal'kar" } } } } },
+            [41454] = { helpText = "Cursed Chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 81.81, y = 30.57, title = "Cursed Chest" } } } } },
+            [41455] = { helpText = "Gwugnug the Cursed", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 33.54, y = 87.08, title = "Gwugnug the Cursed" } } } } },
+            [41456] = { helpText = "Glompmaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 68.96, y = 57.47, title = "Glompmaw" } } } } },
+            [41457] = { helpText = "Gutrip", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 32.34, y = 43.32, title = "Gutrip" } } } } },
+            [41458] = { helpText = "Queen Tzxi'kik", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 56.67, y = 69.32, title = "Queen Tzxi'kik" } } } } },
+            [41459] = { helpText = "Infected Direhorn", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 24.97, y = 77.78, title = "Infected Direhorn" } } } } },
+            [41460] = { helpText = "Jax'teb the Reanimated", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 45.38, y = 51.97, title = "Jax'teb the Reanimated" } } } } },
+            [41461] = { helpText = "Juba the Scarred", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 27.82, y = 33.57, title = "Juba the Scarred" } } } } },
+            [41462] = { helpText = "Kal'draxa", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 52.93, y = 13.40, title = "Kal'draxa" } } } } },
+            [41463] = { helpText = "Krubbs", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 76.03, y = 36.54, title = "Krubbs" } } } } },
+            [41464] = { helpText = "Lost Scroll", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 81.70, y = 61.05, title = "Lost Scroll" } } } } },
+            [41466] = { helpText = "Bajiatha", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 42.81, y = 59.49, title = "Bajiatha" } } } } },
+            [41467] = { helpText = "Scout Skrasniss", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 58.96, y = 38.93, title = "Scout Skrasniss" } } } } },
+            [41468] = { helpText = "Scrounger Patriarch", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 58.43, y = 10.14, title = "Scrounger Patriarch" } } } } },
+            [41469] = { helpText = "Tainted Guardian", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 31.44, y = 38.15, title = "Tainted Guardian" } } } } },
+            [41470] = { helpText = "Totem Maker Jash'ga", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 49.45, y = 37.14, title = "Totem Maker Jash'ga" } } } } },
+            [41472] = { helpText = "Urn of Agussu", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 38.10, y = 57.68, title = "Urn of Agussu" } } } } },
+            [41473] = { helpText = "Venomjaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 29.71, y = 51.07, title = "Venomjaw" } } } } },
+            [41474] = { helpText = "Wardrummer Zurula", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 48.99, y = 50.82, title = "Wardrummer Zurula" } } } } },
+            [41475] = { helpText = "Xu'ba the Bone Collector", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 36.56, y = 50.53, title = "Xu'ba" } } } } },
+            [41476] = { helpText = "Za'amar the Queen's Blade", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 38.72, y = 26.74, title = "Za'amar the Queen's Blade" } } } } },
+            [41477] = { helpText = "Zanxib the Engorged", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 38.89, y = 71.48, title = "Zanxib the Engorged" } } } } },
+            [41478] = { helpText = "Lo'kuno", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 78.08, y = 44.51, title = "Lo'kuno" } } } } },
+            [41479] = { helpText = "Mala'kili and Rohnkor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 52.61, y = 54.89, title = "Mala'kili and Rohnkor" } } } } },
         }
     },
 
-    -- A Farewell to Arms: achievement 12943
+    -- A Farewell to Arms: achievement 12943 (Adventurer of Vol'dun)
+    -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [12943] = {
-        helpText = "",
+        helpText = "Adventurer of Vol'dun: Complete 28 special encounters with rare elites in Vol'dun.",
         criteria = {
-            [41606] = { helpText = "", waypoints = {} },
-            [41607] = { helpText = "", waypoints = {} },
-            [41608] = { helpText = "", waypoints = {} },
-            [41609] = { helpText = "", waypoints = {} },
-            [41610] = { helpText = "", waypoints = {} },
-            [41611] = { helpText = "", waypoints = {} },
-            [41612] = { helpText = "", waypoints = {} },
-            [41613] = { helpText = "", waypoints = {} },
-            [41614] = { helpText = "", waypoints = {} },
-            [41615] = { helpText = "", waypoints = {} },
-            [41616] = { helpText = "", waypoints = {} },
-            [41617] = { helpText = "", waypoints = {} },
-            [41618] = { helpText = "", waypoints = {} },
-            [41619] = { helpText = "", waypoints = {} },
-            [41620] = { helpText = "", waypoints = {} },
-            [41621] = { helpText = "", waypoints = {} },
-            [41622] = { helpText = "", waypoints = {} },
-            [41623] = { helpText = "", waypoints = {} },
-            [41624] = { helpText = "", waypoints = {} },
-            [41625] = { helpText = "", waypoints = {} },
-            [41626] = { helpText = "", waypoints = {} },
-            [41627] = { helpText = "", waypoints = {} },
-            [41628] = { helpText = "", waypoints = {} },
-            [41629] = { helpText = "", waypoints = {} },
-            [41630] = { helpText = "", waypoints = {} },
-            [41631] = { helpText = "", waypoints = {} },
-            [41632] = { helpText = "", waypoints = {} },
-            [41633] = { helpText = "", waypoints = {} },
+            [41606] = { helpText = "Ak'tar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 50.38, y = 81.60, title = "Ak'tar" } } } } },
+            [41607] = { helpText = "Ashmane", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 54.70, y = 15.17, title = "Ashmane" } } } } },
+            [41608] = { helpText = "Azer'tor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.06, y = 89.05, title = "Azer'tor" } } } } },
+            [41609] = { helpText = "Bajiani the Slick", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 31.00, y = 81.09, title = "Bajiani the Slick" } } } } },
+            [41610] = { helpText = "Bloated Krolusk", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.06, y = 49.89, title = "Bloated Krolusk" } } } } },
+            [41611] = { helpText = "Bloodwing Bonepicker", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 56.10, y = 53.56, title = "Bloodwing Bonepicker" } } } } },
+            [41612] = { helpText = "Captain Stef \"Marrow\" Quin", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 41.27, y = 24.49, title = "Captain Stef Marrow Quin" } } } } },
+            [41613] = { helpText = "Commodore Calhoun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 42.68, y = 92.45, title = "Commodore Calhoun" } } } } },
+            [41614] = { helpText = "Enraged Krolusk", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 61.85, y = 37.88, title = "Enraged Krolusk" } } } } },
+            [41615] = { helpText = "Gut-Gut the Glutton", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 64.00, y = 47.57, title = "Gut-Gut the Glutton" } } } } },
+            [41616] = { helpText = "Hivemother Kraxi - in cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 53.84, y = 51.49, title = "Cave entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 53.69, y = 53.47, title = "Hivemother Kraxi" } } } } },
+            [41617] = { helpText = "Jumbo Sandsnapper", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 37.43, y = 84.98, title = "Jumbo Sandsnapper" } } } } },
+            [41618] = { helpText = "Jungleweb Hunter", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 60.56, y = 18.01, title = "Jungleweb Hunter" } } } } },
+            [41619] = { helpText = "Kamid the Trapper", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 35.09, y = 51.83, title = "Kamid the Trapper" } } } } },
+            [41620] = { helpText = "King Clickyclack - in cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 37.35, y = 40.50, title = "Cave entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 38.28, y = 41.38, title = "King Clickyclack" } } } } },
+            [41621] = { helpText = "Nez'ara", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 43.76, y = 86.24, title = "Nez'ara" } } } } },
+            [41622] = { helpText = "Relic Hunter Hazaak", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.02, y = 72.10, title = "Relic Hunter Hazaak" } } } } },
+            [41623] = { helpText = "Scaleclaw Broodmother", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 44.54, y = 80.23, title = "Scaleclaw Broodmother" } } } } },
+            [41624] = { helpText = "Scorpox", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 32.72, y = 65.22, title = "Scorpox" } } } } },
+            [41625] = { helpText = "Sirokar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 24.74, y = 68.50, title = "Sirokar" } } } } },
+            [41626] = { helpText = "Skycaller Teskris - in cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 46.24, y = 27.14, title = "Cave entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 46.97, y = 25.18, title = "Skycaller Teskris" } } } } },
+            [41627] = { helpText = "Skycarver Krakit", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 51.26, y = 36.45, title = "Skycarver Krakit" } } } } },
+            [41628] = { helpText = "Songstress Nahjeen", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 66.89, y = 24.46, title = "Songstress Nahjeen" } } } } },
+            [41629] = { helpText = "Vathikur", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 57.19, y = 73.49, title = "Vathikur" } } } } },
+            [41630] = { helpText = "Warbringer Hozzik", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 37.08, y = 46.16, title = "Warbringer Hozzik" } } } } },
+            [41631] = { helpText = "Warlord Zothix", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 30.12, y = 52.56, title = "Warlord Zothix" } } } } },
+            [41632] = { helpText = "Warmother Captive", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 50.71, y = 30.86, title = "Warmother Captive" } } } } },
+            [41633] = { helpText = "Zunashi the Exile - inside skeleton under the sand", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 43.99, y = 52.46, title = "Skeleton entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 43.92, y = 54.05, title = "Zunashi the Exile" } } } } },
         }
     },
 
@@ -2465,24 +2470,25 @@ AWorldAwokenWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13016
+    -- A Farewell to Arms: achievement 13016 (Scavenger of the Sands)
+    -- Find 14 lost items scattered across Vol'dun. Coordinates from Wowhead/HandyNotes_BFA.
     [13016] = {
-        helpText = "",
+        helpText = "Scavenger of the Sands: Find 14 lost items scattered across Vol'dun. Each item belongs to a member of the Scavenger's crew. Click each item on the ground to collect it.",
         criteria = {
-            [41342] = { helpText = "", waypoints = {} },
-            [41343] = { helpText = "", waypoints = {} },
-            [41344] = { helpText = "", waypoints = {} },
-            [41345] = { helpText = "", waypoints = {} },
-            [41346] = { helpText = "", waypoints = {} },
-            [41347] = { helpText = "", waypoints = {} },
-            [41348] = { helpText = "", waypoints = {} },
-            [41349] = { helpText = "", waypoints = {} },
-            [41350] = { helpText = "", waypoints = {} },
-            [41351] = { helpText = "", waypoints = {} },
-            [41352] = { helpText = "", waypoints = {} },
-            [41353] = { helpText = "", waypoints = {} },
-            [41354] = { helpText = "", waypoints = {} },
-            [41355] = { helpText = "", waypoints = {} },
+            [41342] = { helpText = "Jason's Rusty Blade - beneath the bridge next to a skeleton", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 56.31, y = 70.07, title = "Jason's Rusty Blade" } } } } },
+            [41343] = { helpText = "Ian's Empty Bottle - in toppled crate next to Blackeye Gunt", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 36.21, y = 78.38, title = "Ian's Empty Bottle" } } } } },
+            [41344] = { helpText = "Julie's Cracked Dish - on table next to Akunda the Patient", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 53.56, y = 89.80, title = "Julie's Cracked Dish" } } } } },
+            [41345] = { helpText = "Brian's Broken Compass - underneath broken wall's brick", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 37.80, y = 30.46, title = "Brian's Broken Compass" } } } } },
+            [41346] = { helpText = "Ofer's Bound Journal - on teal table near Zareen, first floor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 26.79, y = 52.92, title = "Ofer's Bound Journal" } } } } },
+            [41347] = { helpText = "Skye's Pet Rock - on a plate behind Jenoh", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 29.47, y = 59.37, title = "Skye's Pet Rock" } } } } },
+            [41348] = { helpText = "Julien's Left Boot - near bones by the cliff", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 52.44, y = 14.41, title = "Julien's Left Boot" } } } } },
+            [41349] = { helpText = "Navarro's Flask - on basket next to Zauljin", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 43.22, y = 76.99, title = "Navarro's Flask" } } } } },
+            [41350] = { helpText = "Zach's Canteen - on crate next to Serrik", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 47.08, y = 75.79, title = "Zach's Canteen" } } } } },
+            [41351] = { helpText = "Damarcus' Backpack - hanging from a tent", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 45.87, y = 30.68, title = "Damarcus' Backpack" } } } } },
+            [41352] = { helpText = "Rachel's Flute - inside cave on wagon seat (entrance first)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 64.87, y = 36.10, title = "Cave entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 66.40, y = 35.90, title = "Rachel's Flute" } } } } },
+            [41353] = { helpText = "Josh's Fang Necklace - inside cave at Vorrik's Sanctum by serpent pool", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 48.00, y = 36.40, title = "Vorrik's Sanctum cave entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 47.92, y = 36.71, title = "Josh's Fang Necklace" } } } } },
+            [41354] = { helpText = "Portrait of Commander Martens - inside house on wall", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 45.22, y = 91.16, title = "Portrait of Commander Martens" } } } } },
+            [41355] = { helpText = "Kurt's Ornate Key - on a crate, down from Tortaka Refuge", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 62.87, y = 22.68, title = "Kurt's Ornate Key" } } } } },
         }
     },
 
@@ -2541,11 +2547,23 @@ AWorldAwokenWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13028
+    -- A Farewell to Arms: achievement 13028 (Krag'wa's Ire - find 10 Lost Spawn of Krag'wa in Nazmir)
     [13028] = {
-        helpText = "",
+        helpText = "Krag'wa's Ire: Find and interact with 10 Lost Spawn of Krag'wa in Nazmir. Each spawn is tied to a quest.",
         criteria = {
-            [41598] = { helpText = "", waypoints = {} },
+            [41598] = {},
+        },
+        virtualCriteria = {
+            [53417] = { criteriaType = 27, text = "Krag'wa #1", helpText = "Dive into the submerged cave at this location.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 65.6, y = 50.9, title = "Krag'wa #1" } } } } },
+            [53418] = { criteriaType = 27, text = "Krag'wa #2", helpText = "Enter the underwater cave beneath the giant skeleton.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 69.1, y = 57.9, title = "Krag'wa #2" } } } } },
+            [53419] = { criteriaType = 27, text = "Krag'wa #3", helpText = "Tucked away behind a large tree.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 56.1, y = 64.9, title = "Krag'wa #3" } } } } },
+            [53422] = { criteriaType = 27, text = "Krag'wa #4", helpText = "In a cave inhabited by riverbeasts.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 45.6, y = 91.0, title = "Krag'wa #4" } } } } },
+            [53423] = { criteriaType = 27, text = "Krag'wa #5", helpText = "Inside a cliff cave—follow the road up the mountain from the waypoint.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 26.8, y = 80.4, title = "Start of path—follow the road up the mountain" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 26.8, y = 80.4, title = "Krag'wa #5 (cave)" } } } } },
+            [53424] = { criteriaType = 27, text = "Krag'wa #6", helpText = "Resting among the trees in the open.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 24.2, y = 91.6, title = "Krag'wa #6" } } } } },
+            [53425] = { criteriaType = 27, text = "Krag'wa #7", helpText = "Along the riverbank.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 21.7, y = 69.3, title = "Krag'wa #7" } } } } },
+            [53421] = { criteriaType = 27, text = "Krag'wa #8", helpText = "Inside a small cave at this spot.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 33.5, y = 61.6, title = "Krag'wa #8" } } } } },
+            [53420] = { criteriaType = 27, text = "Krag'wa #9", helpText = "Concealed behind the seamoss.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 25.6, y = 40.6, title = "Krag'wa #9" } } } } },
+            [53426] = { criteriaType = 27, text = "Krag'wa #10", helpText = "Inside the ruined building.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 52.8, y = 42.9, title = "Krag'wa #10" } } } } },
         }
     },
 
@@ -2592,9 +2610,11 @@ AWorldAwokenWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13046
+    -- A Farewell to Arms: achievement 13046 (These Hills Sing)
+    -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [13046] = {
-        helpText = "",
+        helpText = "These Hills Sing: Enjoy an Unforgettable Luncheon at a special location in Stormsong Valley. Buy Unforgettable Luncheon from an innkeeper, or loot one from the Discarded Lunchbox treasure in Brennadam. Use the item at the picnic spot.",
+        waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox (loot Unforgettable Luncheon)" }, { mapId = MapZones.BFA_ZONE_StormsongValley, x = 41.25, y = 69.50, title = "Unforgettable Luncheon spot" } } } },
     },
 
     -- A Farewell to Arms: achievement 13047
@@ -2625,18 +2645,20 @@ AWorldAwokenWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13051
+    -- A Farewell to Arms: achievement 13051 (Legends of the Tidesages)
+    -- Find 8 Ancient Tidesage scrolls hanging from shrines/monuments in Stormsong Valley. Some hidden in mountains.
+    -- Coordinates from warcraft.blizzplanet.com
     [13051] = {
-        helpText = "",
+        helpText = "Legends of the Tidesages: Discover 8 large Tidesage scrolls hanging from shrines or monuments throughout Stormsong Valley. Some are well hidden in the mountains.",
         criteria = {
-            [41425] = { helpText = "", waypoints = {} },
-            [41426] = { helpText = "", waypoints = {} },
-            [41427] = { helpText = "", waypoints = {} },
-            [41428] = { helpText = "", waypoints = {} },
-            [41429] = { helpText = "", waypoints = {} },
-            [41430] = { helpText = "", waypoints = {} },
-            [41431] = { helpText = "", waypoints = {} },
-            [41432] = { helpText = "", waypoints = {} },
+            [41425] = { helpText = "Legends of the Tidesages Part 1 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 49.52, y = 80.91, title = "Legends of the Tidesages Part 1" } } } } },
+            [41426] = { helpText = "Legends of the Tidesages Part 2 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 31.93, y = 72.92, title = "Legends of the Tidesages Part 2" } } } } },
+            [41427] = { helpText = "Legends of the Tidesages Part 3 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.01, y = 59.55, title = "Legends of the Tidesages Part 3" } } } } },
+            [41428] = { helpText = "Legends of the Tidesages Part 4 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.20, y = 36.62, title = "Legends of the Tidesages Part 4" } } } } },
+            [41429] = { helpText = "Legends of the Tidesages Part 5 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 56.05, y = 38.49, title = "Legends of the Tidesages Part 5" } } } } },
+            [41430] = { helpText = "Legends of the Tidesages Part 6 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.06, y = 30.24, title = "Legends of the Tidesages Part 6" } } } } },
+            [41431] = { helpText = "Legends of the Tidesages Part 7 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 75.06, y = 31.09, title = "Legends of the Tidesages Part 7" } } } } },
+            [41432] = { helpText = "Legends of the Tidesages Part 8 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 33.81, y = 33.21, title = "Legends of the Tidesages Part 8" } } } } },
         }
     },
 
