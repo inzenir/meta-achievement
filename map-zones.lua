@@ -80,6 +80,17 @@ MapZones = {
 
     WOW_ZONE_TheCapeOfStranglethorn = 210,
 
+    -- Battle for Azeroth zones (Zandalar)
+    BFA_ZONE_Zuldazar = 862,
+    BFA_ZONE_Dazaralor = 1165,
+    BFA_ZONE_Nazmir = 863,
+    BFA_ZONE_Voldun = 864,
+    -- Battle for Azeroth zones (Kul Tiras)
+    BFA_ZONE_TiragardeSound = 895,
+    BFA_ZONE_Boralus = 1161,
+    BFA_ZONE_Drustvar = 896,
+    BFA_ZONE_StormsongValley = 942,
+
 	TBC_ZONE_SilvermoonCity2 = 1954,
 
     TWW_ZONE_CityOfThreads = 2213,

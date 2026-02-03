@@ -29,14 +29,15 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 12478
     [12478] = {
-        helpText = "Drust Do It: Complete the Drustvar storyline. Quests: The Final Effigy, An Airtight Alibi, A New Order, Storming the Manor, Fighting With Fire, The Burden of Proof, The Order of Embers, Break on Through, Drustfall, Stick It To 'Em!",
+        helpText = "Secrets in the Sands: Complete the Vol'dun zone storyline. Horde-only. Quest chains: Unlikely Allies, The Warguard's Fate, The Three Keepers, Atul'Aman, Dangers in the Desert, A City of Secrets, Storming the Spire.",
         criteria = {
-            [40280] = { helpText = "The Final Effigy", waypoints = {} },
-            [40020] = { helpText = "An Airtight Alibi", waypoints = {} },
-            [40021] = { helpText = "A New Order", waypoints = {} },
-            [40022] = { helpText = "Storming the Manor", waypoints = {} },
-            [40023] = { helpText = "Fighting With Fire", waypoints = {} },
-            [40024] = { helpText = "The Burden of Proof", waypoints = {} },
+            [40280] = { helpText = "Unlikely Allies", waypoints = {} },
+            [0] = { helpText = "Dangers in the Desert", waypoints = {} },
+            [40020] = { helpText = "The Warguard's Fate", waypoints = {} },
+            [40021] = { helpText = "A City of Secrets", waypoints = {} },
+            [40022] = { helpText = "The Three Keepers", waypoints = {} },
+            [40023] = { helpText = "Storming the Spire", waypoints = {} },
+            [40024] = { helpText = "Atul'Aman", waypoints = {} },
         }
     },
 
@@ -52,7 +53,7 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 12481
     [12481] = {
-        helpText = "The Final Seal: Complete the final seal questline in Zandalar. Part of the Zandalar Forever! meta achievement. Unlocks after completing all three zone storylines.",
+        helpText = "The Final Seal: Complete the Zandalar Forever scenario in Zuldazar. Part of the Zandalar Forever! meta achievement. Unlocks after completing all three zone storylines.",
     },
 
     -- A Farewell to Arms: achievement 12482
@@ -76,60 +77,60 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 12484
     [12484] = {
-        helpText = "Secrets in the Sands: Complete the Vol'dun zone storyline. Horde questline achievement involving the Vulpera, Sethrak, and desert adventures in Vol'dun.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 12501
     [12501] = {
-        helpText = "The Dark Heart of Nazmir: Complete the Nazmir zone storyline. Horde questline achievement involving blood trolls, Bwonsamdi, and the corruption in Nazmir.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 12505
     [12505] = {
-        helpText = "A Sound Plan: Complete the Tiragarde Sound storyline. Alliance questline achievement involving pirates, the Ashvane Company, and Kul Tiran politics.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 12509
     [12509] = {
-        helpText = "Ready for War [H]: Complete the Horde War Campaign in Kul Tiras and Zandalar. Requires: 3 foothold quests, Chasing Darkness, Blood in the Water, Blood on the Sand, A Golden Opportunity, The Strike on Zuldazar. Must have Heart of Azeroth and World Quests unlocked.",
+        helpText = "Ready for War [H]: Complete the Horde War Campaign in Kul Tiras and Zandalar. Requires: Drustvar Foothold, Stormsong Valley Foothold, Tiragarde Sound Foothold, The Marshal's Grave, At the Bottom of the Sea, The First Assault, Death of a Tidesage, The Strike on Boralus. Must have Heart of Azeroth and World Quests unlocked.",
         criteria = {
-            [40200] = { helpText = "Nazmir Foothold", waypoints = {} },
-            [40453] = { helpText = "Zuldazar Foothold", waypoints = {} },
-            [40509] = { helpText = "Vol'dun Foothold", waypoints = {} },
-            [40454] = { helpText = "Chasing Darkness", waypoints = {} },
-            [40510] = { helpText = "Blood in the Water", waypoints = {} },
-            [40511] = { helpText = "Blood on the Sand", waypoints = {} },
-            [40867] = { helpText = "A Golden Opportunity", waypoints = {} },
-            [40868] = { helpText = "The Strike on Zuldazar", waypoints = {} },
+            [40200] = { helpText = "Drustvar Foothold", waypoints = {} },
+            [40453] = { helpText = "Stormsong Valley Foothold", waypoints = {} },
+            [40509] = { helpText = "Tiragarde Sound Foothold", waypoints = {} },
+            [40454] = { helpText = "The Marshal's Grave", waypoints = {} },
+            [40510] = { helpText = "At the Bottom of the Sea", waypoints = {} },
+            [40511] = { helpText = "The First Assault", waypoints = {} },
+            [40867] = { helpText = "Death of a Tidesage", waypoints = {} },
+            [40868] = { helpText = "The Strike on Boralus", waypoints = {} },
         }
     },
 
     -- A Farewell to Arms: achievement 12521
     [12521] = {
-        helpText = "Proudmoore Admiralty: Earn Exalted reputation with Proudmoore Admiralty. Alliance faction from Tiragarde Sound. Gain rep through world quests, emissary quests, war table missions, and contracts.",
+        helpText = "",
         criteria = {
-            [40246] = { helpText = "Friendly with Proudmoore Admiralty", waypoints = {} },
-            [40247] = { helpText = "Honored with Proudmoore Admiralty", waypoints = {} },
-            [40223] = { helpText = "Revered with Proudmoore Admiralty", waypoints = {} },
+            [40246] = { helpText = "", waypoints = {} },
+            [40247] = { helpText = "", waypoints = {} },
+            [40223] = { helpText = "", waypoints = {} },
         }
     },
 
     -- A Farewell to Arms: achievement 12522
     [12522] = {
-        helpText = "Order of Embers: Earn Exalted reputation with Order of Embers. Alliance faction from Drustvar. Gain rep through world quests, emissary quests, war table missions, and contracts. Turn in Exotic Spices from island expeditions for 250 rep.",
+        helpText = "",
         criteria = {
-            [40248] = { helpText = "Friendly with Order of Embers", waypoints = {} },
-            [40222] = { helpText = "Honored with Order of Embers", waypoints = {} },
+            [40248] = { helpText = "", waypoints = {} },
+            [40222] = { helpText = "", waypoints = {} },
             [40224] = { helpText = "Revered with Order of Embers", waypoints = {} },
         }
     },
 
     -- A Farewell to Arms: achievement 12523
     [12523] = {
-        helpText = "Storm's Wake: Earn Exalted reputation with Storm's Wake. Alliance faction from Stormsong Valley. Gain rep through world quests, emissary quests, war table missions, and contracts.",
+        helpText = "",
         criteria = {
-            [40220] = { helpText = "Friendly with Storm's Wake", waypoints = {} },
-            [40221] = { helpText = "Honored with Storm's Wake", waypoints = {} },
+            [40220] = { helpText = "", waypoints = {} },
+            [40221] = { helpText = "", waypoints = {} },
         }
     },
 
@@ -282,16 +283,17 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12614
+    -- A Farewell to Arms: achievement 12614 (Loa Expectations)
+    -- Have each of the 6 Loa buffs cast on you in Zandalar. Shrines in Dazar'alor (Zandalari use Embrace of the Loa); non-Zandalari get buffs from world quests/events.
     [12614] = {
-        helpText = "Three Sheets to the Wind: Acquire all 22 Kul Tiran drinks from vendors across Tiragarde Sound, Drustvar, and Stormsong Valley. Vendors: Harold Atkey, Ruddy the Rat, Joseph Stephens, Nicolas Moal, Sarella Griffin (Tiragarde), Barkeep Cotner, Linda Deepwater (Drustvar), Emma Haribull (Stormsong).",
+        helpText = "Loa Expectations: Have the following 6 Loa buffs cast on you in Zandalar: Boon of Gonk, Boon of Pa'ku, Boon of Akunda, Boon of Bwonsamdi, Boon of Kimbul, Boon of Krag'wa. Zandalari: use Embrace of the Loa at shrines in Dazar'alor (5-day cooldown per change). Non-Zandalari: obtain from world quests or Loa events.",
         criteria = {
-            [40619] = { helpText = "Tiragarde Sound drinks (11 total)", waypoints = {} },
-            [40620] = { helpText = "Drustvar drinks (6 total)", waypoints = {} },
-            [40621] = { helpText = "Stormsong Valley drinks (5 total)", waypoints = {} },
-            [40622] = { helpText = "Additional drink vendors", waypoints = {} },
-            [40623] = { helpText = "Rare drink locations", waypoints = {} },
-            [40624] = { helpText = "Complete collection", waypoints = {} },
+            [40619] = { helpText = "Boon of Gonk - Loa of the Hunt shrine (South, Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 50.3, y = 63.0, title = "Shrine of Gonk" } } } } },
+            [40620] = { helpText = "Boon of Pa'ku - Lord of the Winds shrine (South, Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 49.3, y = 62.8, title = "Shrine of Pa'ku" } } } } },
+            [40621] = { helpText = "Boon of Akunda - Rhino Loa shrine (East, Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 58.3, y = 50.2, title = "Shrine of Akunda" } } } } },
+            [40622] = { helpText = "Boon of Bwonsamdi - Loa of Death shrine (West, Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 41.6, y = 50.4, title = "Shrine of Bwonsamdi" } } } } },
+            [40623] = { helpText = "Boon of Kimbul - Tiger Loa shrine (East, Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 57.0, y = 43.5, title = "Shrine of Kimbul" } } } } },
+            [40624] = { helpText = "Boon of Krag'wa - Frog Loa shrine (West, Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 42.8, y = 43.4, title = "Shrine of Krag'wa" } } } } },
         }
     },
 
@@ -333,12 +335,12 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 12832
     [12832] = {
-        helpText = "Azeroth at War: The Barrens: Complete War Campaign objectives in The Barrens. Part of the faction conflict storyline in Battle for Azeroth.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 12837
     [12837] = {
-        helpText = "Azeroth at War: Kalimdor on Fire: Complete War Campaign objectives across Kalimdor. Involves the burning of Teldrassil and Horde/Alliance conflict in Kalimdor zones.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 12841
@@ -348,7 +350,7 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 12845
     [12845] = {
-        helpText = "Azeroth at War: Mission Accomplished: Complete all War Campaign missions and objectives. Meta achievement for finishing the entire BFA War Campaign storyline.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 12849
@@ -502,42 +504,43 @@ AFarewellToArmsWaypoints = {
         helpText = "Have a Heart: Complete Heart of Azeroth related content. Involves powering up your Heart of Azeroth necklace, unlocking essences, and progressing through the Azerite system.",
     },
 
-    -- A Farewell to Arms: achievement 12939
+    -- A Farewell to Arms: achievement 12939 (Adventurer of Tiragarde Sound)
+    -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [12939] = {
-        helpText = "Adventurer of Tiragarde Sound: Complete 32 special encounters with rare elites in Tiragarde Sound. Includes: Auditor Dolp, Bashmu, Blackthorne, Captain Wintersail, Fowlmouth, Gulliver, Lumbergrasp Sentinel, Imperiled Merchants, P4-N73R4, Raging Swell, Saurolisk Tamer Mugg, Shiverscale the Toxic, Squirgle of the Depths, Tempestria, Teres, Totes, Barman Bill, Black-Eyed Bart, Broodmother Razora, Carla Smirk, Foxhollow Skyterror, Kulett the Ornery, Maison the Portable, Merianae, Pack Leader Asenya, Ranja, Sawtooth, Squacks, Sythian the Swift, Tentulos the Drifter, Tort Jaw, Twin-hearted Construct.",
+        helpText = "Adventurer of Tiragarde Sound: Complete 32 special encounters with rare elites in Tiragarde Sound.",
         criteria = {
-            [41793] = { helpText = "", waypoints = {} },
-            [41795] = { helpText = "", waypoints = {} },
-            [41796] = { helpText = "", waypoints = {} },
-            [41797] = { helpText = "", waypoints = {} },
-            [41798] = { helpText = "", waypoints = {} },
-            [41800] = { helpText = "", waypoints = {} },
-            [41806] = { helpText = "", waypoints = {} },
-            [41812] = { helpText = "", waypoints = {} },
-            [41813] = { helpText = "", waypoints = {} },
-            [41814] = { helpText = "", waypoints = {} },
-            [41819] = { helpText = "", waypoints = {} },
-            [41820] = { helpText = "", waypoints = {} },
-            [41821] = { helpText = "", waypoints = {} },
-            [41822] = { helpText = "", waypoints = {} },
-            [41823] = { helpText = "", waypoints = {} },
-            [41824] = { helpText = "", waypoints = {} },
-            [41825] = { helpText = "", waypoints = {} },
-            [41826] = { helpText = "", waypoints = {} },
-            [41827] = { helpText = "", waypoints = {} },
-            [41828] = { helpText = "", waypoints = {} },
-            [41829] = { helpText = "", waypoints = {} },
-            [41830] = { helpText = "", waypoints = {} },
-            [41831] = { helpText = "", waypoints = {} },
-            [41832] = { helpText = "", waypoints = {} },
-            [41833] = { helpText = "", waypoints = {} },
-            [41834] = { helpText = "", waypoints = {} },
-            [41835] = { helpText = "", waypoints = {} },
-            [41836] = { helpText = "", waypoints = {} },
-            [41837] = { helpText = "", waypoints = {} },
-            [41838] = { helpText = "", waypoints = {} },
-            [41839] = { helpText = "", waypoints = {} },
-            [41840] = { helpText = "", waypoints = {} },
+            [41793] = { helpText = "Auditor Dolp", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 75.14, y = 78.48, title = "Auditor Dolp" } } } } },
+            [41795] = { helpText = "Barman Bill", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 76.21, y = 83.05, title = "Barman Bill" } } } } },
+            [41796] = { helpText = "Bashmu", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 34.01, y = 30.29, title = "Bashmu" } } } } },
+            [41797] = { helpText = "Black-Eyed Bart", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 56.67, y = 69.94, title = "Black-Eyed Bart" } } } } },
+            [41798] = { helpText = "Blackthorne - hillside above the cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 84.70, y = 73.85, title = "Blackthorne" } } } } },
+            [41800] = { helpText = "Broodmother Razora", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 83.36, y = 44.13, title = "Broodmother Razora" } } } } },
+            [41806] = { helpText = "Captain Wintersail", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 38.42, y = 20.66, title = "Captain Wintersail" } } } } },
+            [41812] = { helpText = "Carla Smirk", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 72.83, y = 81.46, title = "Carla Smirk" } } } } },
+            [41813] = { helpText = "Fowlmouth", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 89.78, y = 78.15, title = "Fowlmouth" } } } } },
+            [41814] = { helpText = "Foxhollow Skyterror", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 59.98, y = 22.75, title = "Foxhollow Skyterror" } } } } },
+            [41819] = { helpText = "Gulliver", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 57.72, y = 56.13, title = "Gulliver" } } } } },
+            [41820] = { helpText = "Kulett the Ornery", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 48.07, y = 23.34, title = "Kulett the Ornery" } } } } },
+            [41821] = { helpText = "Lumbergrasp Sentinel", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 68.35, y = 20.88, title = "Lumbergrasp Sentinel" } } } } },
+            [41822] = { helpText = "Maison the Portable", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 58.09, y = 48.70, title = "Maison the Portable" } } } } },
+            [41823] = { helpText = "Imperiled Merchants (Honey-Coated Slitherer)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 64.29, y = 19.31, title = "Imperiled Merchants" } } } } },
+            [41824] = { helpText = "Merianae", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 43.80, y = 17.71, title = "Merianae" } } } } },
+            [41825] = { helpText = "P4-N73R4", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 65.17, y = 64.60, title = "P4-N73R4" } } } } },
+            [41826] = { helpText = "Pack Leader Asenya", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 39.46, y = 15.17, title = "Pack Leader Asenya" } } } } },
+            [41827] = { helpText = "Raging Swell", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 64.80, y = 58.93, title = "Raging Swell" } } } } },
+            [41828] = { helpText = "Ranja", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 68.33, y = 63.62, title = "Ranja" } } } } },
+            [41829] = { helpText = "Saurolisk Tamer Mugg", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 58.54, y = 15.13, title = "Saurolisk Tamer Mugg" } } } } },
+            [41830] = { helpText = "Sawtooth - also in Boralus", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 76.02, y = 28.87, title = "Sawtooth" }, { mapId = MapZones.BFA_ZONE_Boralus, x = 80.40, y = 35.00, title = "Sawtooth (Boralus)" } } } } },
+            [41831] = { helpText = "Shiverscale the Toxic", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 55.70, y = 33.18, title = "Shiverscale the Toxic" } } } } },
+            [41832] = { helpText = "Squacks", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 80.83, y = 82.77, title = "Squacks" } } } } },
+            [41833] = { helpText = "Squirgle of the Depths", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 49.35, y = 36.13, title = "Squirgle of the Depths" } } } } },
+            [41834] = { helpText = "Sythian the Swift", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 66.70, y = 14.27, title = "Sythian the Swift" } } } } },
+            [41835] = { helpText = "Tempestria", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 60.80, y = 17.27, title = "Tempestria" } } } } },
+            [41836] = { helpText = "Tentulos the Drifter", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 55.09, y = 50.56, title = "Tentulos the Drifter" } } } } },
+            [41837] = { helpText = "Teres", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 63.73, y = 50.39, title = "Teres" } } } } },
+            [41838] = { helpText = "Tort Jaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 70.03, y = 55.67, title = "Tort Jaw" } } } } },
+            [41839] = { helpText = "Totes", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 46.39, y = 19.97, title = "Totes" } } } } },
+            [41840] = { helpText = "Twin-hearted Construct", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 70.27, y = 12.83, title = "Twin-hearted Construct" } } } } },
         }
     },
 
@@ -695,33 +698,34 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12944
+    -- A Farewell to Arms: achievement 12944 (Adventurer of Zuldazar)
+    -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [12944] = {
-        helpText = "",
+        helpText = "Adventurer of Zuldazar: Complete special encounters with rare elites in Zuldazar. Defeat 23 rare spawns across the zone.",
         criteria = {
-            [41850] = { helpText = "", waypoints = {} },
-            [41851] = { helpText = "", waypoints = {} },
-            [41852] = { helpText = "", waypoints = {} },
-            [41853] = { helpText = "", waypoints = {} },
-            [41869] = { helpText = "", waypoints = {} },
-            [41870] = { helpText = "", waypoints = {} },
-            [41871] = { helpText = "", waypoints = {} },
-            [41872] = { helpText = "", waypoints = {} },
-            [41873] = { helpText = "", waypoints = {} },
-            [41874] = { helpText = "", waypoints = {} },
-            [41875] = { helpText = "", waypoints = {} },
-            [41876] = { helpText = "", waypoints = {} },
-            [41877] = { helpText = "", waypoints = {} },
-            [41855] = { helpText = "", waypoints = {} },
-            [41856] = { helpText = "", waypoints = {} },
-            [41858] = { helpText = "", waypoints = {} },
-            [41859] = { helpText = "", waypoints = {} },
-            [41863] = { helpText = "", waypoints = {} },
-            [41864] = { helpText = "", waypoints = {} },
-            [41865] = { helpText = "", waypoints = {} },
-            [41866] = { helpText = "", waypoints = {} },
-            [41867] = { helpText = "", waypoints = {} },
-            [41868] = { helpText = "", waypoints = {} },
+            [41850] = { helpText = "Atal'zul Gotaka - climb ropes onto ship in Rastakhan's Might", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 80.97, y = 21.63, title = "Atal'zul Gotaka" } } } } },
+            [41851] = { helpText = "Gahz'ralka", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 64.25, y = 32.71, title = "Gahz'ralka" } } } } },
+            [41852] = { helpText = "Dark Chronicler", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 44.15, y = 76.52, title = "Dark Chronicler" } } } } },
+            [41853] = { helpText = "Syrawon the Dominus - in cave, down the river", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 53.40, y = 44.65, title = "Syrawon the Dominus" } } } } },
+            [41869] = { helpText = "Zayoos", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 48.00, y = 54.24, title = "Zayoos" } } } } },
+            [41870] = { helpText = "Lei-zhi", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 58.77, y = 73.95, title = "Lei-zhi" } } } } },
+            [41871] = { helpText = "Avatar of Xolotal - in cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 49.85, y = 57.44, title = "Avatar of Xolotal" } } } } },
+            [41872] = { helpText = "Bloodbulge", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 59.82, y = 18.30, title = "Bloodbulge" } } } } },
+            [41873] = { helpText = "Torraske the Eternal", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 46.61, y = 65.33, title = "Torraske the Eternal" } } } } },
+            [41874] = { helpText = "Kandak", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 68.71, y = 48.75, title = "Kandak" } } } } },
+            [41875] = { helpText = "Kul'krazahn - also in Dazar'alor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 59.60, y = 56.40, title = "Kul'krazahn" } } } } },
+            [41876] = { helpText = "Golrakahn", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 74.11, y = 28.50, title = "Golrakahn" } } } } },
+            [41877] = { helpText = "Umbra'jin - in cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 71.42, y = 32.39, title = "Umbra'jin" } } } } },
+            [41855] = { helpText = "Darkspeaker Jo'la", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 65.41, y = 10.22, title = "Darkspeaker Jo'la" } } } } },
+            [41856] = { helpText = "Hakbi the Risen", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 42.00, y = 36.20, title = "Hakbi the Risen" } } } } },
+            [41858] = { helpText = "Vukuba - interact with Strange Egg to spawn", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 61.90, y = 46.22, title = "Vukuba" } } } } },
+            [41859] = { helpText = "Warcrawler Karkithiss", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 43.95, y = 25.44, title = "Warcrawler Karkithiss" } } } } },
+            [41863] = { helpText = "Murderbeak", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 60.62, y = 66.27, title = "Murderbeak" } } } } },
+            [41864] = { helpText = "Daggerjaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 74.20, y = 39.30, title = "Daggerjaw" } } } } },
+            [41865] = { helpText = "G'Naat", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 79.97, y = 35.97, title = "G'Naat" } } } } },
+            [41866] = { helpText = "Kiboku", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 75.61, y = 35.82, title = "Kiboku" } } } } },
+            [41867] = { helpText = "Bramblewing", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 66.20, y = 32.40, title = "Bramblewing" } } } } },
+            [41868] = { helpText = "Tambano", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 77.71, y = 10.29, title = "Tambano" } } } } },
         }
     },
 
@@ -829,19 +833,20 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13020
+    -- A Farewell to Arms: achievement 13020 (Bow to Your Masters)
+    -- /bow to each Loa at their location. Some require zone storyline completion.
     [13020] = {
-        helpText = "",
+        helpText = "Bow to Your Masters: Earn respect from all 9 Loa by using /bow at their shrines. Rezan: Zuldazar storyline or Atal'Dazar dungeon. Jani: Mysterious Trashpiles (12 across Zandalar). Others: visit shrines in Zuldazar, Nazmir, Vol'dun. Sethraliss/Rezan may require zone storyline completion.",
         criteria = {
-            [41525] = { helpText = "", waypoints = {} },
-            [41495] = { helpText = "", waypoints = {} },
-            [41497] = { helpText = "", waypoints = {} },
-            [41498] = { helpText = "", waypoints = {} },
-            [41499] = { helpText = "", waypoints = {} },
-            [41500] = { helpText = "", waypoints = {} },
-            [41501] = { helpText = "", waypoints = {} },
-            [41502] = { helpText = "", waypoints = {} },
-            [41503] = { helpText = "", waypoints = {} },
+            [41525] = { helpText = "Rezan - Zuldazar shrine or Atal'Dazar dungeon (complete Zuldazar storyline)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 43.74, y = 76.74, title = "Rezan Shrine" } } } } },
+            [41495] = { helpText = "Jani - Interact with Mysterious Trashpiles across Zandalar (12 locations)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 48.54, y = 54.60, title = "Jani Trashpile (Gorilla Gorge)" } } } } },
+            [41497] = { helpText = "Gonk - Temple of the Prophet, Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 51.69, y = 28.25, title = "Shrine of Gonk" } } } } },
+            [41498] = { helpText = "Krag'wa - Krag'wa's Burrow, Nazmir (Frogmarsh)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 58.92, y = 48.65, title = "Krag'wa's Burrow" } } } } },
+            [41499] = { helpText = "Sethraliss - Sanctuary of the Devoted, Vol'dun (may need zone storyline)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 27.0, y = 52.6, title = "Sanctuary of the Devoted" } } } } },
+            [41500] = { helpText = "Pa'ku - Atal'Gral or Pterror Rise, Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 49.00, y = 41.29, title = "Shrine of Pa'ku" } } } } },
+            [41501] = { helpText = "Kimbul - Temple of Kimbul, Vol'dun (northern tip)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 56.6, y = 10.4, title = "Temple of Kimbul" } } } } },
+            [41502] = { helpText = "Akunda - Temple of Akunda, Vol'dun (southeastern)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 53.2, y = 90.2, title = "Temple of Akunda" } } } } },
+            [41503] = { helpText = "Bwonsamdi - The Edge of Oblivion, Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 39.12, y = 38.65, title = "Bwonsamdi Shrine" } } } } },
         }
     },
 
@@ -879,41 +884,45 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13029
+    -- A Farewell to Arms: achievement 13029 (Eating Out of the Palm of My Tiny Hand)
+    -- Feed brutosaurs their favorite food in each of the three Zandalar zones.
     [13029] = {
-        helpText = "",
+        helpText = "Eating Out of the Palm of My Tiny Hand: Feed one brutosaur in each Zandalar zone. Zuldazar: Buy Extra-Dry Fruitcake from Golkada, feed Irritable Maka'fon. Nazmir: Buy Primitive Watermelon from Blind Wunja (in cave), feed Goramor. Vol'dun: Buy Snake on a Stick from Rikati, feed Ol' Stompy.",
         criteria = {
-            [41575] = { helpText = "", waypoints = {} },
-            [41578] = { helpText = "", waypoints = {} },
-            [41580] = { helpText = "", waypoints = {} },
+            [41575] = { helpText = "Zuldazar: Buy Extra-Dry Fruitcake from Golkada (71.2, 29.5), feed to Irritable Maka'fon in The Slough", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 71.2, y = 29.5, title = "Golkada (vendor) / Irritable Maka'fon" } } } } },
+            [41578] = { helpText = "Nazmir: Buy Primitive Watermelon from Blind Wunja in cave (34.6, 54.9), feed to Goramor in Far Reach (32, 35)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 34.6, y = 54.9, title = "Blind Wunja (vendor, in cave)" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 32.0, y = 35.0, title = "Goramor (brutosaur)" } } } } },
+            [41580] = { helpText = "Vol'dun: Buy Snake on a Stick from Rikati (40.4, 55.3), feed to Ol' Stompy in Shrouded Shore", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 40.4, y = 55.3, title = "Rikati (vendor) / Ol' Stompy" } } } } },
         }
     },
 
-    -- A Farewell to Arms: achievement 13036
+    -- A Farewell to Arms: achievement 13036 (A Loa of a Tale)
+    -- Find and read 15 "Tales of de Loa" volumes across Zuldazar, Nazmir, and Vol'dun. Coordinates from HandyNotes_BattleForAzerothTreasures.
     [13036] = {
-        helpText = "",
+        helpText = "A Loa of a Tale: Find and read all 15 volumes of 'Tales of de Loa' scattered across Zandalar. Books are in Zuldazar (8), Nazmir (4), and Vol'dun (3). Click each book to read it.",
         criteria = {
-            [41564] = { helpText = "", waypoints = {} },
-            [41565] = { helpText = "", waypoints = {} },
-            [41566] = { helpText = "", waypoints = {} },
-            [41567] = { helpText = "", waypoints = {} },
-            [41568] = { helpText = "", waypoints = {} },
-            [41569] = { helpText = "", waypoints = {} },
-            [41570] = { helpText = "", waypoints = {} },
-            [41571] = { helpText = "", waypoints = {} },
-            [41572] = { helpText = "", waypoints = {} },
-            [41573] = { helpText = "", waypoints = {} },
-            [41574] = { helpText = "", waypoints = {} },
-            [41576] = { helpText = "", waypoints = {} },
-            [41577] = { helpText = "", waypoints = {} },
-            [41579] = { helpText = "", waypoints = {} },
-            [41581] = { helpText = "", waypoints = {} },
+            [41564] = { helpText = "Tales of de Loa: Akunda - Temple of Akunda area, Vol'dun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 42.22, y = 62.11, title = "Tales of de Loa: Akunda" } } } } },
+            [41565] = { helpText = "Tales of de Loa: Bwonsamdi - Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 39.12, y = 38.65, title = "Tales of de Loa: Bwonsamdi" } } } } },
+            [41566] = { helpText = "Tales of de Loa: Gonk - Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 51.69, y = 28.25, title = "Tales of de Loa: Gonk" } } } } },
+            [41567] = { helpText = "Tales of de Loa: Gral - Atal'Gral, Zuldazar (eastern coast)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 75.50, y = 67.60, title = "Tales of de Loa: Gral" } } } } },
+            [41568] = { helpText = "Tales of de Loa: Hir'eek - Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 39.57, y = 54.67, title = "Tales of de Loa: Hir'eek" } } } } },
+            [41569] = { helpText = "Tales of de Loa: Jani - Zuldazar (Gorilla Gorge area)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 48.54, y = 54.60, title = "Tales of de Loa: Jani" } } } } },
+            [41570] = { helpText = "Tales of de Loa: Kimbul - Vol'dun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 27.70, y = 62.12, title = "Tales of de Loa: Kimbul" } } } } },
+            [41571] = { helpText = "Tales of de Loa: Krag'wa - Krag'wa's Burrow, Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 58.92, y = 48.65, title = "Tales of de Loa: Krag'wa" } } } } },
+            [41572] = { helpText = "Tales of de Loa: Pa'ku - Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 49.00, y = 41.29, title = "Tales of de Loa: Pa'ku" } } } } },
+            [41573] = { helpText = "Tales of de Loa: Rezan - Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 43.74, y = 76.74, title = "Tales of de Loa: Rezan" } } } } },
+            [41574] = { helpText = "Tales of de Loa: Sethraliss - Sanctuary of the Devoted, Vol'dun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.57, y = 24.57, title = "Tales of de Loa: Sethraliss" } } } } },
+            [41576] = { helpText = "Tales of de Loa: Shadra - Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 47.84, y = 28.84, title = "Tales of de Loa: Shadra" } } } } },
+            [41577] = { helpText = "Tales of de Loa: Torcali - Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 67.28, y = 17.62, title = "Tales of de Loa: Torcali" } } } } },
+            [41579] = { helpText = "Tales of de Loa: Torga - Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 72.85, y = 7.60, title = "Tales of de Loa: Torga" } } } } },
+            [41581] = { helpText = "Tales of de Loa: Zandalar - Zuldazar or Dazar'alor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 57.70, y = 31.70, title = "Tales of de Loa: Zandalar" }, { mapId = MapZones.BFA_ZONE_Dazaralor, x = 53.23, y = 9.40, title = "Tales of de Loa: Zandalar (Dazar'alor)" } } } } },
         }
     },
 
-    -- A Farewell to Arms: achievement 13038
+    -- A Farewell to Arms: achievement 13038 (Raptari Rider)
+    -- Maintain Speed of Gonk buff for 3 minutes. Requires choosing Gonk in "Picking a Side" quest. Totems are in Dazar'alor.
     [13038] = {
-        helpText = "",
+        helpText = "Raptari Rider: Maintain the Speed of Gonk buff for 3 minutes in Zuldazar. Prerequisite: Complete 'Picking a Side' (from Wardruid Loti) and choose Gonk as your loa. Strategy: Find two or more nearby Gonk totems in Dazar'alor and run back and forth between them to refresh the buff. If you chose Pa'ku, speak to Chronicler Ash'tari to change your loa.",
+        waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 50.3, y = 63.0, title = "Lair of Gonk / Gonk totems area" } } } },
     },
 
     -- A Farewell to Arms: achievement 13045
@@ -974,16 +983,17 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13057
+    -- A Farewell to Arms: achievement 13057 (Sailed in Sea Minor / Shanty Raid)
+    -- Find 6 Forbidden Sea Shanties in Tiragarde Sound and Boralus. Coordinates from HandyNotes_BattleForAzerothTreasures.
     [13057] = {
-        helpText = "",
+        helpText = "Sailed in Sea Minor: Find all 6 Forbidden Sea Shanties in Tiragarde Sound and Boralus. Shanties: Lively Men, Inebriation, Black Sphere, Fruit Counting, Josephus, Horse. Some are in Boralus, some in Tiragarde Sound. Josephus drops from Barman Bill, Black Sphere from Black-Eyed Bart.",
         criteria = {
-            [41541] = { helpText = "", waypoints = {} },
-            [41542] = { helpText = "", waypoints = {} },
-            [41543] = { helpText = "", waypoints = {} },
-            [41544] = { helpText = "", waypoints = {} },
-            [41545] = { helpText = "", waypoints = {} },
-            [41546] = { helpText = "", waypoints = {} },
+            [41541] = { helpText = "Shanty of the Lively Men - on fireplace mantel", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 74.40, y = 35.40, title = "Shanty of the Lively Men" }, { mapId = MapZones.BFA_ZONE_Boralus, x = 72.61, y = 68.53, title = "Shanty of the Lively Men (Boralus)" } } } } },
+            [41542] = { helpText = "Shanty of Fruit Counting - in a cave, Tiragarde Sound", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 43.38, y = 25.85, title = "Shanty of Fruit Counting" } } } } },
+            [41543] = { helpText = "Shanty of Inebriation - behind Jay the Tavern Bard", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 70.60, y = 22.70, title = "Shanty of Inebriation" }, { mapId = MapZones.BFA_ZONE_Boralus, x = 53.14, y = 17.67, title = "Shanty of Inebriation (Boralus)" } } } } },
+            [41544] = { helpText = "Shanty of Josephus - drops from Barman Bill", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 76.21, y = 83.06, title = "Barman Bill (drops Shanty of Josephus)" } } } } },
+            [41545] = { helpText = "Shanty of the Black Sphere - drops from Black-Eyed Bart", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 56.70, y = 69.90, title = "Black-Eyed Bart (drops Shanty of the Black Sphere)" } } } } },
+            [41546] = { helpText = "Shanty of the Horse - ground floor, on a table (Ring of Booty)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 73.20, y = 84.10, title = "Shanty of the Horse" } } } } },
         }
     },
 
@@ -992,32 +1002,33 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13061
+    -- A Farewell to Arms: achievement 13061 (Three Sheets to the Wind)
+    -- Purchase all 22 Kul Tiran drinks from bartenders. Coordinates from warcraft.blizzplanet.com
     [13061] = {
-        helpText = "",
+        helpText = "Three Sheets to the Wind: Purchase all 22 Kul Tiran drinks from bartenders across Kul Tiras. Boralus: Harold Atkey, Ruddy the Rat, Joseph Stephens, Nicolas Moal. Tiragarde: Sarella Griffin. Drustvar: Barkeep Cotner, Linda Deepwater. Stormsong: Emma Haribull.",
         criteria = {
-            [41396] = { helpText = "", waypoints = {} },
-            [41397] = { helpText = "", waypoints = {} },
-            [41398] = { helpText = "", waypoints = {} },
-            [41399] = { helpText = "", waypoints = {} },
-            [41400] = { helpText = "", waypoints = {} },
-            [41401] = { helpText = "", waypoints = {} },
-            [41402] = { helpText = "", waypoints = {} },
-            [41403] = { helpText = "", waypoints = {} },
-            [41404] = { helpText = "", waypoints = {} },
-            [41405] = { helpText = "", waypoints = {} },
-            [41406] = { helpText = "", waypoints = {} },
-            [41407] = { helpText = "", waypoints = {} },
-            [41408] = { helpText = "", waypoints = {} },
-            [41409] = { helpText = "", waypoints = {} },
-            [41410] = { helpText = "", waypoints = {} },
-            [41411] = { helpText = "", waypoints = {} },
-            [41412] = { helpText = "", waypoints = {} },
-            [41413] = { helpText = "", waypoints = {} },
-            [41414] = { helpText = "", waypoints = {} },
-            [41415] = { helpText = "", waypoints = {} },
-            [41416] = { helpText = "", waypoints = {} },
-            [41417] = { helpText = "", waypoints = {} },
+            [41396] = { helpText = "Harold Atkey (Boralus): Blacktooth Bloodwine, Mildenhall Mead, Brennadam Apple Brandy, Aurora Borealis, Whitegrove Pale Ale, Bitter Darkroot Vodka", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 75.38, y = 14.44, title = "Harold Atkey" } } } } },
+            [41397] = { helpText = "Ruddy the Rat (Boralus): Admiralty-Issued Grog, Patina Pale Ale, Snowberry Berliner, Hook Point Porter, Tradewinds Kolsch", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 69.42, y = 29.89, title = "Ruddy the Rat" } } } } },
+            [41398] = { helpText = "Joseph Stephens (Boralus): Dark and Stormy, Thornspeaker Moonshine", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 47.57, y = 47.37, title = "Joseph Stephens" } } } } },
+            [41399] = { helpText = "Nicolas Moal (Boralus): Corlain Estate 12 Year, Arathor Single Cask", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 58.23, y = 70.24, title = "Nicolas Moal" } } } } },
+            [41400] = { helpText = "Sarella Griffin (Tiragarde): Pontoon Pilsner, Hook Point Schnapps, Kul Tiran Tripel, Drop Anchor Dunkel", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 49.78, y = 25.19, title = "Sarella Griffin" } } } } },
+            [41401] = { helpText = "Barkeep Cotner (Drustvar): Sausage Martini", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.08, y = 66.08, title = "Barkeep Cotner" } } } } },
+            [41402] = { helpText = "Linda Deepwater (Drustvar): Long Forgotten Rum. Unlock Anyport first if pirates present.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.18, y = 43.85, title = "Linda Deepwater" } } } } },
+            [41403] = { helpText = "Emma Haribull (Stormsong Valley): Foaming Turtle Broth", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.43, y = 54.18, title = "Emma Haribull" } } } } },
+            [41404] = { helpText = "Harold Atkey (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 75.38, y = 14.44, title = "Harold Atkey" } } } } },
+            [41405] = { helpText = "Ruddy the Rat (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 69.42, y = 29.89, title = "Ruddy the Rat" } } } } },
+            [41406] = { helpText = "Joseph Stephens (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 47.57, y = 47.37, title = "Joseph Stephens" } } } } },
+            [41407] = { helpText = "Nicolas Moal (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 58.23, y = 70.24, title = "Nicolas Moal" } } } } },
+            [41408] = { helpText = "Sarella Griffin (Tiragarde Sound)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 49.78, y = 25.19, title = "Sarella Griffin" } } } } },
+            [41409] = { helpText = "Barkeep Cotner (Drustvar)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.08, y = 66.08, title = "Barkeep Cotner" } } } } },
+            [41410] = { helpText = "Linda Deepwater (Drustvar)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.18, y = 43.85, title = "Linda Deepwater" } } } } },
+            [41411] = { helpText = "Emma Haribull (Stormsong Valley)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.43, y = 54.18, title = "Emma Haribull" } } } } },
+            [41412] = { helpText = "Harold Atkey (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 75.38, y = 14.44, title = "Harold Atkey" } } } } },
+            [41413] = { helpText = "Ruddy the Rat (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 69.42, y = 29.89, title = "Ruddy the Rat" } } } } },
+            [41414] = { helpText = "Joseph Stephens (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 47.57, y = 47.37, title = "Joseph Stephens" } } } } },
+            [41415] = { helpText = "Nicolas Moal (Boralus)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 58.23, y = 70.24, title = "Nicolas Moal" } } } } },
+            [41416] = { helpText = "Sarella Griffin (Tiragarde Sound)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 49.78, y = 25.19, title = "Sarella Griffin" } } } } },
+            [41417] = { helpText = "Drustvar/Stormsong vendors", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.08, y = 66.08, title = "Barkeep Cotner" }, { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.18, y = 43.85, title = "Linda Deepwater" }, { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.43, y = 54.18, title = "Emma Haribull" } } } } },
         }
     },
 
@@ -2139,7 +2150,7 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 40956
     [40956] = {
-        helpText = "Battle for Azeroth Dungeon Hero: Complete all 10 Battle for Azeroth dungeons on Mythic difficulty. Includes: Atal'Dazar, Freehold, Tol Dagor, The MOTHERLODE!!, Waycrest Manor, Shrine of the Storm, Temple of Sethraliss, The Underrot, Kings' Rest, Siege of Boralus. Also includes Mechagon and Operation: Mechagon dungeons.",
+        helpText = "",
     },
 
     -- A Farewell to Arms: achievement 40957
