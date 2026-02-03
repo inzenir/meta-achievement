@@ -51,8 +51,9 @@ function Achievement:new(achievementEntry, parentAchievementRequirements)
     obj.icon = icon or achievementEntry.icon or ACHIEVEMENT_DEFAULT_ICON
     obj.chidrenCompleted = figureOutIfChildrenAreCompleted(achievementEntry)
 
-    if achievementEntry.requirements then
-        obj.requirements = AchievementRequirement:new(achievementEntry.requirements)
+    local req = achievementEntry.requirements or achievementEntry.requires
+    if req then
+        obj.requirements = AchievementRequirement:new(req)
     end
 
     if not obj.requirements then

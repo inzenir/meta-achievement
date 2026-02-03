@@ -4,23 +4,31 @@ DataList.__index = DataList
 NODE_ICON_COMPLETED = "Interface\\Buttons\\UI-CheckBox-Check"
 NODE_ICON_NOT_COMPLETED = "Interface\\Buttons\\UI-StopButton"
 
-local function scanData(inputData, depth, colapsedItems)
+local function scanData(inputData, depth, colapsedItems, parentRequirements)
     local tmpItems = {}
     for _, item in ipairs(inputData or {}) do
-        local achiObj = Achievement:new(item)
+        local achiObj = Achievement:new(item, parentRequirements)
 
-        local tmpItem = {
-            id = item.id,
-            data = achiObj,
-            completedIcon = achiObj.completed and NODE_ICON_COMPLETED or NODE_ICON_NOT_COMPLETED,
-            colapsed = colapsedItems[item.id] or false,
-            children = scanData(item.children or {}, depth + 1, colapsedItems),
-            allChildrenCompleted = achiObj.chidrenCompleted,
-            depth = depth,
-            waypoints = item.waypoints
-        }
+        -- Skip achievements whose requirements are not met (e.g., wrong faction)
+        local shouldInclude = true
+        if achiObj.requirements and achiObj.requirements.AreRequirementsMet then
+            shouldInclude = achiObj.requirements:AreRequirementsMet()
+        end
 
-        tmpItems[#tmpItems+1] = tmpItem
+        if shouldInclude then
+            local tmpItem = {
+                id = item.id,
+                data = achiObj,
+                completedIcon = achiObj.completed and NODE_ICON_COMPLETED or NODE_ICON_NOT_COMPLETED,
+                colapsed = colapsedItems[item.id] or false,
+                children = scanData(item.children or {}, depth + 1, colapsedItems, achiObj.requirements),
+                allChildrenCompleted = achiObj.chidrenCompleted,
+                depth = depth,
+                waypoints = item.waypoints
+            }
+
+            tmpItems[#tmpItems+1] = tmpItem
+        end
     end
 
     return tmpItems

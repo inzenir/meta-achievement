@@ -126,6 +126,7 @@ local function acquireReqRow(self, idx)
 end
 
 local function renderRequirements(self)
+    print("test")
     if not self.RequirementsBox or not self.RequirementsBox.ScrollFrame or not self.RequirementsBox.ScrollFrame.ScrollChild then
         return
     end
@@ -631,22 +632,29 @@ local function buildRequirementsFromCriteria(achievementId)
     return requirements
 end
 
+--- Build requirements from our filtered tree (node.children) or raw definition (node.data.children).
+--- Prefer node.children: it's already filtered by faction/requirements in scanData.
 local function buildRequirementsFromChildren(node)
     local requirements = {}
     if type(GetAchievementInfo) ~= "function" then
         return requirements
     end
 
-    local children = node and node.data and node.data.children or nil
+    -- Prefer filtered tree (node.children) - respects faction, eventId, etc.
+    local children = node and node.children
+    if type(children) ~= "table" or #children == 0 then
+        children = node and node.data and node.data.children or nil
+    end
     if type(children) ~= "table" then
         return requirements
     end
 
     for _, child in ipairs(children) do
-        if child and child.id then
-            local _, childName, _, childCompleted = GetAchievementInfo(child.id)
+        local childId = child and child.id
+        if childId then
+            local _, childName, _, childCompleted = GetAchievementInfo(childId)
             requirements[#requirements + 1] = {
-                text = childName or ("Achievement " .. tostring(child.id)),
+                text = childName or ("Achievement " .. tostring(childId)),
                 completed = childCompleted == true
             }
         end
@@ -667,9 +675,10 @@ function MetaAchievementMapDetail_BuildDataFromAchievementId(achievementId, node
         end)
     end
 
-    local requirements = buildRequirementsFromCriteria(achievementId)
+    -- Prefer our filtered tree (flat data) over WoW API: it respects faction, eventId, etc.
+    local requirements = buildRequirementsFromChildren(node)
     if #requirements == 0 then
-        requirements = buildRequirementsFromChildren(node)
+        requirements = buildRequirementsFromCriteria(achievementId)
     end
 
     local pointsValue = (points and points > 0) and points or nil

@@ -17,9 +17,21 @@ map-zones.lua
 achi-list\WorldSoulSearching.lua
 achi-list\WorldSoulSearching.waypoints.lua
 achi-list\AFarewellToArms.lua
+achi-list\AFarewellToArms.waypoints.lua
 achi-list\AWorldAwoken.lua
+achi-list\AWorldAwoken.waypoints.lua
 achi-list\BackFromTheBeyond.lua
+achi-list\BackFromTheBeyond.waypoints.lua
 achi-list\WhatALongStrangeTripItsBeen.lua
+achi-list\WhatALongStrangeTripItsBeen\to-honor-ones-elders.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\the-flame-keeper.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\merrymaker.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\hallowed-be-thy-name.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\fool-for-love.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\noble-gardener.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\for-the-children.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\brewmaster.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen.waypoints.lua
 achi-list\LightUpTheNight.lua
 achi-list\LightUpTheNight.waypoints.lua
 

@@ -72,6 +72,11 @@ MapZones = {
     WOTLK_ZONE_HrothgarsLanding = 170,
 
     CATA_ZONE_SouthernBarrens = 199,
+    CATA_ZONE_MountHyjal = 198,
+    CATA_ZONE_Uldum = 249,
+    CATA_ZONE_TwilightHighlands = 241,
+    CATA_ZONE_Vashjir = 205,
+    CATA_ZONE_Deepholm = 207,
 
     WOW_ZONE_TheCapeOfStranglethorn = 210,
 
@@ -89,4 +94,20 @@ MapZones = {
     TWW_ZONE_SirenIsle = 2369,
     TWW_ZONE_Karesh = 2371,
     TWW_ZONE_TazaveshCity = 2472,
+
+    -- Dragonflight zones (Dragon Isles)
+    DF_ZONE_Thaldraszus = 2022,
+    DF_ZONE_TheWakingShores = 2112,
+    DF_ZONE_OhnahranPlains = 2133,
+    DF_ZONE_TheAzureSpan = 2151,
+    DF_ZONE_ZaralekCavern = 2132,
+    DF_ZONE_EmeraldDream = 2200,
+    DF_ZONE_ForbiddenReach = 2107,
+    DF_ZONE_Valdrakken = 2112, -- same map as Thaldraszus for city
+
+    -- Shadowlands zones
+    SL_ZONE_TheMaw = 11400,
+    SL_ZONE_ZerethMortis = 13536,
+    SL_ZONE_Oribos = 1670,
+    SL_ZONE_Korthia = 1962,
 }

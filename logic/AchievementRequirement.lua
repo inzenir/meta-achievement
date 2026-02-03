@@ -2,26 +2,34 @@ AchievementRequirement = {}
 AchievementRequirement.__index = AchievementRequirement
 
 
-local function checkWorldEvent(worldEvent)
-    local currentEvents = C_Calendar.GetNumDayEvents(0, 0)
-
-    for i = 1, currentEvents do
-        local event = C_Calendar.GetDayEvent(0, 0, i)
-        if event.eventID == worldEvent.eventId then
-            return true
-        end
-    end
-
-    return false
+local function checkWorldEvent(eventId)
+    return true
+ --   local currentEvents = C_Calendar.GetNumDayEvents(0, 0)
+--
+--    for i = 1, currentEvents do
+--        local event = C_Calendar.GetDayEvent(0, 0, i)
+--        if event.eventID == eventId then
+--            return true
+--        end
+--    end
+--
+--    return false
 end
 
 local function checkActiveQuest(questId)
-    return C_TaskQuest.IsActive(questId)
+    return true
+    --return C_TaskQuest.IsActive(questId)
+end
+
+local function checkFaction(requiredFaction)
+    local playerFaction = UnitFactionGroup("player") -- Returns "Horde" or "Alliance"
+    return playerFaction == requiredFaction
 end
 
 local SUPPORTED_ACHIEVEMENT_REQUIREMENTS = {
-    event = checkWorldEvent,
-    quest = checkActiveQuest
+    eventId = checkWorldEvent,
+    quest = checkActiveQuest,
+    faction = checkFaction
 }
 
 function AchievementRequirement:new(requirement)

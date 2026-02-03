@@ -90,6 +90,10 @@ function EntryPoint()
 
     AchievementData:RegisterDataSource(61451, WorldSoulSearchingWaypoints)
     AchievementData:RegisterDataSource(62386, LightUpTheNightWaypoints)
+    AchievementData:RegisterDataSource(19458, AWorldAwokenWaypoints)
+    AchievementData:RegisterDataSource(40953, AFarewellToArmsWaypoints)
+    AchievementData:RegisterDataSource(20501, BackFromTheBeyondWaypoints)
+    AchievementData:RegisterDataSource(2144, WhatALongStrangeTripItsBeenWaypoints)
 
     createAchievementTab(
         "Light Up The Night",
