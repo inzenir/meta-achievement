@@ -1,4 +1,4 @@
-## Interface: 120000
+## Interface: 120001
 ## Title: Worldsoul Searching
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
