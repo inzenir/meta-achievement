@@ -17,6 +17,8 @@ local function clearChildren(parent)
     end
 end
 
+local getTopNodeForBreadcrumbs -- forward decl; defined after GetSelectedSource
+
 local function clearRegions(parent)
     for _, region in ipairs({ parent:GetRegions() }) do
         region:Hide()
@@ -215,12 +217,12 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
     end
 
     if frame.JournalList and type(MetaAchievementJournalList_SetItems) == "function" then
-        MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems)
+        MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems, frame)
     end
 
     -- Reset breadcrumbs for this source (selection will re-set it).
     if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
-        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, nil)
+        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, nil, getTopNodeForBreadcrumbs(frame))
     end
 
     -- When switching/opening a source, default to the first item so the map is populated immediately.
@@ -229,6 +231,7 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
     else
         self:RenderMap(frame, nil)
     end
+    self:UpdateListVisibility(frame)
 end
 
 function MetaAchievementJournalMap:GetSelectedSource(frame)
@@ -239,6 +242,127 @@ function MetaAchievementJournalMap:GetSelectedSource(frame)
     return self.dataSources[frame._selectedSourceKey]
 end
 
+-- Build { id, name } for the current source's top achievement (for breadcrumbs when "hide completed" filters it out).
+function getTopNodeForBreadcrumbs(frame)
+    local src = MetaAchievementJournalMap:GetSelectedSource(frame)
+    if not src or not src.provider or not src.provider.topAchievementId then
+        return nil
+    end
+    return {
+        id = src.provider.topAchievementId,
+        name = src.name or nil,
+    }
+end
+
+local MONTH_NAMES = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
+
+local function formatCompletionDate(month, day, year)
+    if not month or not day or not year then
+        return ""
+    end
+    local monthName = MONTH_NAMES[month] or tostring(month)
+    return ("Completed on %s %d, %d"):format(monthName, day, 2000 + year)
+end
+
+local function updateEmptyStatePanel(emptyPanel, topAchievementId)
+    if not emptyPanel or not topAchievementId or type(GetAchievementInfo) ~= "function" then
+        return
+    end
+    local ok, _, name, _, completed, month, day, year, _, _, icon = pcall(GetAchievementInfo, topAchievementId)
+    if not ok then
+        return
+    end
+    local dateStr = formatCompletionDate(month, day, year)
+    local completedDate = emptyPanel.CompletedDate or _G[emptyPanel:GetName() .. "CompletedDate"]
+    if completedDate and completedDate.SetText then
+        completedDate:SetText(dateStr)
+    end
+    local achiIcon = emptyPanel.AchiIcon or _G[emptyPanel:GetName() .. "AchiIcon"]
+    if achiIcon then
+        if icon and achiIcon.SetTexture then
+            achiIcon:SetTexture(icon)
+            achiIcon:Show()
+        else
+            achiIcon:Hide()
+        end
+    end
+    local achiName = emptyPanel.AchiName or _G[emptyPanel:GetName() .. "AchiName"]
+    if achiName and achiName.SetText then
+        achiName:SetText(name and tostring(name) or "")
+    end
+end
+
+-- When there are no achievements to display, show the empty-state panel and hide list/map; otherwise show list + map.
+function MetaAchievementJournalMap:UpdateListVisibility(frame)
+    if not frame or not frame.MapInset then
+        return
+    end
+    local listEmpty = not frame._modelItems or #frame._modelItems == 0
+    local list = frame.JournalList
+    local emptyPanel = frame.EmptyStatePanel
+    if list then
+        if listEmpty then
+            list:Hide()
+        else
+            list:Show()
+        end
+    end
+    if emptyPanel then
+        if listEmpty then
+            emptyPanel:Show()
+            local topNode = getTopNodeForBreadcrumbs(frame)
+            if topNode and topNode.id then
+                updateEmptyStatePanel(emptyPanel, topNode.id)
+            end
+            frame.MapInset:Hide()
+        else
+            emptyPanel:Hide()
+            frame.MapInset:Show()
+        end
+    else
+        if not listEmpty then
+            frame.MapInset:Show()
+        else
+            frame.MapInset:Hide()
+        end
+    end
+    frame.MapInset:ClearAllPoints()
+    if listEmpty then
+        -- Empty state panel uses its own full-area anchors from XML; no need to move MapInset (it's hidden).
+        return
+    end
+    -- Normal: right panel starts at list's right edge
+    if list then
+        frame.MapInset:SetPoint("TOPLEFT", list, "TOPRIGHT", 0, 0)
+    else
+        frame.MapInset:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -60)
+    end
+    frame.MapInset:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -6, 25)
+end
+
+-- Rebuild list after expand/collapse; keeps current selection by index if still valid.
+function MetaAchievementJournalMap:RefreshList(frame)
+    if not frame or not frame._selectedSourceKey then return end
+    local src = self:GetSelectedSource(frame)
+    if not src or not src.provider then return end
+    local prevIndex = frame._selectedIndex
+    frame._modelItems = buildModelFromProvider(src.provider)
+    if frame.JournalList and type(MetaAchievementJournalList_SetItems) == "function" then
+        MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems, frame)
+    end
+    if prevIndex and frame._modelItems[prevIndex] then
+        self:SetSelectedIndex(frame, prevIndex)
+    elseif frame._modelItems and frame._modelItems[1] then
+        self:SetSelectedIndex(frame, 1)
+    else
+        if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
+            MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems or {}, nil, getTopNodeForBreadcrumbs(frame))
+        end
+        self:RenderMap(frame, nil)
+    end
+    self:UpdateListVisibility(frame)
+end
+
 function MetaAchievementJournalMap:SetSelectedIndex(frame, index)
     frame._selectedIndex = index
     if frame.JournalList and type(MetaAchievementJournalList_SetSelectedIndex) == "function" then
@@ -246,7 +370,7 @@ function MetaAchievementJournalMap:SetSelectedIndex(frame, index)
     end
     local item = frame._modelItems and frame._modelItems[index] or nil
     if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
-        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, item)
+        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, item, getTopNodeForBreadcrumbs(frame))
     end
     self:RenderMap(frame, item)
 end
@@ -345,6 +469,7 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     self.SourceDropdown = _G[self:GetName() .. "SourceDropdown"]
     self.JournalList = _G[self:GetName() .. "JournalList"]
     self.MapInset = _G[self:GetName() .. "MapInset"]
+    self.EmptyStatePanel = _G[self:GetName() .. "EmptyStatePanel"]
     self.Breadcrumbs = _G[self:GetName() .. "Breadcrumbs"]
 
     -- Hide the old dropdown (functionality moved to breadcrumbs)
@@ -418,6 +543,10 @@ end
 
 function MetaAchievementJournalMapFrame_OnShow(self)
     MetaAchievementJournalMap:RefreshDropdown(self)
+    -- Ensure breadcrumb dropdown is usable on first open (clears addon-load init guard).
+    if self.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetInitializationComplete) == "function" then
+        MetaAchievementBreadcrumbsDropdown_SetInitializationComplete(self.Breadcrumbs)
+    end
 
     -- If we have a selected source but no selected item yet, auto-select the first item.
     if self._selectedSourceKey and (not self._selectedIndex) and self._modelItems and self._modelItems[1] then

@@ -26,7 +26,7 @@
                 <Texture name="$parentStatus" file="Interface\Buttons\UI-CheckBox-Check">
                     <Size x="14" y="14"/>
                     <Anchors>
-                        <Anchor point="LEFT" x="290" y="0"/>
+                        <Anchor point="LEFT" x="275" y="0"/>
                     </Anchors>
                 </Texture>
             </Layer>
@@ -37,6 +37,25 @@
                 <Anchor point="BOTTOMRIGHT"/>
             </Anchors>
         </HighlightTexture>
+        <Frames>
+            <Button name="$parentExpand" hidden="true">
+                <Size x="18" y="18"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-2" y="0"/>
+                </Anchors>
+                <HighlightTexture alphaMode="ADD" alpha="0.4" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </HighlightTexture>
+                <Scripts>
+                    <OnClick>
+                        MetaAchievementJournalListExpand_OnClick(self)
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
         <Scripts>
             <OnClick>MetaAchievementJournalListRow_OnClick(self, button)</OnClick>
         </Scripts>

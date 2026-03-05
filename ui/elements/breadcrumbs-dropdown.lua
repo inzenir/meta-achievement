@@ -93,6 +93,25 @@ function MetaAchievementBreadcrumbsDropdown_GetListFunc(breadcrumbsFrame)
     return listFunc
 end
 
+local function hookDropdownArrow(breadcrumbsFrame, firstButton)
+    if not breadcrumbsFrame or not firstButton then
+        return false
+    end
+    local hooked = false
+    for _, child in ipairs({firstButton:GetChildren()}) do
+        local name = child:GetName() or ""
+        if name:find("Dropdown") or (child:IsVisible() and child:GetWidth() and child:GetWidth() < 30) then
+            child:SetScript("OnClick", function(arrowButton, mouseButton)
+                if mouseButton == "LeftButton" then
+                    showDropdownMenu(breadcrumbsFrame, firstButton)
+                end
+            end)
+            hooked = true
+        end
+    end
+    return hooked
+end
+
 -- Set up dropdown menu on the first breadcrumb button (called after NavBar_AddButton)
 function MetaAchievementBreadcrumbsDropdown_SetupButton(breadcrumbsFrame, firstButton)
     if not breadcrumbsFrame or not firstButton then
@@ -105,27 +124,17 @@ function MetaAchievementBreadcrumbsDropdown_SetupButton(breadcrumbsFrame, firstB
         return
     end
     
-    -- Ensure listFunc is set on the button
-    if firstButton then
-        firstButton.listFunc = listFunc
-        if firstButton.data then
-            firstButton.data.listFunc = listFunc
-        end
-        
-        -- Hook the dropdown arrow button click
-        -- Wait a frame for the button to be fully created
+    -- Ensure listFunc is set on the button so main button click can open dropdown too
+    firstButton.listFunc = listFunc
+    if firstButton.data then
+        firstButton.data.listFunc = listFunc
+    end
+
+    -- Hook the dropdown arrow immediately so it works on first open
+    if not hookDropdownArrow(breadcrumbsFrame, firstButton) then
+        -- Arrow child may not exist yet; try once next frame
         C_Timer.After(0, function()
-            -- Look for dropdown arrow button in children
-            for _, child in ipairs({firstButton:GetChildren()}) do
-                local name = child:GetName() or ""
-                if name:find("Dropdown") or (child:IsVisible() and child:GetWidth() and child:GetWidth() < 30) then
-                    child:SetScript("OnClick", function(arrowButton, mouseButton)
-                        if mouseButton == "LeftButton" then
-                            showDropdownMenu(breadcrumbsFrame, firstButton)
-                        end
-                    end)
-                end
-            end
+            hookDropdownArrow(breadcrumbsFrame, firstButton)
         end)
     end
 end
@@ -137,6 +146,13 @@ function MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(breadcrumbsFra
     end
     breadcrumbsFrame._onSourceSelectedFunc = onSourceSelectedFunc
     breadcrumbsFrame._selectedSourceKey = selectedSourceKey
+end
+
+-- Called by journal-map when journal is shown so dropdown works on first open.
+function MetaAchievementBreadcrumbsDropdown_SetInitializationComplete(breadcrumbsFrame)
+    if breadcrumbsFrame then
+        breadcrumbsFrame._isInitializing = false
+    end
 end
 
 -- Called by journal-map to cache the registered achievement lists.

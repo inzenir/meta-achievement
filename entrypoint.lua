@@ -184,6 +184,9 @@ function EntryPoint()
                     data:rescanData()
                     return data:getFlatData()
                 end,
+                ToggleCollapsed = function(_, itemId)
+                    data:toggleColapsed(itemId)
+                end,
                 OnItemSelected = function(_, item)
                     -- Intentionally no-op: selecting in our journal should not open Blizzard's Achievement UI.
                     -- (The right pane uses map-detail to show the info.)

@@ -58,6 +58,7 @@ function MetaAchievementJournalList_OnLoad(self)
                 frame.Icon = _G[name .. "Icon"]
                 frame.Status = _G[name .. "Status"]
                 frame.Selected = _G[name .. "Selected"]
+                frame.Expand = _G[name .. "Expand"]
             else
                 -- ScrollBox creates frames without global names; find regions by type
                 local highlightTex = frame.GetHighlightTexture and frame:GetHighlightTexture()
@@ -77,6 +78,53 @@ function MetaAchievementJournalList_OnLoad(self)
                         end
                     end
                 end
+                -- Expand button may be a child frame
+                for _, child in ipairs({ frame:GetChildren() }) do
+                    if child and child.GetName and child:GetName() and child:GetName():find("Expand") then
+                        frame.Expand = child
+                        break
+                    end
+                end
+            end
+        end
+
+        -- Expand/collapse button: show only when item has children; + when collapsed, − when expanded
+        local hasChildren = item.children and type(item.children) == "table" and #item.children > 0
+        if frame.Expand then
+            if hasChildren then
+                if not frame.Expand.label then
+                    frame.Expand.label = frame.Expand:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+                    frame.Expand.label:SetPoint("CENTER")
+                    frame.Expand.label:SetJustifyH("CENTER")
+                    frame.Expand.label:SetJustifyV("MIDDLE")
+                end
+                frame.Expand.label:SetText(item.colapsed and "+" or "−")
+                frame.Expand:Show()
+                frame.Expand._item = item
+                frame.Expand._owner = list
+                frame.Expand:SetScript("OnClick", function(btn)
+                    if not btn._item or not btn._owner then return end
+                    MetaAchievementJournalListExpand_OnClick(btn)
+                end)
+                -- When hovering the button, highlight the whole row (subtle) while button keeps its own highlight for emphasis
+                if not frame._rowHoverHighlight then
+                    frame._rowHoverHighlight = frame:CreateTexture(nil, "BACKGROUND")
+                    frame._rowHoverHighlight:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
+                    frame._rowHoverHighlight:SetBlendMode("ADD")
+                    frame._rowHoverHighlight:SetAlpha(0.35)
+                    frame._rowHoverHighlight:SetAllPoints(frame)
+                    frame._rowHoverHighlight:Hide()
+                end
+                frame.Expand:SetScript("OnEnter", function(btn)
+                    local row = btn:GetParent()
+                    if row and row._rowHoverHighlight then row._rowHoverHighlight:Show() end
+                end)
+                frame.Expand:SetScript("OnLeave", function(btn)
+                    local row = btn:GetParent()
+                    if row and row._rowHoverHighlight then row._rowHoverHighlight:Hide() end
+                end)
+            else
+                frame.Expand:Hide()
             end
         end
 
@@ -127,8 +175,9 @@ function MetaAchievementJournalList_OnLoad(self)
     self._view = view
 end
 
-function MetaAchievementJournalList_SetItems(self, items)
+function MetaAchievementJournalList_SetItems(self, items, journalFrame)
     self._items = items or {}
+    self._journalFrame = journalFrame
     self._selectedIndex = nil
     local dp = self._dataProvider
     if not dp then return end
@@ -138,6 +187,19 @@ function MetaAchievementJournalList_SetItems(self, items)
     end
     if self._view and self._view.Refresh then
         self._view:Refresh()
+    end
+end
+
+function MetaAchievementJournalListExpand_OnClick(expandButton)
+    local list = expandButton._owner
+    local item = expandButton._item
+    if not list or not list._journalFrame or not item or not item.id then return end
+    local frame = list._journalFrame
+    local src = MetaAchievementJournalMap and MetaAchievementJournalMap:GetSelectedSource(frame)
+    if not src or not src.provider or type(src.provider.ToggleCollapsed) ~= "function" then return end
+    src.provider:ToggleCollapsed(item.id)
+    if MetaAchievementJournalMap and type(MetaAchievementJournalMap.RefreshList) == "function" then
+        MetaAchievementJournalMap:RefreshList(frame)
     end
 end
 

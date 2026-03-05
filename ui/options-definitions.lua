@@ -12,12 +12,12 @@ MetaAchievementOptionsDefinitions = {
         tooltip = "If checked, completed achievements will be hidden, unless they have uncompleted sub-achievements.",
         varType = "boolean",
     },
-    {
+--[[    {
         variable = "colouredHightlight",
         name = "Coloured highlight",
         tooltip = "If checked, hovering on an achievement will be green/red depending on whether it is completed.",
         varType = "boolean",
-    },
+    }, ]]
     {
         variable = "removeCompletedWaypoints",
         name = "Remove waypoints for completed achievements",

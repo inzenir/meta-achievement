@@ -57,7 +57,14 @@ local function findPath(node, targetId, outPath)
     return false
 end
 
-local function buildBreadcrumbPath(items, selectedNode)
+local function buildBreadcrumbPath(items, selectedNode, topNode)
+    -- When we have a top node (e.g. current data source) but no/filtered list, show at least the top.
+    if topNode and topNode.id then
+        if type(items) ~= "table" or #items == 0 or not selectedNode or not selectedNode.id then
+            return { topNode }
+        end
+    end
+
     if type(items) ~= "table" or not selectedNode or not selectedNode.id then
         return {}
     end
@@ -84,6 +91,15 @@ local function buildBreadcrumbPath(items, selectedNode)
         path = { selectedNode }
     end
 
+    -- Prepend top node when it's not in path (e.g. top achievement hidden by "hide completed").
+    if topNode and topNode.id and (#path == 0 or path[1].id ~= topNode.id) then
+        local newPath = { topNode }
+        for _, node in ipairs(path) do
+            newPath[#newPath + 1] = node
+        end
+        path = newPath
+    end
+
     return path
 end
 
@@ -101,7 +117,7 @@ local function ensureNavBarInitialized(self)
     self._navInit = true
 end
 
-local function render(self, items, selectedNode)
+local function render(self, items, selectedNode, topNode)
     if not self or type(NavBar_Initialize) ~= "function" or type(NavBar_AddButton) ~= "function" then
         return
     end
@@ -120,7 +136,7 @@ local function render(self, items, selectedNode)
         self.homeButton:Show()
     end
 
-    local path = buildBreadcrumbPath(items, selectedNode)
+    local path = buildBreadcrumbPath(items, selectedNode, topNode)
     if #path == 0 then
         return
     end
@@ -179,18 +195,20 @@ function MetaAchievementBreadcrumbs_OnLoad(self)
 
     self:HookScript("OnSizeChanged", function()
         if self._items ~= nil then
-            render(self, self._items, self._selectedNode)
+            render(self, self._items, self._selectedNode, self._topNode)
         end
     end)
 end
 
-function MetaAchievementBreadcrumbs_SetSelection(self, items, selectedNode)
+function MetaAchievementBreadcrumbs_SetSelection(self, items, selectedNode, topNode)
     if not self then
         return
     end
     
-    -- Always store and render breadcrumbs when SetSelection is called
+    -- Always store and render breadcrumbs when SetSelection is called.
+    -- topNode: optional { id, name } for the data source root (shown when "hide completed" filters it out).
     self._items = items
     self._selectedNode = selectedNode
-    render(self, items, selectedNode)
+    self._topNode = topNode
+    render(self, items, selectedNode, topNode)
 end

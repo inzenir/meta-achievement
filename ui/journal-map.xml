@@ -2,6 +2,7 @@
     <Include file="ui\elements\journal-list.xml"/>
     <Include file="ui\elements\map-detail.xml"/>
     <Include file="ui\elements\breadcrumbs.xml"/>
+    <Include file="ui\elements\journal-empty-state.xml"/>
     <Script file="ui\journal-map.lua"/>
 
     <!-- Main frame: quest journal (left) + map canvas (right) -->
@@ -32,6 +33,13 @@
                     <Anchor point="BOTTOMLEFT" x="16" y="25"/>
                 </Anchors>
                 <Size x="340" y="1"/>
+            </Frame>
+
+            <Frame name="$parentEmptyStatePanel" inherits="MetaAchievementJournalEmptyStateTemplate" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="25"/>
+                </Anchors>
             </Frame>
 
             <!-- Right: map canvas (content is dynamic/plug-in) -->
