@@ -264,7 +264,7 @@ local function formatCompletionDate(month, day, year)
     return ("Completed on %s %d, %d"):format(monthName, day, 2000 + year)
 end
 
-local function updateEmptyStatePanel(emptyPanel, topAchievementId)
+local function updateEmptyStatePanel(emptyPanel, topAchievementId, mountId)
     if not emptyPanel or not topAchievementId or type(GetAchievementInfo) ~= "function" then
         return
     end
@@ -290,29 +290,50 @@ local function updateEmptyStatePanel(emptyPanel, topAchievementId)
     if achiName and achiName.SetText then
         achiName:SetText(name and tostring(name) or "")
     end
+    if type(MetaAchievementMountRewardPanel_Update) == "function" then
+        MetaAchievementMountRewardPanel_Update(emptyPanel.MountPanel or _G[emptyPanel:GetName() .. "MountPanel"], mountId)
+    end
+end
+
+local function isTopAchievementCompleted(frame)
+    local topNode = getTopNodeForBreadcrumbs(frame)
+    if not topNode or not topNode.id or type(GetAchievementInfo) ~= "function" then
+        return false
+    end
+    local ok, _, _, _, completed = pcall(GetAchievementInfo, topNode.id)
+    return ok and completed
 end
 
 -- When there are no achievements to display, show the empty-state panel and hide list/map; otherwise show list + map.
+-- Option showCompletedScreenWhenTopDone: show completed screen when top achievement is done regardless of sub-achievements.
 function MetaAchievementJournalMap:UpdateListVisibility(frame)
     if not frame or not frame.MapInset then
         return
     end
     local listEmpty = not frame._modelItems or #frame._modelItems == 0
+    local showCompletedScreen = (MetaAchievementConfigurationDB and MetaAchievementConfigurationDB.showCompletedScreenWhenTopDone)
+        and isTopAchievementCompleted(frame)
+    local showEmptyState = listEmpty or showCompletedScreen
     local list = frame.JournalList
     local emptyPanel = frame.EmptyStatePanel
     if list then
-        if listEmpty then
+        if showEmptyState then
             list:Hide()
         else
             list:Show()
         end
     end
     if emptyPanel then
-        if listEmpty then
+        if showEmptyState then
             emptyPanel:Show()
             local topNode = getTopNodeForBreadcrumbs(frame)
+            local mountId = nil
+            local src = MetaAchievementJournalMap:GetSelectedSource(frame)
+            if src and src.provider then
+                mountId = src.provider.topAchievementMountId
+            end
             if topNode and topNode.id then
-                updateEmptyStatePanel(emptyPanel, topNode.id)
+                updateEmptyStatePanel(emptyPanel, topNode.id, mountId)
             end
             frame.MapInset:Hide()
         else
@@ -320,14 +341,14 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
             frame.MapInset:Show()
         end
     else
-        if not listEmpty then
+        if not showEmptyState then
             frame.MapInset:Show()
         else
             frame.MapInset:Hide()
         end
     end
     frame.MapInset:ClearAllPoints()
-    if listEmpty then
+    if showEmptyState then
         -- Empty state panel uses its own full-area anchors from XML; no need to move MapInset (it's hidden).
         return
     end

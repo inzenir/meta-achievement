@@ -180,6 +180,7 @@ function EntryPoint()
 
             MetaAchievementJournalMap:RegisterDataSource(key, displayName, {
                 topAchievementId = data.topAchievementId,
+                topAchievementMountId = (achievementList[1] and achievementList[1].mountId) or nil,
                 GetList = function()
                     data:rescanData()
                     return data:getFlatData()

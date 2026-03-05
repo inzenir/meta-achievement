@@ -4,6 +4,7 @@ function DefaultSettings()
         colouredHightlight = false,
         removeCompletedWaypoints = false,
         addWpsOnlyForUncompletedAchis = true,
+        showCompletedScreenWhenTopDone = true,
         mapIntegration = {},
         mainFrame = {
             closed = false,

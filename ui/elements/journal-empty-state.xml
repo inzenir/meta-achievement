@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="ui\elements\mount-reward-panel.xml"/>
     <!-- Empty state template: shown when journal list has no items (e.g. all completed + hide completed). -->
     <Frame name="MetaAchievementJournalEmptyStateTemplate" virtual="true" inherits="InsetFrameTemplate3">
         <Layers>
@@ -7,7 +8,7 @@
                 <Texture name="$parentAchiIcon" setAllPoints="false">
                     <Size x="64" y="64"/>
                     <Anchors>
-                        <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" x="0" y="-80"/>
+                        <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" x="0" y="-20"/>
                         <Anchor point="LEFT" relativeTo="$parent" relativePoint="CENTER" x="-32"/>
                     </Anchors>
                 </Texture>
@@ -35,5 +36,15 @@
                 </FontString>
             </Layer>
         </Layers>
+        <Frames>
+            <Frame name="$parentMountPanel" inherits="MetaAchievementMountRewardPanelTemplate" hidden="true">
+                <Size x="440" y="280"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parentCompletedDate" relativePoint="BOTTOM" x="0" y="-16"/>
+                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="CENTER" x="-220"/>
+                    <Anchor point="RIGHT" relativeTo="$parent" relativePoint="CENTER" x="220"/>
+                </Anchors>
+            </Frame>
+        </Frames>
     </Frame>
 </Ui>

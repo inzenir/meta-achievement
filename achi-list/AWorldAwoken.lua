@@ -1,7 +1,7 @@
 AWorldAwokenAchievements = {
     {
         id = 19458,
-        mountId = 2114,
+        mountId = 1825,
         ["children"] = {
             {
                 ["id"] = 16343,

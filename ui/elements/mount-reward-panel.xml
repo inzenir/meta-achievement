@@ -1,0 +1,18 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\mount-reward-panel-positions.lua"/>
+    <Script file="ui\elements\mount-reward-panel.lua"/>
+    <!-- Mount reward panel template: mount name + model (model created in Lua). Shown when top achievement has mountId. -->
+    <Frame name="MetaAchievementMountRewardPanelTemplate" virtual="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentName" inherits="GameFontNormal" text="">
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" x="0" y="0"/>
+                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" x="0" y="0"/>
+                        <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

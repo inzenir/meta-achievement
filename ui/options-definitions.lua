@@ -30,4 +30,10 @@ MetaAchievementOptionsDefinitions = {
         tooltip = "When adding waypoints, only add them for criteria that are not yet completed.",
         varType = "boolean",
     },
+    {
+        variable = "showCompletedScreenWhenTopDone",
+        name = "Show completed screen when top achievement is done",
+        tooltip = "If checked, the completed screen is shown whenever the top achievement is completed, even if it has uncompleted sub-achievements.",
+        varType = "boolean",
+    },
 }
