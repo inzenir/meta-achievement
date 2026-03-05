@@ -325,11 +325,8 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         ButtonFrameTemplate_OnLoad(self)
     end
 
-    self:SetMovable(true)
+    self:SetMovable(false)
     self:EnableMouse(true)
-    self:RegisterForDrag("LeftButton")
-    self:SetScript("OnDragStart", self.StartMoving)
-    self:SetScript("OnDragStop", self.StopMovingOrSizing)
 
     -- ButtonFrameTemplate / PortraitFrameTemplate title region varies by client version
     if type(ButtonFrameTemplate_SetTitle) == "function" then
@@ -404,6 +401,18 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         end
     end
 
+    -- Register with Blizzard's UIPanel system: area "left" (like Character/Spellbook), not "full",
+    -- so we get mutual exclusivity without hiding the rest of the interface. pushable=0 = replace other left panels.
+    self:SetAttribute("UIPanelLayout-defined", true)
+    self:SetAttribute("UIPanelLayout-enabled", true)
+    self:SetAttribute("UIPanelLayout-area", "left")
+    self:SetAttribute("UIPanelLayout-pushable", 0)
+    self:SetAttribute("UIPanelLayout-whileDead", true)
+
+    -- Draw above action bars and other game UI (they use MEDIUM/HIGH). Frame level only applies within same strata.
+    self:SetFrameStrata("DIALOG")
+    self:SetFrameLevel(200)
+
     MetaAchievementJournalMap:RefreshDropdown(self)
 end
 
@@ -416,15 +425,57 @@ function MetaAchievementJournalMapFrame_OnShow(self)
     end
 end
 
--- Public helpers
+-- Close our other addon window (old tabbed main) when we open the journal.
+function MetaAchievementJournalMap:CloseOtherAddonWindows()
+    if MetaAchievementDB and MetaAchievementDB.mainFrame and MetaAchievementDB.mainFrame.hideWindow then
+        local oldMain = MetaAchievementDB.mainFrame:getFrame()
+        if oldMain and oldMain:IsShown() then
+            MetaAchievementDB.mainFrame:hideWindow()
+        end
+    end
+end
+
+-- Show/hide via UIPanel so we participate in panel stacking (open us = close others, open others = close us).
+-- area "left" + pushable 0 avoids "full" which was hiding the rest of the interface. In combat, use frame Show/Hide.
+local function JournalPanelShow(frame)
+    if not frame then return end
+    if not InCombatLockdown() and type(ShowUIPanel) == "function" then
+        ShowUIPanel(frame)
+    elseif frame.Show then
+        frame:Show()
+    end
+end
+
+local function JournalPanelHide(frame)
+    if not frame then return end
+    if not InCombatLockdown() and type(HideUIPanel) == "function" then
+        HideUIPanel(frame)
+    elseif frame.Hide then
+        frame:Hide()
+    end
+end
+
+function MetaAchievementJournalMap:ShowPanel()
+    if self.frame then
+        self:CloseOtherAddonWindows()
+        JournalPanelShow(self.frame)
+    end
+end
+
+function MetaAchievementJournalMap:HidePanel()
+    if self.frame then
+        JournalPanelHide(self.frame)
+    end
+end
+
 function MetaAchievementJournalMap:Toggle()
     if not self.frame then
         return
     end
     if self.frame:IsShown() then
-        self.frame:Hide()
+        self:HidePanel()
     else
-        self.frame:Show()
+        self:ShowPanel()
     end
 end
 

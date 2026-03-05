@@ -229,6 +229,9 @@ end
 
 function MainFrame:showWindow()
     if not self.mainFrame:IsShown() then
+        if MetaAchievementJournalMap and MetaAchievementJournalMap.HidePanel then
+            MetaAchievementJournalMap:HidePanel()
+        end
         self.mainFrame:Show()
     end
 end
@@ -239,7 +242,12 @@ function MainFrame:createMinimapButton()
         icon = "Interface\\Icons\\achievement_zone_isleofdorn",
         OnClick = function(element, button)
             if button == "LeftButton" then
-                self:toggleVisibility()
+                local pw = MetaAchievementDB and MetaAchievementDB.primaryWindow
+                if pw and pw.toggleVisibility then
+                    pw:toggleVisibility()
+                else
+                    self:toggleVisibility()
+                end
             end
             if button == "RightButton" then
                 refrestAchievementsLists()

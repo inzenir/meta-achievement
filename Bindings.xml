@@ -1,0 +1,8 @@
+<Bindings>
+  <Binding name="WORLDSOULSEARCHING_OPEN_TRACKER" category="BINDING_HEADER_WORLDSOULSEARCHING">
+    <![CDATA[
+      local pw = MetaAchievementDB and (MetaAchievementDB.primaryWindow or MetaAchievementDB.mainFrame)
+      if pw and pw.toggleVisibility then pw:toggleVisibility() end
+    ]]>
+  </Binding>
+</Bindings>

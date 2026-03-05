@@ -6,6 +6,27 @@ MetaAchievementDB = {
     achievementLists = {}
 }
 
+-- Primary window: the one toggled by keybinding, slash, and minimap. Defaults to modern journal UI.
+local function primaryWindowAdapter()
+    local j = MetaAchievementJournalMap
+    if not j or not j.frame then
+        return nil
+    end
+    return {
+        toggleVisibility = function()
+            j:Toggle()
+        end,
+        showWindow = function()
+            if not j.frame:IsShown() then
+                j:ShowPanel()
+            end
+        end,
+        hideWindow = function()
+            j:HidePanel()
+        end,
+    }
+end
+
 WindowTabs = {
     lightUpTheNight = "lightUpTheNight",
     worldSoulSearching = "worldSoulSearching",
@@ -17,6 +38,7 @@ WindowTabs = {
 }
 
 local mainFrame = MainFrame:new()
+MetaAchievementDB.mainFrame = mainFrame
 MetaAchievementDB.mapIntegration = MapIntegrationBase:new()
 
 if TomTom then
@@ -52,19 +74,33 @@ function EntryPoint()
     SLASH_WORLDSOULSEARCHING1 = "/wss"
     SlashCmdList["WORLDSOULSEARCHING"] = LoadSlashCommands
 
+    if RegisterMetaAchievementOptionsPanel then
+        RegisterMetaAchievementOptionsPanel()
+    end
+
     MetaAchievementDB.mapIntegration:OnLoaded()
+
+    -- Primary window (keybind/slash/minimap): modern journal UI when available
+    local primaryAdapter = primaryWindowAdapter()
+    if primaryAdapter then
+        MetaAchievementDB.primaryWindow = primaryAdapter
+    end
 
     local settingsFrame = SettingsFrame:new(mainFrame:getFrame())
 
+    local function primaryOrMain()
+        return (MetaAchievementDB.primaryWindow or mainFrame)
+    end
+
     RegisterSlashCommand("show",
-        function() 
-            mainFrame:showWindow()
+        function()
+            primaryOrMain():showWindow()
         end,
         "Show addon window")
 
     RegisterSlashCommand("hide",
         function()
-            mainFrame:hideWindow()
+            primaryOrMain():hideWindow()
         end,
         "Hide addon window")
 

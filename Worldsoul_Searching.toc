@@ -12,6 +12,9 @@ Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
+# Key Bindings labels (load early so Key Bindings UI shows correct header)
+bindings-localization.lua
+
 # achievement data
 map-zones.lua
 achi-list\WorldSoulSearching.lua
@@ -64,6 +67,8 @@ map-integration\tomtom\tomtom-waypoint.lua
 map-integration\tomtom\tomtom.lua
 
 # ui loading
+ui\options-definitions.lua
+ui\options-panel.lua
 ui\journal-map.xml
 
 # drawing loading
