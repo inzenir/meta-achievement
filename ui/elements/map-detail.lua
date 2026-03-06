@@ -200,7 +200,9 @@ function MetaAchievementMapDetail_OnLoad(self)
 
     if self.RewardBox then
         self.RewardBox.Text = _G[self.RewardBox:GetName() .. "Text"]
+        self.RewardBox.PreviewButton = _G[self.RewardBox:GetName() .. "PreviewButton"]
     end
+    self.MountPreviewPanel = _G[self:GetName() .. "MountPreviewPanel"]
     if self.HelpBox then
         self.HelpBox.WaypointButton = _G[self.HelpBox:GetName() .. "WaypointButton"]
         if self.HelpBox.WaypointButton and MetaAchievementWaypointButton_SetTooltip then
@@ -457,7 +459,11 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
         self.HelpBox:SetShown(hasHelp)
         if hasHelp then
             self.HelpBox:ClearAllPoints()
-            if hasReward then
+            local mountPreviewShown = self.MountPreviewPanel and self.MountPreviewPanel:IsShown()
+            if mountPreviewShown and self.MountPreviewPanel then
+                self.HelpBox:SetPoint("TOPLEFT", self.MountPreviewPanel, "BOTTOMLEFT", 0, -6)
+                self.HelpBox:SetPoint("TOPRIGHT", self.MountPreviewPanel, "BOTTOMRIGHT", 0, -6)
+            elseif hasReward then
                 self.HelpBox:SetPoint("TOPLEFT", self.RewardBox, "BOTTOMLEFT", 0, -6)
                 self.HelpBox:SetPoint("TOPRIGHT", self.RewardBox, "BOTTOMRIGHT", 0, -6)
             else
@@ -475,12 +481,16 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
         return
     end
 
-    -- Requirements anchor below help (if shown), else reward, else header. Bottom is above Criteria information when that box is shown.
+    -- Requirements anchor below help (if shown), else mount preview, else reward, else header.
     self.RequirementsBox:ClearAllPoints()
     local anchorAbove = self
     local anchorPoint = "BOTTOMLEFT"
+    local mountPreviewShown = self.MountPreviewPanel and self.MountPreviewPanel:IsShown()
     if hasHelp and self.HelpBox then
         anchorAbove = self.HelpBox
+        anchorPoint = "BOTTOMLEFT"
+    elseif mountPreviewShown and self.MountPreviewPanel then
+        anchorAbove = self.MountPreviewPanel
         anchorPoint = "BOTTOMLEFT"
     elseif hasReward then
         anchorAbove = self.RewardBox
@@ -715,6 +725,35 @@ function MetaAchievementMapDetail_BuildDataFromAchievementId(achievementId, node
     return data, flatInfo
 end
 
+-- Show mount-reward-panel for the current (top) achievement. Called when preview button is clicked.
+function MetaAchievementMapDetail_PreviewMountReward(self)
+    if not self or not self.MountPreviewPanel then
+        return
+    end
+    -- Use stored reference, or walk up: detail -> DynamicContent -> Content -> MapCanvas -> MapInset -> journal frame
+    local journalFrame = self.journalFrame
+    if not journalFrame then
+        local p = self:GetParent()
+        for _ = 1, 5 do
+            if not p then break end
+            if p._selectedSourceKey ~= nil then
+                journalFrame = p
+                break
+            end
+            p = p:GetParent()
+        end
+    end
+    if not journalFrame or not MetaAchievementJournalMap or type(MetaAchievementJournalMap.GetSelectedSource) ~= "function" then
+        return
+    end
+    local src = MetaAchievementJournalMap:GetSelectedSource(journalFrame)
+    local mountId = (src and src.provider and src.provider.topAchievementMountId) or nil
+    if type(MetaAchievementMountRewardPanel_Update) == "function" then
+        MetaAchievementMountRewardPanel_Update(self.MountPreviewPanel, mountId)
+    end
+    updateRewardHelpAndRequirementsLayout(self, self._currentRewardText, self._currentHelpText)
+end
+
 -- Convenience: populate the detail frame from an achievement id.
 -- topAchievementId: optional; top achievement of the selected group (from the dropdown).
 function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node, topAchievementId)
@@ -725,6 +764,10 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
         return
     end
 
+    if self.MountPreviewPanel then
+        self.MountPreviewPanel:Hide()
+    end
+
     self._achievementId = achievementId
     self._topAchievementId = topAchievementId
 
@@ -732,6 +775,12 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     self._flatInfo = flatInfo
     data.helpText = (flatInfo and type(flatInfo.helpText) == "string" and flatInfo.helpText ~= "") and flatInfo.helpText or nil
     MetaAchievementMapDetail_SetData(self, data)
+
+    -- Show preview button only when the displayed achievement is the top (meta) achievement
+    if self.RewardBox and self.RewardBox.PreviewButton then
+        local isTopAchievement = (topAchievementId and achievementId == topAchievementId)
+        self.RewardBox.PreviewButton:SetShown(isTopAchievement)
+    end
 
     -- Show/hide HelpBox waypoint button based on whether achievement has direct waypoints
     local hasDirectWaypoints = achievementHasDirectWaypoints(flatInfo)

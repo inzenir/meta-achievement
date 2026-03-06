@@ -192,7 +192,7 @@ function EntryPoint()
                     -- Intentionally no-op: selecting in our journal should not open Blizzard's Achievement UI.
                     -- (The right pane uses map-detail to show the info.)
                 end,
-                RenderMap = function(_, _, content, node)
+                RenderMap = function(_, journalFrame, _, content, node)
                     local id = node and node.id or nil
                     if not id then
                         return true
@@ -204,6 +204,10 @@ function EntryPoint()
                         detail = CreateFrame("Frame", detailName, content, "MetaAchievementMapDetailTemplate")
                     else
                         detail:SetParent(content)
+                    end
+                    detail.journalFrame = journalFrame
+                    if journalFrame then
+                        journalFrame._currentMapDetail = detail
                     end
 
                     detail:ClearAllPoints()

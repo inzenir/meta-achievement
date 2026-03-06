@@ -19,7 +19,8 @@ local perMount = {
     [2114] = { x = -1, z = -0.4 },  -- zovaal's
     [2802] = { x = -1, z = -0.1 },  -- worldsoul-searching
     [267] = { x = 0.5 },  -- violet proto drake
-    [2339] = { x = 0.5 }  -- jani's trahspile
+    [2339] = { x = 0.5 },  -- jani's trahspile
+    [2707] = { x = -3.5, z = -0.6 }  -- brilliant petalwing
 }
 
 function MetaAchievementMountRewardPanel_GetPosition(mountId)

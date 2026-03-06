@@ -45,6 +45,17 @@
                     <Anchor point="RIGHT" relativeTo="$parent" relativePoint="CENTER" x="220"/>
                 </Anchors>
             </Frame>
+            <Button name="$parentBackButton" hidden="true" inherits="UIPanelButtonTemplate">
+                <Size x="120" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="16"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:SetText("Back to list")
+                    </OnLoad>
+                </Scripts>
+            </Button>
         </Frames>
     </Frame>
 </Ui>

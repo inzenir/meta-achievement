@@ -2,6 +2,7 @@
     <Include file="ui\elements\scrollbar.xml"/>
     <Include file="ui\elements\map-requirement-row.xml"/>
     <Include file="ui\elements\waypoint-button.xml"/>
+    <Include file="ui\elements\preview-button.xml"/>
     <Script file="ui\elements\map-detail.lua"/>
 
     <!-- Map detail element: header, description, reward, requirements -->
@@ -131,16 +132,32 @@
                     <Anchor point="TOPRIGHT" relativeTo="$parentHeader" relativePoint="BOTTOMRIGHT" x="0" y="-6"/>
                 </Anchors>
                 <Size x="1" y="60"/>
+                <Frames>
+                    <Button name="$parentPreviewButton" inherits="MetaAchievementPreviewButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-4" y="12"/>
+                        </Anchors>
+                    </Button>
+                </Frames>
                 <Layers>
                     <Layer level="ARTWORK">
                         <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP">
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="10" y="-10"/>
-                                <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-46" y="10"/>
                             </Anchors>
                         </FontString>
                     </Layer>
                 </Layers>
+            </Frame>
+
+            <!-- Mount reward preview: shown when preview button is clicked (top achievement only). -->
+            <Frame name="$parentMountPreviewPanel" inherits="MetaAchievementMountRewardPanelTemplate" hidden="true">
+                <Size x="440" y="280"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentRewardBox" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+                    <Anchor point="TOPRIGHT" relativeTo="$parentRewardBox" relativePoint="BOTTOMRIGHT" x="0" y="-6"/>
+                </Anchors>
             </Frame>
 
             <!-- Note/help (flatInfo.helpText), between rewards and requirements -->

@@ -12,12 +12,11 @@
                 </Texture>
             </Layer>
         </Layers>
-        <HighlightTexture file="Interface\Waypoint\WaypoinMapPinUI">
+        <HighlightTexture alphaMode="ADD" alpha="0.5" file="Interface\QuestFrame\UI-QuestTitleHighlight">
             <Anchors>
                 <Anchor point="TOPLEFT"/>
                 <Anchor point="BOTTOMRIGHT"/>
             </Anchors>
-            <TexCoords left="0.295" right="0.58" top="-0.05" bottom="0.55"/>
         </HighlightTexture>
         <Scripts>
             <OnLoad>MetaAchievementWaypointButton_OnLoad(self)</OnLoad>

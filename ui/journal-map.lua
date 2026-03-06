@@ -188,6 +188,7 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
     end
 
     frame._selectedSourceKey = key
+    frame._emptyStatePreview = nil
     frame._modelItems = buildModelFromProvider(src.provider)
     frame._selectedIndex = nil
 
@@ -242,6 +243,15 @@ function MetaAchievementJournalMap:GetSelectedSource(frame)
     return self.dataSources[frame._selectedSourceKey]
 end
 
+--- Called when the user clicks "preview" on the map detail. Shows the journal empty state (completed screen + mount).
+function MetaAchievementJournalMap:ShowEmptyStatePreview(frame)
+    if not frame then
+        return
+    end
+    frame._emptyStatePreview = true
+    self:UpdateListVisibility(frame)
+end
+
 -- Build { id, name } for the current source's top achievement (for breadcrumbs when "hide completed" filters it out).
 function getTopNodeForBreadcrumbs(frame)
     local src = MetaAchievementJournalMap:GetSelectedSource(frame)
@@ -264,6 +274,9 @@ local function formatCompletionDate(month, day, year)
     return ("Completed on %s %d, %d"):format(monthName, day, 2000 + year)
 end
 
+local EMPTY_STATE_MSG_COMPLETED = "All achievements in this list are completed."
+local EMPTY_STATE_MSG_PENDING   = "This awaits you when you complete this achievement."
+
 local function updateEmptyStatePanel(emptyPanel, topAchievementId, mountId)
     if not emptyPanel or not topAchievementId or type(GetAchievementInfo) ~= "function" then
         return
@@ -272,7 +285,11 @@ local function updateEmptyStatePanel(emptyPanel, topAchievementId, mountId)
     if not ok then
         return
     end
-    local dateStr = formatCompletionDate(month, day, year)
+    local message = emptyPanel.Message or _G[emptyPanel:GetName() .. "Message"]
+    if message and message.SetText then
+        message:SetText(completed and EMPTY_STATE_MSG_COMPLETED or EMPTY_STATE_MSG_PENDING)
+    end
+    local dateStr = completed and formatCompletionDate(month, day, year) or ""
     local completedDate = emptyPanel.CompletedDate or _G[emptyPanel:GetName() .. "CompletedDate"]
     if completedDate and completedDate.SetText then
         completedDate:SetText(dateStr)
@@ -313,7 +330,7 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
     local listEmpty = not frame._modelItems or #frame._modelItems == 0
     local showCompletedScreen = (MetaAchievementConfigurationDB and MetaAchievementConfigurationDB.showCompletedScreenWhenTopDone)
         and isTopAchievementCompleted(frame)
-    local showEmptyState = listEmpty or showCompletedScreen
+    local showEmptyState = listEmpty or showCompletedScreen or (frame._emptyStatePreview == true)
     local list = frame.JournalList
     local emptyPanel = frame.EmptyStatePanel
     if list then
@@ -334,6 +351,19 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
             end
             if topNode and topNode.id then
                 updateEmptyStatePanel(emptyPanel, topNode.id, mountId)
+            end
+            -- Show "Back" button when in preview mode (user clicked preview from map detail)
+            local backBtn = emptyPanel.BackButton or _G[emptyPanel:GetName() .. "BackButton"]
+            if backBtn then
+                if frame._emptyStatePreview then
+                    backBtn:Show()
+                    backBtn:SetScript("OnClick", function()
+                        frame._emptyStatePreview = nil
+                        MetaAchievementJournalMap:UpdateListVisibility(frame)
+                    end)
+                else
+                    backBtn:Hide()
+                end
             end
             frame.MapInset:Hide()
         else
@@ -426,9 +456,9 @@ function MetaAchievementJournalMap:RenderMap(frame, selectedItem)
     local provider = src.provider
     local content = frame.MapInset.MapCanvas.DynamicContent or frame.MapInset.MapCanvas.Content
 
-    -- Provider can render anything into the map content container
-    local rendered = safeCall(provider.RenderMap, provider, frame.MapInset.MapCanvas, content, selectedItem)
-        or safeCall(provider.renderMap, provider, frame.MapInset.MapCanvas, content, selectedItem)
+    -- Provider can render anything into the map content container (pass frame so provider can set frame._currentMapDetail)
+    local rendered = safeCall(provider.RenderMap, provider, frame, frame.MapInset.MapCanvas, content, selectedItem)
+        or safeCall(provider.renderMap, provider, frame, frame.MapInset.MapCanvas, content, selectedItem)
 
     -- Default: simple details widget if provider didn't render anything
     if rendered == nil then
@@ -439,6 +469,8 @@ function MetaAchievementJournalMap:RenderMap(frame, selectedItem)
         else
             detail:SetParent(content)
         end
+        detail.journalFrame = frame
+        frame._currentMapDetail = detail
 
         -- The content frame already has padding; don't add another large inset here.
         detail:ClearAllPoints()

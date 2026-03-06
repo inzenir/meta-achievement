@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Include file="ui\elements\journal-list.xml"/>
+    <Include file="ui\elements\journal-empty-state.xml"/>
     <Include file="ui\elements\map-detail.xml"/>
     <Include file="ui\elements\breadcrumbs.xml"/>
-    <Include file="ui\elements\journal-empty-state.xml"/>
     <Script file="ui\journal-map.lua"/>
 
     <!-- Main frame: quest journal (left) + map canvas (right) -->

@@ -3,6 +3,7 @@ LightUpTheNightAchievements = {
         id=62386,
         name="Light Up The Night",
         icon="Interface\\Icons\\inv_12_dualityphoenix_lightvoid_explosion",
+        mountId = 2707,
         ["children"] = {
             {
                 -- Forever Song
