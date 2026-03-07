@@ -328,7 +328,7 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
         return
     end
     local listEmpty = not frame._modelItems or #frame._modelItems == 0
-    local showCompletedScreen = (MetaAchievementConfigurationDB and MetaAchievementConfigurationDB.showCompletedScreenWhenTopDone)
+    local showCompletedScreen = (MetaAchievementSettings and MetaAchievementSettings:Get("showCompletedScreenWhenTopDone"))
         and isTopAchievementCompleted(frame)
     local showEmptyState = listEmpty or showCompletedScreen or (frame._emptyStatePreview == true)
     local list = frame.JournalList

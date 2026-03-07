@@ -891,15 +891,28 @@ function MetaAchievementMapDetail_OnHelpBoxWaypointButtonClick(self)
     if not self or not self._achievementId or not self._flatInfo then
         return
     end
-    if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
-        return
-    end
     local waypoints = self._flatInfo.waypoints
     if not waypoints or type(waypoints) ~= "table" then
         return
     end
-    -- Add all direct waypoints for this achievement
-    MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, waypoints)
+    if MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
+        MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, waypoints)
+    end
+end
+
+-- True if the given criterion (by criteriaId or criteria index) is completed for the achievement.
+local function isCriterionCompleted(achievementId, criteriaId)
+    if not achievementId or not GetAchievementNumCriteria or not GetAchievementCriteriaInfo then
+        return false
+    end
+    local num = GetAchievementNumCriteria(achievementId) or 0
+    for i = 1, num do
+        local _, _, completed, _, _, _, _, _, _, cid = GetAchievementCriteriaInfo(achievementId, i)
+        if cid == criteriaId or i == criteriaId then
+            return completed == true
+        end
+    end
+    return false
 end
 
 -- Flatten waypoints: each { kind="point", coordinates={c1,c2,...} } becomes one waypoint per coordinate.
@@ -922,38 +935,38 @@ local function flattenWaypoints(waypoints)
     return out
 end
 
--- Handler for RequirementsBox waypoint button: adds all criteria waypoints
+-- Handler for RequirementsBox waypoint button: adds all criteria waypoints (excluding completed criteria when addWpsOnlyForUncompletedAchis)
 function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     if not self or not self._achievementId or not self._flatInfo then
-        return
-    end
-    if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
         return
     end
     local criteria = self._flatInfo.virtualCriteria or self._flatInfo.criteria
     if not criteria or type(criteria) ~= "table" then
         return
     end
-    -- Collect all waypoints from all criteria (virtualCriteria and criteria)
+    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
     local allWaypoints = {}
     for criteriaId, cinfo in pairs(criteria) do
-        if type(cinfo.waypoints) == "table" then
+        if onlyUncompleted and isCriterionCompleted(self._achievementId, criteriaId) then
+            -- skip completed criteria when setting is on
+        elseif type(cinfo.waypoints) == "table" then
             for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
                 allWaypoints[#allWaypoints + 1] = wp
             end
         end
     end
-    if #allWaypoints > 0 then
-        MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, allWaypoints)
+    if #allWaypoints > 0 and MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
+        MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, allWaypoints)
     end
 end
 
--- Handler for CriteriaInfoBox waypoint button: adds waypoints for the selected criterion
+-- Handler for CriteriaInfoBox waypoint button: adds waypoints for the selected criterion (none if addWpsOnlyForUncompletedAchis and criterion is completed)
 function MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
     if not self or not self._achievementId or not self._flatInfo or not self._selectedCriteriaId then
         return
     end
-    if not MetaAchievementDB or not MetaAchievementDB.mapIntegration then
+    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
+    if onlyUncompleted and isCriterionCompleted(self._achievementId, self._selectedCriteriaId) then
         return
     end
     local criteria = self._flatInfo.virtualCriteria or self._flatInfo.criteria
@@ -965,8 +978,8 @@ function MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
         return
     end
     local waypoints = flattenWaypoints(cinfo.waypoints)
-    if #waypoints > 0 then
-        MetaAchievementDB.mapIntegration:AddWaypointsForAchievement(self._achievementId, waypoints)
+    if #waypoints > 0 and MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
+        MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, waypoints)
     end
 end
 

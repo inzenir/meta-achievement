@@ -61,7 +61,7 @@ local function flatData(input)
     local tmpItems = {}
 
     for _, item in ipairs(input) do
-        if not (item.allChildrenCompleted and MetaAchievementConfigurationDB.hideCompleted) then
+        if not (item.allChildrenCompleted and (MetaAchievementSettings and MetaAchievementSettings:Get("hideCompleted"))) then
             tmpItems[#tmpItems+1] = item
 
             if item.colapsed == false then

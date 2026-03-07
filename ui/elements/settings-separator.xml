@@ -1,0 +1,52 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Base separator (fallback). Per-category templates below bake in the label so it shows without list data. -->
+     <!---->
+    <Frame name="MetaAchievementSettingsSeparatorTemplate" virtual="true">
+        <Size x="1" y="42"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="GameFontNormalLarge" justifyH="LEFT" text="">
+                    <Anchors>
+                        <Anchor point="LEFT" x="0" y="0"/>
+                        <Anchor point="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                if MetaAchievementSettingsSeparator_OnLoad then
+                    MetaAchievementSettingsSeparator_OnLoad(self)
+                end
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <!-- Per-category separators: text baked in so it displays (list does not pass elementData to custom templates). -->
+    <Frame name="MetaAchievementSettingsSeparator_general" inherits="MetaAchievementSettingsSeparatorTemplate" virtual="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="GameFontNormalLarge" justifyH="LEFT" text="General">
+                    <Anchors>
+                        <Anchor point="LEFT" x="0" y="0"/>
+                        <Anchor point="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+    <Frame name="MetaAchievementSettingsSeparator_map" inherits="MetaAchievementSettingsSeparatorTemplate" virtual="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="GameFontNormalLarge" justifyH="LEFT" text="Map">
+                    <Anchors>
+                        <Anchor point="LEFT" x="0" y="0"/>
+                        <Anchor point="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

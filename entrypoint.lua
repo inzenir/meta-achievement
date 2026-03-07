@@ -6,26 +6,24 @@ MetaAchievementDB = {
     achievementLists = {}
 }
 
--- Primary window: the one toggled by keybinding, slash, and minimap. Defaults to modern journal UI.
-local function primaryWindowAdapter()
-    local j = MetaAchievementJournalMap
-    if not j or not j.frame then
-        return nil
-    end
-    return {
-        toggleVisibility = function()
-            j:Toggle()
-        end,
-        showWindow = function()
-            if not j.frame:IsShown() then
-                j:ShowPanel()
-            end
-        end,
-        hideWindow = function()
-            j:HidePanel()
-        end,
-    }
-end
+-- Primary window: the one toggled by keybinding, slash, and minimap. Always set so bindings work; delegates to journal-map when loaded.
+MetaAchievementDB.primaryWindow = {
+    toggleVisibility = function()
+        if MetaAchievementJournalMap and type(MetaAchievementJournalMap.Toggle) == "function" then
+            MetaAchievementJournalMap:Toggle()
+        end
+    end,
+    showWindow = function()
+        if MetaAchievementJournalMap and type(MetaAchievementJournalMap.ShowPanel) == "function" then
+            MetaAchievementJournalMap:ShowPanel()
+        end
+    end,
+    hideWindow = function()
+        if MetaAchievementJournalMap and type(MetaAchievementJournalMap.HidePanel) == "function" then
+            MetaAchievementJournalMap:HidePanel()
+        end
+    end,
+}
 
 WindowTabs = {
     lightUpTheNight = "lightUpTheNight",
@@ -37,59 +35,17 @@ WindowTabs = {
     whatALongStrangeTripItsBeen = "whatALongStrangeTripItsBeen"
 }
 
-local mainFrame = MainFrame:new()
-MetaAchievementDB.mainFrame = mainFrame
-MetaAchievementDB.mapIntegration = MapIntegrationBase:new()
-
-if TomTom then
-    MetaAchievementDB.mapIntegration:RegisterMapIntegration(MapIntegrationOptions.tomtom, TomTomMap:new())
-    MetaAchievementDB.mapIntegration:SetActiveIntegration(MapIntegrationOptions.tomtom)
-    mainFrame:RegisterOnEventHander(
-        "PLAYER_ENTERING_WORLD",
-        function()
-            local integration = MetaAchievementDB.mapIntegration:GetIntegrationIfActive(MapIntegrationOptions.tomtom)
-            if integration ~= nil then
-                integration:OnTomTomLoaded()
-            end
-        end)
-end
-
-local function createAchievementTab(name, tabName, icon, dataSource)
-    MetaAchievementDB.achievementLists[tabName] = {
-        data = DataList:new(dataSource),
-        treeView = nil
-    }
-
-    MetaAchievementDB.achievementLists[tabName].treeView = TreeView:new(
-        mainFrame:getFrame(),
-        MetaAchievementDB.achievementLists[tabName].data,
-        name
-    )
-
-    mainFrame:addScrollChild(tabName, MetaAchievementDB.achievementLists[tabName].treeView)
-    mainFrame:AddAchievementTab(tabName, icon)
-end
+MetaAchievementDB.mainFrame = nil
 
 function EntryPoint()
     SLASH_WORLDSOULSEARCHING1 = "/wss"
     SlashCmdList["WORLDSOULSEARCHING"] = LoadSlashCommands
 
-    if RegisterMetaAchievementOptionsPanel then
-        RegisterMetaAchievementOptionsPanel()
-    end
-
-    MetaAchievementDB.mapIntegration:OnLoaded()
-
-    -- Primary window (keybind/slash/minimap): modern journal UI when available
-    local primaryAdapter = primaryWindowAdapter()
-    if primaryAdapter then
-        MetaAchievementDB.primaryWindow = primaryAdapter
-    end
-
-    local settingsFrame = SettingsFrame:new(mainFrame:getFrame())
+    -- Init map integration after SavedVariables are loaded so Get("mapIntegration") sees persisted data.
+    MapIntegrationBase.Init(MetaAchievementDB)
 
     local function primaryOrMain()
-        return (MetaAchievementDB.primaryWindow or mainFrame)
+        return MetaAchievementDB.primaryWindow
     end
 
     RegisterSlashCommand("show",
@@ -105,8 +61,8 @@ function EntryPoint()
         "Hide addon window")
 
     RegisterSlashCommand("reset",
-        function() 
-            mainFrame:resetFrame()
+        function()
+            -- Window position reset removed with legacy main frame; use journal UI.
         end,
         "Reset window position")
 
@@ -120,7 +76,6 @@ function EntryPoint()
 
 
     -- Settings
-    mainFrame:addScrollChild(WindowTabs.settings, settingsFrame)
 
 
 
@@ -130,48 +85,6 @@ function EntryPoint()
     AchievementData:RegisterDataSource(40953, AFarewellToArmsWaypoints)
     AchievementData:RegisterDataSource(20501, BackFromTheBeyondWaypoints)
     AchievementData:RegisterDataSource(2144, WhatALongStrangeTripItsBeenWaypoints)
-
-    createAchievementTab(
-        "Light Up The Night",
-        WindowTabs.lightUpTheNight,
-        "Interface\\Icons\\inv_12_dualityphoenix_lightvoid_explosion",
-        LightUpTheNightAchievements
-    )
-
-    createAchievementTab(
-        "Worldsoul Searching",
-        WindowTabs.worldSoulSearching,
-        "Interface\\Icons\\achievement_zone_isleofdorn",
-        WorldSoulSearchingAchievements
-    )
-
-    createAchievementTab(
-        "A World Awoken",
-        WindowTabs.aWorldAwoken, 
-        "Interface\\Icons\\ability_evoker_furyoftheaspects",
-        AWorldAwokenAchievements
-    )
-
-    createAchievementTab(
-        "Back From The Beyond",
-        WindowTabs.backFromTheBeyond, 
-        "Interface\\Icons\\inv_torghast",
-        BackFromTheBeyondAchievements
-    )
-
-    createAchievementTab(
-        "A Farewell To Arms",
-        WindowTabs.farewellToArms, 
-        "Interface\\Icons\\Inv_radientazeriteheart",
-        AFarewellToArmsAchievements
-    )
-
-    createAchievementTab(
-        "What a Long, Strange Trip It's Been",
-        WindowTabs.whatALongStrangeTripItsBeen,
-        "Interface\\Icons\\achievement_bg_masterofallbgs",
-        WhatALongStrangeTripItsBeenAchievements
-    )
 
     -- Register existing achievement lists as dropdown data sources for the journal+map UI
     if MetaAchievementJournalMap and type(MetaAchievementJournalMap.RegisterDataSource) == "function" then
@@ -233,8 +146,20 @@ function EntryPoint()
         registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements)
 
         MetaAchievementJournalMap:Toggle()
-    end
 
-    -- Draw default
-    mainFrame:drawScrollContent(WindowTabs.lightUpTheNight)
+        if RegisterMetaAchievementOptionsPanel then
+            RegisterMetaAchievementOptionsPanel()
+        end
+    end
 end
+
+-- Run EntryPoint when this addon loads (data sources, slash commands, journal registration).
+local ADDON_NAME = "Worldsoul_Searching"
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("ADDON_LOADED")
+frame:SetScript("OnEvent", function(_, event, name)
+    if event == "ADDON_LOADED" and name == ADDON_NAME then
+        frame:UnregisterEvent("ADDON_LOADED")
+        EntryPoint()
+    end
+end)

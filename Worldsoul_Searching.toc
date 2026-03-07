@@ -62,18 +62,18 @@ logic\achievement-scan.lua
 logic\slash-commands.lua
 
 # map integrations
+map-integration\map-integration-base.lua
 map-integration\map-integration.lua
+map-integration\native\native.lua
 map-integration\tomtom\tomtom-waypoint.lua
 map-integration\tomtom\tomtom.lua
 
 # ui loading
 ui\options-definitions.lua
+ui\elements\settings-separator.lua
+ui\elements\settings-separator.xml
 ui\options-panel.lua
 ui\journal-map.xml
 
 # drawing loading
-drawing\tree-list.lua
-drawing\main-frame.lua
-drawing\settings-frame.lua
-
 entrypoint.lua
