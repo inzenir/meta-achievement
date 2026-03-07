@@ -1083,9 +1083,14 @@ local function getOrCreateLinkDialog()
     title:SetPoint("TOP", 0, -18)
     d.Title = title
 
+    local hint = d:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    hint:SetPoint("TOP", title, "BOTTOM", 0, -16)
+    hint:SetText("Use Ctrl+C to copy link")
+    d.Hint = hint
+
     local edit = CreateFrame("EditBox", nil, d)
     edit:SetSize(320, 32)
-    edit:SetPoint("TOP", title, "BOTTOM", 0, -10)
+    edit:SetPoint("TOP", hint, "BOTTOM", 0, -2)
     edit:SetAutoFocus(false)
     edit:SetFontObject("GameFontHighlight")
     edit:SetMultiLine(false)

@@ -14,6 +14,7 @@ local COLOR_INCOMPLETE = { 0.3, 0.55, 0.9, 1 }
 
 local BLIZZARD_BAR_TEMPLATE = "UIWidgetTemplateStatusBar"
 local BORDER_INSET = 2  -- gap between bar fill and border
+local BAR_BG_COLOR = { 0.08, 0.08, 0.1, 0.5 }  -- dark background for entire bar (track)
 
 local BORDER_BACKDROP = {
     edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -67,6 +68,10 @@ local function getOrCreateBar(frame)
     container:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -PROGRESS_BAR_INSET, 9)
     applyBorder(container)
     frame.ProgressBarContainer = container
+
+    local barBg = container:CreateTexture(nil, "BACKGROUND")
+    barBg:SetAllPoints(container)
+    barBg:SetColorTexture(BAR_BG_COLOR[1], BAR_BG_COLOR[2], BAR_BG_COLOR[3], BAR_BG_COLOR[4])
 
     local bar = CreateFrame("StatusBar", nil, container, BLIZZARD_BAR_TEMPLATE)
     if not bar or not bar.SetMinMaxValues then
@@ -146,7 +151,7 @@ function RequirementRowProgress.Apply(frame, req)
             frame.ProgressBarBg:Show()
             frame.ProgressBarFill:Show()
             if frame.ProgressBarBg.SetColorTexture then
-                frame.ProgressBarBg:SetColorTexture(0.2, 0.2, 0.25, 1)
+                frame.ProgressBarBg:SetColorTexture(BAR_BG_COLOR[1], BAR_BG_COLOR[2], BAR_BG_COLOR[3], BAR_BG_COLOR[4])
             end
             frame.ProgressBarFill:ClearAllPoints()
             frame.ProgressBarFill:SetPoint("LEFT", frame.ProgressBarBg, "LEFT", 0, 0)
