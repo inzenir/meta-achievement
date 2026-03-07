@@ -6,6 +6,10 @@ LightUpTheNightAchievements = {
         mountId = 2707,
         ["children"] = {
             {
+                -- DEBUGGING
+                id=15643
+            },
+            {
                 -- Forever Song
                 id=62261,
                 ["children"] = {

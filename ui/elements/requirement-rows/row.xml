@@ -1,0 +1,74 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Shared fallback template when SetElementTemplateProvider is not available. Uses same StatusBar for progress rows. -->
+    <Button name="MetaAchievementMapRequirementRowTemplate" virtual="true">
+        <Size x="1" y="20"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentCheck" hidden="false">
+                    <Size x="14" y="14"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="6" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="26" y="0"/>
+                        <Anchor point="RIGHT" x="-6" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <!-- Container gets the rounded border; StatusBar fills it (inset so dark outline shows) -->
+            <Frame name="$parentProgressBarContainer" hidden="true">
+                <Size x="1" y="14"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="48" y="11"/>
+                    <Anchor point="BOTTOMRIGHT" x="-48" y="11"/>
+                </Anchors>
+                <Layers>
+                    <!-- Strong dark border (always visible); bar sits inset on top -->
+                    <Layer level="BACKGROUND">
+                        <Texture name="$parentBorder" setAllPoints="true" file="Interface\Buttons\WHITE8x8">
+                            <Color r="0.1" g="0.1" b="0.12" a="1"/>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <StatusBar name="$parentProgressBar" minValue="0" maxValue="100" defaultValue="0">
+                        <Size x="1" y="1"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="2" y="-2"/>
+                            <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture name="$parentTrack" setAllPoints="true" file="Interface\Buttons\WHITE8x8">
+                                    <Color r="0.15" g="0.15" b="0.18" a="1"/>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="CENTER" justifyV="MIDDLE">
+                                    <Anchors>
+                                        <Anchor point="CENTER" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+                        <BarColor r="0.2" g="0.75" b="0.2" a="1"/>
+                    </StatusBar>
+                </Frames>
+            </Frame>
+        </Frames>
+        <HighlightTexture alphaMode="ADD" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+        </HighlightTexture>
+        <Scripts>
+            <OnClick>MetaAchievementMapRequirementRow_OnClick(self, button)</OnClick>
+        </Scripts>
+    </Button>
+</Ui>

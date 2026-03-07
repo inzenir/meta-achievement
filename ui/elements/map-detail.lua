@@ -2,6 +2,7 @@
 -- Shows header (icon + title + points/feat), description, reward, and scrollable requirements list.
 
 local REQUIREMENT_ROW_HEIGHT = 20
+local REQUIREMENT_ROW_PROGRESS_HEIGHT = 41  -- progress rows: text line + bar on new line
 local REQUIREMENT_ROW_GAP = 0
 local REQUIREMENTS_CRITERIA_GAP = 8  -- Vertical gap between Requirements box bottom and Criteria information box top
 
@@ -36,7 +37,15 @@ local function refreshRequirementsDataProvider(self)
     local dp = box._dataProvider
     dp:Flush()
     for i, req in ipairs(self._requirements or {}) do
-        dp:Insert({ index = i, req = req })
+        local templateName
+        if req.isDescriptionRow then
+            templateName = "MetaAchievementMapRequirementRowDescriptionTemplate"
+        elseif req.reqQuantity and req.reqQuantity > 0 and req.quantity ~= nil then
+            templateName = "MetaAchievementMapRequirementRowProgressTemplate"
+        else
+            templateName = "MetaAchievementMapRequirementRowRegularTemplate"
+        end
+        dp:Insert({ index = i, req = req, templateName = templateName })
     end
     if box._view and box._view.Refresh then box._view:Refresh() end
 end
@@ -238,62 +247,31 @@ function MetaAchievementMapDetail_OnLoad(self)
             local detail = self
 
             local view = CreateScrollBoxListLinearView()
-            view:SetElementExtent(REQUIREMENT_ROW_HEIGHT)
-
-            view:SetElementInitializer("MetaAchievementMapRequirementRowTemplate", function(frame, elementData)
-                local req = elementData and elementData.req
-                local index = elementData and elementData.index or 0
-                if not frame or not req then return end
-
-                frame._owner = detail
-                frame._index = index
-
-                if not frame.Text then
-                    local name = frame:GetName()
-                    if name then
-                        frame.Text = _G[name .. "Text"]
-                        frame.Check = _G[name .. "Check"]
-                    else
-                        local highlightTex = frame.GetHighlightTexture and frame:GetHighlightTexture()
-                        local function isHighlightTexture(tex)
-                            if not tex or tex == highlightTex then return true end
-                            local path = tex.GetTexture and tex:GetTexture()
-                            if type(path) == "string" and path:find("QuestTitleHighlight", 1, true) then
-                                return true
-                            end
-                            return false
-                        end
-                        local regions = { frame:GetRegions() }
-                        for _, r in ipairs(regions) do
-                            if r and r.GetObjectType then
-                                if r:GetObjectType() == "FontString" then
-                                    frame.Text = r
-                                elseif r:GetObjectType() == "Texture" and not isHighlightTexture(r) and not frame.Check then
-                                    frame.Check = r
-                                end
-                            end
-                        end
-                    end
-                end
-                if frame.Text and frame.Text.SetText then
-                    frame.Text:SetText(req.text or "")
-                end
-                if frame.Check then
-                    if req.completed == true then
-                        frame.Check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-                        frame.Check:SetVertexColor(1, 1, 1)
-                    else
-                        frame.Check:SetTexture("Interface\\Buttons\\UI-StopButton")
-                        frame.Check:SetVertexColor(1, 0, 0)
-                    end
-                end
-
-                frame:SetScript("OnClick", function(f, btn)
-                    if MetaAchievementMapRequirementRow_OnClick then
-                        MetaAchievementMapRequirementRow_OnClick(f, btn or "LeftButton")
-                    end
+            if view.SetVariableExtentEnabled and view.SetElementExtentProvider then
+                view:SetVariableExtentEnabled(true)
+                view:SetElementExtentProvider(function(elementData)
+                    return (elementData and elementData.templateName == "MetaAchievementMapRequirementRowProgressTemplate") and REQUIREMENT_ROW_PROGRESS_HEIGHT or REQUIREMENT_ROW_HEIGHT
                 end)
-            end)
+            else
+                view:SetElementExtent(REQUIREMENT_ROW_HEIGHT)
+            end
+
+            local function requirementRowInit(frame, elementData)
+                if RequirementRows and RequirementRows.InitRow then
+                    RequirementRows.InitRow(frame, elementData, detail)
+                end
+            end
+
+            if view.SetElementTemplateProvider then
+                view:SetElementTemplateProvider(function(elementData)
+                    return (elementData and elementData.templateName) or "MetaAchievementMapRequirementRowRegularTemplate"
+                end)
+                view:SetElementInitializer("MetaAchievementMapRequirementRowDescriptionTemplate", requirementRowInit)
+                view:SetElementInitializer("MetaAchievementMapRequirementRowRegularTemplate", requirementRowInit)
+                view:SetElementInitializer("MetaAchievementMapRequirementRowProgressTemplate", requirementRowInit)
+            else
+                view:SetElementInitializer("MetaAchievementMapRequirementRowTemplate", requirementRowInit)
+            end
 
             ScrollUtil.InitScrollBoxListWithScrollBar(scrollBox, scrollBar, view)
 
@@ -645,12 +623,23 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
     local achievementInformation = AchievementData:GetInformation(topAchievementId, achievementId)
     if achievementInformation and type(achievementInformation.virtualCriteria) == "table" then
         for i, criterion in pairs(achievementInformation.virtualCriteria) do
-            requirements[#requirements + 1] = {
+            local entry = {
                 text = criterion.text or i,
                 completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType),
                 criteriaId = i,
                 criteriaType = criterion.criteriaType,
             }
+            if type(GetAchievementCriteriaInfo) == "function" then
+                local _, _, _, quantity, reqQuantity, _, _, _, quantityString = GetAchievementCriteriaInfo(achievementId, i)
+                if reqQuantity and reqQuantity > 0 and quantity ~= nil then
+                    entry.quantity = quantity
+                    entry.reqQuantity = reqQuantity
+                    if type(quantityString) == "string" and quantityString ~= "" then
+                        entry.quantityString = quantityString
+                    end
+                end
+            end
+            requirements[#requirements + 1] = entry
         end
     else
         if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
@@ -659,12 +648,20 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
 
         local numCriteria = GetAchievementNumCriteria(achievementId) or 0
         for i = 1, numCriteria do
-            local criteriaString, _, completed = GetAchievementCriteriaInfo(achievementId, i)
+            local criteriaString, _, completed, quantity, reqQuantity, _, _, _, quantityString = GetAchievementCriteriaInfo(achievementId, i)
             if criteriaString and criteriaString ~= "" then
-                requirements[#requirements + 1] = {
+                local entry = {
                     text = criteriaString,
                     completed = completed == true
                 }
+                if reqQuantity and reqQuantity > 0 and quantity ~= nil then
+                    entry.quantity = quantity
+                    entry.reqQuantity = reqQuantity
+                    if type(quantityString) == "string" and quantityString ~= "" then
+                        entry.quantityString = quantityString
+                    end
+                end
+                requirements[#requirements + 1] = entry
             end
         end
     end
@@ -719,6 +716,10 @@ function MetaAchievementMapDetail_BuildDataFromAchievementId(achievementId, node
     local requirements = buildRequirementsFromChildren(node)
     if #requirements == 0 then
         requirements = buildRequirementsFromCriteria(achievementId, topAchievementId)
+    end
+    -- If still no requirements, show achievement description as a single virtual requirement row
+    if #requirements == 0 and type(description) == "string" and description:gsub("^%s+", ""):gsub("%s+$", "") ~= "" then
+        requirements = { { text = description, isDescriptionRow = true } }
     end
 
     local pointsValue = (points and points > 0) and points or nil
@@ -1003,6 +1004,9 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
         return
     end
     local req = owner._requirements and owner._requirements[row._index] or nil
+    if req and req.isDescriptionRow then
+        return
+    end
     local aid = owner._achievementId
     local idx = row._index
 

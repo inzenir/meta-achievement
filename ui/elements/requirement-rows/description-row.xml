@@ -1,19 +1,15 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Button name="MetaAchievementMapRequirementRowTemplate" virtual="true">
+    <!-- Description row: achievement description text only. No check, no progress bar. -->
+    <Button name="MetaAchievementMapRequirementRowDescriptionTemplate" virtual="true">
         <Size x="1" y="20"/>
         <Layers>
             <Layer level="ARTWORK">
-                <Texture name="$parentCheck" hidden="false">
-                    <Size x="14" y="14"/>
-                    <Anchors>
-                        <Anchor point="LEFT" x="6" y="0"/>
-                    </Anchors>
-                </Texture>
                 <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT">
                     <Anchors>
                         <Anchor point="LEFT" x="26" y="0"/>
                         <Anchor point="RIGHT" x="-6" y="0"/>
                     </Anchors>
+                    <FontHeight val="12"/>
                 </FontString>
             </Layer>
         </Layers>

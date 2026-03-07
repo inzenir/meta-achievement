@@ -73,6 +73,11 @@ ui\options-definitions.lua
 ui\elements\settings-separator.lua
 ui\elements\settings-separator.xml
 ui\options-panel.lua
+ui\elements\requirement-rows\frame.lua
+ui\elements\requirement-rows\description.lua
+ui\elements\requirement-rows\regular.lua
+ui\elements\requirement-rows\progress.lua
+ui\elements\requirement-rows\init.lua
 ui\journal-map.xml
 
 # drawing loading

@@ -1,6 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Include file="ui\elements\scrollbar.xml"/>
-    <Include file="ui\elements\map-requirement-row.xml"/>
+    <Include file="ui\elements\requirement-rows\row.xml"/>
+    <Include file="ui\elements\requirement-rows\description-row.xml"/>
+    <Include file="ui\elements\requirement-rows\regular-row.xml"/>
+    <Include file="ui\elements\requirement-rows\progress-row.xml"/>
     <Include file="ui\elements\waypoint-button.xml"/>
     <Include file="ui\elements\preview-button.xml"/>
     <Script file="ui\elements\map-detail.lua"/>
