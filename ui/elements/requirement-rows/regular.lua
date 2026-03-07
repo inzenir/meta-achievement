@@ -9,6 +9,9 @@ local ROW_HEIGHT = 20
 
 function RequirementRowRegular.Apply(frame, req)
     if not frame or not req then return end
+    -- Restore highlight (frame may have been recycled from progress/description which set it to 0)
+    local highlight = frame.GetHighlightTexture and frame:GetHighlightTexture()
+    if highlight then highlight:SetAlpha(1) end
     if frame.SetHeight then frame:SetHeight(ROW_HEIGHT) end
     if frame.Text then
         if frame.Text.ClearAllPoints and frame.Text.SetPoint then

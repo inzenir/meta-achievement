@@ -128,30 +128,56 @@
                 </Layers>
             </Frame>
 
-            <!-- Reward box -->
+            <!-- Reward box (same height as Help box so scroll bar track matches) -->
             <Frame name="$parentRewardBox" inherits="InsetFrameTemplate3">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parentHeader" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
                     <Anchor point="TOPRIGHT" relativeTo="$parentHeader" relativePoint="BOTTOMRIGHT" x="0" y="-6"/>
                 </Anchors>
-                <Size x="1" y="60"/>
+                <Size x="1" y="88"/>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormalSmall" justifyH="LEFT" text="REWARD">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-8"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
                 <Frames>
                     <Button name="$parentPreviewButton" inherits="MetaAchievementPreviewButtonTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-4" y="12"/>
                         </Anchors>
                     </Button>
+                    <ScrollFrame name="$parentScrollFrame">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="6" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="-22" y="8"/>
+                        </Anchors>
+                        <ScrollChild>
+                            <Frame name="$parentScrollChild">
+                                <Size x="1" y="1"/>
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="4" y="0"/>
+                                                <Anchor point="RIGHT" x="-4" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                            </Frame>
+                        </ScrollChild>
+                    </ScrollFrame>
+                    <EventFrame name="$parentScrollBar" inherits="MinimalScrollBar" frameStrata="HIGH">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="$parentScrollFrame" relativePoint="TOPRIGHT" x="6" y="0"/>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parentScrollFrame" relativePoint="BOTTOMRIGHT" x="6" y="0"/>
+                        </Anchors>
+                    </EventFrame>
                 </Frames>
-                <Layers>
-                    <Layer level="ARTWORK">
-                        <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP">
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="10" y="-10"/>
-                                <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-46" y="10"/>
-                            </Anchors>
-                        </FontString>
-                    </Layer>
-                </Layers>
             </Frame>
 
             <!-- Mount reward preview: shown when preview button is clicked (top achievement only). -->

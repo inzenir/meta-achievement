@@ -77,6 +77,36 @@ local function updateHelpBoxContent(self, helpText)
     sc:SetHeight(math.max(contentH, sf:GetHeight() or 1))
 end
 
+local function updateRewardBoxContent(self, rewardText)
+    if not self.RewardBox or not self.RewardBox.ScrollFrame or not self.RewardBox.ScrollFrame.ScrollChild or not self.RewardBox.Text then
+        return
+    end
+    local sf = self.RewardBox.ScrollFrame
+    local sc = sf.ScrollChild
+    local text = self.RewardBox.Text
+    local w = sf:GetWidth() or (self.RewardBox:GetWidth() and (self.RewardBox:GetWidth() - 28) or 200)
+    if w <= 0 then
+        w = 200
+    end
+    if type(rewardText) ~= "string" or rewardText == "" then
+        text:SetText("")
+        sc:SetHeight(1)
+        sc:SetWidth(w)
+        return
+    end
+    text:SetWidth(w)
+    if text.SetWordWrap then
+        text:SetWordWrap(true)
+    end
+    text:SetText(rewardText)
+    local contentH = (text:GetStringHeight() or 0) + 8
+    sc:SetWidth(w)
+    sc:SetHeight(math.max(contentH, sf:GetHeight() or 1))
+    if sf.SetVerticalScroll then
+        sf:SetVerticalScroll(0)
+    end
+end
+
 local function updateCriteriaInfoBoxContent(self, text)
     if not self.CriteriaInfoBox or not self.CriteriaInfoBox.ScrollFrame or not self.CriteriaInfoBox.ScrollFrame.ScrollChild or not self.CriteriaInfoBox.Text then
         return
@@ -208,8 +238,18 @@ function MetaAchievementMapDetail_OnLoad(self)
     end
 
     if self.RewardBox then
-        self.RewardBox.Text = _G[self.RewardBox:GetName() .. "Text"]
         self.RewardBox.PreviewButton = _G[self.RewardBox:GetName() .. "PreviewButton"]
+        self.RewardBox.ScrollFrame = _G[self.RewardBox:GetName() .. "ScrollFrame"]
+        if self.RewardBox.ScrollFrame then
+            self.RewardBox.ScrollFrame.ScrollChild = _G[self.RewardBox.ScrollFrame:GetName() .. "ScrollChild"]
+            if self.RewardBox.ScrollFrame.ScrollChild then
+                self.RewardBox.Text = _G[self.RewardBox.ScrollFrame.ScrollChild:GetName() .. "Text"]
+            end
+        end
+        self.RewardBox.ScrollBar = _G[self.RewardBox:GetName() .. "ScrollBar"]
+        if self.RewardBox.ScrollBar and self.RewardBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
+            ScrollUtil.InitScrollFrameWithScrollBar(self.RewardBox.ScrollFrame, self.RewardBox.ScrollBar)
+        end
     end
     self.MountPreviewPanel = _G[self:GetName() .. "MountPreviewPanel"]
     if self.HelpBox then
@@ -588,8 +628,8 @@ function MetaAchievementMapDetail_SetData(self, data)
         end
     end
 
-    if self.RewardBox and self.RewardBox.Text and self.RewardBox.Text.SetText then
-        self.RewardBox.Text:SetText(formatRewardText(data.reward or ""))
+    if self.RewardBox then
+        updateRewardBoxContent(self, formatRewardText(data.reward or ""))
     end
 
     if self.HelpBox then

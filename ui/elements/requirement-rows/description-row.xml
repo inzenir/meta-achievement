@@ -13,12 +13,6 @@
                 </FontString>
             </Layer>
         </Layers>
-        <HighlightTexture alphaMode="ADD" file="Interface\QuestFrame\UI-QuestTitleHighlight">
-            <Anchors>
-                <Anchor point="TOPLEFT"/>
-                <Anchor point="BOTTOMRIGHT"/>
-            </Anchors>
-        </HighlightTexture>
         <Scripts>
             <OnClick>MetaAchievementMapRequirementRow_OnClick(self, button)</OnClick>
         </Scripts>
