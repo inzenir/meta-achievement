@@ -591,6 +591,21 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     self:SetFrameStrata("DIALOG")
     self:SetFrameLevel(200)
 
+    -- When these settings change, refresh the journal so list/detail/visibility match without re-opening or changing selection.
+    do
+        local keysToRefreshOn = { "hideCompleted", "showCompletedScreenWhenTopDone", "achievementLinkSource", "addWpsOnlyForUncompletedAchis" }
+        for _, key in ipairs(keysToRefreshOn) do
+            if MetaAchievementSettings and type(MetaAchievementSettings.RegisterListener) == "function" then
+                MetaAchievementSettings:RegisterListener(key, function()
+                    local f = MetaAchievementJournalMap.frame
+                    if f then
+                        MetaAchievementJournalMap:RefreshList(f)
+                    end
+                end)
+            end
+        end
+    end
+
     MetaAchievementJournalMap:RefreshDropdown(self)
 end
 
