@@ -315,8 +315,32 @@ function RegisterMetaAchievementOptionsPanel()
                 local tooltip = def.tooltip or name
                 local varTypeKey = (def.varType or "boolean"):lower()
 
+                -- BUTTON (label + action button via Blizzard's CreateSettingsButtonInitializer; action dispatched by def.action)
+                if varTypeKey == "button" and CreateSettingsButtonInitializer and Settings.RegisterInitializer then
+                    local actionName = def.action or def.variable
+                    local buttonActions = {
+                        clearAllWaypoints = function()
+                            if MapIntegrationBase and MapIntegrationBase.RemoveAllWaypoints then
+                                MapIntegrationBase.RemoveAllWaypoints()
+                            end
+                        end,
+                    }
+                    local buttonClick = (actionName and buttonActions[actionName]) or function() end
+                    local buttonText = def.buttonText or "Clear"
+                    local initializer = CreateSettingsButtonInitializer(
+                        name,
+                        buttonText,
+                        buttonClick,
+                        tooltip,
+                        true,
+                        nil,
+                        nil
+                    )
+                    if initializer then
+                        Settings.RegisterInitializer(category, initializer)
+                    end
                 -- BOOLEAN TYPES
-                if varTypeKey == "boolean" and VarType and VarType.Boolean then
+                elseif varTypeKey == "boolean" and VarType and VarType.Boolean then
                     local defaultValue = (defaultsTable[variable] ~= nil) and defaultsTable[variable] or false
                     local setting
                     if useAddOn then

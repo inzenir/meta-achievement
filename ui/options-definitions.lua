@@ -28,6 +28,15 @@ MetaAchievementOptionsDefinitions = {
         optionsSource = "waypointIntegration",  -- resolved when panel is built (after mapIntegration instance exists)
     },
     {
+        variable = "_clearAllWaypoints",
+        name = "Clear all waypoints",
+        buttonText = "Clear",
+        tooltip = "Remove all achievement waypoints from the map.",
+        varType = "button",
+        group = "map",
+        action = "clearAllWaypoints",  -- dispatched in options-panel to the real handler
+    },
+    {
         variable = "hideCompleted",
         name = "Hide completed achievements",
         tooltip = "If checked, completed achievements will be hidden, unless they have uncompleted sub-achievements.",

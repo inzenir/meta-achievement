@@ -436,6 +436,21 @@ local function achievementHasDirectWaypoints(flatInfo)
     return false
 end
 
+-- True if the given criterion (by criteriaId or criteria index) is completed for the achievement.
+local function isCriterionCompleted(achievementId, criteriaId)
+    if not achievementId or not GetAchievementNumCriteria or not GetAchievementCriteriaInfo then
+        return false
+    end
+    local num = GetAchievementNumCriteria(achievementId) or 0
+    for i = 1, num do
+        local _, _, completed, _, _, _, _, _, _, cid = GetAchievementCriteriaInfo(achievementId, i)
+        if cid == criteriaId or i == criteriaId then
+            return completed == true
+        end
+    end
+    return false
+end
+
 local function hasHelpText(helpText)
     if type(helpText) ~= "string" then
         return false
@@ -527,14 +542,17 @@ local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
     -- Store the selected criteria ID for waypoint button handler
     self._selectedCriteriaId = criteriaId
     
-    -- Show/hide waypoint button based on whether this criterion has waypoints
+    -- Show/hide waypoint button based on whether this criterion has waypoints (and, if addWpsOnlyForUncompletedAchis, only when criterion is not completed)
     local hasWaypoints = false
     if criteriaId and self._flatInfo and type(self._flatInfo.criteria) == "table" then
         local cinfo = self._flatInfo.criteria[criteriaId]
         hasWaypoints = criterionHasWaypoints(cinfo)
     end
+    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
+    local criterionCompleted = criteriaId and self._achievementId and isCriterionCompleted(self._achievementId, criteriaId)
+    local showWaypoint = hasWaypoints and hasContent and (not onlyUncompleted or not criterionCompleted)
     if self.CriteriaInfoBox.WaypointButton then
-        self.CriteriaInfoBox.WaypointButton:SetShown(hasWaypoints and hasContent)
+        self.CriteriaInfoBox.WaypointButton:SetShown(showWaypoint)
     end
     
     if hasContent then
@@ -788,8 +806,9 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
         self.HelpBox.WaypointButton:SetShown(hasDirectWaypoints)
     end
 
-    -- Show/hide RequirementsBox waypoint button based on whether any criteria has waypoints
+    -- Show/hide RequirementsBox waypoint button: when addWpsOnlyForUncompletedAchis, only show if at least one criterion with waypoints is not completed
     local hasAnyWaypoint = false
+    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
 
     local criteria = nil
     if flatInfo and type(flatInfo.virtualCriteria) == "table" then
@@ -799,10 +818,19 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     end
 
     if criteria and type(criteria) == "table" then
-        for _, cinfo in pairs(criteria) do
-            if criterionHasWaypoints(cinfo) then
-                hasAnyWaypoint = true
-                break
+        if onlyUncompleted then
+            for criteriaId, cinfo in pairs(criteria) do
+                if criterionHasWaypoints(cinfo) and not isCriterionCompleted(achievementId, criteriaId) then
+                    hasAnyWaypoint = true
+                    break
+                end
+            end
+        else
+            for _, cinfo in pairs(criteria) do
+                if criterionHasWaypoints(cinfo) then
+                    hasAnyWaypoint = true
+                    break
+                end
             end
         end
     end
@@ -898,21 +926,6 @@ function MetaAchievementMapDetail_OnHelpBoxWaypointButtonClick(self)
     if MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
         MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, waypoints)
     end
-end
-
--- True if the given criterion (by criteriaId or criteria index) is completed for the achievement.
-local function isCriterionCompleted(achievementId, criteriaId)
-    if not achievementId or not GetAchievementNumCriteria or not GetAchievementCriteriaInfo then
-        return false
-    end
-    local num = GetAchievementNumCriteria(achievementId) or 0
-    for i = 1, num do
-        local _, _, completed, _, _, _, _, _, _, cid = GetAchievementCriteriaInfo(achievementId, i)
-        if cid == criteriaId or i == criteriaId then
-            return completed == true
-        end
-    end
-    return false
 end
 
 -- Flatten waypoints: each { kind="point", coordinates={c1,c2,...} } becomes one waypoint per coordinate.
