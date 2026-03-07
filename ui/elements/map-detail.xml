@@ -4,8 +4,9 @@
     <Include file="ui\elements\requirement-rows\description-row.xml"/>
     <Include file="ui\elements\requirement-rows\regular-row.xml"/>
     <Include file="ui\elements\requirement-rows\progress-row.xml"/>
-    <Include file="ui\elements\waypoint-button.xml"/>
-    <Include file="ui\elements\preview-button.xml"/>
+    <Include file="ui\elements\buttons\link-button.xml"/>
+    <Include file="ui\elements\buttons\waypoint-button.xml"/>
+    <Include file="ui\elements\buttons\preview-button.xml"/>
     <Script file="ui\elements\map-detail.lua"/>
 
     <!-- Map detail element: header, description, reward, requirements -->
@@ -260,6 +261,12 @@
                 </Layers>
 
                 <Frames>
+                    <!-- Link button: shown when achievement link source is not None -->
+                    <Button name="$parentLinkButton" inherits="MetaAchievementLinkButtonTemplate" hidden="true">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-34" y="7"/>
+                        </Anchors>
+                    </Button>
                     <!-- Waypoint button: shown when at least one requirement has a waypoint -->
                     <Button name="$parentWaypointButton" inherits="MetaAchievementWaypointButtonTemplate" hidden="true">
                         <Anchors>

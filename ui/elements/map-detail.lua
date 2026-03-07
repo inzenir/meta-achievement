@@ -2,6 +2,29 @@
 -- Shows header (icon + title + points/feat), description, reward, and scrollable requirements list.
 
 local REQUIREMENT_ROW_HEIGHT = 20
+
+--- Return achievement link source: "none", "wowhead", or "wowdb". Tries Settings then raw DB (Blizzard may store under prefixed key).
+local function getAchievementLinkSource()
+    local v = (MetaAchievementSettings and MetaAchievementSettings:Get("achievementLinkSource")) or "none"
+    if v ~= "none" then return v end
+    if MetaAchievementConfigurationDB then
+        local raw = MetaAchievementConfigurationDB["MetaAchievement_achievementLinkSource"] or MetaAchievementConfigurationDB["achievementLinkSource"]
+        if raw == "wowhead" or raw == "wowdb" then return raw end
+    end
+    return "none"
+end
+
+--- Return RequirementsBox link button, resolving by name if not cached.
+local function getRequirementsLinkButton(reqBox)
+    if not reqBox then return nil end
+    if reqBox.LinkButton then return reqBox.LinkButton end
+    local name = reqBox:GetName()
+    if name and name ~= "" then
+        reqBox.LinkButton = _G[name .. "LinkButton"]
+        return reqBox.LinkButton
+    end
+    return nil
+end
 local REQUIREMENT_ROW_PROGRESS_HEIGHT = 41  -- progress rows: text line + bar on new line
 local REQUIREMENT_ROW_GAP = 0
 local REQUIREMENTS_CRITERIA_GAP = 8  -- Vertical gap between Requirements box bottom and Criteria information box top
@@ -278,6 +301,10 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.RequirementsBox.WaypointButton and MetaAchievementWaypointButton_SetTooltip then
             MetaAchievementWaypointButton_SetTooltip(self.RequirementsBox.WaypointButton, "Add all waypoints")
         end
+        self.RequirementsBox.LinkButton = _G[self.RequirementsBox:GetName() .. "LinkButton"]
+        if self.RequirementsBox.LinkButton and MetaAchievementLinkButton_SetTooltip then
+            MetaAchievementLinkButton_SetTooltip(self.RequirementsBox.LinkButton, "Open achievement link")
+        end
         self.RequirementsBox.ScrollBox = _G[self.RequirementsBox:GetName() .. "ScrollBox"]
         self.RequirementsBox.ScrollBar = _G[self.RequirementsBox:GetName() .. "ScrollBar"]
 
@@ -354,6 +381,11 @@ function MetaAchievementMapDetail_OnLoad(self)
     if self.RequirementsBox and self.RequirementsBox.WaypointButton then
         self.RequirementsBox.WaypointButton:SetScript("OnClick", function()
             MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
+        end)
+    end
+    if self.RequirementsBox and self.RequirementsBox.LinkButton then
+        self.RequirementsBox.LinkButton:SetScript("OnClick", function()
+            MetaAchievementMapDetail_OnRequirementsBoxLinkButtonClick(self)
         end)
     end
     if self.CriteriaInfoBox and self.CriteriaInfoBox.WaypointButton then
@@ -512,6 +544,13 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
     self.RequirementsBox:SetShown(hasRequirements)
     if not hasRequirements then
         return
+    end
+
+    -- Show link button only when achievement link source is not None
+    local linkSource = getAchievementLinkSource()
+    local linkBtn = getRequirementsLinkButton(self.RequirementsBox)
+    if linkBtn then
+        linkBtn:SetShown(linkSource ~= "none")
     end
 
     -- Requirements anchor below help (if shown), else mount preview, else reward, else header.
@@ -878,6 +917,13 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     if self.RequirementsBox and self.RequirementsBox.WaypointButton then
         self.RequirementsBox.WaypointButton:SetShown(hasAnyWaypoint)
     end
+
+    -- Link button visibility: set here and in updateRewardHelpAndRequirementsLayout when link source ~= "none"
+    local linkSource = getAchievementLinkSource()
+    local linkBtn = getRequirementsLinkButton(self.RequirementsBox)
+    if linkBtn then
+        linkBtn:SetShown(linkSource ~= "none")
+    end
 end
 
 -- Map: criteriaType -> function(owner, criteriaInfo, achievementId, criteriaIndex).
@@ -1012,6 +1058,90 @@ function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     if #allWaypoints > 0 and MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
         MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, allWaypoints)
     end
+end
+
+--- Create or return the link dialog frame (title + text box with link + Close).
+local function getOrCreateLinkDialog()
+    if _G.MetaAchievementLinkDialog then return _G.MetaAchievementLinkDialog end
+    local d = CreateFrame("Frame", "MetaAchievementLinkDialog", UIParent, "BackdropTemplate")
+    d:SetSize(360, 140)
+    local screenH = UIParent and UIParent:GetHeight() or 600
+    d:SetPoint("TOP", UIParent, "TOP", 0, -screenH / 3)
+    d:SetFrameStrata("TOOLTIP")
+    d:SetFrameLevel(100)
+    local dBg = d:CreateTexture(nil, "BACKGROUND")
+    dBg:SetAllPoints(d)
+    dBg:SetColorTexture(0.1, 0.1, 0.1, 0.95)
+    d:SetBackdrop({
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        edgeSize = 32,
+        insets = { left = 0, right = 50, top = 16, bottom = 16 },
+    })
+    d:Hide()
+
+    local title = d:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    title:SetPoint("TOP", 0, -18)
+    d.Title = title
+
+    local edit = CreateFrame("EditBox", nil, d)
+    edit:SetSize(320, 32)
+    edit:SetPoint("TOP", title, "BOTTOM", 0, -10)
+    edit:SetAutoFocus(false)
+    edit:SetFontObject("GameFontHighlight")
+    edit:SetMultiLine(false)
+    if edit.SetTextInsets then edit:SetTextInsets(6, 6, 4, 4) end
+    edit:SetScript("OnEscapePressed", function() edit:ClearFocus() d:Hide() end)
+    d.EditBox = edit
+
+    local editBg = edit:CreateTexture(nil, "BACKGROUND")
+    editBg:SetAllPoints(edit)
+    editBg:SetColorTexture(0.1, 0.1, 0.1, 0)
+
+    local close = CreateFrame("Button", nil, d, "UIPanelButtonTemplate")
+    close:SetText(CLOSE or "Close")
+    close:SetSize(100, 22)
+    close:SetPoint("BOTTOM", 0, 14)
+    close:SetScript("OnClick", function() d:Hide() end)
+
+    if UISpecialFrames and not tContains(UISpecialFrames, "MetaAchievementLinkDialog") then
+        tinsert(UISpecialFrames, "MetaAchievementLinkDialog")
+    end
+
+    _G.MetaAchievementLinkDialog = d
+    return d
+end
+
+local function showLinkDialog(sourceName, url)
+    local d = getOrCreateLinkDialog()
+    d.Title:SetText(sourceName .. " link")
+    d.EditBox:SetText(url or "")
+    d.EditBox:SetCursorPosition(0)
+    d.EditBox:HighlightText(0, url and #url or 0)
+    d:Show()
+    d.EditBox:SetFocus()
+end
+
+--- Build achievement URL for the configured link source (wowhead or wowdb).
+local function getAchievementURL(achievementId, linkSource)
+    if type(achievementId) ~= "number" or achievementId <= 0 then return nil end
+    if linkSource == "wowhead" then
+        return ("https://www.wowhead.com/achievement=%d"):format(achievementId)
+    end
+    if linkSource == "wowdb" then
+        return ("https://www.wowdb.com/achievements/%d"):format(achievementId)
+    end
+    return nil
+end
+
+--- Handler for RequirementsBox link button: shows dialog with title "<source> link" and text box with the URL.
+function MetaAchievementMapDetail_OnRequirementsBoxLinkButtonClick(self)
+    if not self or not self._achievementId then return end
+    local linkSource = getAchievementLinkSource()
+    if linkSource == "none" then return end
+    local url = getAchievementURL(self._achievementId, linkSource)
+    if not url then return end
+    local sourceName = (linkSource == "wowdb") and "WowDB" or "Wowhead"
+    showLinkDialog(sourceName, url)
 end
 
 -- Handler for CriteriaInfoBox waypoint button: adds waypoints for the selected criterion (none if addWpsOnlyForUncompletedAchis and criterion is completed)

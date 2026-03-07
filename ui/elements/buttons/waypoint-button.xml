@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Script file="ui\elements\waypoint-button.lua"/>
+    <Script file="ui\elements\buttons\waypoint-button.lua"/>
     <Button name="MetaAchievementWaypointButtonTemplate" virtual="true">
         <Size x="36" y="36"/>
         <Layers>

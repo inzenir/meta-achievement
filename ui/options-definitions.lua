@@ -37,6 +37,18 @@ MetaAchievementOptionsDefinitions = {
         action = "clearAllWaypoints",  -- dispatched in options-panel to the real handler
     },
     {
+        variable = "achievementLinkSource",
+        name = "Achievement link source",
+        tooltip = "Choose where achievement links open: None, Wowhead, or WowDB.",
+        varType = "select",
+        group = "general",
+        options = {
+            { value = "none", label = "None" },
+            { value = "wowhead", label = "Wowhead" },
+            { value = "wowdb", label = "WowDB" },
+        },
+    },
+    {
         variable = "hideCompleted",
         name = "Hide completed achievements",
         tooltip = "If checked, completed achievements will be hidden, unless they have uncompleted sub-achievements.",

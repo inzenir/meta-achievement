@@ -1,0 +1,25 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\buttons\link-button.lua"/>
+    <Button name="MetaAchievementLinkButtonTemplate" virtual="true">
+        <Size x="26" y="26"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentIcon" file="Interface\MINIMAP\TRACKING\Profession">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture file="Interface\MINIMAP\TRACKING\Profession">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+        </HighlightTexture>
+        <Scripts>
+            <OnLoad>MetaAchievementLinkButton_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Button>
+</Ui>

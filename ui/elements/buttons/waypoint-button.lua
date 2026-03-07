@@ -1,5 +1,4 @@
 -- Waypoint button template: map-pin icon, yellow diamond highlight, nudge-on-press.
--- Use inherits="MetaAchievementWaypointButtonTemplate" and set Anchors on the instance.
 
 function MetaAchievementWaypointButton_OnLoad(self)
     local icon = _G[self:GetName() .. "Icon"]
@@ -39,9 +38,6 @@ function MetaAchievementWaypointButton_OnLoad(self)
     self._waypointButtonOnLeave = resetNudge
 end
 
---- Set optional hover tooltip text. Call after the button is created.
---- @param button frame The waypoint button frame
---- @param text string|nil Tooltip text; nil to remove tooltip
 function MetaAchievementWaypointButton_SetTooltip(button, text)
     if not button then return end
     if not text or text == "" then

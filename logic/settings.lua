@@ -8,6 +8,7 @@
 local function getDefaults()
     return {
         waypointIntegration = "native",
+        achievementLinkSource = "none",
         hideCompleted = false,
         colouredHightlight = false,
         removeCompletedWaypoints = false,
