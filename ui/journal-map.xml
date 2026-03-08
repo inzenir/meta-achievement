@@ -3,6 +3,8 @@
     <Include file="ui\elements\journal-empty-state.xml"/>
     <Include file="ui\elements\map-detail.xml"/>
     <Include file="ui\elements\breadcrumbs.xml"/>
+    <Include file="ui\elements\buttons\settings-cog-button.xml"/>
+    <Include file="ui\elements\buttons\silver-cog-button.xml"/>
     <Script file="ui\journal-map.lua"/>
 
     <!-- Main frame: quest journal (left) + map canvas (right) -->
@@ -14,6 +16,7 @@
         <Scripts>
             <OnLoad>MetaAchievementJournalMapFrame_OnLoad(self)</OnLoad>
             <OnShow>MetaAchievementJournalMapFrame_OnShow(self)</OnShow>
+            <OnHide>MetaAchievementJournalMapFrame_OnHide(self)</OnHide>
         </Scripts>
 
         <Frames>
@@ -79,6 +82,18 @@
                     </Frame>
                 </Frames>
             </Frame>
+            <!-- Settings cog: compact red + silver border (anchor left of Close); must be before SilverCogButton so relativeTo exists -->
+            <Button name="$parentSettingsButton" inherits="MetaAchievementSettingsCogButtonTemplate">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT" x="-2" y="0"/>
+                </Anchors>
+            </Button>
+            <!-- Silver bar cog (three-part style), left of SettingsButton 
+            <Button name="$parentSilverCogButton" inherits="MetaAchievementSilverCogButtonTemplate">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT" x="-4" y="0"/>
+                </Anchors>
+            </Button>-->
         </Frames>
     </Frame>
 </Ui>

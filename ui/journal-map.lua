@@ -524,6 +524,56 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     self.MapInset = _G[self:GetName() .. "MapInset"]
     self.EmptyStatePanel = _G[self:GetName() .. "EmptyStatePanel"]
     self.Breadcrumbs = _G[self:GetName() .. "Breadcrumbs"]
+    self.SettingsButton = _G[self:GetName() .. "SettingsButton"]
+    self.SilverCogButton = _G[self:GetName() .. "SilverCogButton"]
+    -- ButtonFrameTemplate provides CloseButton; we anchor our button to it (Blizzard-style: extra button next to close)
+    self.CloseButton = _G[self:GetName() .. "CloseButton"]
+
+    if self.SilverCogButton then
+        self.SilverCogButton:SetParent(UIParent)
+        self.SilverCogButton:SetFrameStrata("FULLSCREEN_DIALOG")
+        self.SilverCogButton:SetFrameLevel(1000)
+        if self.SettingsButton then
+            self.SilverCogButton:ClearAllPoints()
+            self.SilverCogButton:SetPoint("RIGHT", self.SettingsButton, "LEFT", -4, 0)
+        else
+            self.SilverCogButton:ClearAllPoints()
+            self.SilverCogButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -120, -2)
+        end
+        self.SilverCogButton:Hide()
+        self.SilverCogButton:SetScript("OnClick", function()
+            if Settings and type(Settings.OpenToCategory) == "function" and MetaAchievementSettingsCategoryID then
+                Settings.OpenToCategory(MetaAchievementSettingsCategoryID)
+            end
+        end)
+        if MetaAchievementSilverCogButton_SetTooltip then
+            MetaAchievementSilverCogButton_SetTooltip(self.SilverCogButton, "Addon settings")
+        end
+    end
+
+    if self.SettingsButton then
+        -- Reparent to UIParent + higher strata so button draws above template title bar (frame level alone is not enough;
+        -- see e.g. WeakAuras #384, WoWInterface "button not showing on frame" – strata/level fix)
+        self.SettingsButton:SetParent(UIParent)
+        self.SettingsButton:SetFrameStrata("FULLSCREEN_DIALOG")
+        self.SettingsButton:SetFrameLevel(1000)
+        if self.CloseButton then
+            self.SettingsButton:ClearAllPoints()
+            self.SettingsButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -2, 0)
+        else
+            self.SettingsButton:ClearAllPoints()
+            self.SettingsButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -24, -2)
+        end
+        self.SettingsButton:Hide()
+        self.SettingsButton:SetScript("OnClick", function()
+            if Settings and type(Settings.OpenToCategory) == "function" and MetaAchievementSettingsCategoryID then
+                Settings.OpenToCategory(MetaAchievementSettingsCategoryID)
+            end
+        end)
+        if MetaAchievementSettingsCogButton_SetTooltip then
+            MetaAchievementSettingsCogButton_SetTooltip(self.SettingsButton, "Addon settings")
+        end
+    end
 
     -- Hide the old dropdown (functionality moved to breadcrumbs)
     if self.SourceDropdown then
@@ -606,6 +656,20 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         end
     end
 
+    -- When showSettingsButton changes, update button visibility if the journal is open.
+    if MetaAchievementSettings and type(MetaAchievementSettings.RegisterListener) == "function" then
+        MetaAchievementSettings:RegisterListener("showSettingsButton", function(_, show)
+            if self:IsShown() then
+                if self.SilverCogButton then
+                    if show then self.SilverCogButton:Show() else self.SilverCogButton:Hide() end
+                end
+                if self.SettingsButton then
+                    if show then self.SettingsButton:Show() else self.SettingsButton:Hide() end
+                end
+            end
+        end)
+    end
+
     MetaAchievementJournalMap:RefreshDropdown(self)
 end
 
@@ -620,6 +684,32 @@ function MetaAchievementJournalMapFrame_OnShow(self)
     if self._selectedSourceKey and (not self._selectedIndex) and self._modelItems and self._modelItems[1] then
         MetaAchievementJournalMap:SetSelectedIndex(self, 1)
     end
+
+    -- Re-anchor and show/hide settings buttons based on option (reparented to UIParent so they stay on top of title bar)
+    local showSettings = MetaAchievementSettings and MetaAchievementSettings:Get("showSettingsButton")
+    if self.SilverCogButton then
+        self.SilverCogButton:ClearAllPoints()
+        if self.SettingsButton then
+            self.SilverCogButton:SetPoint("RIGHT", self.SettingsButton, "LEFT", -4, 0)
+        else
+            self.SilverCogButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -120, -2)
+        end
+        if showSettings then self.SilverCogButton:Show() else self.SilverCogButton:Hide() end
+    end
+    if self.SettingsButton then
+        self.SettingsButton:ClearAllPoints()
+        if self.CloseButton then
+            self.SettingsButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -2, 0)
+        else
+            self.SettingsButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -24, -2)
+        end
+        if showSettings then self.SettingsButton:Show() else self.SettingsButton:Hide() end
+    end
+end
+
+function MetaAchievementJournalMapFrame_OnHide(self)
+    if self.SilverCogButton then self.SilverCogButton:Hide() end
+    if self.SettingsButton then self.SettingsButton:Hide() end
 end
 
 -- Close our other addon window (old tabbed main) when we open the journal.

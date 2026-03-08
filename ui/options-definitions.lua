@@ -49,6 +49,13 @@ MetaAchievementOptionsDefinitions = {
         },
     },
     {
+        variable = "showSettingsButton",
+        name = "Show settings button",
+        tooltip = "If checked, the settings (cog) button is shown next to the close button on the journal.",
+        varType = "boolean",
+        group = "general",
+    },
+    {
         variable = "hideCompleted",
         name = "Hide completed achievements",
         tooltip = "If checked, completed achievements will be hidden, unless they have uncompleted sub-achievements.",

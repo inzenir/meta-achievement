@@ -9,6 +9,7 @@ local function getDefaults()
     return {
         waypointIntegration = "native",
         achievementLinkSource = "none",
+        showSettingsButton = true,
         hideCompleted = false,
         colouredHightlight = false,
         removeCompletedWaypoints = false,

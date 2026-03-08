@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\buttons\cog-button-helper.lua"/>
+    <Script file="ui\elements\buttons\settings-cog-button.lua"/>
+    <!-- Same template as the frame's CloseButton: Blizzard red + silver border; we replace the X with the cog in OnLoad. -->
+    <Button name="MetaAchievementSettingsCogButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+        <Size x="24" y="24"/>
+        <Scripts>
+            <OnLoad>MetaAchievementSettingsCogButton_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Button>
+</Ui>
