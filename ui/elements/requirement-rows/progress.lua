@@ -7,7 +7,7 @@ RequirementRowProgress = RequirementRowProgress or {}
 
 local PROGRESS_ROW_HEIGHT = 41
 local PROGRESS_BAR_INSET = 48
-local BAR_HEIGHT = 14
+local BAR_HEIGHT = 12
 
 local COLOR_COMPLETE = { 0.2, 0.75, 0.2, 1 }
 local COLOR_INCOMPLETE = { 0.3, 0.55, 0.9, 1 }

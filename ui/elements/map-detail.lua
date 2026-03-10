@@ -393,6 +393,13 @@ function MetaAchievementMapDetail_OnLoad(self)
             MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
         end)
     end
+
+    -- Refresh content layout when detail is shown (fixes empty panels when SetData ran before frame had valid dimensions).
+    self:SetScript("OnShow", function()
+        if self._currentRewardText ~= nil or self._currentHelpText ~= nil or (self._requirements and #self._requirements > 0) then
+            MetaAchievementMapDetail_RefreshContentLayout(self)
+        end
+    end)
 end
 
 local function normalizeForWrap(s)
@@ -507,6 +514,24 @@ local function hasHelpText(helpText)
     end
     local t = helpText:gsub("^%s+", ""):gsub("%s+$", "")
     return t ~= ""
+end
+
+--- Re-apply scroll content and requirements layout after the frame has been laid out (fixes empty/broken layout on first open).
+--- Global so OnShow and C_Timer.After callbacks can call it (they run in contexts where locals may be out of scope).
+function MetaAchievementMapDetail_RefreshContentLayout(self)
+    if not self then return end
+    local rewardText = self._currentRewardText
+    local helpText = self._currentHelpText
+    if self.RewardBox then
+        updateRewardBoxContent(self, formatRewardText(rewardText or ""))
+    end
+    if self.HelpBox and type(helpText) == "string" then
+        updateHelpBoxContent(self, (helpText ~= "") and normalizeForWrap(helpText) or "")
+    end
+    local box = self.RequirementsBox
+    if box and box._view and box._view.Refresh then
+        box._view:Refresh()
+    end
 end
 
 local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
@@ -683,6 +708,15 @@ function MetaAchievementMapDetail_SetData(self, data)
     setCriteriaInfoBox(self, nil)
     updateRewardHelpAndRequirementsLayout(self, data.reward, data.helpText)
     refreshRequirementsDataProvider(self)
+
+    -- Defer layout refresh so scroll frames have valid dimensions (fixes empty reward/help/requirements on first open).
+    if C_Timer and type(C_Timer.After) == "function" then
+        C_Timer.After(0, function()
+            if self and (self._currentRewardText ~= nil or self._currentHelpText ~= nil or (self._requirements and #self._requirements > 0)) then
+                MetaAchievementMapDetail_RefreshContentLayout(self)
+            end
+        end)
+    end
 end
 
 local function getAchievementInfoSafe(achievementId)
