@@ -414,3 +414,6 @@ FodyWeavers.xsd
 
 make-links.bat
 **/*.md
+.cursor
+.cursor/*
+.cursor/**/*
