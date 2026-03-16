@@ -1,6 +1,6 @@
 --[[
     Dispatches to the correct row type: description, regular, or progress.
-    Add new row types here and in their own file under requirement-rows/.
+    Add new row types here and in their own file under main-frame/requirement-rows/.
 ]]
 
 RequirementRows = RequirementRows or {}

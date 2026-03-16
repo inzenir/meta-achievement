@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Script file="ui\elements\mount-reward-panel-positions.lua"/>
-    <Script file="ui\elements\mount-reward-panel.lua"/>
+    <Script file="ui\elements\main-frame\mount-reward-panel-positions.lua"/>
+    <Script file="ui\elements\main-frame\mount-reward-panel.lua"/>
     <!-- Mount reward panel template: mount name + model (model created in Lua). Shown when top achievement has mountId. -->
     <Frame name="MetaAchievementMountRewardPanelTemplate" virtual="true">
         <Layers>

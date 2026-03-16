@@ -40,8 +40,8 @@ function MetaAchievementPreviewButton_OnLoad(self)
     self:SetScript("OnClick", function(btn)
         local f = btn:GetParent()
         while f do
-            if f._selectedSourceKey ~= nil and MetaAchievementJournalMap and type(MetaAchievementJournalMap.ShowEmptyStatePreview) == "function" then
-                MetaAchievementJournalMap:ShowEmptyStatePreview(f)
+            if f._selectedSourceKey ~= nil and MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowEmptyStatePreview) == "function" then
+                MetaAchievementMainFrameMgr:ShowEmptyStatePreview(f)
                 return
             end
             f = f:GetParent()

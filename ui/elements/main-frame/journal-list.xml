@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Include file="ui\elements\journal-row.xml"/>
-    <Script file="ui\elements\journal-list.lua"/>
+    <Include file="ui\elements\main-frame\journal-row.xml"/>
+    <Script file="ui\elements\main-frame\journal-list.lua"/>
 
     <!-- Journal list: Blizzard-style WowScrollBoxList + MinimalScrollBar (pet/mount journal look). -->
     <Frame name="MetaAchievementJournalListTemplate" virtual="true" inherits="InsetFrameTemplate3">

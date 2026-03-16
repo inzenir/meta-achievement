@@ -195,11 +195,11 @@ function MetaAchievementJournalListExpand_OnClick(expandButton)
     local item = expandButton._item
     if not list or not list._journalFrame or not item or not item.id then return end
     local frame = list._journalFrame
-    local src = MetaAchievementJournalMap and MetaAchievementJournalMap:GetSelectedSource(frame)
+    local src = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr:GetSelectedSource(frame)
     if not src or not src.provider or type(src.provider.ToggleCollapsed) ~= "function" then return end
     src.provider:ToggleCollapsed(item.id)
-    if MetaAchievementJournalMap and type(MetaAchievementJournalMap.RefreshList) == "function" then
-        MetaAchievementJournalMap:RefreshList(frame)
+    if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.RefreshList) == "function" then
+        MetaAchievementMainFrameMgr:RefreshList(frame)
     end
 end
 

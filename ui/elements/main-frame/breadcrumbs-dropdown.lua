@@ -139,7 +139,7 @@ function MetaAchievementBreadcrumbsDropdown_SetupButton(breadcrumbsFrame, firstB
     end
 end
 
--- Called by journal-map to set selection handler and selected key.
+-- Called by main-frame to set selection handler and selected key.
 function MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(breadcrumbsFrame, _getDataSourcesFunc, onSourceSelectedFunc, selectedSourceKey)
     if not breadcrumbsFrame then
         return
@@ -148,14 +148,14 @@ function MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(breadcrumbsFra
     breadcrumbsFrame._selectedSourceKey = selectedSourceKey
 end
 
--- Called by journal-map when journal is shown so dropdown works on first open.
+-- Called by main-frame when journal is shown so dropdown works on first open.
 function MetaAchievementBreadcrumbsDropdown_SetInitializationComplete(breadcrumbsFrame)
     if breadcrumbsFrame then
         breadcrumbsFrame._isInitializing = false
     end
 end
 
--- Called by journal-map to cache the registered achievement lists.
+-- Called by main-frame to cache the registered achievement lists.
 function MetaAchievementBreadcrumbsDropdown_SetDataSources(breadcrumbsFrame, sources)
     if not breadcrumbsFrame then
         return
@@ -187,10 +187,10 @@ function MetaAchievementBreadcrumbsDropdown_OnLoad(breadcrumbsFrame)
         breadcrumbsFrame._isInitializing = false
     end)
 
-    -- Seed cached data sources at load time (journal-map will keep it updated later).
-    if MetaAchievementJournalMap and type(MetaAchievementJournalMap.GetDataSourcesSorted) == "function" then
+    -- Seed cached data sources at load time (main-frame will keep it updated later).
+    if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.GetDataSourcesSorted) == "function" then
         local ok, sources = pcall(function()
-            return MetaAchievementJournalMap:GetDataSourcesSorted()
+            return MetaAchievementMainFrameMgr:GetDataSourcesSorted()
         end)
         if ok then
             breadcrumbsFrame._cachedDataSources = sources

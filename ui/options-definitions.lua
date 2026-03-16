@@ -12,9 +12,10 @@
 MetaAchievementOptionsGroups = {
     general = "",
     map = "Map and Waypoints",
+    miniJournal = "Mini Journal",
 }
 -- Order of categories in the panel (optional; if missing, order follows first use in definitions)
-MetaAchievementOptionsGroupOrder = { "general", "map" }
+MetaAchievementOptionsGroupOrder = { "general", "miniJournal", "map" }
 
 -- varType: "boolean" = checkbox; "select" = dropdown (pass options table with value/label)
 -- group: key from MetaAchievementOptionsGroups (default "general")
@@ -89,5 +90,26 @@ MetaAchievementOptionsDefinitions = {
         tooltip = "If checked, waypoints you add are saved and restored after logout/login. If unchecked, waypoints are session-only.",
         varType = "boolean",
         group = "map",
+    },
+    {
+        variable = "miniJournalLockPosition",
+        name = "Lock position",
+        tooltip = "If checked, the mini journal window cannot be moved.",
+        varType = "boolean",
+        group = "miniJournal",
+    },
+    {
+        variable = "miniJournalEscapeDoesNotClose",
+        name = "Escape does not close",
+        tooltip = "If checked, pressing Escape key will not close the mini journal window.",
+        varType = "boolean",
+        group = "miniJournal",
+    },
+    {
+        variable = "miniJournalHideCompletedCriteria",
+        name = "Hide completed criteria",
+        tooltip = "If checked, completed criteria are hidden in the mini journal list; only incomplete criteria are shown.",
+        varType = "boolean",
+        group = "miniJournal",
     },
 }

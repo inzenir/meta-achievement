@@ -28,7 +28,13 @@ function MetaAchievementMountRewardPanel_Update(mountPanel, mountId)
         mountPanel.MountModel = mountModel
     end
     if mountModel then
-        mountModel:SetSize(440, 240)
+        local w, h = mountPanel:GetWidth(), mountPanel:GetHeight()
+        if w and w > 0 and h and h > 0 then
+            local modelH = math.max(60, h - 24)
+            mountModel:SetSize(w, modelH)
+        else
+            mountModel:SetSize(440, 240)
+        end
     end
     if mountModel and type(mountModel.SetDisplayInfo) == "function" then
         local displayID

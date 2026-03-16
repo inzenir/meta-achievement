@@ -1,0 +1,14 @@
+---
+description: WoW addon UI: prefer XML for textures, anchors, sizes; use Lua only when necessary
+globs: ui/**/*.xml,ui/**/*.lua
+alwaysApply: false
+---
+
+# UI: Prefer XML Over Lua
+
+Define UI in XML when possible. Do **not** do basic UI setup in Lua if it can be done in XML.
+
+- **In XML**: textures (file path, layer, anchors), sizes, anchors, backdrop when supported, font strings, simple layout.
+- **In Lua only when necessary**: dynamic values, behavior (OnClick, OnShow, etc.), things XML cannot express or that Blizzard’s schema doesn’t support.
+
+Avoid creating or setting textures, anchors, or sizes in Lua when the same can be declared in the frame’s XML (e.g. `<Layers><Layer><Texture file="...">` with `<Anchors>`).

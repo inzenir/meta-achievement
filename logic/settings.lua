@@ -16,6 +16,9 @@ local function getDefaults()
         addWpsOnlyForUncompletedAchis = true,
         showCompletedScreenWhenTopDone = true,
         preserveWaypoints = true,
+        miniJournalLockPosition = false,
+        miniJournalEscapeDoesNotClose = false,
+        miniJournalHideCompletedCriteria = false,
         mapIntegration = {},
         mainFrame = {
             closed = false,
@@ -25,6 +28,12 @@ local function getDefaults()
             x = nil,
             y = nil
         },
+        -- Hidden: which window was last open ("main" or "mini"). Restored on load.
+        lastOpenWindow = "main",
+        -- Hidden: selected achievement list key for mini (and main) so mini can show same list.
+        selectedSourceKey = "worldSoulSearching",
+        -- Hidden: selected achievement id in that list so mini shows same achievement.
+        selectedAchievementId = nil,
         dataList = {},
         tmp1 = {}
     }

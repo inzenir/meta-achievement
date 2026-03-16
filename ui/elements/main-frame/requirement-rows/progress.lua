@@ -184,8 +184,13 @@ function RequirementRowProgress.Apply(frame, req)
     if bar.SetStatusBarTexture then
         bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
     end
-    bar:SetMinMaxValues(0, req.reqQuantity)
-    bar:SetValue(req.quantity)
+    -- WoW's StatusBar requires finite numbers in valid range; virtual criteria may have nil quantity/reqQuantity.
+    local function validNumber(n) return type(n) == "number" and n == n and n >= 0 end  -- exclude nil, NaN
+    local maxVal = validNumber(req.reqQuantity) and req.reqQuantity or 1
+    local val = validNumber(req.quantity) and req.quantity or 0
+    val = math.min(val, maxVal)
+    bar:SetMinMaxValues(0, maxVal)
+    bar:SetValue(val)
     if bar.SetStatusBarColor then
         local c = req.completed == true and COLOR_COMPLETE or COLOR_INCOMPLETE
         bar:SetStatusBarColor(c[1], c[2], c[3], c[4])
@@ -196,7 +201,7 @@ function RequirementRowProgress.Apply(frame, req)
         if type(req.quantityString) == "string" and req.quantityString ~= "" then
             label:SetText(req.quantityString)
         else
-            label:SetText(tostring(req.quantity) .. " / " .. tostring(req.reqQuantity))
+            label:SetText(tostring(val) .. " / " .. tostring(maxVal))
         end
         if label.ClearAllPoints and label.SetPoint then
             label:ClearAllPoints()

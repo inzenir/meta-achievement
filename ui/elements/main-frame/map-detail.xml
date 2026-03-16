@@ -1,13 +1,13 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Include file="ui\elements\scrollbar.xml"/>
-    <Include file="ui\elements\requirement-rows\row.xml"/>
-    <Include file="ui\elements\requirement-rows\description-row.xml"/>
-    <Include file="ui\elements\requirement-rows\regular-row.xml"/>
-    <Include file="ui\elements\requirement-rows\progress-row.xml"/>
+    <Include file="ui\elements\main-frame\scrollbar.xml"/>
+    <Include file="ui\elements\main-frame\requirement-rows\row.xml"/>
+    <Include file="ui\elements\main-frame\requirement-rows\description-row.xml"/>
+    <Include file="ui\elements\main-frame\requirement-rows\regular-row.xml"/>
+    <Include file="ui\elements\main-frame\requirement-rows\progress-row.xml"/>
     <Include file="ui\elements\buttons\link-button.xml"/>
     <Include file="ui\elements\buttons\waypoint-button.xml"/>
     <Include file="ui\elements\buttons\preview-button.xml"/>
-    <Script file="ui\elements\map-detail.lua"/>
+    <Script file="ui\elements\main-frame\map-detail.lua"/>
 
     <!-- Map detail element: header, description, reward, requirements -->
     <Frame name="MetaAchievementMapDetailTemplate" virtual="true">

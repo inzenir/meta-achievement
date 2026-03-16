@@ -1,0 +1,31 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="ui\elements\mini-frame\criteria-row\criteria-header-row.xml"/>
+    <Include file="ui\elements\mini-frame\criteria-row\criteria-line.xml"/>
+    <Include file="ui\elements\mini-frame\mini-achievement-list-row.xml"/>
+    <Script file="ui\elements\mini-frame\criteria-row\regular.lua"/>
+    <Script file="ui\elements\mini-frame\criteria-row\progress.lua"/>
+    <Script file="ui\elements\mini-frame\criteria-row\init.lua"/>
+    <Script file="ui\elements\mini-frame\mini-achievement-list.lua"/>
+
+    <!-- Compact achievement tree list for mini frame (ScrollBox + MinimalScrollBar). -->
+    <Frame name="MetaAchievementMiniListTemplate" virtual="true">
+        <Size x="1" y="1"/>
+        <Frames>
+            <Frame name="$parentScrollBox" inherits="WowScrollBoxList" frameStrata="HIGH">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="-14" y="0"/>
+                </Anchors>
+            </Frame>
+            <EventFrame name="$parentScrollBar" inherits="MinimalScrollBar" frameStrata="HIGH">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentScrollBox" relativePoint="TOPRIGHT" x="2" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativeTo="$parentScrollBox" relativePoint="BOTTOMRIGHT" x="2" y="0"/>
+                </Anchors>
+            </EventFrame>
+        </Frames>
+        <Scripts>
+            <OnLoad>MetaAchievementMiniList_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

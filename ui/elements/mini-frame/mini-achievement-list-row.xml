@@ -1,0 +1,73 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Compact row for mini frame achievement tree (smaller than main journal row). -->
+    <Button name="MetaAchievementMiniListRowTemplate" virtual="true">
+        <Size y="16"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentSelected" hidden="true" alphaMode="ADD" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture name="$parentIcon" hidden="true">
+                    <Size x="12" y="12"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="4" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="18" y="0"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentStatus">
+                    <Size x="10" y="10"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" x="-18" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture alphaMode="ADD" alpha="0.4" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+        </HighlightTexture>
+        <Frames>
+            <Frame name="$parentCriteriaHeaderRow" inherits="MetaAchievementMiniListCriteriaHeaderRowTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentCriteriaLineRow" inherits="MetaAchievementMiniListCriteriaLineTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+            </Frame>
+            <Button name="$parentExpand" hidden="false">
+                <Size x="14" y="14"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-2" y="0"/>
+                </Anchors>
+                <HighlightTexture alphaMode="ADD" alpha="0.5" file="Interface\QuestFrame\UI-QuestTitleHighlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </HighlightTexture>
+                <Scripts>
+                    <OnClick>MetaAchievementMiniListExpand_OnClick(self)</OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnClick>MetaAchievementMiniListRow_OnClick(self, button)</OnClick>
+        </Scripts>
+    </Button>
+</Ui>

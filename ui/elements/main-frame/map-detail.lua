@@ -742,9 +742,10 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
                 criteriaId = i,
                 criteriaType = criterion.criteriaType,
             }
+            -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
             if type(GetAchievementCriteriaInfo) == "function" then
-                local _, _, _, quantity, reqQuantity, _, _, _, quantityString = GetAchievementCriteriaInfo(achievementId, i)
-                if reqQuantity and reqQuantity > 0 and quantity ~= nil then
+                local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
+                if ok and reqQuantity and reqQuantity > 0 and quantity ~= nil then
                     entry.quantity = quantity
                     entry.reqQuantity = reqQuantity
                     if type(quantityString) == "string" and quantityString ~= "" then
@@ -875,10 +876,10 @@ function MetaAchievementMapDetail_PreviewMountReward(self)
             p = p:GetParent()
         end
     end
-    if not journalFrame or not MetaAchievementJournalMap or type(MetaAchievementJournalMap.GetSelectedSource) ~= "function" then
+    if not journalFrame or not MetaAchievementMainFrameMgr or type(MetaAchievementMainFrameMgr.GetSelectedSource) ~= "function" then
         return
     end
-    local src = MetaAchievementJournalMap:GetSelectedSource(journalFrame)
+    local src = MetaAchievementMainFrameMgr:GetSelectedSource(journalFrame)
     local mountId = (src and src.provider and src.provider.topAchievementMountId) or nil
     if type(MetaAchievementMountRewardPanel_Update) == "function" then
         MetaAchievementMountRewardPanel_Update(self.MountPreviewPanel, mountId)
@@ -987,8 +988,8 @@ local function criteriaTypeHandler_Achievement(owner, criteriaInfo, achievementI
             break
         end
     end
-    if selIdx and MetaAchievementJournalMap and type(MetaAchievementJournalMap.SetSelectedIndex) == "function" then
-        MetaAchievementJournalMap:SetSelectedIndex(journalFrame, selIdx)
+    if selIdx and MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.SetSelectedIndex) == "function" then
+        MetaAchievementMainFrameMgr:SetSelectedIndex(journalFrame, selIdx)
     end
 end
 
@@ -1091,6 +1092,31 @@ function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     end
     if #allWaypoints > 0 and MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
         MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, allWaypoints)
+    end
+end
+
+--- Add all criteria waypoints for an achievement (e.g. from mini list criteria header). Global so mini list can call.
+function MetaAchievementMapDetail_AddCriteriaWaypoints(achievementId, topAchievementId)
+    if not achievementId or not topAchievementId or not AchievementData or type(AchievementData.GetInformation) ~= "function" then
+        return
+    end
+    local flatInfo = AchievementData:GetInformation(topAchievementId, achievementId)
+    if not flatInfo then return end
+    local criteria = flatInfo.virtualCriteria or flatInfo.criteria
+    if not criteria or type(criteria) ~= "table" then return end
+    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
+    local allWaypoints = {}
+    for criteriaId, cinfo in pairs(criteria) do
+        if onlyUncompleted and isCriterionCompleted(achievementId, criteriaId) then
+            -- skip
+        elseif type(cinfo.waypoints) == "table" then
+            for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
+                allWaypoints[#allWaypoints + 1] = wp
+            end
+        end
+    end
+    if #allWaypoints > 0 and MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
+        MapIntegrationBase.ToggleWaypointsForAchievement(achievementId, allWaypoints)
     end
 end
 

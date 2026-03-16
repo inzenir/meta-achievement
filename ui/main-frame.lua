@@ -2,7 +2,7 @@
 -- Data source dropdown feeds registered sources
 -- Journal list is a list (model) rendered by a separate element (the view)
 
-MetaAchievementJournalMap = MetaAchievementJournalMap or {}
+MetaAchievementMainFrameMgr = MetaAchievementMainFrameMgr or {}
 
 local function safeCall(fn, ...)
     if type(fn) == "function" then
@@ -28,7 +28,7 @@ local function clearRegions(parent)
     end
 end
 
-function MetaAchievementJournalMap:RegisterDataSource(key, displayName, provider)
+function MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, provider)
     if type(key) ~= "string" or key == "" then
         return
     end
@@ -53,12 +53,26 @@ function MetaAchievementJournalMap:RegisterDataSource(key, displayName, provider
         provider = provider
     }
 
+    -- Single source of truth for active achievement
+    if ActiveAchievementState and type(ActiveAchievementState.GetInstance) == "function" then
+        local state = ActiveAchievementState:GetInstance()
+        if type(state.RegisterSource) == "function" then
+            state:RegisterSource(key, displayName, provider)
+        end
+    end
+
     if self.frame and self.frame:IsShown() then
         self:RefreshDropdown(self.frame)
     end
 end
 
-function MetaAchievementJournalMap:GetDataSourcesSorted()
+function MetaAchievementMainFrameMgr:GetDataSourcesSorted()
+    if ActiveAchievementState and type(ActiveAchievementState.GetInstance) == "function" then
+        local state = ActiveAchievementState:GetInstance()
+        if type(state.GetRegisteredSources) == "function" then
+            return state:GetRegisteredSources()
+        end
+    end
     self.dataSources = self.dataSources or {}
     self.dataSourceOrder = self.dataSourceOrder or {}
     local list = {}
@@ -68,11 +82,10 @@ function MetaAchievementJournalMap:GetDataSourcesSorted()
             list[#list + 1] = src
         end
     end
-    
     return list
 end
 
-function MetaAchievementJournalMap:RefreshDropdown(frame)
+function MetaAchievementMainFrameMgr:RefreshDropdown(frame)
     if not frame then
         return
     end
@@ -91,18 +104,23 @@ function MetaAchievementJournalMap:RefreshDropdown(frame)
         MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
             frame.Breadcrumbs,
             function()
-                return MetaAchievementJournalMap:GetDataSourcesSorted()
+                return MetaAchievementMainFrameMgr:GetDataSourcesSorted()
             end,
             function(key)
-                MetaAchievementJournalMap:SelectSource(frame, key)
+                MetaAchievementMainFrameMgr:SelectSource(frame, key)
             end,
             frame._selectedSourceKey
         )
     end
 
-    -- Auto-select first source if none selected
-    if not frame._selectedSourceKey and sources[1] then
-        self:SelectSource(frame, sources[1].key)
+    -- Auto-select first source if none selected, or restore from state (saved settings)
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if not frame._selectedSourceKey then
+        if state and type(state.GetActiveSourceKey) == "function" and state:GetActiveSourceKey() then
+            self:SelectSource(frame, state:GetActiveSourceKey())
+        elseif sources[1] then
+            self:SelectSource(frame, sources[1].key)
+        end
     end
 end
 
@@ -149,58 +167,110 @@ local function setFramePortrait(frame, texturePath)
     end
 end
 
-local function getTopAchievementIconFromItems(items)
-    if type(items) ~= "table" then
-        return nil
+--- @param items table|nil List of model items (e.g. frame._modelItems).
+--- @param topAchievementId number|nil Optional. When items is empty (e.g. all completed + hide completed), use this to get icon from GetAchievementInfo.
+local function getTopAchievementIconFromItems(items, topAchievementId)
+    if type(items) == "table" and items[1] then
+        local top = items[1]
+        local icon = (top.data and top.data.icon) or top.icon
+        if icon then
+            return icon
+        end
+        if top.id and type(GetAchievementInfo) == "function" then
+            local ok, _, _, _, _, _, _, _, _, _, apiIcon = pcall(GetAchievementInfo, top.id)
+            if ok and apiIcon then
+                return apiIcon
+            end
+        end
     end
-
-    local top = items[1]
-    if not top then
-        return nil
-    end
-
-    -- If DataList nodes are returned, the Achievement object is in top.data with an icon field.
-    local icon = (top.data and top.data.icon) or top.icon
-    if icon then
-        return icon
-    end
-
-    -- Fallback: query the game API by achievement id
-    if top.id and type(GetAchievementInfo) == "function" then
-        local ok, _, _, _, _, _, _, _, _, _, apiIcon = pcall(GetAchievementInfo, top.id)
+    -- List empty or no icon from first item: use top achievement id from provider if given.
+    if topAchievementId and type(GetAchievementInfo) == "function" then
+        local ok, _, _, _, _, _, _, _, _, _, apiIcon = pcall(GetAchievementInfo, topAchievementId)
         if ok and apiIcon then
             return apiIcon
         end
     end
-
     return nil
 end
 
-function MetaAchievementJournalMap:SelectSource(frame, key)
+function MetaAchievementMainFrameMgr:SelectSource(frame, key)
     if not frame or not key then
         return
     end
 
-    self.dataSources = self.dataSources or {}
-    local src = self.dataSources[key]
-    if not src then
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if not state or type(state.SetActiveSource) ~= "function" then
+        self.dataSources = self.dataSources or {}
+        local src = self.dataSources[key]
+        if not src then return end
+        frame._selectedSourceKey = key
+        frame._emptyStatePreview = nil
+        frame._modelItems = buildModelFromProvider(src.provider)
+        frame._selectedIndex = nil
+        if frame._modelItems and frame._modelItems[1] then
+            self:SetSelectedIndex(frame, 1)
+        else
+            self:RenderMap(frame, nil)
+        end
+        self:UpdateListVisibility(frame)
         return
     end
 
-    frame._selectedSourceKey = key
+    -- If state already has this source active, refresh frame from state (preserves selected achievement)
+    if state:GetActiveSourceKey() == key then
+        frame._selectedSourceKey = key
+        frame._emptyStatePreview = nil
+        frame._modelItems = state:GetList()
+        frame._selectedIndex = state:GetActiveIndex()
+        local src = state:GetActiveSource()
+        if not src then return end
+        if frame.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback) == "function" then
+            MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
+                frame.Breadcrumbs,
+                function() return MetaAchievementMainFrameMgr:GetDataSourcesSorted() end,
+                function(k) MetaAchievementMainFrameMgr:SelectSource(frame, k) end,
+                frame._selectedSourceKey
+            )
+        end
+        local portraitIcon =
+            safeCall(src.provider.GetPortraitIcon, src.provider, frame)
+            or safeCall(src.provider.getPortraitIcon, src.provider, frame)
+            or safeCall(src.provider.GetHeaderIcon, src.provider, frame)
+            or safeCall(src.provider.getHeaderIcon, src.provider, frame)
+            or getTopAchievementIconFromItems(frame._modelItems, src.provider.topAchievementId)
+        if portraitIcon then setFramePortrait(frame, portraitIcon) end
+        if frame.JournalList and type(MetaAchievementJournalList_SetItems) == "function" then
+            MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems, frame)
+        end
+        if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
+            MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, state:GetActiveItem(), getTopNodeForBreadcrumbs(frame))
+        end
+        if frame.JournalList and type(MetaAchievementJournalList_SetSelectedIndex) == "function" then
+            MetaAchievementJournalList_SetSelectedIndex(frame.JournalList, frame._selectedIndex or 1)
+        end
+        self:RenderMap(frame, state:GetActiveItem())
+        self:UpdateListVisibility(frame)
+        return
+    end
+
+    state:SetActiveSource(key)
+    frame._selectedSourceKey = state:GetActiveSourceKey()
     frame._emptyStatePreview = nil
-    frame._modelItems = buildModelFromProvider(src.provider)
-    frame._selectedIndex = nil
+    frame._modelItems = state:GetList()
+    frame._selectedIndex = state:GetActiveIndex()
+
+    local src = state:GetActiveSource()
+    if not src then return end
 
     -- Update breadcrumbs with new source selection
     if frame.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback) == "function" then
         MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
             frame.Breadcrumbs,
             function()
-                return MetaAchievementJournalMap:GetDataSourcesSorted()
+                return MetaAchievementMainFrameMgr:GetDataSourcesSorted()
             end,
             function(key)
-                MetaAchievementJournalMap:SelectSource(frame, key)
+                MetaAchievementMainFrameMgr:SelectSource(frame, key)
             end,
             frame._selectedSourceKey
         )
@@ -212,7 +282,7 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
         or safeCall(src.provider.getPortraitIcon, src.provider, frame)
         or safeCall(src.provider.GetHeaderIcon, src.provider, frame)
         or safeCall(src.provider.getHeaderIcon, src.provider, frame)
-        or getTopAchievementIconFromItems(frame._modelItems)
+        or getTopAchievementIconFromItems(frame._modelItems, src.provider.topAchievementId)
     if portraitIcon then
         setFramePortrait(frame, portraitIcon)
     end
@@ -223,28 +293,30 @@ function MetaAchievementJournalMap:SelectSource(frame, key)
 
     -- Reset breadcrumbs for this source (selection will re-set it).
     if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
-        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, nil, getTopNodeForBreadcrumbs(frame))
+        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, state:GetActiveItem(), getTopNodeForBreadcrumbs(frame))
     end
 
-    -- When switching/opening a source, default to the first item so the map is populated immediately.
-    if frame._modelItems and frame._modelItems[1] then
-        self:SetSelectedIndex(frame, 1)
-    else
-        self:RenderMap(frame, nil)
+    if frame.JournalList and type(MetaAchievementJournalList_SetSelectedIndex) == "function" then
+        MetaAchievementJournalList_SetSelectedIndex(frame.JournalList, frame._selectedIndex or 1)
     end
+    self:RenderMap(frame, state:GetActiveItem())
     self:UpdateListVisibility(frame)
 end
 
-function MetaAchievementJournalMap:GetSelectedSource(frame)
-    if not frame or not frame._selectedSourceKey then
-        return nil
+function MetaAchievementMainFrameMgr:GetSelectedSource(frame)
+    if not frame then return nil end
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if state and type(state.GetActiveSource) == "function" then
+        local src = state:GetActiveSource()
+        if src then return src end
     end
+    if not frame._selectedSourceKey then return nil end
     self.dataSources = self.dataSources or {}
     return self.dataSources[frame._selectedSourceKey]
 end
 
 --- Called when the user clicks "preview" on the map detail. Shows the journal empty state (completed screen + mount).
-function MetaAchievementJournalMap:ShowEmptyStatePreview(frame)
+function MetaAchievementMainFrameMgr:ShowEmptyStatePreview(frame)
     if not frame then
         return
     end
@@ -254,7 +326,7 @@ end
 
 -- Build { id, name } for the current source's top achievement (for breadcrumbs when "hide completed" filters it out).
 function getTopNodeForBreadcrumbs(frame)
-    local src = MetaAchievementJournalMap:GetSelectedSource(frame)
+    local src = MetaAchievementMainFrameMgr:GetSelectedSource(frame)
     if not src or not src.provider or not src.provider.topAchievementId then
         return nil
     end
@@ -323,7 +395,7 @@ end
 
 -- When there are no achievements to display, show the empty-state panel and hide list/map; otherwise show list + map.
 -- Option showCompletedScreenWhenTopDone: show completed screen when top achievement is done regardless of sub-achievements.
-function MetaAchievementJournalMap:UpdateListVisibility(frame)
+function MetaAchievementMainFrameMgr:UpdateListVisibility(frame)
     if not frame or not frame.MapInset then
         return
     end
@@ -345,7 +417,7 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
             emptyPanel:Show()
             local topNode = getTopNodeForBreadcrumbs(frame)
             local mountId = nil
-            local src = MetaAchievementJournalMap:GetSelectedSource(frame)
+            local src = MetaAchievementMainFrameMgr:GetSelectedSource(frame)
             if src and src.provider then
                 mountId = src.provider.topAchievementMountId
             end
@@ -359,7 +431,7 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
                     backBtn:Show()
                     backBtn:SetScript("OnClick", function()
                         frame._emptyStatePreview = nil
-                        MetaAchievementJournalMap:UpdateListVisibility(frame)
+                        MetaAchievementMainFrameMgr:UpdateListVisibility(frame)
                     end)
                 else
                     backBtn:Hide()
@@ -392,15 +464,23 @@ function MetaAchievementJournalMap:UpdateListVisibility(frame)
 end
 
 -- Rebuild list after expand/collapse; keeps current selection by index if still valid.
-function MetaAchievementJournalMap:RefreshList(frame)
+function MetaAchievementMainFrameMgr:RefreshList(frame)
     if not frame or not frame._selectedSourceKey then return end
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if state and type(state.InvalidateList) == "function" then
+        state:InvalidateList()
+    end
     local src = self:GetSelectedSource(frame)
     if not src or not src.provider then return end
-    local prevIndex = frame._selectedIndex
-    frame._modelItems = buildModelFromProvider(src.provider)
+    if state and type(state.GetList) == "function" then
+        frame._modelItems = state:GetList()
+    else
+        frame._modelItems = buildModelFromProvider(src.provider)
+    end
     if frame.JournalList and type(MetaAchievementJournalList_SetItems) == "function" then
         MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems, frame)
     end
+    local prevIndex = (state and state:GetActiveIndex()) or frame._selectedIndex
     if prevIndex and frame._modelItems[prevIndex] then
         self:SetSelectedIndex(frame, prevIndex)
     elseif frame._modelItems and frame._modelItems[1] then
@@ -414,19 +494,27 @@ function MetaAchievementJournalMap:RefreshList(frame)
     self:UpdateListVisibility(frame)
 end
 
-function MetaAchievementJournalMap:SetSelectedIndex(frame, index)
+function MetaAchievementMainFrameMgr:SetSelectedIndex(frame, index)
     frame._selectedIndex = index
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if state and type(state.SetActiveAchievementByIndex) == "function" then
+        state:SetActiveAchievementByIndex(index)
+    end
+    local item = frame._modelItems and frame._modelItems[index] or nil
+    if MetaAchievementSettings and item and item.id and not state then
+        MetaAchievementSettings:Set("selectedAchievementId", item.id)
+    end
     if frame.JournalList and type(MetaAchievementJournalList_SetSelectedIndex) == "function" then
         MetaAchievementJournalList_SetSelectedIndex(frame.JournalList, index)
     end
-    local item = frame._modelItems and frame._modelItems[index] or nil
     if frame.Breadcrumbs and type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
-        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, item, getTopNodeForBreadcrumbs(frame))
+        local activeItem = (state and state:GetActiveItem()) or item
+        MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, activeItem, getTopNodeForBreadcrumbs(frame))
     end
-    self:RenderMap(frame, item)
+    self:RenderMap(frame, (state and state:GetActiveItem()) or item)
 end
 
-function MetaAchievementJournalMap:ClearMap(frame)
+function MetaAchievementMainFrameMgr:ClearMap(frame)
     if not frame or not frame.MapInset or not frame.MapInset.MapCanvas or not frame.MapInset.MapCanvas.Content then
         return
     end
@@ -436,7 +524,7 @@ function MetaAchievementJournalMap:ClearMap(frame)
 end
 
 -- Map part: accepts arbitrary elements (pins, overlays, widgets) as children of MapCanvas.Content
-function MetaAchievementJournalMap:AddMapElement(frame, element)
+function MetaAchievementMainFrameMgr:AddMapElement(frame, element)
     if not frame or not element then
         return
     end
@@ -445,7 +533,7 @@ function MetaAchievementJournalMap:AddMapElement(frame, element)
     element:Show()
 end
 
-function MetaAchievementJournalMap:RenderMap(frame, selectedItem)
+function MetaAchievementMainFrameMgr:RenderMap(frame, selectedItem)
     self:ClearMap(frame)
 
     local src = self:GetSelectedSource(frame)
@@ -494,8 +582,8 @@ function MetaAchievementJournalMap:RenderMap(frame, selectedItem)
 end
 
 -- XML hooks
-function MetaAchievementJournalMapFrame_OnLoad(self)
-    MetaAchievementJournalMap.frame = self
+function MetaAchievementMainFrame_OnLoad(self)
+    MetaAchievementMainFrameMgr.frame = self
 
     -- Ensure the inherited template initializes its regions/scripts
     if type(ButtonFrameTemplate_OnLoad) == "function" then
@@ -526,6 +614,7 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     self.Breadcrumbs = _G[self:GetName() .. "Breadcrumbs"]
     self.SettingsButton = _G[self:GetName() .. "SettingsButton"]
     self.SilverCogButton = _G[self:GetName() .. "SilverCogButton"]
+    self.SmallerButton = _G[self:GetName() .. "SmallerButton"]
     -- ButtonFrameTemplate provides CloseButton; we anchor our button to it (Blizzard-style: extra button next to close)
     self.CloseButton = _G[self:GetName() .. "CloseButton"]
 
@@ -552,18 +641,8 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     end
 
     if self.SettingsButton then
-        -- Reparent to UIParent + higher strata so button draws above template title bar (frame level alone is not enough;
-        -- see e.g. WeakAuras #384, WoWInterface "button not showing on frame" – strata/level fix)
-        self.SettingsButton:SetParent(UIParent)
-        self.SettingsButton:SetFrameStrata("FULLSCREEN_DIALOG")
+        -- Keep high frame level so button draws above template title bar; position comes from XML.
         self.SettingsButton:SetFrameLevel(1000)
-        if self.CloseButton then
-            self.SettingsButton:ClearAllPoints()
-            self.SettingsButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -2, 0)
-        else
-            self.SettingsButton:ClearAllPoints()
-            self.SettingsButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -24, -2)
-        end
         self.SettingsButton:Hide()
         self.SettingsButton:SetScript("OnClick", function()
             if Settings and type(Settings.OpenToCategory) == "function" and MetaAchievementSettingsCategoryID then
@@ -573,6 +652,22 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         if MetaAchievementSettingsCogButton_SetTooltip then
             MetaAchievementSettingsCogButton_SetTooltip(self.SettingsButton, "Addon settings")
         end
+    end
+
+    if self.SmallerButton then
+        self.SmallerButton:SetFrameLevel(1000)
+        self.SmallerButton:Hide()
+        self.SmallerButton:SetScript("OnClick", function()
+            local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
+            if main and main.Hide then
+                main:Hide()
+            else
+                MetaAchievementMainFrameMgr:HidePanel()
+            end
+            if type(MetaAchievementMiniFrame_Show) == "function" then
+                MetaAchievementMiniFrame_Show()
+            end
+        end)
     end
 
     -- Hide the old dropdown (functionality moved to breadcrumbs)
@@ -585,10 +680,10 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         MetaAchievementBreadcrumbsDropdown_SetDataSourceCallback(
             self.Breadcrumbs,
             function()
-                return MetaAchievementJournalMap:GetDataSourcesSorted()
+                return MetaAchievementMainFrameMgr:GetDataSourcesSorted()
             end,
             function(key)
-                MetaAchievementJournalMap:SelectSource(self, key)
+                MetaAchievementMainFrameMgr:SelectSource(self, key)
             end,
             self._selectedSourceKey
         )
@@ -598,9 +693,9 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         local frameRef = self
         MetaAchievementUIBus:Register("MA_JOURNAL_LIST_ITEM_CLICKED", function(listFrame, index, item, button)
             if frameRef and listFrame == frameRef.JournalList then
-                MetaAchievementJournalMap:SetSelectedIndex(frameRef, index)
+                MetaAchievementMainFrameMgr:SetSelectedIndex(frameRef, index)
 
-                local src = MetaAchievementJournalMap:GetSelectedSource(frameRef)
+                local src = MetaAchievementMainFrameMgr:GetSelectedSource(frameRef)
                 if src and src.provider and item then
                     safeCall(src.provider.OnItemSelected, src.provider, item, button)
                     safeCall(src.provider.onItemSelected, src.provider, item, button)
@@ -614,7 +709,7 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
             end
             local idx = findIndexById(frameRef._modelItems, nodeId)
             if idx then
-                MetaAchievementJournalMap:SetSelectedIndex(frameRef, idx)
+                MetaAchievementMainFrameMgr:SetSelectedIndex(frameRef, idx)
             end
         end)
     end
@@ -641,15 +736,28 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
     self:SetFrameStrata("DIALOG")
     self:SetFrameLevel(200)
 
+    -- Escape closes this window (whichever addon window is open).
+    self:EnableKeyboard(true)
+    self:SetScript("OnKeyDown", function(_, key)
+        if key == "ESCAPE" then
+            self:SetPropagateKeyboardInput(false)
+            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+                MetaAchievementMainFrameMgr:HidePanel()
+            end
+        else
+            self:SetPropagateKeyboardInput(true)
+        end
+    end)
+
     -- When these settings change, refresh the journal so list/detail/visibility match without re-opening or changing selection.
     do
         local keysToRefreshOn = { "hideCompleted", "showCompletedScreenWhenTopDone", "achievementLinkSource", "addWpsOnlyForUncompletedAchis" }
         for _, key in ipairs(keysToRefreshOn) do
             if MetaAchievementSettings and type(MetaAchievementSettings.RegisterListener) == "function" then
                 MetaAchievementSettings:RegisterListener(key, function()
-                    local f = MetaAchievementJournalMap.frame
+                    local f = MetaAchievementMainFrameMgr.frame
                     if f then
-                        MetaAchievementJournalMap:RefreshList(f)
+                        MetaAchievementMainFrameMgr:RefreshList(f)
                     end
                 end)
             end
@@ -670,11 +778,23 @@ function MetaAchievementJournalMapFrame_OnLoad(self)
         end)
     end
 
-    MetaAchievementJournalMap:RefreshDropdown(self)
+    MetaAchievementMainFrameMgr:RefreshDropdown(self)
 end
 
-function MetaAchievementJournalMapFrame_OnShow(self)
-    MetaAchievementJournalMap:RefreshDropdown(self)
+function MetaAchievementMainFrame_OnShow(self)
+    -- Load selection from ActiveAchievementState when showing (do not use cached selection).
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if state and type(state.GetActiveSourceKey) == "function" then
+        local key = state:GetActiveSourceKey()
+        if key and type(MetaAchievementMainFrameMgr.SelectSource) == "function" then
+            MetaAchievementMainFrameMgr:SelectSource(self, key)
+        else
+            self._selectedSourceKey = nil
+            self._selectedIndex = nil
+            self._modelItems = nil
+        end
+    end
+    MetaAchievementMainFrameMgr:RefreshDropdown(self)
     -- Ensure breadcrumb dropdown is usable on first open (clears addon-load init guard).
     if self.Breadcrumbs and type(MetaAchievementBreadcrumbsDropdown_SetInitializationComplete) == "function" then
         MetaAchievementBreadcrumbsDropdown_SetInitializationComplete(self.Breadcrumbs)
@@ -682,10 +802,10 @@ function MetaAchievementJournalMapFrame_OnShow(self)
 
     -- If we have a selected source but no selected item yet, auto-select the first item.
     if self._selectedSourceKey and (not self._selectedIndex) and self._modelItems and self._modelItems[1] then
-        MetaAchievementJournalMap:SetSelectedIndex(self, 1)
+        MetaAchievementMainFrameMgr:SetSelectedIndex(self, 1)
     end
 
-    -- Re-anchor and show/hide settings buttons based on option (reparented to UIParent so they stay on top of title bar)
+    -- Show/hide settings buttons based on option (positions from XML)
     local showSettings = MetaAchievementSettings and MetaAchievementSettings:Get("showSettingsButton")
     if self.SilverCogButton then
         self.SilverCogButton:ClearAllPoints()
@@ -697,23 +817,37 @@ function MetaAchievementJournalMapFrame_OnShow(self)
         if showSettings then self.SilverCogButton:Show() else self.SilverCogButton:Hide() end
     end
     if self.SettingsButton then
-        self.SettingsButton:ClearAllPoints()
-        if self.CloseButton then
-            self.SettingsButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -2, 0)
-        else
-            self.SettingsButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -24, -2)
-        end
         if showSettings then self.SettingsButton:Show() else self.SettingsButton:Hide() end
+    end
+    if self.SmallerButton then
+        self.SmallerButton:SetScript("OnClick", function()
+            MetaAchievementMainFrameMgr_MinimizeButtonOnClick()
+        end)
+        self.SmallerButton:Show()
     end
 end
 
-function MetaAchievementJournalMapFrame_OnHide(self)
+function MetaAchievementMainFrame_OnHide(self)
     if self.SilverCogButton then self.SilverCogButton:Hide() end
     if self.SettingsButton then self.SettingsButton:Hide() end
+    if self.SmallerButton then self.SmallerButton:Hide() end
+end
+
+-- Called when the minimize (smaller) button is clicked: hide main frame, show mini frame.
+function MetaAchievementMainFrameMgr_MinimizeButtonOnClick()
+    local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
+    if main and main.Hide then
+        main:Hide()
+    elseif MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+        MetaAchievementMainFrameMgr:HidePanel()
+    end
+    if type(MetaAchievementMiniFrame_Show) == "function" then
+        MetaAchievementMiniFrame_Show()
+    end
 end
 
 -- Close our other addon window (old tabbed main) when we open the journal.
-function MetaAchievementJournalMap:CloseOtherAddonWindows()
+function MetaAchievementMainFrameMgr:CloseOtherAddonWindows()
     if MetaAchievementDB and MetaAchievementDB.mainFrame and MetaAchievementDB.mainFrame.hideWindow then
         local oldMain = MetaAchievementDB.mainFrame:getFrame()
         if oldMain and oldMain:IsShown() then
@@ -742,20 +876,26 @@ local function JournalPanelHide(frame)
     end
 end
 
-function MetaAchievementJournalMap:ShowPanel()
+function MetaAchievementMainFrameMgr:ShowPanel()
     if self.frame then
         self:CloseOtherAddonWindows()
+        if type(MetaAchievementMiniFrame_Hide) == "function" then
+            MetaAchievementMiniFrame_Hide()
+        end
         JournalPanelShow(self.frame)
+        if MetaAchievementSettings then
+            MetaAchievementSettings:Set("lastOpenWindow", "main")
+        end
     end
 end
 
-function MetaAchievementJournalMap:HidePanel()
+function MetaAchievementMainFrameMgr:HidePanel()
     if self.frame then
         JournalPanelHide(self.frame)
     end
 end
 
-function MetaAchievementJournalMap:Toggle()
+function MetaAchievementMainFrameMgr:Toggle()
     if not self.frame then
         return
     end
@@ -765,4 +905,3 @@ function MetaAchievementJournalMap:Toggle()
         self:ShowPanel()
     end
 end
-

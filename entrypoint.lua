@@ -6,21 +6,33 @@ MetaAchievementDB = {
     achievementLists = {}
 }
 
--- Primary window: the one toggled by keybinding, slash, and minimap. Always set so bindings work; delegates to journal-map when loaded.
+-- Keybind and primaryWindow call this; must exist as soon as addon is loaded.
+-- If mini is visible, use mini toggle (hide it) then show main. Otherwise use main frame toggle.
+function MetaAchievement_ToggleWindowVisibility()
+    if MetaAchievementSettings and MetaAchievementSettings:Get("lastOpenWindow") == "mini" then
+        if type(MetaAchievementMiniFrame_ToggleVisibility) == "function" then
+            MetaAchievementMiniFrame_ToggleVisibility()
+        end
+    else
+        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.Toggle) == "function" then
+            MetaAchievementMainFrameMgr:Toggle()
+        end
+    end
+end
+
+-- Primary window: keybind and minimap call the helper above.
 MetaAchievementDB.primaryWindow = {
     toggleVisibility = function()
-        if MetaAchievementJournalMap and type(MetaAchievementJournalMap.Toggle) == "function" then
-            MetaAchievementJournalMap:Toggle()
-        end
+        MetaAchievement_ToggleWindowVisibility()
     end,
     showWindow = function()
-        if MetaAchievementJournalMap and type(MetaAchievementJournalMap.ShowPanel) == "function" then
-            MetaAchievementJournalMap:ShowPanel()
+        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowPanel) == "function" then
+            MetaAchievementMainFrameMgr:ShowPanel()
         end
     end,
     hideWindow = function()
-        if MetaAchievementJournalMap and type(MetaAchievementJournalMap.HidePanel) == "function" then
-            MetaAchievementJournalMap:HidePanel()
+        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+            MetaAchievementMainFrameMgr:HidePanel()
         end
     end,
 }
@@ -68,11 +80,19 @@ function EntryPoint()
 
     RegisterSlashCommand("journal",
         function()
-            if MetaAchievementJournalMap and type(MetaAchievementJournalMap.Toggle) == "function" then
-                MetaAchievementJournalMap:Toggle()
-            end
+            MetaAchievement_ToggleWindowVisibility()
         end,
         "Toggle retail-style journal + map UI")
+
+    RegisterSlashCommand("mini",
+        function()
+            if type(MetaAchievementMiniFrame_Show) == "function" then
+                MetaAchievementMiniFrame_Show()
+            else
+                print("Worldsoul Searching: Mini frame not loaded yet.")
+            end
+        end,
+        "Show the mini (compact) window")
 
 
     -- Settings
@@ -87,11 +107,11 @@ function EntryPoint()
     AchievementData:RegisterDataSource(2144, WhatALongStrangeTripItsBeenWaypoints)
 
     -- Register existing achievement lists as dropdown data sources for the journal+map UI
-    if MetaAchievementJournalMap and type(MetaAchievementJournalMap.RegisterDataSource) == "function" then
+    if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.RegisterDataSource) == "function" then
         local function registerJournalSource(key, displayName, achievementList)
             local data = DataList:new(achievementList)
 
-            MetaAchievementJournalMap:RegisterDataSource(key, displayName, {
+            MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, {
                 topAchievementId = data.topAchievementId,
                 topAchievementMountId = (achievementList[1] and achievementList[1].mountId) or nil,
                 GetList = function()
@@ -111,7 +131,7 @@ function EntryPoint()
                         return true
                     end
 
-                    local detailName = "MetaAchievementJournalMapDetail"
+                    local detailName = "MetaAchievementMainFrameMapDetail"
                     local detail = _G[detailName]
                     if not detail then
                         detail = CreateFrame("Frame", detailName, content, "MetaAchievementMapDetailTemplate")
@@ -145,7 +165,42 @@ function EntryPoint()
         registerJournalSource(WindowTabs.farewellToArms, "A Farewell To Arms", AFarewellToArmsAchievements)
         registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements)
 
-        MetaAchievementJournalMap:Toggle()
+        -- Restore active source/achievement from saved settings
+        if ActiveAchievementState and type(ActiveAchievementState.GetInstance) == "function" then
+            local state = ActiveAchievementState:GetInstance()
+            if type(state.LoadFromSettings) == "function" then
+                state:LoadFromSettings()
+            end
+        end
+
+        -- Restore last open window (mini or main) from saved hidden option.
+        local lastOpen = MetaAchievementSettings and MetaAchievementSettings:Get("lastOpenWindow") or "main"
+        if lastOpen == "mini" and type(MetaAchievementMiniFrame_Show) == "function" then
+            -- Ensure state has an active source when opening mini by default (e.g. no valid saved key).
+            local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+            if state and type(state.GetActiveSourceKey) == "function" and not state:GetActiveSourceKey() then
+                local sources = state:GetRegisteredSources()
+                if type(sources) == "table" and sources[1] and sources[1].key then
+                    state:SetActiveSource(sources[1].key)
+                end
+            end
+            if state and type(state.InvalidateList) == "function" then
+                state:InvalidateList()
+            end
+            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+                MetaAchievementMainFrameMgr:HidePanel()
+            end
+            -- Defer show to next frame so data/layout are ready (achievement APIs, etc.).
+            C_Timer.After(0, function()
+                if type(MetaAchievementMiniFrame_Show) == "function" then
+                    MetaAchievementMiniFrame_Show()
+                end
+            end)
+        else
+            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowPanel) == "function" then
+                MetaAchievementMainFrameMgr:ShowPanel()
+            end
+        end
 
         if RegisterMetaAchievementOptionsPanel then
             RegisterMetaAchievementOptionsPanel()

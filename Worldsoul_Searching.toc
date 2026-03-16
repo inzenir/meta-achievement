@@ -50,6 +50,7 @@ achi-list\LightUpTheNight.waypoints.lua
 logic\modern\achievement-data.lua
 logic\data-list.lua
 logic\settings.lua
+logic\active-achievement-state.lua
 logic\debug.lua
 logic\waypoint.lua
 logic\AchievementRequirement.lua
@@ -70,15 +71,19 @@ map-integration\tomtom\tomtom.lua
 
 # ui loading
 ui\options-definitions.lua
-ui\elements\settings-separator.lua
-ui\elements\settings-separator.xml
+ui\elements\main-frame\settings-separator.lua
+ui\elements\main-frame\settings-separator.xml
 ui\options-panel.lua
-ui\elements\requirement-rows\frame.lua
-ui\elements\requirement-rows\description.lua
-ui\elements\requirement-rows\regular.lua
-ui\elements\requirement-rows\progress.lua
-ui\elements\requirement-rows\init.lua
-ui\journal-map.xml
+ui\elements\buttons\settings-cog-button.xml
+ui\elements\buttons\dropdown-arrow-button.lua
+ui\elements\main-frame\mount-reward-panel.xml
+ui\elements\main-frame\requirement-rows\frame.lua
+ui\mini-frame.xml
+ui\elements\main-frame\requirement-rows\description.lua
+ui\elements\main-frame\requirement-rows\regular.lua
+ui\elements\main-frame\requirement-rows\progress.lua
+ui\elements\main-frame\requirement-rows\init.lua
+ui\main-frame.xml
 
 # drawing loading
 entrypoint.lua

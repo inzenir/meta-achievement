@@ -1,0 +1,15 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Same template as settings cog: UIPanelButtonTemplate. Icon defined in XML. -->
+    <Button name="MetaAchievementLargerButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+        <Size x="24" y="24"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentIcon" file="Interface\Buttons\Arrow-Up-Up">
+                    <Anchors>
+                        <Anchor point="CENTER" x="1" y="3"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Button>
+</Ui>

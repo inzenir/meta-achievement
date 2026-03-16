@@ -47,9 +47,9 @@ end
     frame: Button or Frame. heightPx: height in pixels (e.g. 22).
     Width is left to the frame/XML (Button has no SetMinimumWidth).
 ]]
+-- When heightPx is nil, frame keeps its size from XML; otherwise set height in Lua.
 function MetaAchievement_SetupSilverThreePartButton(frame, heightPx)
-    heightPx = heightPx or 22
-    frame:SetHeight(heightPx)
+
     -- Blizzard's panel button is a strip; use typical cap ~32px, texture width 128
     return MetaAchievement_SetupThreePartButton(frame, "Interface\\Buttons\\UI-Panel-Button-Up", 32, 128)
 end

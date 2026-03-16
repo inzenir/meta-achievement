@@ -413,3 +413,4 @@ FodyWeavers.xsd
 *.msp
 
 make-links.bat
+**/*.md

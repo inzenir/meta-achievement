@@ -3,7 +3,7 @@
     <Script file="ui\elements\buttons\cog-button-helper.lua"/>
     <Script file="ui\elements\buttons\silver-cog-button.lua"/>
     <Button name="MetaAchievementSilverCogButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
-        <Size x="90" y="24"/>
+        <Size x="24" y="24"/>
         <Scripts>
             <OnLoad>MetaAchievementSilverCogButton_OnLoad(self)</OnLoad>
         </Scripts>

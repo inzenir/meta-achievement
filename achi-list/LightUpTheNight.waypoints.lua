@@ -243,7 +243,7 @@ LightUpTheNightWaypoints = {
     [61052] = {
         helpText =
         "This achievement can be fully completed on renown 11. First group can be done at R1, but are visible on mini map on R2. Second group R4 and visible on R6. Third group R9 and visible on R11.",
-        virtualCriteria = {
+        _virtualCriteria = {
             [1] = {
                 text = "Group 1",
                 waypoints = {

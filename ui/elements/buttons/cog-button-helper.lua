@@ -34,6 +34,13 @@ end
     reuses it and re-anchors; otherwise creates one. Returns the texture.
 ]]
 function MetaAchievement_SetupCogIcon(button, insetPx)
+    return MetaAchievement_SetupCloseStyleButtonIcon(button, COG_ICON_PATH, insetPx)
+end
+
+--[[
+    Same as SetupCogIcon but with a custom texture path. Use for close-style buttons (red + silver border) with any icon.
+]]
+function MetaAchievement_SetupCloseStyleButtonIcon(button, texturePath, insetPx)
     if not button then return nil end
     insetPx = insetPx or 4
     local name = button:GetName()
@@ -43,7 +50,7 @@ function MetaAchievement_SetupCogIcon(button, insetPx)
         button.Icon = icon
     end
     if icon then
-        if icon.SetTexture then icon:SetTexture(COG_ICON_PATH) end
+        if texturePath and icon.SetTexture then icon:SetTexture(texturePath) end
         if icon.SetDrawLayer then icon:SetDrawLayer("OVERLAY") end
         icon:ClearAllPoints()
         icon:SetPoint("TOPLEFT", button, "TOPLEFT", insetPx, -insetPx)

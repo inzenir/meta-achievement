@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Include file="ui\elements\mount-reward-panel.xml"/>
     <!-- Empty state template: shown when journal list has no items (e.g. all completed + hide completed). -->
     <Frame name="MetaAchievementJournalEmptyStateTemplate" virtual="true" inherits="InsetFrameTemplate3">
         <Layers>

@@ -49,4 +49,17 @@
             </Layer>
         </Layers>
     </Frame>
+    <Frame name="MetaAchievementSettingsSeparator_miniJournal" inherits="MetaAchievementSettingsSeparatorTemplate" virtual="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="GameFontNormalLarge" justifyH="LEFT" text="Mini Journal">
+                    <Anchors>
+                        <Anchor point="LEFT" x="0" y="0"/>
+                        <Anchor point="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
 </Ui>
