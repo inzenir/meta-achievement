@@ -173,8 +173,16 @@ function MetaAchievementMiniFrame_OnLoad(self)
         end
     end
     applyLockPosition()
+    -- Only enable keyboard while visible. Enabling keyboard on a hidden frame can steal ESC globally
+    -- (game menu won't open) — especially noticeable with "Escape does not close" + mini closed.
+    self:EnableKeyboard(false)
+    self:SetScript("OnShow", function(f)
+        f:EnableKeyboard(true)
+    end)
+    self:SetScript("OnHide", function(f)
+        f:EnableKeyboard(false)
+    end)
     -- Escape closes this window (whichever addon window is open), unless "Escape does not close" is set.
-    self:EnableKeyboard(true)
     self:SetScript("OnKeyDown", function(_, key)
         if key == "ESCAPE" then
             local escapeDoesNotClose = MetaAchievementSettings and MetaAchievementSettings:Get("miniJournalEscapeDoesNotClose")
