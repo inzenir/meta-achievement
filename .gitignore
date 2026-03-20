@@ -413,3 +413,7 @@ FodyWeavers.xsd
 *.msp
 
 make-links.bat
+**/*.md
+.cursor
+.cursor/*
+.cursor/**/*

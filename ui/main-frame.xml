@@ -1,0 +1,100 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="ui\elements\main-frame\journal-list.xml"/>
+    <Include file="ui\elements\main-frame\journal-empty-state.xml"/>
+    <Include file="ui\elements\main-frame\map-detail.xml"/>
+    <Include file="ui\elements\main-frame\breadcrumbs.xml"/>
+    <Include file="ui\elements\buttons\smaller-button.xml"/>
+    <Include file="ui\elements\buttons\silver-cog-button.xml"/>
+    <Script file="ui\main-frame.lua"/>
+
+    <!-- Main frame: quest journal (left) + map canvas (right) -->
+    <Frame name="MetaAchievementMainFrame" parent="UIParent" inherits="ButtonFrameTemplate" hidden="true">
+        <Size x="980" y="620"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Scripts>
+            <OnLoad>MetaAchievementMainFrame_OnLoad(self)</OnLoad>
+            <OnShow>MetaAchievementMainFrame_OnShow(self)</OnShow>
+            <OnHide>MetaAchievementMainFrame_OnHide(self)</OnHide>
+        </Scripts>
+
+        <Frames>
+            <!-- Breadcrumbs: selected achievement + parents (includes data source dropdown in first button) -->
+            <Frame name="$parentBreadcrumbs" inherits="MetaAchievementBreadcrumbsTemplate">
+                <Size x="1" y="34"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="54" y="-24"/>
+                    <Anchor point="TOPRIGHT" x="0" y="-24"/>
+                </Anchors>
+            </Frame>
+
+            <!-- Left: journal list element -->
+            <Frame name="$parentJournalList" inherits="MetaAchievementJournalListTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMLEFT" x="16" y="25"/>
+                </Anchors>
+                <Size x="340" y="1"/>
+            </Frame>
+
+            <Frame name="$parentEmptyStatePanel" inherits="MetaAchievementJournalEmptyStateTemplate" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="25"/>
+                </Anchors>
+            </Frame>
+
+            <!-- Right: map canvas (content is dynamic/plug-in) -->
+            <Frame name="$parentMapInset" inherits="InsetFrameTemplate3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentJournalList" relativePoint="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="25"/>
+                </Anchors>
+                <Frames>
+                    <Frame name="$parentMapCanvas" inherits="BackdropTemplate">
+                        <Anchors>
+                            <!-- Fill the whole inset so the background covers the entire canvas -->
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="BOTTOMRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <!-- Parchment-like background similar to quest/map panels -->
+                                <Texture name="$parentBackground" file="Interface\AchievementFrame\UI-Achievement-StatsBackground" alphaMode="BLEND" >
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="2" y="-2"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+
+                        <!-- Dynamic content container (pins, overlays, widgets, etc.) -->
+                        <Frames>
+                            <Frame name="$parentContent">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                </Anchors>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                </Frames>
+            </Frame>
+        
+            <!-- Smaller button: left of Close; positions from XML only (no Lua SetPoint). Declare before SettingsButton so it exists for anchor. -->
+            <Button name="$parentSmallerButton" inherits="MetaAchievementSmallerButtonTemplate">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT" x="-2" y="0"/>
+                </Anchors>
+            </Button>
+            <!-- Settings cog: left of Smaller button; positions from XML only (no Lua SetPoint). -->
+            <Button name="$parentSettingsButton" inherits="MetaAchievementSettingsCogButtonTemplate">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="$parentSmallerButton" relativePoint="LEFT" x="-3" y="1"/>
+                </Anchors>
+            </Button>
+        </Frames>
+    </Frame>
+</Ui>

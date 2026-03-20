@@ -1,0 +1,21 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\buttons\cog-button-helper.lua"/>
+    <Script file="ui\elements\buttons\settings-cog-button.lua"/>
+    <!-- Same template as smaller button: UIPanelButtonTemplate. Icon defined in XML. -->
+    <Button name="MetaAchievementSettingsCogButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+        <Size x="24" y="24"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentIcon" file="Interface\Buttons\UI-OptionsButton">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="4" y="-4"/>
+                        <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>MetaAchievementSettingsCogButton_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Button>
+</Ui>

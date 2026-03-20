@@ -3,7 +3,7 @@
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
 ## Version: @project-version@
-## IconTexture: images\achievement_zone_isleofdorn.jpg
+## IconTexture: Interface\AddOns\Worldsoul_Searching\images\achievement_zone_isleofdorn
 ## SavedVariables: MetaAchievementConfigurationDB
 
 # libs
@@ -12,35 +12,79 @@ Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
+# Key Bindings labels (load early so Key Bindings UI shows correct header)
+bindings-localization.lua
+
 # achievement data
 map-zones.lua
 achi-list\WorldSoulSearching.lua
+achi-list\WorldSoulSearching.waypoints.lua
 achi-list\AFarewellToArms.lua
+achi-list\AFarewellToArms.waypoints.lua
 achi-list\AWorldAwoken.lua
+achi-list\AWorldAwoken\raids-and-dungeons.waypoints.lua
+achi-list\AWorldAwoken\questing.waypoints.lua
+achi-list\AWorldAwoken\zones.waypoints.lua
+achi-list\AWorldAwoken\dragon-isles-pathfinder.waypoints.lua
+achi-list\AWorldAwoken\friend-of-the-dragon-isles.waypoints.lua
+achi-list\AWorldAwoken\oh-my-god-they-were-clutchmates.waypoints.lua
+achi-list\AWorldAwoken\across-the-isles.waypoints.lua
+achi-list\AWorldAwoken\now-this-is-dragon-racing.waypoints.lua
+achi-list\AWorldAwoken.waypoints.lua
 achi-list\BackFromTheBeyond.lua
+achi-list\BackFromTheBeyond.waypoints.lua
 achi-list\WhatALongStrangeTripItsBeen.lua
+achi-list\WhatALongStrangeTripItsBeen\to-honor-ones-elders.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\the-flame-keeper.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\merrymaker.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\hallowed-be-thy-name.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\fool-for-love.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\noble-gardener.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\for-the-children.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen\brewmaster.waypoints.lua
+achi-list\WhatALongStrangeTripItsBeen.waypoints.lua
 achi-list\LightUpTheNight.lua
+achi-list\LightUpTheNight.waypoints.lua
 
 # logic loading
+logic\modern\achievement-data.lua
 logic\data-list.lua
 logic\settings.lua
+logic\active-achievement-state.lua
 logic\debug.lua
 logic\waypoint.lua
 logic\AchievementRequirement.lua
 logic\achievement.lua
 logic\achievement-criteria.lua
+logic\modern\criteria-completion.lua
+logic\modern\criteria-completion\quest-criteria.lua
 logic\wow-achievements.lua
 logic\achievement-scan.lua
 logic\slash-commands.lua
 
 # map integrations
+map-integration\map-integration-base.lua
 map-integration\map-integration.lua
+map-integration\native\native.lua
 map-integration\tomtom\tomtom-waypoint.lua
 map-integration\tomtom\tomtom.lua
 
-# drawing loading
-drawing\tree-list.lua
-drawing\main-frame.lua
-drawing\settings-frame.lua
+# ui loading
+ui\options-definitions.lua
+ui\elements\main-frame\settings-separator.lua
+ui\elements\main-frame\settings-separator.xml
+ui\options-panel.lua
+ui\elements\buttons\settings-cog-button.xml
+ui\elements\buttons\dropdown-arrow-button.lua
+ui\elements\main-frame\mount-reward-panel.xml
+ui\elements\main-frame\requirement-rows\frame.lua
+ui\mini-frame.xml
+ui\elements\main-frame\requirement-rows\description.lua
+ui\elements\main-frame\requirement-rows\regular.lua
+ui\elements\main-frame\requirement-rows\progress.lua
+ui\elements\main-frame\requirement-rows\init.lua
+ui\main-frame.xml
 
+# drawing loading
+ui\minimap-button.lua
 entrypoint.lua

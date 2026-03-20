@@ -1,0 +1,14 @@
+<Bindings>
+  <Binding name="WORLDSOULSEARCHING_OPEN_TRACKER" category="BINDING_HEADER_WORLDSOULSEARCHING">
+    <![CDATA[
+      if MetaAchievement_ToggleWindowVisibility then MetaAchievement_ToggleWindowVisibility() end
+    ]]> 
+  </Binding>
+  <Binding name="WORLDSOULSEARCHING_OPEN_SETTINGS" category="BINDING_HEADER_WORLDSOULSEARCHING">
+    <![CDATA[
+      if Settings and Settings.OpenToCategory and MetaAchievementSettingsCategoryID then
+        Settings.OpenToCategory(MetaAchievementSettingsCategoryID)
+      end
+    ]]>
+  </Binding>
+</Bindings>

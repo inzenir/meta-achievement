@@ -2,6 +2,7 @@ BackFromTheBeyondAchievements = {
     {
         ["id"] = 20501,
         ["name"] = "Back from the Beyond",
+        mountId = 2114,
         ["children"] = {
             {
                 ["id"] = 14715,

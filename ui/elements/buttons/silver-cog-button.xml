@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\buttons\three-part-button-helper.lua"/>
+    <Script file="ui\elements\buttons\cog-button-helper.lua"/>
+    <Script file="ui\elements\buttons\silver-cog-button.lua"/>
+    <Button name="MetaAchievementSilverCogButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+        <Size x="24" y="24"/>
+        <Scripts>
+            <OnLoad>MetaAchievementSilverCogButton_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Button>
+</Ui>

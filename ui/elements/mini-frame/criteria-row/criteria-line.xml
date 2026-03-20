@@ -1,0 +1,22 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Single criterion line: check icon + text; progress bar created in Lua when needed (like main-frame requirement rows). -->
+    <Frame name="MetaAchievementMiniListCriteriaLineTemplate" virtual="true">
+        <Size y="16"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentCheck" hidden="true">
+                    <Size x="12" y="12"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="20" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="36" y="0"/>
+                        <Anchor point="RIGHT" x="-8" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

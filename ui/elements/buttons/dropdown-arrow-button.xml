@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\buttons\dropdown-arrow-button.lua" />
+    <!-- Dropdown trigger button: arrow in bottom-right (rotated 45° in dropdown-arrow-button.lua). Used by mini frame for achievement-list menu. -->
+    <Button name="MetaAchievementDropdownArrowButtonTemplate" virtual="true" enableMouse="true">
+        <Size x="20" y="20"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentArrow" file="Interface\Buttons\Arrow-Down-Up">
+                    <Size x="14" y="14"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture name="$parentHighlight" alphaMode="ADD" file="Interface\Buttons\Arrow-Down-Up">
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
+</Ui>

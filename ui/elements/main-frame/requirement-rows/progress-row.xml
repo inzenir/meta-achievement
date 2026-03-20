@@ -1,0 +1,25 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Progress requirement row: bar is created in Lua using Blizzard's built-in StatusBar template. -->
+    <Button name="MetaAchievementMapRequirementRowProgressTemplate" virtual="true">
+        <Size x="1" y="36"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentCheck">
+                    <Size x="14" y="14"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="6" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="26" y="0"/>
+                        <Anchor point="TOPRIGHT" x="-6" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnClick>MetaAchievementMapRequirementRow_OnClick(self, button)</OnClick>
+        </Scripts>
+    </Button>
+</Ui>

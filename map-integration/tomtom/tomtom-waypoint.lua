@@ -17,11 +17,18 @@ function TomTomWaypoint:new(mapId, x, y, title)
 end
 
 function TomTomWaypoint:createFromWaypoint(waypoint)
+    -- Support kind/coordinates format from waypoints files: { kind = "point", coordinates = { { mapId, x, y, title } } }
+    local pt = waypoint
+    if waypoint.kind == "point" and waypoint.coordinates and waypoint.coordinates[1] then
+        pt = waypoint.coordinates[1]
+    end
+    local title = (pt.title or "") .. (pt.note and (" - " .. pt.note) or "")
+    if title == "" then title = "Waypoint" end
     return TomTomWaypoint:new(
-        waypoint.mapId,
-        waypoint.x / 100,
-        waypoint.y /100,
-        waypoint.title .. " - " .. waypoint.note or waypoint.title
+        pt.mapId,
+        pt.x / 100,
+        pt.y / 100,
+        title
     )
 end
 

@@ -1,0 +1,19 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\elements\buttons\preview-button.lua"/>
+    <Button name="MetaAchievementPreviewButtonTemplate" virtual="true">
+        <Size x="20" y="24"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentIcon" file="Interface\GossipFrame\AvailableQuestIcon">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>MetaAchievementPreviewButton_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Button>
+</Ui>

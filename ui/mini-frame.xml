@@ -1,0 +1,169 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="ui\mini-frame.lua"/>
+    <Include file="ui\elements\buttons\larger-button.xml"/>
+    <Include file="ui\elements\buttons\dropdown-arrow-button.xml"/>
+    <Include file="ui\elements\mini-frame\mini-achievement-list.xml"/>
+    <Include file="ui\elements\mini-frame\mini-completed-panel.xml"/>
+
+    <!--
+        Window frame sized to match the main window's main scroll frame (journal list ScrollBox).
+        Main frame: 980x620; list: 340 wide, top -60 to bottom 25 => height 535;
+        ScrollBox insets 6,6,22,6 => content 312x523.
+    -->
+    <Frame name="MetaAchievementMiniFrameTemplate" virtual="true" inherits="ButtonFrameTemplate">
+        <Size x="312" y="523"/>
+        <Anchors>
+            <Anchor point="CENTER" relativeTo="UIParent"/>
+        </Anchors>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentBackground" file="Interface\AchievementFrame\UI-Achievement-StatsBackground" alphaMode="BLEND">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                            <Offset x="2" y="-2"/>
+                        </Anchor>
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+                            <Offset x="-2" y="0"/>
+                        </Anchor>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString name="$parentAchievementTitle" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP" wordWrap="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                            <Offset x="65" y="-33"/>
+                        </Anchor>
+                        
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+                            <Offset x="-15" y="-60"/>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <!-- Window title: in a high frame-level frame so it draws above template title area -->
+            <Frame name="$parentWindowTitleFrame" frameStrata="DIALOG" frameLevel="600">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                        <Offset x="60" y="4"/>
+                    </Anchor>
+                    <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+                        <Offset x="0" y="-28"/>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentWindowTitle" inherits="GameFontNormal" justifyH="LEFT" justifyV="CENTER">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                    <Offset x="5" y="0"/>
+                                </Anchor>
+                                <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT">
+                                    <Offset x="-5" y="0"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <!-- Dropdown anchor: portrait/title area; click opens achievement-list menu. -->
+            <Button name="$parentDropdownButton" inherits="MetaAchievementDropdownArrowButtonTemplate" frameStrata="DIALOG" frameLevel="500">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                        <Offset x="46" y="-42"/>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>MetaAchievementMiniFrameDropdown_OnLoad(self)</OnLoad>
+                </Scripts>
+            </Button>
+            <!-- Drag region: title bar area so the window can be moved by dragging here. -->
+            <Frame name="$parentDragRegion" enableMouse="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="TOPRIGHT"/>
+                    <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                        <Offset x="0" y="-28"/>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>MetaAchievementMiniFrameDragRegion_OnLoad(self)</OnLoad>
+                </Scripts>
+            </Frame>
+            <!-- Content area: same dark background as main frame tree view (InsetFrameTemplate3) -->
+            <Frame name="$parentContent" inherits="InsetFrameTemplate3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                        <Offset x="4" y="-60"/>
+                    </Anchor>
+                    <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+                        <Offset x="-8" y="25"/>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentTitle" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset x="10" y="0"/>
+                                </Anchor>
+                                <Anchor point="TOPRIGHT">
+                                    <Offset x="-4" y="0"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <!-- Compact completed state: shown when top achievement of category is completed -->
+                    <Frame name="$parentCompletedPanel" inherits="MetaAchievementMiniCompletedPanelTemplate" hidden="true">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                                <Offset x="4" y="-4"/>
+                            </Anchor>
+                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+                                <Offset x="-4" y="4"/>
+                            </Anchor>
+                        </Anchors>
+                    </Frame>
+                    <!-- Compact achievement tree (same data as main journal list) -->
+                    <Frame name="$parentAchievementList" inherits="MetaAchievementMiniListTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+                                <Offset x="4" y="-4"/>
+                            </Anchor>
+                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+                                <Offset x="-4" y="4"/>
+                            </Anchor>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <!-- Larger button: expand back to main window; left of Close. -->
+            <Button name="$parentLargerButton" inherits="MetaAchievementLargerButtonTemplate" frameStrata="HIGH">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT">
+                        <Offset x="-2" y="0"/>
+                    </Anchor>
+                </Anchors>
+            </Button>
+
+            <!-- Settings cog: left of Larger button; visibility from showSettingsButton setting. -->
+            <Button name="$parentSettingsButton" inherits="MetaAchievementSettingsCogButtonTemplate" frameStrata="HIGH">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="$parentLargerButton" relativePoint="LEFT">
+                        <Offset x="-3" y="0"/>
+                    </Anchor>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>MetaAchievementMiniFrame_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Frame>
+
+    <!-- Instance: same size as main window's main scroll frame; hidden by default. -->
+    <Frame name="MetaAchievementMiniFrame" inherits="MetaAchievementMiniFrameTemplate" parent="UIParent" hidden="true"/>
+</Ui>

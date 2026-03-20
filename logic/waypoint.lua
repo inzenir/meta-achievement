@@ -15,3 +15,7 @@ function Waypoint:new(waypointData, title)
 
     return obj
 end
+
+function Waypoint:checksum()
+    return string.format("%s-%s-%s-%s", self.mapId, self.x, self.y, self.title)
+end

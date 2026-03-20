@@ -1,0 +1,26 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="ui\elements\main-frame\journal-row.xml"/>
+    <Script file="ui\elements\main-frame\journal-list.lua"/>
+
+    <!-- Journal list: Blizzard-style WowScrollBoxList + MinimalScrollBar (pet/mount journal look). -->
+    <Frame name="MetaAchievementJournalListTemplate" virtual="true" inherits="InsetFrameTemplate3">
+        <Size x="340" y="1"/>
+        <Frames>
+            <Frame name="$parentScrollBox" inherits="WowScrollBoxList" frameStrata="HIGH">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="6" y="-6"/>
+                    <Anchor point="BOTTOMRIGHT" x="-22" y="6"/>
+                </Anchors>
+            </Frame>
+            <EventFrame name="$parentScrollBar" inherits="MinimalScrollBar" frameStrata="HIGH">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentScrollBox" relativePoint="TOPRIGHT" x="6" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativeTo="$parentScrollBox" relativePoint="BOTTOMRIGHT" x="6" y="0"/>
+                </Anchors>
+            </EventFrame>
+        </Frames>
+        <Scripts>
+            <OnLoad>MetaAchievementJournalList_OnLoad(self)</OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

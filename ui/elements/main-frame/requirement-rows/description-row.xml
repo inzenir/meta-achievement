@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Description row: achievement description text only. No check, no progress bar. -->
+    <Button name="MetaAchievementMapRequirementRowDescriptionTemplate" virtual="true">
+        <Size x="1" y="20"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="GameFontHighlightSmall" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="26" y="0"/>
+                        <Anchor point="RIGHT" x="-6" y="0"/>
+                    </Anchors>
+                    <FontHeight val="12"/>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnClick>MetaAchievementMapRequirementRow_OnClick(self, button)</OnClick>
+        </Scripts>
+    </Button>
+</Ui>

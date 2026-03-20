@@ -72,8 +72,24 @@ MapZones = {
     WOTLK_ZONE_HrothgarsLanding = 170,
 
     CATA_ZONE_SouthernBarrens = 199,
+    CATA_ZONE_MountHyjal = 198,
+    CATA_ZONE_Uldum = 249,
+    CATA_ZONE_TwilightHighlands = 241,
+    CATA_ZONE_Vashjir = 205,
+    CATA_ZONE_Deepholm = 207,
 
     WOW_ZONE_TheCapeOfStranglethorn = 210,
+
+    -- Battle for Azeroth zones (Zandalar)
+    BFA_ZONE_Zuldazar = 862,
+    BFA_ZONE_Dazaralor = 1165,
+    BFA_ZONE_Nazmir = 863,
+    BFA_ZONE_Voldun = 864,
+    -- Battle for Azeroth zones (Kul Tiras)
+    BFA_ZONE_TiragardeSound = 895,
+    BFA_ZONE_Boralus = 1161,
+    BFA_ZONE_Drustvar = 896,
+    BFA_ZONE_StormsongValley = 942,
 
 	TBC_ZONE_SilvermoonCity2 = 1954,
 
@@ -89,4 +105,27 @@ MapZones = {
     TWW_ZONE_SirenIsle = 2369,
     TWW_ZONE_Karesh = 2371,
     TWW_ZONE_TazaveshCity = 2472,
+
+    -- Dragonflight zones (Dragon Isles)
+    DF_ZONE_Thaldraszus = 2022,
+    DF_ZONE_TheWakingShores = 2112,
+    DF_ZONE_OhnahranPlains = 2133,
+    DF_ZONE_TheAzureSpan = 2151,
+    DF_ZONE_ZaralekCavern = 2132,
+    DF_ZONE_EmeraldDream = 2200,
+    DF_ZONE_ForbiddenReach = 2107,
+    DF_ZONE_Valdrakken = 2112, -- same map as Thaldraszus for city
+
+    -- Shadowlands zones
+    SL_ZONE_TheMaw = 11400,
+    SL_ZONE_ZerethMortis = 13536,
+    SL_ZONE_Oribos = 1670,
+    SL_ZONE_Korthia = 1962,
+
+    -- Midnight zones
+    MIDNIGHT_ZONE_Voidstorm = 2405,
+    MIDNIGHT_ZONE_Harandar = 2413,
+    MIDNIGHT_ZONE_QuelThalas = 2395,
+    MIDNIGHT_ZONE_Eversong_Woods = 2393,
+    MIDNIGHT_ZONE_ZulAman = 2437,
 }

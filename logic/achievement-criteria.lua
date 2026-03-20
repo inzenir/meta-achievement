@@ -46,7 +46,7 @@ function AchievementCriteria:GetWaypoints()
 end
 
 function AchievementCriteria:GetFilteredWaypoints()
-    if MetaAchievementConfigurationDB.addWpsOnlyForUncompletedAchis then
+    if MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis") then
         local numCriteria = GetAchievementNumCriteria(self.achievementId)
 
         for i = 1, numCriteria do

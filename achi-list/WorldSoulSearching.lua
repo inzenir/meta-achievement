@@ -3,6 +3,7 @@ WorldSoulSearchingAchievements = {
         ["id"] = 61451,
         ["name"] = "Worldsoul-Searching",
         ["icon"] = "Interface\\Icons\\achievement_zone_isleofdorn",
+        mountId = 2802,
         ["children"] = {
             {
                 ["id"] = 40244,
