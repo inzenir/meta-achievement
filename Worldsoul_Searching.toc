@@ -86,4 +86,5 @@ ui\elements\main-frame\requirement-rows\init.lua
 ui\main-frame.xml
 
 # drawing loading
+ui\minimap-button.lua
 entrypoint.lua

@@ -28,6 +28,10 @@ local function getDefaults()
             x = nil,
             y = nil
         },
+        -- LibDBIcon: minimap position (minimapPos) and visibility (hide)
+        minimapIcon = {
+            hide = false,
+        },
         -- Hidden: which window was last open ("main" or "mini"). Restored on load.
         lastOpenWindow = "main",
         -- Hidden: selected achievement list key for mini (and main) so mini can show same list.

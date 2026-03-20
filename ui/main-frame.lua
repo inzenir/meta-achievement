@@ -523,16 +523,6 @@ function MetaAchievementMainFrameMgr:ClearMap(frame)
     clearRegions(content)
 end
 
--- Map part: accepts arbitrary elements (pins, overlays, widgets) as children of MapCanvas.Content
-function MetaAchievementMainFrameMgr:AddMapElement(frame, element)
-    if not frame or not element then
-        return
-    end
-    local content = frame.MapInset.MapCanvas.DynamicContent or frame.MapInset.MapCanvas.Content
-    element:SetParent(content)
-    element:Show()
-end
-
 --- Achievement id from a journal list node (id on node or nested data).
 local function resolveAchievementIdFromListItem(item)
     if not item then
@@ -680,15 +670,7 @@ function MetaAchievementMainFrame_OnLoad(self)
         self.SmallerButton:SetFrameLevel(1000)
         self.SmallerButton:Hide()
         self.SmallerButton:SetScript("OnClick", function()
-            local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
-            if main and main.Hide then
-                main:Hide()
-            else
-                MetaAchievementMainFrameMgr:HidePanel()
-            end
-            if type(MetaAchievementMiniFrame_Show) == "function" then
-                MetaAchievementMiniFrame_Show()
-            end
+            MetaAchievementMainFrameMgr_MinimizeButtonOnClick()
         end)
         if type(MetaAchievement_CogButtonSetTooltip) == "function" then
             MetaAchievement_CogButtonSetTooltip(self.SmallerButton, "Switch to compact journal window")

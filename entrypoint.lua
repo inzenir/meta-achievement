@@ -206,6 +206,10 @@ function EntryPoint()
             RegisterMetaAchievementOptionsPanel()
         end
     end
+
+    if type(MetaAchievement_RegisterMinimapButton) == "function" then
+        MetaAchievement_RegisterMinimapButton()
+    end
 end
 
 -- Run EntryPoint when this addon loads (data sources, slash commands, journal registration).
