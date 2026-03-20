@@ -5,7 +5,8 @@
 AchievementData = AchievementData or {}
 AchievementData.__index = AchievementData
 
---- Registry: topAchievementId -> waypoints flat data (achievementId -> { helpText, waypoints, criteria? })
+--- Registry: topAchievementId -> waypoints flat data (achievementId -> { helpText, waypoints, criteria?, virtualCriteria?, combineVirtualAndRegularCriteria? })
+--- combineVirtualAndRegularCriteria: optional boolean on the achievement entry OR on the virtualCriteria table; when true, requirements list shows regular WoW API criteria first and appends virtual rows after. Only one placement needed.
 AchievementData._registry = AchievementData._registry or {}
 
 --- Register a waypoints table for a group.
@@ -21,7 +22,7 @@ end
 --- Get the waypoints/help entry for an achievement from the registered flat table.
 --- @param topAchievementId number Top achievement of the group (from dropdown).
 --- @param achievementId number The achievement whose info to look up.
---- @return table|nil { helpText?, waypoints?, criteria? } or nil if not registered.
+--- @return table|nil { helpText?, waypoints?, criteria?, virtualCriteria?, combineVirtualAndRegularCriteria? } or nil if not registered.
 function AchievementData:GetInformation(topAchievementId, achievementId)
     if not topAchievementId or not achievementId then
         return nil

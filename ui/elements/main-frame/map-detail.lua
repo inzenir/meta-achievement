@@ -468,7 +468,7 @@ end
 local DEFAULT_WAYPOINT_HELP = "Use the waypoint button to add this location to your map."
 
 local function criterionHasWaypoints(cinfo)
-    if not cinfo or type(cinfo.waypoints) ~= "table" then
+    if type(cinfo) ~= "table" or type(cinfo.waypoints) ~= "table" then
         return false
     end
     if #cinfo.waypoints > 0 then
@@ -730,54 +730,133 @@ local function getAchievementInfoSafe(achievementId)
     return name, points, description, icon, reward
 end
 
+--- virtualCriteria key order: numeric keys ascending when all keys are numbers (matches sorted waypoints files).
+--- Else if every row has numeric criterion.index, sort by that. Else hash iteration order (undefined).
+--- Skips non-table values (e.g. combineVirtualAndRegularCriteria = true on the virtualCriteria table).
+local function virtualCriteriaSortedKeys(virtualCriteria)
+    local keys = {}
+    for k in pairs(virtualCriteria) do
+        if type(virtualCriteria[k]) == "table" then
+            keys[#keys + 1] = k
+        end
+    end
+    local n = #keys
+    if n == 0 then
+        return keys
+    end
+    local allNumericKeys = true
+    for _, k in ipairs(keys) do
+        if type(k) ~= "number" then
+            allNumericKeys = false
+            break
+        end
+    end
+    if allNumericKeys then
+        table.sort(keys)
+        return keys
+    end
+    for _, k in ipairs(keys) do
+        local c = virtualCriteria[k]
+        if type(c) ~= "table" or type(c.index) ~= "number" then
+            return keys
+        end
+    end
+    table.sort(keys, function(a, b)
+        local ia = virtualCriteria[a].index
+        local ib = virtualCriteria[b].index
+        if ia ~= ib then
+            return ia < ib
+        end
+        return tostring(a) < tostring(b)
+    end)
+    return keys
+end
+
+--- True when virtual rows are appended after regular WoW API criteria. Flag may be on the achievement entry or on virtualCriteria.
+local function getCombineVirtualAndRegularFlag(achievementInformation)
+    if not achievementInformation then
+        return false
+    end
+    if achievementInformation.combineVirtualAndRegularCriteria == true then
+        return true
+    end
+    local vc = achievementInformation.virtualCriteria
+    if type(vc) == "table" and vc.combineVirtualAndRegularCriteria == true then
+        return true
+    end
+    return false
+end
+
+--- Append WoW API criteria rows. apiCriteriaIndex is stored for requirement row clicks when combined with virtual rows (display order may differ from API index).
+local function appendRegularCriteriaFromApi(achievementId, requirements)
+    if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
+        return
+    end
+    local numCriteria = GetAchievementNumCriteria(achievementId) or 0
+    for i = 1, numCriteria do
+        local criteriaString, _, completed, quantity, reqQuantity, _, _, _, quantityString = GetAchievementCriteriaInfo(achievementId, i)
+        local entry = {
+            -- Some completed API criteria may return an empty string; keep them visible in combined mode.
+            text = (type(criteriaString) == "string" and criteriaString ~= "") and criteriaString or ("Criteria " .. tostring(i)),
+            completed = completed == true,
+            apiCriteriaIndex = i,
+        }
+        if reqQuantity and reqQuantity > 0 and quantity ~= nil then
+            entry.quantity = quantity
+            entry.reqQuantity = reqQuantity
+            if type(quantityString) == "string" and quantityString ~= "" then
+                entry.quantityString = quantityString
+            end
+        end
+        requirements[#requirements + 1] = entry
+    end
+end
+
 local function buildRequirementsFromCriteria(achievementId, topAchievementId)
     local requirements = {}
 
     local achievementInformation = AchievementData:GetInformation(topAchievementId, achievementId)
-    if achievementInformation and type(achievementInformation.virtualCriteria) == "table" then
-        for i, criterion in pairs(achievementInformation.virtualCriteria) do
-            local entry = {
-                text = criterion.text or i,
-                completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType),
-                criteriaId = i,
-                criteriaType = criterion.criteriaType,
-            }
-            -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
-            if type(GetAchievementCriteriaInfo) == "function" then
-                local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
-                if ok and reqQuantity and reqQuantity > 0 and quantity ~= nil then
-                    entry.quantity = quantity
-                    entry.reqQuantity = reqQuantity
-                    if type(quantityString) == "string" and quantityString ~= "" then
-                        entry.quantityString = quantityString
-                    end
-                end
-            end
-            requirements[#requirements + 1] = entry
-        end
-    else
-        if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
-            return requirements
-        end
+    local hasVirtual = achievementInformation and type(achievementInformation.virtualCriteria) == "table"
+    local combineVirtualAndRegular = hasVirtual and getCombineVirtualAndRegularFlag(achievementInformation)
 
-        local numCriteria = GetAchievementNumCriteria(achievementId) or 0
-        for i = 1, numCriteria do
-            local criteriaString, _, completed, quantity, reqQuantity, _, _, _, quantityString = GetAchievementCriteriaInfo(achievementId, i)
-            if criteriaString and criteriaString ~= "" then
+    local function appendVirtualRows()
+        if not hasVirtual then
+            return
+        end
+        local vc = achievementInformation.virtualCriteria
+        for _, i in ipairs(virtualCriteriaSortedKeys(vc)) do
+            local criterion = vc[i]
+            if type(criterion) == "table" then
                 local entry = {
-                    text = criteriaString,
-                    completed = completed == true
+                    text = criterion.text or i,
+                    completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType),
+                    criteriaId = i,
+                    criteriaType = criterion.criteriaType,
                 }
-                if reqQuantity and reqQuantity > 0 and quantity ~= nil then
-                    entry.quantity = quantity
-                    entry.reqQuantity = reqQuantity
-                    if type(quantityString) == "string" and quantityString ~= "" then
-                        entry.quantityString = quantityString
+                -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
+                if type(GetAchievementCriteriaInfo) == "function" then
+                    local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
+                    if ok and reqQuantity and reqQuantity > 0 and quantity ~= nil then
+                        entry.quantity = quantity
+                        entry.reqQuantity = reqQuantity
+                        if type(quantityString) == "string" and quantityString ~= "" then
+                            entry.quantityString = quantityString
+                        end
                     end
                 end
                 requirements[#requirements + 1] = entry
             end
         end
+    end
+
+    if combineVirtualAndRegular then
+        -- Combined: regular API criteria first, then virtual rows appended.
+        appendRegularCriteriaFromApi(achievementId, requirements)
+        appendVirtualRows()
+    elseif hasVirtual then
+        appendVirtualRows()
+    else
+        appendRegularCriteriaFromApi(achievementId, requirements)
     end
 
     return requirements
@@ -935,14 +1014,14 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     if criteria and type(criteria) == "table" then
         if onlyUncompleted then
             for criteriaId, cinfo in pairs(criteria) do
-                if criterionHasWaypoints(cinfo) and not isCriterionCompleted(achievementId, criteriaId) then
+                if type(cinfo) == "table" and criterionHasWaypoints(cinfo) and not isCriterionCompleted(achievementId, criteriaId) then
                     hasAnyWaypoint = true
                     break
                 end
             end
         else
             for _, cinfo in pairs(criteria) do
-                if criterionHasWaypoints(cinfo) then
+                if type(cinfo) == "table" and criterionHasWaypoints(cinfo) then
                     hasAnyWaypoint = true
                     break
                 end
@@ -1004,13 +1083,13 @@ local function criteriaTypeHandler_Default(owner, criteriaInfo, achievementId, c
     if not cinfo then
         return
     end
+    local criteriaName = (criteriaInfo and type(criteriaInfo.criteriaString) == "string") and criteriaInfo.criteriaString or nil
     -- Show criteria-level helpText in the "Criteria information" box below requirements. Title includes criteria name when available.
     -- If criterion has waypoints but no helpText, use default so the box (and waypoint button) are shown.
     local ht = (type(cinfo.helpText) == "string" and cinfo.helpText ~= "") and normalizeForWrap(cinfo.helpText) or ""
     if ht == "" and criterionHasWaypoints(cinfo) then
         ht = DEFAULT_WAYPOINT_HELP
     end
-    local criteriaName = (criteriaInfo and type(criteriaInfo.criteriaString) == "string") and criteriaInfo.criteriaString or nil
     setCriteriaInfoBox(owner, ht, criteriaName, criteriaId)
 end
 
@@ -1082,7 +1161,9 @@ function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
     local allWaypoints = {}
     for criteriaId, cinfo in pairs(criteria) do
-        if onlyUncompleted and isCriterionCompleted(self._achievementId, criteriaId) then
+        if type(cinfo) ~= "table" then
+            -- skip meta keys on virtualCriteria (e.g. combineVirtualAndRegularCriteria)
+        elseif onlyUncompleted and isCriterionCompleted(self._achievementId, criteriaId) then
             -- skip completed criteria when setting is on
         elseif type(cinfo.waypoints) == "table" then
             for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
@@ -1107,7 +1188,9 @@ function MetaAchievementMapDetail_AddCriteriaWaypoints(achievementId, topAchieve
     local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
     local allWaypoints = {}
     for criteriaId, cinfo in pairs(criteria) do
-        if onlyUncompleted and isCriterionCompleted(achievementId, criteriaId) then
+        if type(cinfo) ~= "table" then
+            -- skip meta keys on virtualCriteria
+        elseif onlyUncompleted and isCriterionCompleted(achievementId, criteriaId) then
             -- skip
         elseif type(cinfo.waypoints) == "table" then
             for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
@@ -1244,6 +1327,8 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
     end
     local aid = owner._achievementId
     local idx = row._index
+    -- When virtual + API criteria are combined, API rows come first and use apiCriteriaIndex (row._index is display order).
+    local apiIdx = (req and req.apiCriteriaIndex) or idx
 
     -- Virtual criteria path: use stored criteriaId from requirement
     if aid and owner._flatInfo and type(owner._flatInfo.virtualCriteria) == "table" and req and req.criteriaId then
@@ -1262,9 +1347,9 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
     end
 
     -- WoW API path
-    if aid and idx and type(GetAchievementCriteriaInfo) == "function" then
+    if aid and apiIdx and type(GetAchievementCriteriaInfo) == "function" then
         local ok, cs, ctype, completed, qty, reqQty, charName, flags, assetId, qtyStr, criteriaId, eligible =
-            pcall(GetAchievementCriteriaInfo, aid, idx)
+            pcall(GetAchievementCriteriaInfo, aid, apiIdx)
         if ok and cs ~= nil then
             MetaAchievementMapDetail_OnRequirementClicked(owner, {
                 criteriaString = cs,
@@ -1278,7 +1363,7 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
                 quantityString = qtyStr,
                 criteriaID = criteriaId,
                 eligible = eligible,
-            }, aid, idx)
+            }, aid, apiIdx)
         end
     elseif aid and idx and type(GetAchievementNumCriteria) == "function" then
         local n = GetAchievementNumCriteria(aid) or 0

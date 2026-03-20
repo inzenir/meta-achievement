@@ -26,6 +26,10 @@ end
 local NODE_ICON_COMPLETED = "Interface\\Buttons\\UI-CheckBox-Check"
 local NODE_ICON_NOT_COMPLETED = "Interface\\Buttons\\UI-StopButton"
 
+local function isMiniListAchievementCompleted(item)
+    return item and item.data and item.data.completed == true
+end
+
 --- True if any criterion for this achievement has waypoints (from AchievementData).
 local function achievementCriteriaHaveWaypoints(topAchievementId, achievementId)
     if not topAchievementId or not achievementId or not AchievementData or type(AchievementData.GetInformation) ~= "function" then
@@ -36,7 +40,7 @@ local function achievementCriteriaHaveWaypoints(topAchievementId, achievementId)
     local criteria = flatInfo.virtualCriteria or flatInfo.criteria
     if not criteria or type(criteria) ~= "table" then return false end
     for _, cinfo in pairs(criteria) do
-        if cinfo and type(cinfo.waypoints) == "table" then
+        if type(cinfo) == "table" and type(cinfo.waypoints) == "table" then
             if #cinfo.waypoints > 0 then return true end
             for _ in pairs(cinfo.waypoints) do return true end
         end
@@ -187,6 +191,7 @@ function MetaAchievementMiniList_OnLoad(self)
             local hasChildren = item and item.children and type(item.children) == "table" and #item.children > 0
             local numCriteria = (item and item.id) and getAchievementNumCriteria(item.id) or 0
             local hasCriteriaOnly = not hasChildren and numCriteria > 0
+            local showExpand = (hasChildren or hasCriteriaOnly) and not isMiniListAchievementCompleted(item)
 
             if frame.Text then
                 frame.Text:Show()
@@ -213,7 +218,7 @@ function MetaAchievementMiniList_OnLoad(self)
                 else frame.Status:Hide() end
             end
             if frame.Expand then
-                if hasChildren or hasCriteriaOnly then
+                if showExpand then
                     if not frame.Expand.label then
                         frame.Expand.label = frame.Expand:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
                         frame.Expand.label:SetPoint("CENTER")
@@ -307,8 +312,9 @@ function MetaAchievementMiniList_OnLoad(self)
             end
         end
 
+        -- Do not show row selection highlight (index can desync from visible rows when list changes).
         if frame.Selected then
-            frame.Selected:SetShown(list._selectedIndex == index)
+            frame.Selected:Hide()
         end
 
         local parentOriginalIndex = elementData.parentOriginalIndex or (elementData.item and elementData.item._originalIndex)
@@ -361,7 +367,8 @@ function MetaAchievementMiniList_SetItems(self, items, miniFrame)
         }
         local hasChildren = item.children and type(item.children) == "table" and #item.children > 0
         local numCriteria = getAchievementNumCriteria(item.id or 0)
-        if not hasChildren and numCriteria > 0 then
+        -- No criteria sub-rows for completed achievements (expand is hidden for those rows).
+        if not hasChildren and numCriteria > 0 and not isMiniListAchievementCompleted(item) then
             -- Criteria block only when expanded (default collapsed when nil).
             if self._criteriaExpanded[item.id] == true then
             local summary = getCriteriaSummary(item.id)
@@ -446,6 +453,9 @@ function MetaAchievementMiniListExpand_OnClick(expandButton)
     local list = expandButton._owner
     local item = expandButton._item
     if not list or not item then return end
+    if isMiniListAchievementCompleted(item) then
+        return
+    end
     local hasChildren = item.children and type(item.children) == "table" and #item.children > 0
     local numCriteria = (item.id and getAchievementNumCriteria(item.id)) or 0
     local hasCriteriaOnly = not hasChildren and numCriteria > 0
