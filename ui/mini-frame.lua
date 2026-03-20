@@ -207,6 +207,9 @@ function MetaAchievementMiniFrame_OnLoad(self)
                 MetaAchievementMainFrameMgr:ShowPanel()
             end
         end)
+        if type(MetaAchievement_CogButtonSetTooltip) == "function" then
+            MetaAchievement_CogButtonSetTooltip(largerBtn, "Open full journal window")
+        end
     end
     local settingsBtn = _G[self:GetName() .. "SettingsButton"]
     if settingsBtn then

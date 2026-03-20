@@ -53,7 +53,15 @@ function MiniCriteriaRowProgress.Apply(frame, criterion)
     if frame.Text and frame.Text.SetText then
         frame.Text:SetText(criterion.text or "")
     end
-    if frame.Text then frame.Text:Show() end
+    if frame.Text then
+        frame.Text:Show()
+        -- Sit text above the bottom progress bar (template uses y=0; bar sits at bottom).
+        if frame.Text.ClearAllPoints then
+            frame.Text:ClearAllPoints()
+            frame.Text:SetPoint("LEFT", frame, "LEFT", 36, 6)
+            frame.Text:SetPoint("RIGHT", frame, "RIGHT", -8, 6)
+        end
+    end
 
     if frame.Check then
         frame.Check:Show()

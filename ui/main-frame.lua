@@ -533,6 +533,20 @@ function MetaAchievementMainFrameMgr:AddMapElement(frame, element)
     element:Show()
 end
 
+--- Achievement id from a journal list node (id on node or nested data).
+local function resolveAchievementIdFromListItem(item)
+    if not item then
+        return nil
+    end
+    if item.id then
+        return item.id
+    end
+    if item.data and item.data.id then
+        return item.data.id
+    end
+    return nil
+end
+
 function MetaAchievementMainFrameMgr:RenderMap(frame, selectedItem)
     self:ClearMap(frame)
 
@@ -566,9 +580,17 @@ function MetaAchievementMainFrameMgr:RenderMap(frame, selectedItem)
         detail:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
         detail:Show()
 
-        if selectedItem and selectedItem.id and type(MetaAchievementMapDetail_SetFromAchievementId) == "function" then
+        -- If the flat list has no row for the current selection (e.g. hideCompleted, cache), GetActiveItem() is nil
+        -- but ActiveAchievementState still has selectedAchievementId — still show detail + requirements from API/waypoints.
+        local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+        local achievementId = resolveAchievementIdFromListItem(selectedItem)
+        if not achievementId and state and type(state.GetActiveAchievementId) == "function" then
+            achievementId = state:GetActiveAchievementId()
+        end
+
+        if achievementId and type(MetaAchievementMapDetail_SetFromAchievementId) == "function" then
             local topId = (src and src.provider and src.provider.topAchievementId) or nil
-            MetaAchievementMapDetail_SetFromAchievementId(detail, selectedItem.id, selectedItem, topId)
+            MetaAchievementMapDetail_SetFromAchievementId(detail, achievementId, selectedItem, topId)
         elseif type(MetaAchievementMapDetail_SetData) == "function" then
             MetaAchievementMapDetail_SetData(detail, {
                 title = "Select an item",
@@ -668,6 +690,9 @@ function MetaAchievementMainFrame_OnLoad(self)
                 MetaAchievementMiniFrame_Show()
             end
         end)
+        if type(MetaAchievement_CogButtonSetTooltip) == "function" then
+            MetaAchievement_CogButtonSetTooltip(self.SmallerButton, "Switch to compact journal window")
+        end
     end
 
     -- Hide the old dropdown (functionality moved to breadcrumbs)

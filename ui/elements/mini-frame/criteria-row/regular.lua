@@ -14,7 +14,15 @@ function MiniCriteriaRowRegular.Apply(frame, criterion)
     if frame.Text and frame.Text.SetText then
         frame.Text:SetText(criterion.text or "")
     end
-    if frame.Text then frame.Text:Show() end
+    if frame.Text then
+        frame.Text:Show()
+        -- Reset anchors after a progress row reused this frame (progress.lua offsets text +6).
+        if frame.Text.ClearAllPoints then
+            frame.Text:ClearAllPoints()
+            frame.Text:SetPoint("LEFT", frame, "LEFT", 36, 0)
+            frame.Text:SetPoint("RIGHT", frame, "RIGHT", -8, 0)
+        end
+    end
 
     if frame.Check then
         frame.Check:Show()
