@@ -29,21 +29,6 @@ local REQUIREMENT_ROW_PROGRESS_HEIGHT = 41  -- progress rows: text line + bar on
 local REQUIREMENT_ROW_GAP = 0
 local REQUIREMENTS_CRITERIA_GAP = 8  -- Vertical gap between Requirements box bottom and Criteria information box top
 
-local function ensureBus()
-    MetaAchievementUIBus = MetaAchievementUIBus or {}
-    if type(MetaAchievementUIBus.Emit) ~= "function" then
-        function MetaAchievementUIBus:Emit(eventName, ...)
-            local list = self._listeners and self._listeners[eventName]
-            if not list then
-                return
-            end
-            for _, handler in ipairs(list) do
-                pcall(handler, ...)
-            end
-        end
-    end
-end
-
 local function setScrollChildWidth(self)
     if not self.RequirementsBox or not self.RequirementsBox.ScrollFrame or not self.RequirementsBox.ScrollFrame.ScrollChild then
         return
@@ -71,6 +56,29 @@ local function refreshRequirementsDataProvider(self)
         dp:Insert({ index = i, req = req, templateName = templateName })
     end
     if box._view and box._view.Refresh then box._view:Refresh() end
+    local sb = box.ScrollBox
+    if sb and sb.FullUpdate then
+        pcall(function()
+            sb:FullUpdate()
+        end)
+    end
+end
+
+--- Debounced refresh when the requirements ScrollBox gains non-zero size (WowScrollBoxList often paints 0 rows until layout settles).
+local function scheduleRequirementsScrollRefresh(detail)
+    if not detail or not C_Timer or not C_Timer.After then
+        return
+    end
+    local token = (detail._reqScrollRefreshToken or 0) + 1
+    detail._reqScrollRefreshToken = token
+    C_Timer.After(0, function()
+        if not detail or detail._reqScrollRefreshToken ~= token then
+            return
+        end
+        if type(MetaAchievementMapDetail_RefreshContentLayout) == "function" then
+            MetaAchievementMapDetail_RefreshContentLayout(detail)
+        end
+    end)
 end
 
 local function updateHelpBoxContent(self, helpText)
@@ -237,8 +245,6 @@ local function renderRequirements(self)
 end
 
 function MetaAchievementMapDetail_OnLoad(self)
-    ensureBus()
-
     self.Header = _G[self:GetName() .. "Header"]
     self.RewardBox = _G[self:GetName() .. "RewardBox"]
     self.HelpBox = _G[self:GetName() .. "HelpBox"]
@@ -347,6 +353,24 @@ function MetaAchievementMapDetail_OnLoad(self)
 
             box._dataProvider = dataProvider
             box._view = view
+
+            -- Repopulate when the ScrollBox finally gets dimensions (first journal open often lays out after SetData).
+            scrollBox:SetScript("OnSizeChanged", function(sb)
+                local w = sb:GetWidth() or 0
+                local h = sb:GetHeight() or 0
+                if w < 2 or h < 2 then
+                    return
+                end
+                if not detail._requirements or #detail._requirements == 0 then
+                    return
+                end
+                scheduleRequirementsScrollRefresh(detail)
+            end)
+            scrollBox:SetScript("OnShow", function()
+                if detail._requirements and #detail._requirements > 0 then
+                    scheduleRequirementsScrollRefresh(detail)
+                end
+            end)
         end
     end
     self.CriteriaInfoBox = _G[self:GetName() .. "CriteriaInfoBox"]
@@ -493,17 +517,20 @@ local function achievementHasDirectWaypoints(flatInfo)
     return false
 end
 
--- True if the given criterion (by criteriaId or criteria index) is completed for the achievement.
-local function isCriterionCompleted(achievementId, criteriaId)
-    if not achievementId or not GetAchievementNumCriteria or not GetAchievementCriteriaInfo then
+--- True if this criterion row is completed. Virtual rows (e.g. quest IDs + criteriaType 27) must use
+--- `IsAchievementCriteriaCompleted`; `MetaAchievementMapCriterionIsCompleted` only matches WoW API criteria indices/ids.
+local function isCriterionCompleted(achievementId, criteriaId, cinfo)
+    if not achievementId or not criteriaId then
         return false
     end
-    local num = GetAchievementNumCriteria(achievementId) or 0
-    for i = 1, num do
-        local _, _, completed, _, _, _, _, _, _, cid = GetAchievementCriteriaInfo(achievementId, i)
-        if cid == criteriaId or i == criteriaId then
-            return completed == true
+    if type(cinfo) == "table" and type(cinfo.criteriaType) == "number" and type(IsAchievementCriteriaCompleted) == "function" then
+        local viaType = IsAchievementCriteriaCompleted(achievementId, criteriaId, cinfo.criteriaType)
+        if viaType ~= nil then
+            return viaType == true
         end
+    end
+    if type(MetaAchievementMapCriterionIsCompleted) == "function" then
+        return MetaAchievementMapCriterionIsCompleted(achievementId, criteriaId)
     end
     return false
 end
@@ -514,24 +541,6 @@ local function hasHelpText(helpText)
     end
     local t = helpText:gsub("^%s+", ""):gsub("%s+$", "")
     return t ~= ""
-end
-
---- Re-apply scroll content and requirements layout after the frame has been laid out (fixes empty/broken layout on first open).
---- Global so OnShow and C_Timer.After callbacks can call it (they run in contexts where locals may be out of scope).
-function MetaAchievementMapDetail_RefreshContentLayout(self)
-    if not self then return end
-    local rewardText = self._currentRewardText
-    local helpText = self._currentHelpText
-    if self.RewardBox then
-        updateRewardBoxContent(self, formatRewardText(rewardText or ""))
-    end
-    if self.HelpBox and type(helpText) == "string" then
-        updateHelpBoxContent(self, (helpText ~= "") and normalizeForWrap(helpText) or "")
-    end
-    local box = self.RequirementsBox
-    if box and box._view and box._view.Refresh then
-        box._view:Refresh()
-    end
 end
 
 local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
@@ -606,6 +615,25 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
     end
 end
 
+--- Re-apply scroll content and requirements layout after the frame has been laid out (fixes empty/broken layout on first open).
+--- Global so OnShow and C_Timer.After callbacks can call it (they run in contexts where locals may be out of scope).
+--- Repopulates the requirements ScrollBox data provider: a bare view:Refresh() is not enough when the ScrollBox had
+--- zero height or was not laid out when SetData first ran.
+function MetaAchievementMapDetail_RefreshContentLayout(self)
+    if not self then return end
+    local rewardText = self._currentRewardText
+    local helpText = self._currentHelpText
+    if self.RewardBox then
+        updateRewardBoxContent(self, formatRewardText(rewardText or ""))
+    end
+    if self.HelpBox and type(helpText) == "string" then
+        updateHelpBoxContent(self, (helpText ~= "") and normalizeForWrap(helpText) or "")
+    end
+    -- Anchor RequirementsBox after reward/help heights are final, then flush+reinsert rows (ScrollBoxList needs this on first paint).
+    updateRewardHelpAndRequirementsLayout(self, rewardText or "", helpText or "")
+    refreshRequirementsDataProvider(self)
+end
+
 local CRITERIA_INFO_BOX_TITLE = "CRITERIA INFORMATION"
 
 local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
@@ -626,12 +654,18 @@ local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
     
     -- Show/hide waypoint button based on whether this criterion has waypoints (and, if addWpsOnlyForUncompletedAchis, only when criterion is not completed)
     local hasWaypoints = false
-    if criteriaId and self._flatInfo and type(self._flatInfo.criteria) == "table" then
-        local cinfo = self._flatInfo.criteria[criteriaId]
+    local cinfo = nil
+    if criteriaId and self._flatInfo then
+        if type(self._flatInfo.criteria) == "table" then
+            cinfo = self._flatInfo.criteria[criteriaId]
+        end
+        if not cinfo and type(self._flatInfo.virtualCriteria) == "table" then
+            cinfo = self._flatInfo.virtualCriteria[criteriaId]
+        end
         hasWaypoints = criterionHasWaypoints(cinfo)
     end
     local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
-    local criterionCompleted = criteriaId and self._achievementId and isCriterionCompleted(self._achievementId, criteriaId)
+    local criterionCompleted = criteriaId and self._achievementId and isCriterionCompleted(self._achievementId, criteriaId, cinfo)
     local showWaypoint = hasWaypoints and hasContent and (not onlyUncompleted or not criterionCompleted)
     if self.CriteriaInfoBox.WaypointButton then
         self.CriteriaInfoBox.WaypointButton:SetShown(showWaypoint)
@@ -716,6 +750,12 @@ function MetaAchievementMapDetail_SetData(self, data)
                 MetaAchievementMapDetail_RefreshContentLayout(self)
             end
         end)
+        -- Second tick: map inset / ScrollBox often only get final size after the first deferred frame.
+        C_Timer.After(0.05, function()
+            if self and self._requirements and #self._requirements > 0 then
+                MetaAchievementMapDetail_RefreshContentLayout(self)
+            end
+        end)
     end
 end
 
@@ -793,13 +833,28 @@ local function appendRegularCriteriaFromApi(achievementId, requirements)
         return
     end
     local numCriteria = GetAchievementNumCriteria(achievementId) or 0
+    local overrides = achievementInformation and type(achievementInformation.criteria) == "table" and achievementInformation.criteria
     for i = 1, numCriteria do
-        local criteriaString, _, completed, quantity, reqQuantity, _, _, _, quantityString = GetAchievementCriteriaInfo(achievementId, i)
+        local criteriaString, criteriaType, completed, quantity, reqQuantity, _charName, _flags, _assetID, quantityString, criteriaID, _eligible =
+            GetAchievementCriteriaInfo(achievementId, i)
+        -- Some completed API criteria may return an empty string; keep them visible in combined mode.
+        local text = (type(criteriaString) == "string" and criteriaString ~= "") and criteriaString or ("Criteria " .. tostring(i))
+        if overrides and criteriaID then
+            local o = overrides[criteriaID]
+            if type(o) == "table" then
+                if type(o.helpText) == "string" and o.helpText ~= "" then
+                    text = o.helpText
+                elseif type(o.text) == "string" and o.text ~= "" then
+                    text = o.text
+                end
+            end
+        end
         local entry = {
-            -- Some completed API criteria may return an empty string; keep them visible in combined mode.
-            text = (type(criteriaString) == "string" and criteriaString ~= "") and criteriaString or ("Criteria " .. tostring(i)),
+            text = text,
             completed = completed == true,
             apiCriteriaIndex = i,
+            criteriaId = criteriaID,
+            criteriaType = criteriaType,
         }
         if reqQuantity and reqQuantity > 0 and quantity ~= nil then
             entry.quantity = quantity
@@ -829,7 +884,7 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
             if type(criterion) == "table" then
                 local entry = {
                     text = criterion.text or i,
-                    completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType),
+                    completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType) == true,
                     criteriaId = i,
                     criteriaType = criterion.criteriaType,
                 }
@@ -856,7 +911,7 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
     elseif hasVirtual then
         appendVirtualRows()
     else
-        appendRegularCriteriaFromApi(achievementId, requirements)
+        appendRegularCriteriaFromApi(achievementId, requirements, achievementInformation)
     end
 
     return requirements
@@ -1014,7 +1069,7 @@ function MetaAchievementMapDetail_SetFromAchievementId(self, achievementId, node
     if criteria and type(criteria) == "table" then
         if onlyUncompleted then
             for criteriaId, cinfo in pairs(criteria) do
-                if type(cinfo) == "table" and criterionHasWaypoints(cinfo) and not isCriterionCompleted(achievementId, criteriaId) then
+                if type(cinfo) == "table" and criterionHasWaypoints(cinfo) and not isCriterionCompleted(achievementId, criteriaId, cinfo) then
                     hasAnyWaypoint = true
                     break
                 end
@@ -1067,8 +1122,14 @@ local function criteriaTypeHandler_Achievement(owner, criteriaInfo, achievementI
             break
         end
     end
-    if selIdx and MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.SetSelectedIndex) == "function" then
-        MetaAchievementMainFrameMgr:SetSelectedIndex(journalFrame, selIdx)
+    if selIdx then
+        local list = journalFrame.JournalList
+        local item = journalFrame._modelItems and journalFrame._modelItems[selIdx]
+        if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" and list then
+            MetaAchievementUIBus:Emit("MA_JOURNAL_LIST_ITEM_CLICKED", list, selIdx, item, nil)
+        elseif MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.SetSelectedIndex) == "function" then
+            MetaAchievementMainFrameMgr:SetSelectedIndex(journalFrame, selIdx)
+        end
     end
 end
 
@@ -1163,10 +1224,16 @@ function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
     for criteriaId, cinfo in pairs(criteria) do
         if type(cinfo) ~= "table" then
             -- skip meta keys on virtualCriteria (e.g. combineVirtualAndRegularCriteria)
-        elseif onlyUncompleted and isCriterionCompleted(self._achievementId, criteriaId) then
+        elseif onlyUncompleted and isCriterionCompleted(self._achievementId, criteriaId, cinfo) then
             -- skip completed criteria when setting is on
         elseif type(cinfo.waypoints) == "table" then
             for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
+                if type(wp) == "table" and criteriaId then
+                    wp.criteriaId = criteriaId
+                    if type(cinfo.criteriaType) == "number" then
+                        wp.criteriaType = cinfo.criteriaType
+                    end
+                end
                 allWaypoints[#allWaypoints + 1] = wp
             end
         end
@@ -1190,10 +1257,16 @@ function MetaAchievementMapDetail_AddCriteriaWaypoints(achievementId, topAchieve
     for criteriaId, cinfo in pairs(criteria) do
         if type(cinfo) ~= "table" then
             -- skip meta keys on virtualCriteria
-        elseif onlyUncompleted and isCriterionCompleted(achievementId, criteriaId) then
+        elseif onlyUncompleted and isCriterionCompleted(achievementId, criteriaId, cinfo) then
             -- skip
         elseif type(cinfo.waypoints) == "table" then
             for _, wp in pairs(flattenWaypoints(cinfo.waypoints)) do
+                if type(wp) == "table" and criteriaId then
+                    wp.criteriaId = criteriaId
+                    if type(cinfo.criteriaType) == "number" then
+                        wp.criteriaType = cinfo.criteriaType
+                    end
+                end
                 allWaypoints[#allWaypoints + 1] = wp
             end
         end
@@ -1297,26 +1370,34 @@ function MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
     if not self or not self._achievementId or not self._flatInfo or not self._selectedCriteriaId then
         return
     end
-    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
-    if onlyUncompleted and isCriterionCompleted(self._achievementId, self._selectedCriteriaId) then
-        return
-    end
     local criteria = self._flatInfo.virtualCriteria or self._flatInfo.criteria
     if not criteria or type(criteria) ~= "table" then
         return
     end
     local cinfo = criteria[self._selectedCriteriaId]
+    local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
+    if onlyUncompleted and isCriterionCompleted(self._achievementId, self._selectedCriteriaId, cinfo) then
+        return
+    end
     if not cinfo or not criterionHasWaypoints(cinfo) then
         return
     end
     local waypoints = flattenWaypoints(cinfo.waypoints)
+    local critId = self._selectedCriteriaId
+    for _, wp in ipairs(waypoints) do
+        if type(wp) == "table" and critId then
+            wp.criteriaId = critId
+            if type(cinfo.criteriaType) == "number" then
+                wp.criteriaType = cinfo.criteriaType
+            end
+        end
+    end
     if #waypoints > 0 and MapIntegrationBase and type(MapIntegrationBase.ToggleWaypointsForAchievement) == "function" then
         MapIntegrationBase.ToggleWaypointsForAchievement(self._achievementId, waypoints)
     end
 end
 
 function MetaAchievementMapRequirementRow_OnClick(row, button)
-    ensureBus()
     local owner = row and row._owner or nil
     if not owner then
         return
@@ -1339,9 +1420,7 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
                 criteriaType = vc.criteriaType or 27,
                 criteriaID = req.criteriaId,
             }, aid, idx)
-            if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
-                MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)
-            end
+            MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)
             return
         end
     end
@@ -1372,8 +1451,6 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
             print("  req", req and req.text or "nil")
         end
     end
-    if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
-        MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)
-    end
+    MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)
 end
 

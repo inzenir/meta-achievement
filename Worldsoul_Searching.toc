@@ -48,6 +48,9 @@ achi-list\LightUpTheNight.waypoints.lua
 
 # logic loading
 logic\modern\achievement-data.lua
+logic\flat-list.lua
+logic\achievement-list-utils.lua
+logic\waypoint-identity.lua
 logic\data-list.lua
 logic\settings.lua
 logic\active-achievement-state.lua
@@ -61,6 +64,10 @@ logic\modern\criteria-completion\quest-criteria.lua
 logic\wow-achievements.lua
 logic\achievement-scan.lua
 logic\slash-commands.lua
+
+# app (bus before controller; coordinator before UI that calls it from OnLoad/OnHide)
+app\MetaAchievementUIBus.lua
+app\WindowCoordinator.lua
 
 # map integrations
 map-integration\map-integration-base.lua
@@ -83,6 +90,7 @@ ui\elements\main-frame\requirement-rows\description.lua
 ui\elements\main-frame\requirement-rows\regular.lua
 ui\elements\main-frame\requirement-rows\progress.lua
 ui\elements\main-frame\requirement-rows\init.lua
+app\MetaAchievementController.lua
 ui\main-frame.xml
 
 # drawing loading

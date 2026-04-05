@@ -25,6 +25,8 @@ function ActiveAchievementState:New()
     o._activeAchievementId = nil
     o._cachedList = nil
     o._cachedSourceKey = nil
+    --- Per-source flat list snapshot for tab revisits (DEV-012). Cleared on InvalidateList.
+    o._cachedListByKey = nil
     return o
 end
 
@@ -75,7 +77,7 @@ function ActiveAchievementState:GetSource(key)
     return self._sources[key]
 end
 
---- Build and cache the list for the active source. Invalidates cache if source changed.
+--- Build and cache the list for the active source. Reuses per-source snapshot when revisiting a tab (same hideCompleted).
 function ActiveAchievementState:RefreshList()
     local key = self._activeSourceKey
     if not key then
@@ -85,6 +87,16 @@ function ActiveAchievementState:RefreshList()
     end
     if self._cachedSourceKey == key and self._cachedList ~= nil then
         return self._cachedList
+    end
+    local hideCompleted = MetaAchievementSettings and MetaAchievementSettings:Get("hideCompleted")
+    local byKey = self._cachedListByKey
+    if type(byKey) == "table" then
+        local entry = byKey[key]
+        if entry and entry.list and entry.hideCompleted == hideCompleted then
+            self._cachedList = entry.list
+            self._cachedSourceKey = key
+            return self._cachedList
+        end
     end
     local src = self:GetSource(key)
     if not src or not src.provider then
@@ -98,6 +110,13 @@ function ActiveAchievementState:RefreshList()
     end
     self._cachedList = list
     self._cachedSourceKey = key
+    if not self._cachedListByKey then
+        self._cachedListByKey = {}
+    end
+    self._cachedListByKey[key] = {
+        list = list,
+        hideCompleted = hideCompleted,
+    }
     return list
 end
 
@@ -107,12 +126,12 @@ function ActiveAchievementState:SetActiveSource(key)
         return
     end
     self._activeSourceKey = key
+    -- Clear active pointer only; per-source snapshots remain in _cachedListByKey for revisits.
     self._cachedList = nil
     self._cachedSourceKey = nil
     local list = self:RefreshList()
     if list and list[1] then
-        local firstId = (list[1].id) or (list[1].data and list[1].data.id)
-        self._activeAchievementId = firstId
+        self._activeAchievementId = AchievementListUtils.resolveIdFromNode(list[1])
     else
         self._activeAchievementId = nil
     end
@@ -129,7 +148,7 @@ function ActiveAchievementState:SetActiveAchievementByIndex(index)
         return
     end
     local item = list[index]
-    local id = (item and item.id) or (item and item.data and item.data.id)
+    local id = AchievementListUtils.resolveIdFromNode(item)
     self._activeAchievementId = id
     if MetaAchievementSettings and id then
         MetaAchievementSettings:Set("selectedAchievementId", id)
@@ -138,15 +157,13 @@ end
 
 --- Set active achievement by achievement id. Finds index in current list and sets. Syncs to settings.
 function ActiveAchievementState:SetActiveAchievementById(id)
-    local wantId = id and (tonumber(id) or id)
+    local wantId = AchievementListUtils.normalizeAchievementId(id)
     if not wantId then return end
     local list = self:RefreshList()
     if not list then return end
-    for i, n in ipairs(list) do
-        if n and ((n.id == wantId) or (n.data and n.data.id == wantId)) then
-            self:SetActiveAchievementByIndex(i)
-            return
-        end
+    local idx = AchievementListUtils.findIndexForAchievementId(list, wantId)
+    if idx then
+        self:SetActiveAchievementByIndex(idx)
     end
 end
 
@@ -162,15 +179,14 @@ function ActiveAchievementState:LoadFromSettings()
         self:RefreshList()
         local list = self._cachedList
         if id then
-            local wantId = tonumber(id) or id
-            for _, n in ipairs(list or {}) do
-                if n and ((n.id == wantId) or (n.data and n.data.id == wantId)) then
-                    self._activeAchievementId = wantId
-                    return
-                end
+            local wantId = AchievementListUtils.normalizeAchievementId(id)
+            local idx = AchievementListUtils.findIndexForAchievementId(list or {}, wantId)
+            if idx then
+                self._activeAchievementId = wantId
+                return
             end
         end
-        self._activeAchievementId = (list and list[1]) and ((list[1].id) or (list[1].data and list[1].data.id)) or nil
+        self._activeAchievementId = AchievementListUtils.resolveIdFromNode(list and list[1])
     end
 end
 
@@ -199,13 +215,7 @@ function ActiveAchievementState:GetActiveIndex()
     local list = self:RefreshList()
     local id = self._activeAchievementId
     if not list or not id then return nil end
-    local wantId = tonumber(id) or id
-    for i, n in ipairs(list) do
-        if n and ((n.id == wantId) or (n.data and n.data.id == wantId)) then
-            return i
-        end
-    end
-    return nil
+    return AchievementListUtils.findIndexForAchievementId(list, id)
 end
 
 --- Get the active item (node) from the current list.
@@ -218,10 +228,11 @@ function ActiveAchievementState:GetActiveItem()
     return list[idx]
 end
 
---- Invalidate cached list (e.g. after expand/collapse). Next GetList/RefreshList will rebuild.
+--- Invalidate cached list (e.g. after expand/collapse, achievement earned, hideCompleted change).
 function ActiveAchievementState:InvalidateList()
     self._cachedList = nil
     self._cachedSourceKey = nil
+    self._cachedListByKey = nil
 end
 
 -- Singleton instance

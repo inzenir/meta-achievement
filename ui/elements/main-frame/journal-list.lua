@@ -4,28 +4,95 @@
 local ROW_HEIGHT = 22
 local ROW_GAP = 0
 
-local function ensureBus()
-    MetaAchievementUIBus = MetaAchievementUIBus or {}
-    if type(MetaAchievementUIBus.Register) ~= "function" then
-        function MetaAchievementUIBus:Register(eventName, handler)
-            self._listeners = self._listeners or {}
-            self._listeners[eventName] = self._listeners[eventName] or {}
-            self._listeners[eventName][#self._listeners[eventName] + 1] = handler
-            return handler
+--- ScrollBox rows are often unnamed; GetRegions() order is not guaranteed, so the first Texture is not always $parentSelected.
+--- Selection uses the BACKGROUND QuestTitleHighlight layer; the Button's HighlightTexture uses the same file — skip GetHighlightTexture().
+local function journalRowResolveSelectedTexture(frame)
+    if not frame then return nil end
+    local hi = frame.GetHighlightTexture and frame:GetHighlightTexture()
+    local function isSelectionHighlight(tex)
+        if not tex or not tex.GetTexture then return false end
+        local p = tex:GetTexture()
+        return type(p) == "string" and p:find("QuestTitleHighlight", 1, true) ~= nil
+    end
+    if frame.Selected and isSelectionHighlight(frame.Selected) and frame.Selected ~= hi then
+        return frame.Selected
+    end
+    local name = frame:GetName()
+    if name then
+        local sel = _G[name .. "Selected"]
+        if sel and isSelectionHighlight(sel) and sel ~= hi then
+            return sel
         end
     end
-    if type(MetaAchievementUIBus.Emit) ~= "function" then
-        function MetaAchievementUIBus:Emit(eventName, ...)
-            local list = self._listeners and self._listeners[eventName]
-            if not list then return end
-            for _, handler in ipairs(list) do pcall(handler, ...) end
+    for _, r in ipairs({ frame:GetRegions() }) do
+        if r and r.GetObjectType and r:GetObjectType() == "Texture" and r ~= hi and isSelectionHighlight(r) then
+            return r
         end
+    end
+    return nil
+end
+
+local function journalRowEnsureSelectedTexture(frame)
+    local sel = journalRowResolveSelectedTexture(frame)
+    if sel then return sel end
+    if frame._metaJournalCreatedSelected then
+        return frame._metaJournalCreatedSelected
+    end
+    if not frame.CreateTexture then return nil end
+    local t = frame:CreateTexture(nil, "BACKGROUND")
+    t:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
+    t:SetBlendMode("ADD")
+    t:SetAllPoints(frame)
+    t:Hide()
+    frame._metaJournalCreatedSelected = t
+    return t
+end
+
+--- Prefer ActiveAchievementState id (source of truth); fall back to list index when state is unavailable.
+local function journalRowShouldShowSelectionHighlight(list, index, item)
+    if not list or not index or not item then return false end
+    if AchievementListUtils and type(AchievementListUtils.resolveIdFromNode) == "function" and type(AchievementListUtils.normalizeAchievementId) == "function" then
+        local st = ActiveAchievementState and ActiveAchievementState:GetInstance()
+        local aid = st and type(st.GetActiveAchievementId) == "function" and st:GetActiveAchievementId()
+        local rid = AchievementListUtils.resolveIdFromNode(item)
+        if aid and rid then
+            return AchievementListUtils.normalizeAchievementId(aid) == AchievementListUtils.normalizeAchievementId(rid)
+        end
+    end
+    return list._selectedIndex == index
+end
+
+local function journalListScrollBoxBumpLayout(scrollBox)
+    if not scrollBox then return end
+    if type(scrollBox.FullUpdate) == "function" then
+        scrollBox:FullUpdate()
+    elseif type(scrollBox.Update) == "function" then
+        scrollBox:Update()
+    end
+end
+
+--- WowScrollBoxList does not reliably re-run the row initializer when only list._selectedIndex changes; Flush+Insert forces the same repaint as open/close.
+local function journalListFlushAndRepaint(self)
+    local dp = self._dataProvider
+    if not dp or not self._items then return end
+    dp:Flush()
+    for i, item in ipairs(self._items) do
+        dp:Insert({ index = i, item = item })
+    end
+    if self._view and self._view.Refresh then
+        self._view:Refresh()
+    end
+    journalListScrollBoxBumpLayout(self.ScrollBox)
+    if C_Timer and C_Timer.After then
+        C_Timer.After(0, function()
+            if self and self.ScrollBox then
+                journalListScrollBoxBumpLayout(self.ScrollBox)
+            end
+        end)
     end
 end
 
 function MetaAchievementJournalList_OnLoad(self)
-    ensureBus()
-
     self.ScrollBox = self.ScrollBox or _G[self:GetName() .. "ScrollBox"]
     self.ScrollBar = self.ScrollBar or _G[self:GetName() .. "ScrollBar"]
 
@@ -154,13 +221,14 @@ function MetaAchievementJournalList_OnLoad(self)
                 frame.Status:SetVertexColor(1, 1, 1, 1)  -- Default (white/gold)
             end
         end
+        frame.Selected = journalRowEnsureSelectedTexture(frame)
         if frame.Selected then
-            frame.Selected:SetShown(list._selectedIndex == index)
+            frame.Selected:SetShown(journalRowShouldShowSelectionHighlight(list, index, item))
         end
 
+        -- Selection + highlight: MA_JOURNAL_LIST_ITEM_CLICKED → SetSelectedIndex → JournalList_SetSelectedIndex (do not Refresh here:
+        -- state must update first, and view:Refresh alone does not repaint pooled rows until ScrollBox FullUpdate).
         frame:SetScript("OnClick", function(f, btn)
-            list._selectedIndex = f._index
-            if list._view and list._view.Refresh then list._view:Refresh() end
             local it = list._items and list._items[f._index]
             MetaAchievementUIBus:Emit("MA_JOURNAL_LIST_ITEM_CLICKED", list, f._index, it, btn)
         end)
@@ -179,15 +247,20 @@ function MetaAchievementJournalList_SetItems(self, items, journalFrame)
     self._items = items or {}
     self._journalFrame = journalFrame
     self._selectedIndex = nil
-    local dp = self._dataProvider
-    if not dp then return end
-    dp:Flush()
-    for i, item in ipairs(self._items) do
-        dp:Insert({ index = i, item = item })
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if state and type(state.GetActiveIndex) == "function" then
+        local ai = state:GetActiveIndex()
+        if ai and ai >= 1 and ai <= #self._items then
+            self._selectedIndex = ai
+        end
     end
-    if self._view and self._view.Refresh then
-        self._view:Refresh()
+    if not self._selectedIndex and journalFrame and type(journalFrame._selectedIndex) == "number" then
+        local j = journalFrame._selectedIndex
+        if j >= 1 and j <= #self._items then
+            self._selectedIndex = j
+        end
     end
+    journalListFlushAndRepaint(self)
 end
 
 function MetaAchievementJournalListExpand_OnClick(expandButton)
@@ -204,20 +277,16 @@ function MetaAchievementJournalListExpand_OnClick(expandButton)
 end
 
 function MetaAchievementJournalList_SetSelectedIndex(self, index)
-    self._selectedIndex = index
-    if self._view and self._view.Refresh then
-        self._view:Refresh()
+    if type(index) ~= "number" or index < 1 then
+        return
     end
+    self._selectedIndex = index
+    journalListFlushAndRepaint(self)
 end
 
 function MetaAchievementJournalListRow_OnClick(row, button)
-    ensureBus()
     local list = row._owner
     if not list then return end
-    list._selectedIndex = row._index
-    if list._view and list._view.Refresh then
-        list._view:Refresh()
-    end
     local item = list._items and list._items[row._index]
     MetaAchievementUIBus:Emit("MA_JOURNAL_LIST_ITEM_CLICKED", list, row._index, item, button)
 end

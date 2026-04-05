@@ -1,24 +1,4 @@
--- Standalone scrollbar element + tiny event bus.
--- The scrollbar attaches to a ScrollFrame and communicates via MetaAchievementUIBus events.
-
-MetaAchievementUIBus = MetaAchievementUIBus or {}
-
-function MetaAchievementUIBus:Register(eventName, handler)
-    self._listeners = self._listeners or {}
-    self._listeners[eventName] = self._listeners[eventName] or {}
-    self._listeners[eventName][#self._listeners[eventName] + 1] = handler
-    return handler
-end
-
-function MetaAchievementUIBus:Emit(eventName, ...)
-    local list = self._listeners and self._listeners[eventName]
-    if not list then
-        return
-    end
-    for _, handler in ipairs(list) do
-        pcall(handler, ...)
-    end
-end
+-- Standalone scrollbar: attaches to a ScrollFrame; optional MetaAchievementUIBus hooks for scroll notifications.
 
 local function clamp(v, minV, maxV)
     if v < minV then return minV end

@@ -7,32 +7,25 @@ MetaAchievementDB = {
 }
 
 -- Keybind and primaryWindow call this; must exist as soon as addon is loaded.
--- If mini is visible, use mini toggle (hide it) then show main. Otherwise use main frame toggle.
 function MetaAchievement_ToggleWindowVisibility()
-    if MetaAchievementSettings and MetaAchievementSettings:Get("lastOpenWindow") == "mini" then
-        if type(MetaAchievementMiniFrame_ToggleVisibility) == "function" then
-            MetaAchievementMiniFrame_ToggleVisibility()
-        end
-    else
-        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.Toggle) == "function" then
-            MetaAchievementMainFrameMgr:Toggle()
-        end
+    if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.TogglePrimaryWindow) == "function" then
+        MetaAchievementWindowCoordinator.TogglePrimaryWindow()
     end
 end
 
--- Primary window: keybind and minimap call the helper above.
+-- Primary window: keybind and minimap use coordinator (same rules as controller paths).
 MetaAchievementDB.primaryWindow = {
     toggleVisibility = function()
         MetaAchievement_ToggleWindowVisibility()
     end,
     showWindow = function()
-        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowPanel) == "function" then
-            MetaAchievementMainFrameMgr:ShowPanel()
+        if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ShowMainHideMini) == "function" then
+            MetaAchievementWindowCoordinator.ShowMainHideMini()
         end
     end,
     hideWindow = function()
-        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
-            MetaAchievementMainFrameMgr:HidePanel()
+        if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.HideMainPanel) == "function" then
+            MetaAchievementWindowCoordinator.HideMainPanel()
         end
     end,
 }
@@ -110,12 +103,19 @@ function EntryPoint()
     if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.RegisterDataSource) == "function" then
         local function registerJournalSource(key, displayName, achievementList)
             local data = DataList:new(achievementList)
+            if DataList.RegisterForSourceKey then
+                DataList.RegisterForSourceKey(key, data)
+            end
 
             MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, {
                 topAchievementId = data.topAchievementId,
                 topAchievementMountId = (achievementList[1] and achievementList[1].mountId) or nil,
+                -- Rescanning the tree calls GetAchievementInfo for every node (expensive). Only rescan when the
+                -- tree is dirty (collapse change, or ACHIEVEMENT_EARNED); switching meta tabs reuses cached trees.
                 GetList = function()
-                    data:rescanData()
+                    if data._treeDirty then
+                        data:rescanData()
+                    end
                     return data:getFlatData()
                 end,
                 ToggleCollapsed = function(_, itemId)
@@ -126,9 +126,21 @@ function EntryPoint()
                     -- (The right pane uses map-detail to show the info.)
                 end,
                 RenderMap = function(_, journalFrame, _, content, node)
+                    -- Match main-frame.lua: resolve id when list node is missing (defer may run before state sync).
+                    -- Returning true with no detail used to skip the default path (rendered ~= nil) and left center empty.
                     local id = node and node.id or nil
                     if not id then
-                        return true
+                        local st = ActiveAchievementState and ActiveAchievementState:GetInstance()
+                        if st and type(st.GetActiveAchievementId) == "function" then
+                            id = st:GetActiveAchievementId()
+                        end
+                    end
+                    if not id and journalFrame and journalFrame._modelItems and journalFrame._selectedIndex then
+                        local row = journalFrame._modelItems[journalFrame._selectedIndex]
+                        id = row and row.id
+                    end
+                    if not id then
+                        return nil
                     end
 
                     local detailName = "MetaAchievementMainFrameMapDetail"
@@ -165,6 +177,67 @@ function EntryPoint()
         registerJournalSource(WindowTabs.farewellToArms, "A Farewell To Arms", AFarewellToArmsAchievements)
         registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements)
 
+        -- Achievement progress: ACHIEVEMENT_EARNED = full completion; CRITERIA_UPDATE = partial/meta criteria (no payload).
+        -- Mini frame previously only invalidated cache when main was hidden — it must rebuild list + detail from live APIs.
+        do
+            local function refreshJournalAfterAchievementProgress()
+                if DataList.MarkAllTreesDirty then
+                    DataList.MarkAllTreesDirty()
+                end
+                local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
+                if main and main:IsShown() and type(MetaAchievementMainFrameMgr.RefreshList) == "function" then
+                    MetaAchievementMainFrameMgr:RefreshList(main)
+                    return
+                end
+                local state = ActiveAchievementState and ActiveAchievementState.GetInstance and ActiveAchievementState:GetInstance()
+                if state and type(state.InvalidateList) == "function" then
+                    state:InvalidateList()
+                end
+                local mini = _G.MetaAchievementMiniFrame
+                if mini and mini:IsShown() and type(MetaAchievementMiniFrame_RefreshContent) == "function" then
+                    MetaAchievementMiniFrame_RefreshContent()
+                end
+            end
+
+            -- CRITERIA_UPDATE can fire many times in a burst (login, combat); coalesce to one refresh.
+            local criteriaRefreshCoalesce = 0
+            local function scheduleCriteriaRefresh()
+                criteriaRefreshCoalesce = criteriaRefreshCoalesce + 1
+                local token = criteriaRefreshCoalesce
+                C_Timer.After(0.2, function()
+                    if token ~= criteriaRefreshCoalesce then
+                        return
+                    end
+                    refreshJournalAfterAchievementProgress()
+                    -- Drop completed-criteria pins from storage + re-sync TomTom/native (filter uses criteriaId tags).
+                    if MapIntegrationBase and type(MapIntegrationBase.GetInstance) == "function" then
+                        local mib = MapIntegrationBase.GetInstance()
+                        if mib and type(mib.PruneCompletedWaypointsAndNotify) == "function" then
+                            mib:PruneCompletedWaypointsAndNotify()
+                        end
+                    end
+                end)
+            end
+
+            local progressFrame = CreateFrame("Frame")
+            progressFrame:RegisterEvent("ACHIEVEMENT_EARNED")
+            progressFrame:RegisterEvent("CRITERIA_UPDATE")
+            pcall(function()
+                progressFrame:RegisterEvent("TRACKED_ACHIEVEMENT_UPDATE")
+            end)
+            progressFrame:SetScript("OnEvent", function(_, event, ...)
+                if event == "CRITERIA_UPDATE" or event == "TRACKED_ACHIEVEMENT_UPDATE" then
+                    scheduleCriteriaRefresh()
+                elseif event == "ACHIEVEMENT_EARNED" then
+                    local achievementId = select(1, ...)
+                    if MapIntegrationBase and type(MapIntegrationBase.NotifyAchievementEarned) == "function" then
+                        MapIntegrationBase.NotifyAchievementEarned(achievementId)
+                    end
+                    refreshJournalAfterAchievementProgress()
+                end
+            end)
+        end
+
         -- Restore active source/achievement from saved settings
         if ActiveAchievementState and type(ActiveAchievementState.GetInstance) == "function" then
             local state = ActiveAchievementState:GetInstance()
@@ -174,32 +247,8 @@ function EntryPoint()
         end
 
         -- Restore last open window (mini or main) from saved hidden option.
-        local lastOpen = MetaAchievementSettings and MetaAchievementSettings:Get("lastOpenWindow") or "main"
-        if lastOpen == "mini" and type(MetaAchievementMiniFrame_Show) == "function" then
-            -- Ensure state has an active source when opening mini by default (e.g. no valid saved key).
-            local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
-            if state and type(state.GetActiveSourceKey) == "function" and not state:GetActiveSourceKey() then
-                local sources = state:GetRegisteredSources()
-                if type(sources) == "table" and sources[1] and sources[1].key then
-                    state:SetActiveSource(sources[1].key)
-                end
-            end
-            if state and type(state.InvalidateList) == "function" then
-                state:InvalidateList()
-            end
-            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
-                MetaAchievementMainFrameMgr:HidePanel()
-            end
-            -- Defer show to next frame so data/layout are ready (achievement APIs, etc.).
-            C_Timer.After(0, function()
-                if type(MetaAchievementMiniFrame_Show) == "function" then
-                    MetaAchievementMiniFrame_Show()
-                end
-            end)
-        else
-            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowPanel) == "function" then
-                MetaAchievementMainFrameMgr:ShowPanel()
-            end
+        if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.RestoreStartupWindowFromSettings) == "function" then
+            MetaAchievementWindowCoordinator.RestoreStartupWindowFromSettings()
         end
 
         if RegisterMetaAchievementOptionsPanel then

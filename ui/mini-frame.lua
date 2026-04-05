@@ -37,6 +37,59 @@ local function getMiniFrameDataSources()
     return {}
 end
 
+-- Global name must match XML <Frame name="..."> for UISpecialFrames (Blizzard ESC handler uses _G[name]).
+local MINI_FRAME_GLOBAL_NAME = "MetaAchievementMiniFrame"
+
+local function removeMiniFromUISpecialFrames()
+    local list = UISpecialFrames
+    if type(list) ~= "table" then
+        return
+    end
+    for i = #list, 1, -1 do
+        if list[i] == MINI_FRAME_GLOBAL_NAME then
+            table.remove(list, i)
+        end
+    end
+end
+
+--- Retail ESC: UISpecialFrames drives "press Esc to dismiss this panel". Do not use EnableKeyboard/OnKeyDown on the
+--- mini — ButtonFrameTemplate + manual keyboard hooks fight each other and break the game menu after toggling options.
+--- When miniJournalEscapeDoesNotClose is true, keep the frame *out* of UISpecialFrames so Esc opens the game menu.
+local function syncMiniUISpecialFrameForCurrentSetting()
+    local list = UISpecialFrames
+    if type(list) ~= "table" then
+        return
+    end
+    removeMiniFromUISpecialFrames()
+    local escapeDoesNotClose = MetaAchievementSettings and MetaAchievementSettings:Get("miniJournalEscapeDoesNotClose")
+    if escapeDoesNotClose then
+        return
+    end
+    table.insert(list, MINI_FRAME_GLOBAL_NAME)
+end
+
+local function applyMiniEscapeKeyboardMode(frame)
+    if not frame or not frame:IsShown() then
+        return
+    end
+    pcall(function()
+        if frame.SetPropagateKeyboardInput then
+            frame:SetPropagateKeyboardInput(true)
+        end
+    end)
+    frame:SetScript("OnKeyDown", nil)
+    pcall(function()
+        frame:EnableKeyboard(false)
+    end)
+    syncMiniUISpecialFrameForCurrentSetting()
+    -- ButtonFrameTemplate may register UISpecialFrames after our OnShow; run again next frame so list matches setting.
+    C_Timer.After(0, function()
+        if frame:IsShown() then
+            syncMiniUISpecialFrameForCurrentSetting()
+        end
+    end)
+end
+
 function MetaAchievementMiniFrameDropdown_OnLoad(self)
     local frame = self:GetParent()
     if not frame then
@@ -77,13 +130,17 @@ function MetaAchievementMiniFrameDropdown_OnLoad(self)
                 return currentKey == key
             end
             local function setSelected(key)
-                if state and type(state.SetActiveSource) == "function" then
-                    state:SetActiveSource(key)
-                elseif MetaAchievementSettings and type(MetaAchievementSettings.Set) == "function" then
-                    MetaAchievementSettings:Set("selectedSourceKey", key)
-                end
-                if type(MetaAchievementMiniFrame_RefreshContent) == "function" then
-                    MetaAchievementMiniFrame_RefreshContent()
+                if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
+                    MetaAchievementUIBus:Emit("MA_MINI_SOURCE_CHANGED", key)
+                else
+                    if state and type(state.SetActiveSource) == "function" then
+                        state:SetActiveSource(key)
+                    elseif MetaAchievementSettings and type(MetaAchievementSettings.Set) == "function" then
+                        MetaAchievementSettings:Set("selectedSourceKey", key)
+                    end
+                    if type(MetaAchievementMiniFrame_RefreshContent) == "function" then
+                        MetaAchievementMiniFrame_RefreshContent()
+                    end
                 end
                 if dropdownMenu then
                     dropdownMenu:Close()
@@ -173,27 +230,22 @@ function MetaAchievementMiniFrame_OnLoad(self)
         end
     end
     applyLockPosition()
-    -- Only enable keyboard while visible. Enabling keyboard on a hidden frame can steal ESC globally
-    -- (game menu won't open) — especially noticeable with "Escape does not close" + mini closed.
+    -- ESC: UISpecialFrames only (see applyMiniEscapeKeyboardMode). OnHide strips list entry + ReleaseKeyboardCapture.
     self:EnableKeyboard(false)
     self:SetScript("OnShow", function(f)
-        f:EnableKeyboard(true)
+        applyMiniEscapeKeyboardMode(f)
     end)
     self:SetScript("OnHide", function(f)
-        f:EnableKeyboard(false)
-    end)
-    -- Escape closes this window (whichever addon window is open), unless "Escape does not close" is set.
-    self:SetScript("OnKeyDown", function(_, key)
-        if key == "ESCAPE" then
-            local escapeDoesNotClose = MetaAchievementSettings and MetaAchievementSettings:Get("miniJournalEscapeDoesNotClose")
-            if not escapeDoesNotClose then
-                self:SetPropagateKeyboardInput(false)
-                MetaAchievementMiniFrame_Hide()
-            else
-                self:SetPropagateKeyboardInput(true)
+        removeMiniFromUISpecialFrames()
+        pcall(function()
+            if f.SetPropagateKeyboardInput then
+                f:SetPropagateKeyboardInput(true)
             end
-        else
-            self:SetPropagateKeyboardInput(true)
+        end)
+        f:EnableKeyboard(false)
+        f:SetScript("OnKeyDown", nil)
+        if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ReleaseKeyboardCapture) == "function" then
+            MetaAchievementWindowCoordinator.ReleaseKeyboardCapture()
         end
     end)
     self:SetScript("OnDragStart", function()
@@ -210,9 +262,15 @@ function MetaAchievementMiniFrame_OnLoad(self)
     if largerBtn then
         largerBtn:SetFrameLevel(1000)
         largerBtn:SetScript("OnClick", function()
-            MetaAchievementMiniFrame_Hide()
-            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowPanel) == "function" then
-                MetaAchievementMainFrameMgr:ShowPanel()
+            if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
+                MetaAchievementUIBus:Emit("MA_MINI_OPEN_FULL_JOURNAL")
+            elseif MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ShowMainHideMini) == "function" then
+                MetaAchievementWindowCoordinator.ShowMainHideMini()
+            else
+                MetaAchievementMiniFrame_Hide()
+                if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.ShowPanel) == "function" then
+                    MetaAchievementMainFrameMgr:ShowPanel()
+                end
             end
         end)
         if type(MetaAchievement_CogButtonSetTooltip) == "function" then
@@ -238,6 +296,19 @@ function MetaAchievementMiniFrame_OnLoad(self)
         end)
         MetaAchievementSettings:RegisterListener("miniJournalLockPosition", function()
             applyLockPosition()
+        end)
+        MetaAchievementSettings:RegisterListener("miniJournalEscapeDoesNotClose", function()
+            if not self:IsShown() then
+                return
+            end
+            local miniFrame = self
+            -- Defer: changing the checkbox while the Settings panel is open can leave keyboard/focus mid-update;
+            -- applying next frame re-syncs after Blizzard finishes (avoids ESC not reaching the game menu on mini).
+            C_Timer.After(0, function()
+                if miniFrame:IsShown() then
+                    applyMiniEscapeKeyboardMode(miniFrame)
+                end
+            end)
         end)
         MetaAchievementSettings:RegisterListener("selectedSourceKey", function()
             if self:IsShown() then MetaAchievementMiniFrame_RefreshContent() end
@@ -459,6 +530,12 @@ function MetaAchievementMiniFrame_Show()
     local frame = _G.MetaAchievementMiniFrame
     if not frame then
         return
+    end
+    -- Same as startup restore: do not show main journal and mini at once (e.g. /mini while main is open).
+    if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.HideMainPanel) == "function" then
+        MetaAchievementWindowCoordinator.HideMainPanel()
+    elseif MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+        MetaAchievementMainFrameMgr:HidePanel()
     end
     -- Invalidate list so refresh uses current data (e.g. when opening by default at addon load).
     local state = ActiveAchievementState and ActiveAchievementState:GetInstance()

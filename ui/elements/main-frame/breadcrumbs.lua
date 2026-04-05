@@ -2,21 +2,6 @@
 -- Renders: Journal > Parent > Child > Selected
 -- - Home button: fixed text "Journal", not clickable
 
-local function ensureBus()
-    MetaAchievementUIBus = MetaAchievementUIBus or {}
-    if type(MetaAchievementUIBus.Emit) ~= "function" then
-        function MetaAchievementUIBus:Emit(eventName, ...)
-            local list = self._listeners and self._listeners[eventName]
-            if not list then
-                return
-            end
-            for _, handler in ipairs(list) do
-                pcall(handler, ...)
-            end
-        end
-    end
-end
-
 local function getNodeName(node)
     if not node then
         return ""
@@ -142,10 +127,7 @@ local function render(self, items, selectedNode, topNode)
     end
 
     local function emitClicked(node)
-        ensureBus()
-        if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
-            MetaAchievementUIBus:Emit("MA_BREADCRUMB_CLICKED", self, node and node.id or nil, node, "LeftButton")
-        end
+        MetaAchievementUIBus:Emit("MA_BREADCRUMB_CLICKED", self, node and node.id or nil, node, "LeftButton")
     end
 
     -- Create listFunc for first button if dropdown functionality is available
@@ -186,8 +168,6 @@ local function render(self, items, selectedNode, topNode)
 end
 
 function MetaAchievementBreadcrumbs_OnLoad(self)
-    ensureBus()
-
     -- Initialize dropdown functionality if available
     if type(MetaAchievementBreadcrumbsDropdown_OnLoad) == "function" then
         MetaAchievementBreadcrumbsDropdown_OnLoad(self)
