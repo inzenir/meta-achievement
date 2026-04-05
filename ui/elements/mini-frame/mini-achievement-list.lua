@@ -26,6 +26,58 @@ end
 local NODE_ICON_COMPLETED = "Interface\\Buttons\\UI-CheckBox-Check"
 local NODE_ICON_NOT_COMPLETED = "Interface\\Buttons\\UI-StopButton"
 
+--- Resolve achievement id from a flat list row click (achievement or criteria sub-row).
+local function resolveClickedAchievementId(list, elementData)
+    if not elementData then
+        return nil
+    end
+    local rt = elementData.rowType
+    if rt == "achievement" and elementData.item and AchievementListUtils and AchievementListUtils.resolveIdFromNode then
+        return AchievementListUtils.resolveIdFromNode(elementData.item)
+    end
+    if (rt == "criteria_header" or rt == "criteria_line") and elementData.parentOriginalIndex and list and list._items then
+        local parentItem = list._items[elementData.parentOriginalIndex]
+        if parentItem and AchievementListUtils and AchievementListUtils.resolveIdFromNode then
+            return AchievementListUtils.resolveIdFromNode(parentItem)
+        end
+    end
+    return nil
+end
+
+--- Apply selection to ActiveAchievementState + settings (by id so list/cache cannot desync from flat indices).
+local function applyMiniListSelectionToState(list, elementData)
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if not state then
+        return
+    end
+    if type(state.GetActiveSourceKey) == "function" and not state:GetActiveSourceKey() then
+        local key = MetaAchievementSettings and MetaAchievementSettings:Get("selectedSourceKey")
+        if key and type(state.SetActiveSource) == "function" and state:GetSource(key) then
+            state:SetActiveSource(key)
+        end
+    end
+    local id = resolveClickedAchievementId(list, elementData)
+    if id and type(state.SetActiveAchievementById) == "function" then
+        state:SetActiveAchievementById(id)
+        return
+    end
+    local idx = elementData.parentOriginalIndex or (elementData.item and elementData.item._originalIndex)
+    if type(state.SetActiveAchievementByIndex) == "function" and idx then
+        state:SetActiveAchievementByIndex(idx)
+    end
+end
+
+--- Full list rebuild from state after a click so flat indices, data provider, and _selectedIndex stay in sync (virtualized rows cannot drift).
+local function miniListRebuildAfterSelection(list)
+    if not list then return end
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    local items = list._items
+    if state and type(state.GetList) == "function" then
+        items = state:GetList() or items
+    end
+    MetaAchievementMiniList_SetItems(list, items, list._miniFrame, true)
+end
+
 local function isMiniListAchievementCompleted(item)
     return item and item.data and item.data.completed == true
 end
@@ -312,20 +364,21 @@ function MetaAchievementMiniList_OnLoad(self)
             end
         end
 
-        -- Do not show row selection highlight (index can desync from visible rows when list changes).
+        -- Selection highlight: _selectedIndex is set in SetItems from state:GetActiveIndex() after each rebuild.
         if frame.Selected then
-            frame.Selected:Hide()
+            if rowType == "achievement" then
+                frame.Selected:SetShown(list._selectedIndex == index)
+            else
+                frame.Selected:Hide()
+            end
         end
 
-        local parentOriginalIndex = elementData.parentOriginalIndex or (elementData.item and elementData.item._originalIndex)
         frame:SetScript("OnClick", function(f)
-            list._selectedIndex = f._index
-            if list._view and list._view.Refresh then list._view:Refresh() end
-            local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
-            if state and type(state.SetActiveAchievementByIndex) == "function" and parentOriginalIndex then
-                state:SetActiveAchievementByIndex(parentOriginalIndex)
+            local ed = f._elementData
+            if ed then
+                applyMiniListSelectionToState(list, ed)
             end
-            -- Do not call RefreshContent here: it rebuilds the entire list and causes a large FPS drop. Selection + state update is enough.
+            miniListRebuildAfterSelection(list)
         end)
         frame:SetScript("OnEnter", nil)
         frame:SetScript("OnLeave", nil)
@@ -340,7 +393,8 @@ function MetaAchievementMiniList_OnLoad(self)
     self._view = view
 end
 
-function MetaAchievementMiniList_SetItems(self, items, miniFrame)
+--- @param preserveScroll boolean|nil If true, skip ScrollToBegin after rebuild (e.g. selection click — avoids jumping to top).
+function MetaAchievementMiniList_SetItems(self, items, miniFrame, preserveScroll)
     self._items = items or {}
     self._miniFrame = miniFrame
     self._criteriaExpanded = self._criteriaExpanded or {}
@@ -435,8 +489,10 @@ function MetaAchievementMiniList_SetItems(self, items, miniFrame)
         if scrollBox then
             if type(scrollBox.FullUpdate) == "function" then scrollBox:FullUpdate()
             elseif type(scrollBox.Update) == "function" then scrollBox:Update() end
-            if type(scrollBox.ScrollToBegin) == "function" then scrollBox:ScrollToBegin()
-            elseif scrollBar and type(scrollBar.SetValue) == "function" then scrollBar:SetValue(0) end
+            if not preserveScroll then
+                if type(scrollBox.ScrollToBegin) == "function" then scrollBox:ScrollToBegin()
+                elseif scrollBar and type(scrollBar.SetValue) == "function" then scrollBar:SetValue(0) end
+            end
         end
     end)
 end
@@ -483,12 +539,9 @@ end
 function MetaAchievementMiniListRow_OnClick(row, button)
     local list = row._owner
     if not list then return end
-    list._selectedIndex = row._index
-    if list._view and list._view.Refresh then list._view:Refresh() end
-    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
-    local originalIndex = row._elementData and row._elementData.parentOriginalIndex
-    if state and type(state.SetActiveAchievementByIndex) == "function" and originalIndex then
-        state:SetActiveAchievementByIndex(originalIndex)
+    local ed = row._elementData
+    if ed then
+        applyMiniListSelectionToState(list, ed)
     end
-    -- Do not call RefreshContent: it rebuilds the entire list and causes a large FPS drop.
+    miniListRebuildAfterSelection(list)
 end

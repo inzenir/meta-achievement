@@ -9,7 +9,10 @@ function TomTomWaypoint:new(mapId, x, y, title)
     obj.y = y
     obj.options = {
         title = title,
+        -- false: do not let TomTom duplicate pins into its profile; we own sync via UpdateWaypoints + optional uids in SV.
         persistent = false,
+        -- 0 = never auto-clear on approach (pins stay until we remove them or UpdateWaypoints clears them).
+        cleardistance = 0,
         from = MetaAchievementTitle
     }
 

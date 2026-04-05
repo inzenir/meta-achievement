@@ -19,6 +19,75 @@ end
 
 local getTopNodeForBreadcrumbs -- forward decl; defined after GetSelectedSource
 
+--- After ShowUIPanel / cold open, MapInset and WowScrollBoxList often still have 0 size when the first RenderMap runs.
+--- Re-run list layout + selection once the panel has real dimensions (fixes missing requirements / scroll on first open).
+local function scheduleJournalDetailResyncAfterShow(frame)
+    if not frame or not C_Timer or not C_Timer.After then
+        return
+    end
+    local token = (frame._journalShowResyncToken or 0) + 1
+    frame._journalShowResyncToken = token
+    C_Timer.After(0.05, function()
+        if not frame or frame._journalShowResyncToken ~= token then
+            return
+        end
+        if frame.IsShown and not frame:IsShown() then
+            return
+        end
+        if not MetaAchievementMainFrameMgr or not frame._selectedSourceKey or not frame._modelItems or #frame._modelItems == 0 then
+            return
+        end
+        MetaAchievementMainFrameMgr:UpdateListVisibility(frame)
+        local idx = frame._selectedIndex
+        if not idx or idx < 1 or idx > #frame._modelItems then
+            idx = 1
+        end
+        MetaAchievementMainFrameMgr:SetSelectedIndex(frame, idx)
+        local d = frame._currentMapDetail
+        if d and type(MetaAchievementMapDetail_RefreshContentLayout) == "function" then
+            MetaAchievementMapDetail_RefreshContentLayout(d)
+        end
+    end)
+end
+
+--- Map/detail work is heavy; run after list + breadcrumbs so the first frame can finish painting (DEV-013).
+--- UpdateListVisibility MUST run before RenderMap: MapInset must be shown and anchored to the list or the detail
+--- requirements ScrollBox lays out at 0 height until the user clicks (re-selects) the achievement.
+local function deferJournalMapAndVisibility(mgr, frame)
+    if not mgr or not frame then
+        return
+    end
+    local token = frame._mapRenderToken or 0
+    frame._mapRenderToken = token + 1
+    local nextToken = frame._mapRenderToken
+    C_Timer.After(0, function()
+        if not frame or (frame.IsShown and not frame:IsShown()) then
+            return
+        end
+        if frame._mapRenderToken ~= nextToken then
+            return
+        end
+        local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+        local item = state and state:GetActiveItem() or nil
+        if not item and frame._modelItems and frame._selectedIndex then
+            item = frame._modelItems[frame._selectedIndex]
+        end
+        mgr:UpdateListVisibility(frame)
+        mgr:RenderMap(frame, item)
+    end)
+end
+
+local function mainFrame_OnKeyDown(self, key)
+    if key == "ESCAPE" then
+        self:SetPropagateKeyboardInput(false)
+        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+            MetaAchievementMainFrameMgr:HidePanel()
+        end
+    else
+        self:SetPropagateKeyboardInput(true)
+    end
+end
+
 local function clearRegions(parent)
     for _, region in ipairs({ parent:GetRegions() }) do
         region:Hide()
@@ -132,18 +201,6 @@ local function buildModelFromProvider(provider)
     return items
 end
 
-local function findIndexById(items, id)
-    if type(items) ~= "table" or not id then
-        return nil
-    end
-    for i, node in ipairs(items) do
-        if node and node.id == id then
-            return i
-        end
-    end
-    return nil
-end
-
 local function setFramePortrait(frame, texturePath)
     if not frame or not texturePath then
         return
@@ -207,12 +264,12 @@ function MetaAchievementMainFrameMgr:SelectSource(frame, key)
         frame._emptyStatePreview = nil
         frame._modelItems = buildModelFromProvider(src.provider)
         frame._selectedIndex = nil
+        self:UpdateListVisibility(frame)
         if frame._modelItems and frame._modelItems[1] then
             self:SetSelectedIndex(frame, 1)
         else
             self:RenderMap(frame, nil)
         end
-        self:UpdateListVisibility(frame)
         return
     end
 
@@ -248,8 +305,7 @@ function MetaAchievementMainFrameMgr:SelectSource(frame, key)
         if frame.JournalList and type(MetaAchievementJournalList_SetSelectedIndex) == "function" then
             MetaAchievementJournalList_SetSelectedIndex(frame.JournalList, frame._selectedIndex or 1)
         end
-        self:RenderMap(frame, state:GetActiveItem())
-        self:UpdateListVisibility(frame)
+        deferJournalMapAndVisibility(self, frame)
         return
     end
 
@@ -299,8 +355,7 @@ function MetaAchievementMainFrameMgr:SelectSource(frame, key)
     if frame.JournalList and type(MetaAchievementJournalList_SetSelectedIndex) == "function" then
         MetaAchievementJournalList_SetSelectedIndex(frame.JournalList, frame._selectedIndex or 1)
     end
-    self:RenderMap(frame, state:GetActiveItem())
-    self:UpdateListVisibility(frame)
+    deferJournalMapAndVisibility(self, frame)
 end
 
 function MetaAchievementMainFrameMgr:GetSelectedSource(frame)
@@ -480,6 +535,7 @@ function MetaAchievementMainFrameMgr:RefreshList(frame)
     if frame.JournalList and type(MetaAchievementJournalList_SetItems) == "function" then
         MetaAchievementJournalList_SetItems(frame.JournalList, frame._modelItems, frame)
     end
+    self:UpdateListVisibility(frame)
     local prevIndex = (state and state:GetActiveIndex()) or frame._selectedIndex
     if prevIndex and frame._modelItems[prevIndex] then
         self:SetSelectedIndex(frame, prevIndex)
@@ -491,10 +547,16 @@ function MetaAchievementMainFrameMgr:RefreshList(frame)
         end
         self:RenderMap(frame, nil)
     end
-    self:UpdateListVisibility(frame)
 end
 
 function MetaAchievementMainFrameMgr:SetSelectedIndex(frame, index)
+    if not frame or type(index) ~= "number" or index < 1 then
+        return
+    end
+    -- Invalidate any pending deferJournalMapAndVisibility callback (same nextToken check); otherwise the deferred
+    -- ClearMap+RenderMap runs after this sync path and wipes the detail / ScrollBox state from the first paint.
+    frame._mapRenderToken = (frame._mapRenderToken or 0) + 1
+
     frame._selectedIndex = index
     local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
     if state and type(state.SetActiveAchievementByIndex) == "function" then
@@ -511,7 +573,12 @@ function MetaAchievementMainFrameMgr:SetSelectedIndex(frame, index)
         local activeItem = (state and state:GetActiveItem()) or item
         MetaAchievementBreadcrumbs_SetSelection(frame.Breadcrumbs, frame._modelItems, activeItem, getTopNodeForBreadcrumbs(frame))
     end
+    -- List + map inset must be positioned before RenderMap (same as defer path); sync selection was missing this.
+    self:UpdateListVisibility(frame)
     self:RenderMap(frame, (state and state:GetActiveItem()) or item)
+    if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
+        MetaAchievementUIBus:Emit("MA_SELECTION_CHANGED", frame, index, item)
+    end
 end
 
 function MetaAchievementMainFrameMgr:ClearMap(frame)
@@ -521,20 +588,6 @@ function MetaAchievementMainFrameMgr:ClearMap(frame)
     local content = frame.MapInset.MapCanvas.DynamicContent or frame.MapInset.MapCanvas.Content
     clearChildren(content)
     clearRegions(content)
-end
-
---- Achievement id from a journal list node (id on node or nested data).
-local function resolveAchievementIdFromListItem(item)
-    if not item then
-        return nil
-    end
-    if item.id then
-        return item.id
-    end
-    if item.data and item.data.id then
-        return item.data.id
-    end
-    return nil
 end
 
 function MetaAchievementMainFrameMgr:RenderMap(frame, selectedItem)
@@ -573,7 +626,7 @@ function MetaAchievementMainFrameMgr:RenderMap(frame, selectedItem)
         -- If the flat list has no row for the current selection (e.g. hideCompleted, cache), GetActiveItem() is nil
         -- but ActiveAchievementState still has selectedAchievementId — still show detail + requirements from API/waypoints.
         local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
-        local achievementId = resolveAchievementIdFromListItem(selectedItem)
+        local achievementId = AchievementListUtils and AchievementListUtils.resolveIdFromNode(selectedItem)
         if not achievementId and state and type(state.GetActiveAchievementId) == "function" then
             achievementId = state:GetActiveAchievementId()
         end
@@ -695,31 +748,7 @@ function MetaAchievementMainFrame_OnLoad(self)
             self._selectedSourceKey
         )
     end
-    -- Subscribe to list element events
-    if MetaAchievementUIBus and type(MetaAchievementUIBus.Register) == "function" then
-        local frameRef = self
-        MetaAchievementUIBus:Register("MA_JOURNAL_LIST_ITEM_CLICKED", function(listFrame, index, item, button)
-            if frameRef and listFrame == frameRef.JournalList then
-                MetaAchievementMainFrameMgr:SetSelectedIndex(frameRef, index)
-
-                local src = MetaAchievementMainFrameMgr:GetSelectedSource(frameRef)
-                if src and src.provider and item then
-                    safeCall(src.provider.OnItemSelected, src.provider, item, button)
-                    safeCall(src.provider.onItemSelected, src.provider, item, button)
-                end
-            end
-        end)
-
-        MetaAchievementUIBus:Register("MA_BREADCRUMB_CLICKED", function(owner, nodeId, node, button)
-            if not frameRef or owner ~= frameRef.Breadcrumbs then
-                return
-            end
-            local idx = findIndexById(frameRef._modelItems, nodeId)
-            if idx then
-                MetaAchievementMainFrameMgr:SetSelectedIndex(frameRef, idx)
-            end
-        end)
-    end
+    MetaAchievementController_RegisterMainFrame(self)
     if self.MapInset then
         self.MapInset.MapCanvas = _G[self.MapInset:GetName() .. "MapCanvas"]
         if self.MapInset.MapCanvas then
@@ -743,18 +772,8 @@ function MetaAchievementMainFrame_OnLoad(self)
     self:SetFrameStrata("DIALOG")
     self:SetFrameLevel(200)
 
-    -- Escape closes this window (whichever addon window is open).
-    self:EnableKeyboard(true)
-    self:SetScript("OnKeyDown", function(_, key)
-        if key == "ESCAPE" then
-            self:SetPropagateKeyboardInput(false)
-            if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
-                MetaAchievementMainFrameMgr:HidePanel()
-            end
-        else
-            self:SetPropagateKeyboardInput(true)
-        end
-    end)
+    -- Keyboard / ESC: registered only in OnShow and cleared in OnHide (see WindowCoordinator.ReleaseKeyboardCapture).
+    self:EnableKeyboard(false)
 
     -- When these settings change, refresh the journal so list/detail/visibility match without re-opening or changing selection.
     do
@@ -789,6 +808,8 @@ function MetaAchievementMainFrame_OnLoad(self)
 end
 
 function MetaAchievementMainFrame_OnShow(self)
+    self:EnableKeyboard(true)
+    self:SetScript("OnKeyDown", mainFrame_OnKeyDown)
     -- Load selection from ActiveAchievementState when showing (do not use cached selection).
     local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
     if state and type(state.GetActiveSourceKey) == "function" then
@@ -809,6 +830,7 @@ function MetaAchievementMainFrame_OnShow(self)
 
     -- If we have a selected source but no selected item yet, auto-select the first item.
     if self._selectedSourceKey and (not self._selectedIndex) and self._modelItems and self._modelItems[1] then
+        MetaAchievementMainFrameMgr:UpdateListVisibility(self)
         MetaAchievementMainFrameMgr:SetSelectedIndex(self, 1)
     end
 
@@ -832,9 +854,23 @@ function MetaAchievementMainFrame_OnShow(self)
         end)
         self.SmallerButton:Show()
     end
+
+    -- Cold open: first RenderMap (sync or defer) often runs before UIPanel has finished sizing the journal.
+    -- When _selectedIndex is already set, OnShow skips SetSelectedIndex and only defer runs — repainting after layout fixes missing detail/requirements.
+    scheduleJournalDetailResyncAfterShow(self)
 end
 
 function MetaAchievementMainFrame_OnHide(self)
+    pcall(function()
+        if self.SetPropagateKeyboardInput then
+            self:SetPropagateKeyboardInput(true)
+        end
+    end)
+    self:EnableKeyboard(false)
+    self:SetScript("OnKeyDown", nil)
+    if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ReleaseKeyboardCapture) == "function" then
+        MetaAchievementWindowCoordinator.ReleaseKeyboardCapture()
+    end
     if self.SilverCogButton then self.SilverCogButton:Hide() end
     if self.SettingsButton then self.SettingsButton:Hide() end
     if self.SmallerButton then self.SmallerButton:Hide() end
@@ -842,14 +878,22 @@ end
 
 -- Called when the minimize (smaller) button is clicked: hide main frame, show mini frame.
 function MetaAchievementMainFrameMgr_MinimizeButtonOnClick()
-    local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
-    if main and main.Hide then
-        main:Hide()
-    elseif MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
-        MetaAchievementMainFrameMgr:HidePanel()
-    end
-    if type(MetaAchievementMiniFrame_Show) == "function" then
-        MetaAchievementMiniFrame_Show()
+    if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.HideMainShowMini) == "function" then
+        MetaAchievementWindowCoordinator.HideMainShowMini()
+    else
+        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
+            MetaAchievementMainFrameMgr:HidePanel()
+        else
+            local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
+            if main and main.Hide then
+                main:Hide()
+            end
+        end
+        C_Timer.After(0, function()
+            if type(MetaAchievementMiniFrame_Show) == "function" then
+                MetaAchievementMiniFrame_Show()
+            end
+        end)
     end
 end
 

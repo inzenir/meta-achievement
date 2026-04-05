@@ -19,7 +19,7 @@ function achiInfo(achievementId, depth)
         end
 
         if #rewards > 0 then
-            returnData[rewards] = rewards
+            returnData.rewards = rewards
         end
     end
 

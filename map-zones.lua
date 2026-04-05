@@ -122,10 +122,12 @@ MapZones = {
     SL_ZONE_Oribos = 1670,
     SL_ZONE_Korthia = 1962,
 
-    -- Midnight zones
+    -- Midnight expansion uiMapIDs (distinct overlays: Eversong Woods vs Silvermoon city).
     MIDNIGHT_ZONE_Voidstorm = 2405,
+    MIDNIGHT_ZONE_Slayers_Rise = 2444, -- subzone map (Rakshur, Eruundi); see Explore Voidstorm notes
     MIDNIGHT_ZONE_Harandar = 2413,
-    MIDNIGHT_ZONE_QuelThalas = 2395,
-    MIDNIGHT_ZONE_Eversong_Woods = 2393,
+    MIDNIGHT_ZONE_Isle_Of_QuelDanas = 2424,
+    MIDNIGHT_ZONE_Eversong_Woods = 2395,
+    MIDNIGHT_ZONE_MidnightSilvermoon = 2393,
     MIDNIGHT_ZONE_ZulAman = 2437,
 }

@@ -38,6 +38,7 @@ end
 
 function WoWAchievement:filterWaypoints(waypoints)
     local returnData = {}
+    local added = {}
     local numCriteria = GetAchievementNumCriteria(self.id)
 
     for _, wp in pairs(waypoints) do
@@ -49,7 +50,10 @@ function WoWAchievement:filterWaypoints(waypoints)
                 -- if it's a quest completion
                 if criteriaType == AchievementCriteriaTypes.CompletingAQuest then
                     if not C_QuestLog.IsQuestFlaggedCompletedOnAccount(assetID) then
-                        returnData[#returnData+1] = wp
+                        if not added[wp] then
+                            added[wp] = true
+                            returnData[#returnData+1] = wp
+                        end
                     end
                 end
             end

@@ -37,11 +37,15 @@ end
 function DataList:new(achievementItems)
     local obj = setmetatable({}, DataList)
 
-    obj.topAchievementId = achievementItems[1].id or nil
+    achievementItems = achievementItems or {}
+    local first = achievementItems[1]
+    -- Empty list: no [1]; avoid indexing nil (topAchievementId stays nil).
+    obj.topAchievementId = first and first.id or nil
     obj.achievements = achievementItems
 
     obj.colapsedItems = {}
-    if MetaAchievementConfigurationDB.mapIntegration
+    if obj.topAchievementId
+        and MetaAchievementConfigurationDB.mapIntegration
         and MetaAchievementConfigurationDB.mapIntegration[obj.topAchievementId]
         and MetaAchievementConfigurationDB.mapIntegration[obj.topAchievementId].colapsedItems
     then
@@ -49,34 +53,20 @@ function DataList:new(achievementItems)
     end
 
     obj.items = scanData(obj.achievements, 0, obj.colapsedItems)
+    -- Tree matches static data + collapse state; skip rescan on source tab switch unless marked dirty.
+    obj._treeDirty = false
 
     return obj
 end
 
 function DataList:rescanData()
     self.items = scanData(self.achievements, 0, self.colapsedItems)
-end
-
-local function flatData(input)
-    local tmpItems = {}
-
-    for _, item in ipairs(input) do
-        if not (item.allChildrenCompleted and (MetaAchievementSettings and MetaAchievementSettings:Get("hideCompleted"))) then
-            tmpItems[#tmpItems+1] = item
-
-            if item.colapsed == false then
-                for _, tmpItem in ipairs(flatData(item.children)) do
-                    tmpItems[#tmpItems+1] = tmpItem
-                end
-            end
-        end
-    end
-
-    return tmpItems
+    self._treeDirty = false
 end
 
 function DataList:getFlatData()
-    return flatData(self.items)
+    local hideCompleted = MetaAchievementSettings and MetaAchievementSettings:Get("hideCompleted")
+    return MetaAchievementFlatList.flatten(self.items, hideCompleted)
 end
 
 function DataList:toggleColapsed(id)
@@ -99,4 +89,22 @@ function DataList:toggleColapsed(id)
         MetaAchievementConfigurationDB["mapIntegration"][self.topAchievementId] = {}
     end
     MetaAchievementConfigurationDB["mapIntegration"][self.topAchievementId].colapsedItems = self.colapsedItems
+    self._treeDirty = true
+end
+
+--- Registry for optional global invalidation (e.g. achievement earned); keyed by journal source id.
+DataList._registryBySourceKey = DataList._registryBySourceKey or {}
+
+function DataList.RegisterForSourceKey(key, list)
+    if type(key) == "string" and key ~= "" and list then
+        DataList._registryBySourceKey[key] = list
+    end
+end
+
+function DataList.MarkAllTreesDirty()
+    for _, list in pairs(DataList._registryBySourceKey) do
+        if list then
+            list._treeDirty = true
+        end
+    end
 end

@@ -101,7 +101,7 @@ MetaAchievementOptionsDefinitions = {
     {
         variable = "miniJournalEscapeDoesNotClose",
         name = "Escape does not close",
-        tooltip = "If checked, pressing Escape key will not close the mini journal window.",
+        tooltip = "If checked, Escape will not close the mini journal; Escape still opens the game menu. If unchecked, Escape closes the mini first (game menu opens on the next Escape).",
         varType = "boolean",
         group = "miniJournal",
     },

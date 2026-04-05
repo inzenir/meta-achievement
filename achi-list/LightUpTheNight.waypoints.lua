@@ -4,124 +4,126 @@ LightUpTheNightWaypoints = {
         helpText = "Releases on March 2, 2026, Midnight expansion.",
     },
     --- Forever song ()
-    [61961] = { -- Runestone Rush (wowhead.com/achievement=61961; coords match /way #2395)
+    [61961] = { -- Runestone Rush (wowhead.com/achievement=61961; Eversong Woods uiMapID 2395)
         helpText = "Defend all 5 runestones in Eversong Woods. After Saltheril's Soiree, charge each with Latent Arcana (3 per use, from dailies and small treasures); fill the bar, then defeat the stage-2 boss.",
         criteria = {
             [111480] = {
                 helpText = "Elrendar River Runestone. Charge with Latent Arcana, defend the event, then defeat the boss.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 47.36, y = 58.61, title = "Elrendar River Runestone" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 47.36, y = 58.64, title = "Elrendar River Runestone" } } } }
             },
             [111481] = {
                 helpText = "Ath'ran Runestone (Commander Viskaj).",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 38.36, y = 55.54, title = "Ath'ran Runestone" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 39.13, y = 56.85, title = "Ath'ran Runestone" } } } }
             },
             [111482] = {
                 helpText = "Dawnstar Spire Runestone (Hal'nok the Trampler).",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 61.77, y = 61.77, title = "Dawnstar Spire Runestone" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 57.70, y = 53.59, title = "Dawnstar Spire Runestone" } } } }
             },
             [111483] = {
                 helpText = "Sanctum of the Moon Runestone (Commander Gravok).",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 41.13, y = 73.83, title = "Sanctum of the Moon Runestone" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 41.15, y = 73.81, title = "Sanctum of the Moon Runestone" } } } }
             },
             [111484] = {
                 helpText = "Sunstrider Isle Runestone (Claw of the Void).",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 40.48, y = 13.61, title = "Sunstrider Isle Runestone" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 40.46, y = 13.59, title = "Sunstrider Isle Runestone" } } } }
             },
         }
     },
-    [61507] = { -- A Bloody Song
+    -- Eversong Woods uiMapID 2395; coords from Wowhead achievement=61507 (varenne /way #2395 list).
+    [61507] = { -- A Bloody Song — https://www.wowhead.com/achievement=61507
         criteria = {
-            [110166] = { helpText = "Warden of Weeds (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 51.60, y = 74.63, title = "Warden of Weeds" } } } } },
-            [110167] = { helpText = "Harried Hawkstrider.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 45.05, y = 78.25, title = "Harried Hawkstrider" } } } } },
-            [110168] = { helpText = "Overfester Hydra.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 54.80, y = 60.23, title = "Overfester Hydra" } } } } },
-            [110169] = { helpText = "Bloated Snapdragon.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 36.47, y = 63.74, title = "Bloated Snapdragon" } } } } },
-            [110170] = { helpText = "Cre'van (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 62.58, y = 49.48, title = "Cre'van" } } } } },
-            [110171] = { helpText = "Coralfang.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 36.38, y = 36.37, title = "Coralfang" } } } } },
-            [110172] = { helpText = "Lady Liminus.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 36.66, y = 77.16, title = "Lady Liminus" } } } } },
-            [110173] = { helpText = "Terrinor.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 40.35, y = 85.20, title = "Terrinor" } } } } },
-            [110174] = { helpText = "Bad Zed.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 48.94, y = 87.93, title = "Bad Zed" } } } } },
-            [110175] = { helpText = "Waverly. Click the Lovely Sunflower to summon.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 34.81, y = 20.98, title = "Lovely Sunflower" } } } } },
-            [110176] = { helpText = "Banuran.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 56.77, y = 77.07, title = "Banuran" } } } } },
-            [110177] = { helpText = "Lost Guardian.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 59.36, y = 79.25, title = "Lost Guardian" } } } } },
-            [110178] = { helpText = "Duskburn (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 42.55, y = 69.09, title = "Duskburn" } } } } },
-            [110179] = { helpText = "Malfunctioning Construct.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 51.54, y = 45.85, title = "Malfunctioning Construct" } } } } },
-            [110180] = { helpText = "Dame Bloodshed (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_QuelThalas, x = 44.99, y = 38.55, title = "Dame Bloodshed" } } } } },
+            [110166] = { helpText = "Warden of Weeds (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 52.61, y = 75.34, title = "Warden of Weeds" } } } } },
+            [110167] = { helpText = "Harried Hawkstrider.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 44.64, y = 78.72, title = "Harried Hawkstrider" } } } } },
+            [110168] = { helpText = "Overfester Hydra.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 54.71, y = 60.19, title = "Overfester Hydra" } } } } },
+            [110169] = { helpText = "Bloated Snapdragon.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 36.56, y = 64.07, title = "Bloated Snapdragon" } } } } },
+            [110170] = { helpText = "Cre'van (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 63.26, y = 48.10, title = "Cre'van" } } } } },
+            [110171] = { helpText = "Coralfang.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 36.33, y = 36.36, title = "Coralfang" } } } } },
+            [110172] = { helpText = "Lady Liminus.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 36.65, y = 77.19, title = "Lady Liminus" } } } } },
+            [110173] = { helpText = "Terrinor.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 40.25, y = 85.36, title = "Terrinor" } } } } },
+            [110174] = { helpText = "Bad Zed.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 49.04, y = 87.77, title = "Bad Zed" } } } } },
+            [110175] = { helpText = "Waverly. Click the Lovely Sunflower to summon.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 34.81, y = 20.98, title = "Lovely Sunflower" } } } } },
+            [110176] = { helpText = "Banuran.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 56.42, y = 77.60, title = "Banuran" } } } } },
+            [110177] = { helpText = "Lost Guardian.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 59.10, y = 79.24, title = "Lost Guardian" } } } } },
+            [110178] = { helpText = "Duskburn (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 42.43, y = 69.06, title = "Duskburn" } } } } },
+            [110179] = { helpText = "Malfunctioning Construct.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 51.69, y = 46.01, title = "Malfunctioning Construct" } } } } },
+            [110180] = { helpText = "Dame Bloodshed (pathing).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 45.65, y = 38.84, title = "Dame Bloodshed" } } } } },
         }
     },
-    [61960] = { -- Treasures of Eversong Woods
+    -- Coords + map split from Wowhead achievement 61960 (varenne /way block: Rookery Cache #2393, rest #2395).
+    [61960] = { -- Treasures of Eversong Woods — https://www.wowhead.com/achievement=61960
         criteria = {
             [111471] = {
                 helpText = "Rookery Cache. Requires Rookery Key. Buy Tasty Meat from Farstrider Aerieminder and place it at the Mischievous Chick.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 24.33, y = 69.29, title = "Rookery Cache" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_MidnightSilvermoon, x = 24.38, y = 69.58, title = "Rookery Cache" } } } }
             },
             [111472] = {
-                helpText = "Triple-Locked Safebox. Requires 3x Battered Safebox Key. Grab the purple torch next to the chest.",
+                helpText = "Triple-Locked Safebox. Requires 3x Tarnished Safebox Key (torch). Grab the torch next to the chest.",
                 waypoints = {
                     {
                         kind = "point",
                         coordinates = {
-                            { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 38.9, y = 76.07, title = "Triple-Locked Safebox" },
-                            { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 37.64, y = 74.84, title = "Battered Safebox Key" },
-                            { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 38.48, y = 73.43, title = "Battered Safebox Key" },
-                            { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 40.23, y = 75.81, title = "Battered Safebox Key" }
+                            { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 38.89, y = 76.09, title = "Triple-Locked Safebox" },
+                            { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 40.23, y = 75.83, title = "Tarnished Safebox Key" },
+                            { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 37.64, y = 74.83, title = "Tarnished Safebox Key" },
+                            { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 38.44, y = 73.45, title = "Tarnished Safebox Key" }
                         }
                     }
                 }
             },
             [111473] = {
                 helpText = "Gift of the Phoenix. Click the vessel, catch 5 cinders from phoenixes, and deliver them back to where you got the vessel.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 40.96, y = 19.47, title = "Gift of the Phoenix" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 40.96, y = 19.45, title = "Gift of the Phoenix" } } } }
             },
             [111474] = {
                 helpText = "Forgotten Ink and Quill.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 43.28, y = 69.5, title = "Forgotten Ink and Quill" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 43.28, y = 69.48, title = "Forgotten Ink and Quill" } } } }
             },
             [111475] = {
                 helpText = "Gilded Armillary Sphere.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 44.63, y = 45.55, title = "Gilded Armillary Sphere" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 44.62, y = 45.55, title = "Gilded Armillary Sphere" } } } }
             },
             [111476] = {
                 helpText = "Antique Nobleman's Signet Ring.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 52.35, y = 45.44, title = "Antique Nobleman's Signet Ring" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 52.34, y = 45.43, title = "Antique Nobleman's Signet Ring" } } } }
             },
             [111477] = {
                 helpText = "Farstrider's Lost Quiver.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 60.68, y = 67.29, title = "Farstrider's Lost Quiver" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 60.69, y = 67.29, title = "Farstrider's Lost Quiver" } } } }
             },
             [111478] = {
                 helpText = "Stone Vat of Wine. Grab 10 grapes nearby (main platform), jump around in the vat, buy instant yeast from nearby vendor (main platform).",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 40.48, y = 60.88, title = "Stone Vat of Wine" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 40.44, y = 60.90, title = "Stone Vat of Wine" } } } }
             },
             [111479] = {
                 helpText = "Burbling Paint Pot.",
-                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 48.74, y = 75.45, title = "Burbling Paint Pot" } } } }
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 48.74, y = 75.44, title = "Burbling Paint Pot" } } } }
             },
         }
     },
     [61855] = { -- Explore Eversong Woods
         helpText = "Reveal the covered areas of the world map. Visit each named subzone to discover it.",
         criteria = {
-            [112430] = { helpText = "Amani Pass", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 54.03, y = 81.16, title = "Amani Pass" } } } } },
-            [112431] = { helpText = "Brightwing Estate", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 62.96, y = 34.32, title = "Brightwing Estate" } } } } },
-            [112432] = { helpText = "Fairbreeze Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 46.57, y = 43.26, title = "Fairbreeze Village" } } } } },
-            [112433] = { helpText = "Goldenmist Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 39.36, y = 57.14, title = "Goldenmist Village" } } } } },
-            [112434] = { helpText = "Silvermoon City", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 54.0, y = 20.0, title = "Silvermoon City" } } } } },
-            [112435] = { helpText = "Suncrown Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 52.41, y = 61.87, title = "Suncrown Village" } } } } },
-            [112436] = { helpText = "Sunstrider Isle", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 42.91, y = 20.97, title = "Sunstrider Isle" } } } } },
-            [112437] = { helpText = "Tranquillien", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 48.46, y = 63.39, title = "Tranquillien" } } } } },
-            [112438] = { helpText = "Windrunner Spire", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 36.80, y = 79.79, title = "Windrunner Spire" } } } } },
+            [112430] = { helpText = "Amani Pass", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 54.03, y = 81.16, title = "Amani Pass" } } } } },
+            [112431] = { helpText = "Brightwing Estate", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 62.96, y = 34.32, title = "Brightwing Estate" } } } } },
+            [112432] = { helpText = "Fairbreeze Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 46.57, y = 43.26, title = "Fairbreeze Village" } } } } },
+            [112433] = { helpText = "Goldenmist Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 39.36, y = 57.14, title = "Goldenmist Village" } } } } },
+            [112434] = { helpText = "Silvermoon City", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_MidnightSilvermoon, x = 50, y = 50, title = "Silvermoon City" } } } } },
+            [112435] = { helpText = "Suncrown Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 52.41, y = 61.87, title = "Suncrown Village" } } } } },
+            [112436] = { helpText = "Sunstrider Isle", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 42.91, y = 20.97, title = "Sunstrider Isle" } } } } },
+            [112437] = { helpText = "Tranquillien", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 48.46, y = 63.39, title = "Tranquillien" } } } } },
+            [112438] = { helpText = "Windrunner Spire", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 36.80, y = 79.79, title = "Windrunner Spire" } } } } },
         }
     },
-    [62185] = { -- Ever Painting
+    [62185] = { -- Ever Painting (easel pins: Eversong Woods uiMapID 2395)
         helpText = "Discover all painter's easels found outdoors in Eversong Woods.",
         criteria = {
-            [111993] = { helpText = "Sway of Red and Gold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 53.96, y = 75.61, title = "Sway of Red and Gold" } } } } },
-            [112030] = { helpText = "Lost Lamppost", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 41.81, y = 56.34, title = "Lost Lamppost" } } } } },
-            [112031] = { helpText = "Anar'alah Belore", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 50.75, y = 41.26, title = "Anar'alah Belore" } } } } },
-            [112032] = { helpText = "Light Consuming", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 55.14, y = 59.67, title = "Light Consuming" } } } } },
-            [112033] = { helpText = "Babble and Brook", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 46.06, y = 64.28, title = "Babble and Brook" } } } } },
-            [112034] = { helpText = "Memories of Ghosts", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 39.00, y = 78.23, title = "Memories of Ghosts" } } } } },
-            [112035] = { helpText = "Elrendar's Song", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_EversongWoods, x = 42.63, y = 62.63, title = "Elrendar's Song" } } } } },
+            [111993] = { helpText = "Sway of Red and Gold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 53.96, y = 75.61, title = "Sway of Red and Gold" } } } } },
+            [112030] = { helpText = "Lost Lamppost", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 41.81, y = 56.34, title = "Lost Lamppost" } } } } },
+            [112031] = { helpText = "Anar'alah Belore", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 50.75, y = 41.26, title = "Anar'alah Belore" } } } } },
+            [112032] = { helpText = "Light Consuming (on platform)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 55.14, y = 59.67, title = "Light Consuming (on platform)" } } } } },
+            [112033] = { helpText = "Babble and Brook", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 46.06, y = 64.28, title = "Babble and Brook" } } } } },
+            [112034] = { helpText = "Memories of Ghosts", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 39.00, y = 78.23, title = "Memories of Ghosts" } } } } },
+            [112035] = { helpText = "Elrendar's Song", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 42.63, y = 62.63, title = "Elrendar's Song" } } } } },
         }
     },
     --- Making and amani out of you ()
@@ -204,6 +206,25 @@ LightUpTheNightWaypoints = {
             [112395] = { helpText = "Broken Throne", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 29.86, y = 77.36, title = "Broken Throne" } } } } },
             [112398] = { helpText = "Maisara Deeps", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 43.39, y = 42.95, title = "Maisara Deeps" } } } } },
             [112400] = { helpText = "Strait of Hexx'alor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 53.13, y = 54.45, title = "Strait of Hexx'alor" } } } } },
+        }
+    },
+    -- uiMapID 2413; coords from Wowhead achievement=61520 (purrfecttofu / Selket /way Harandar / #2413).
+    [61520] = { -- Explore Harandar — https://www.wowhead.com/achievement=61520
+        helpText = "Reveal the covered areas of the world map. Visit each named subzone to discover it.",
+        criteria = {
+            [219434] = { helpText = "Har'kuai", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 66.38, y = 26.92, title = "Har'kuai" } } } } },
+            [222971] = { helpText = "The Den of Echoes", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 37.27, y = 46.91, title = "The Den of Echoes" } } } } },
+            [222972] = { helpText = "Fungara Village", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 43.83, y = 64.29, title = "Fungara Village" } } } } },
+            [222973] = { helpText = "Vale of Mists (can be stubborn; fly around this area until it discovers).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 60.79, y = 47.48, title = "Vale of Mists" } } } } },
+            [222974] = { helpText = "Gloom Mire", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 51.33, y = 67.80, title = "Gloom Mire" } } } } },
+            [222975] = { helpText = "Har'alnor", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 32.50, y = 65.93, title = "Har'alnor" } } } } },
+            [222976] = { helpText = "Blooming Lattice", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 55.03, y = 29.66, title = "Blooming Lattice" } } } } },
+            [222977] = { helpText = "Har'mara", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 36.52, y = 25.63, title = "Har'mara" } } } } },
+            [222978] = { helpText = "Har'athir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 69.90, y = 51.98, title = "Har'athir" } } } } },
+            [222979] = { helpText = "The Den", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 51.12, y = 50.82, title = "The Den" } } } } },
+            [222980] = { helpText = "The Grudge Pit", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 70.60, y = 65.32, title = "The Grudge Pit" } } } } },
+            [222981] = { helpText = "The Blinding Bloom", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 32.87, y = 76.32, title = "The Blinding Bloom" } } } } },
+            [222982] = { helpText = "The Rift of Aln", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Harandar, x = 61.61, y = 58.93, title = "The Rift of Aln" } } } } },
         }
     },
     --- that's aln folks ()
@@ -425,22 +446,23 @@ LightUpTheNightWaypoints = {
         }
     },
     --- yelling into the voidstorm (62256)
-    [62130] = { -- The Ultimate Predator
+    -- Criterion IDs from Wowhead data-criteria-id; coords from achievement=62130 (varenne /way #2405, Slayer's Rise #2444).
+    [62130] = { -- The Ultimate Predator — https://www.wowhead.com/achievement=62130
         criteria = {
-            [111877] = { helpText = "Sundreth the caller", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 46.4, y = 42.8 } } } } },
-            [111879] = { helpText = "Tremora", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 35.7, y = 81.1 } } } } },
-            [111881] = { helpText = "Bane of the Vilebloods", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 47.2, y = 79.8 } } } } },
-            [111883] = { helpText = "Lotus Darkblossom", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 38.0, y = 71.6 } } } } },
-            [111885] = { helpText = "Ravengerus", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 48.6, y = 53.6 } } } } },
-            [111887] = { helpText = "Bilemaw the Gluttonous", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 35.6, y = 49.4 } } } } },
-            [111889] = { helpText = "Nightbrood", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 40.1, y = 41.4 } } } } },
-            [111878] = { helpText = "Territorial Voidscythe", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 34.1, y = 82.0 } } } } },
-            [111880] = { helpText = "Screammara the Matriarch", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 43.9, y = 51.5 } } } } },
-            [111882] = { helpText = "Aeonelle Blackstar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 39.5, y = 64.6 } } } } },
-            [111884] = { helpText = "Queen o' War", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 55.7, y = 79.5 } } } } },
-            [111886] = { helpText = "Rakshur the Bonegrinder", waypoints = { { kind = "point", coordinates = { { mapId = 2444, x = 46.5, y = 41.0 } } } } },
-            [111888] = { helpText = "Eruundi", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 39.2, y = 92.5 } } } } },
-            [111890] = { helpText = "Far'thana the Mad", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 53.9, y = 62.8 } } } } },
+            [222083] = { helpText = "Sundereth the Caller.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 29.51, y = 50.08, title = "Sundereth the Caller" } } } } },
+            [222084] = { helpText = "Territorial Voidscythe.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 34.05, y = 82.06, title = "Territorial Voidscythe" } } } } },
+            [222085] = { helpText = "Tremora (cave entrance).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 35.62, y = 81.08, title = "Tremora" } } } } },
+            [222086] = { helpText = "Screammaxa the Matriarch.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 43.68, y = 51.51, title = "Screammaxa the Matriarch" } } } } },
+            [222087] = { helpText = "Bane of the Vilebloods.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 47.05, y = 80.63, title = "Bane of the Vilebloods" } } } } },
+            [222088] = { helpText = "Aeonelle Blackstar (cave entrance).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 39.49, y = 64.64, title = "Aeonelle Blackstar" } } } } },
+            [222089] = { helpText = "Lotus Darkblossom.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 37.88, y = 71.78, title = "Lotus Darkblossom" } } } } },
+            [222090] = { helpText = "Queen o' War. Click Crown of the Lost Queen to spawn.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 55.72, y = 79.45, title = "Queen o' War" } } } } },
+            [222091] = { helpText = "Ravengerus.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 48.81, y = 53.17, title = "Ravengerus" } } } } },
+            [222092] = { helpText = "Rakshur the Bonegrinder (Slayer's Rise).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Slayers_Rise, x = 46.38, y = 40.93, title = "Rakshur the Bonegrinder" } } } } },
+            [222093] = { helpText = "Bilemaw the Gluttonous (cave entrance).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 35.58, y = 49.30, title = "Bilemaw the Gluttonous" } } } } },
+            [222094] = { helpText = "Eruundi (pathing; Slayer's Rise).", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Slayers_Rise, x = 41.64, y = 93.18, title = "Eruundi" } } } } },
+            [222095] = { helpText = "Nightbrood.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 40.15, y = 41.19, title = "Nightbrood" } } } } },
+            [222096] = { helpText = "Far'thana the Mad.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 53.94, y = 62.72, title = "Far'thana the Mad" } } } } },
         }
     },
     [62126] = { -- Treasures of Voidstorm
@@ -468,7 +490,7 @@ LightUpTheNightWaypoints = {
             [112404] = { helpText = "Howling Ridge", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 51.78, y = 70.03, title = "Howling Ridge" } } } } },
             [112405] = { helpText = "Nexus-Point Mid'Ar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 39.82, y = 83.32, title = "Nexus-Point Mid'Ar" } } } } },
             [112406] = { helpText = "Obscurion Citadel", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 55.74, y = 77.01, title = "Obscurion Citadel" } } } } },
-            [112407] = { helpText = "Slayer's Rise", waypoints = { { kind = "point", coordinates = { { mapId = 2444, x = 47.30, y = 72.08, title = "Slayer's Rise" } } } } },
+            [112407] = { helpText = "Slayer's Rise", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Slayers_Rise, x = 47.30, y = 72.08, title = "Slayer's Rise" } } } } },
             [112408] = { helpText = "Stormarion Citadel", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 26.52, y = 67.09, title = "Stormarion Citadel" } } } } },
             [112409] = { helpText = "The Ingress", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 35.87, y = 57.89, title = "The Ingress" } } } } },
             [112410] = { helpText = "The Voidspire", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Voidstorm, x = 51.41, y = 56.06, title = "The Voidspire" } } } } },
