@@ -1,5 +1,5 @@
-## Interface: 120001
-## Title: Worldsoul Searching
+﻿## Interface: 120001
+## Title: Meta Achievement Tracker
 ## Notes: The War Within Meta Achievement tracker
 ## Author: inzenir
 ## Version: @project-version@
@@ -45,6 +45,8 @@ achi-list\WhatALongStrangeTripItsBeen\brewmaster.waypoints.lua
 achi-list\WhatALongStrangeTripItsBeen.waypoints.lua
 achi-list\LightUpTheNight.lua
 achi-list\LightUpTheNight.waypoints.lua
+achi-list\GloryOfTheMidnightDelver.lua
+achi-list\GloryOfTheMidnightDelver.waypoints.lua
 
 # logic loading
 logic\modern\achievement-data.lua
@@ -54,7 +56,6 @@ logic\waypoint-identity.lua
 logic\data-list.lua
 logic\settings.lua
 logic\active-achievement-state.lua
-logic\debug.lua
 logic\waypoint.lua
 logic\AchievementRequirement.lua
 logic\achievement.lua
@@ -63,6 +64,13 @@ logic\modern\criteria-completion.lua
 logic\modern\criteria-completion\quest-criteria.lua
 logic\wow-achievements.lua
 logic\achievement-scan.lua
+logic\quest-achievement-registry.lua
+logic\activity-notification.lua
+ui\activity-notification-cards.lua
+logic\world-quest-scan.lua
+logic\delve-story-availability.lua
+logic\delve-story-notify.lua
+logic\quest-line-scan.lua
 logic\slash-commands.lua
 
 # app (bus before controller; coordinator before UI that calls it from OnLoad/OnHide)

@@ -16,6 +16,15 @@ local BLIZZARD_BAR_TEMPLATE = "UIWidgetTemplateStatusBar"
 local BORDER_INSET = 2  -- gap between bar fill and border
 local BAR_BG_COLOR = { 0.08, 0.08, 0.1, 0.5 }  -- dark background for entire bar (track)
 
+local function formatRowText(req)
+    local text = (req and req.text) or ""
+    local availability = req and req.availabilityText
+    if type(availability) == "string" and availability ~= "" then
+        return text .. " |cffc8c8c8(" .. availability .. ")|r"
+    end
+    return text
+end
+
 local BORDER_BACKDROP = {
     edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
     edgeSize = 8,
@@ -119,7 +128,7 @@ function RequirementRowProgress.Apply(frame, req)
     end
 
     if frame.Text and frame.Text.SetText then
-        frame.Text:SetText(req.text or "")
+        frame.Text:SetText(formatRowText(req))
     end
     if frame.Check then
         frame.Check:Show()

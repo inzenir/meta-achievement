@@ -1,5 +1,4 @@
-MetaAchievementConfigurationDB = MetaAchievementConfigurationDB or DefaultSettings()
-MetaAchievementTitle = "Meta Achievement Tracker"
+﻿MetaAchievementConfigurationDB = MetaAchievementConfigurationDB or DefaultSettings()
 
 MetaAchievementDB = {
     mapIntegration = nil,
@@ -32,6 +31,7 @@ MetaAchievementDB.primaryWindow = {
 
 WindowTabs = {
     lightUpTheNight = "lightUpTheNight",
+    gloryOfTheMidnightDelver = "gloryOfTheMidnightDelver",
     worldSoulSearching = "worldSoulSearching",
     settings = "settings",
     farewellToArms = "farewellToArms",
@@ -82,7 +82,7 @@ function EntryPoint()
             if type(MetaAchievementMiniFrame_Show) == "function" then
                 MetaAchievementMiniFrame_Show()
             else
-                print("Worldsoul Searching: Mini frame not loaded yet.")
+                print((MetaAchievementTitle or "Meta Achievement Tracker") .. ": Mini frame not loaded yet.")
             end
         end,
         "Show the mini (compact) window")
@@ -94,6 +94,7 @@ function EntryPoint()
 
     AchievementData:RegisterDataSource(61451, WorldSoulSearchingWaypoints)
     AchievementData:RegisterDataSource(62386, LightUpTheNightWaypoints)
+    AchievementData:RegisterDataSource(61906, GloryOfTheMidnightDelverWaypoints)
     AchievementData:RegisterDataSource(19458, AWorldAwokenWaypoints)
     AchievementData:RegisterDataSource(40953, AFarewellToArmsWaypoints)
     AchievementData:RegisterDataSource(20501, BackFromTheBeyondWaypoints)
@@ -171,6 +172,7 @@ function EntryPoint()
         end
 
         registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements)
+        registerJournalSource(WindowTabs.gloryOfTheMidnightDelver, "Glory of the Midnight Delver", GloryOfTheMidnightDelverAchievements)
         registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements)
         registerJournalSource(WindowTabs.aWorldAwoken, "A World Awoken", AWorldAwokenAchievements)
         registerJournalSource(WindowTabs.backFromTheBeyond, "Back From The Beyond", BackFromTheBeyondAchievements)
@@ -178,7 +180,7 @@ function EntryPoint()
         registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements)
 
         -- Achievement progress: ACHIEVEMENT_EARNED = full completion; CRITERIA_UPDATE = partial/meta criteria (no payload).
-        -- Mini frame previously only invalidated cache when main was hidden — it must rebuild list + detail from live APIs.
+        -- Mini frame previously only invalidated cache when main was hidden â€” it must rebuild list + detail from live APIs.
         do
             local function refreshJournalAfterAchievementProgress()
                 if DataList.MarkAllTreesDirty then
@@ -254,6 +256,69 @@ function EntryPoint()
         if RegisterMetaAchievementOptionsPanel then
             RegisterMetaAchievementOptionsPanel()
         end
+    end
+
+    -- World quest + quest-line activity scans (DEV-023); coalesced like CRITERIA_UPDATE.
+    do
+        local activityCoalesce = 0
+        local loginWarmupToken = 0
+        local LOGIN_WARMUP_DELAYS_SEC = { 1.5, 4, 8, 15 }
+        local function runActivityScans()
+            if MetaAchievementDelveStoryAvailability and type(MetaAchievementDelveStoryAvailability.TryRefresh) == "function" then
+                MetaAchievementDelveStoryAvailability.TryRefresh(false)
+            end
+            if MetaAchievementWorldQuestScan_TryRefresh then
+                MetaAchievementWorldQuestScan_TryRefresh()
+            end
+            if MetaAchievementQuestLineScan_TryRefresh then
+                MetaAchievementQuestLineScan_TryRefresh()
+            end
+            if MetaAchievementDelveStoryNotify_TryRefresh then
+                MetaAchievementDelveStoryNotify_TryRefresh()
+            end
+        end
+        local function scheduleActivityScan()
+            activityCoalesce = activityCoalesce + 1
+            local token = activityCoalesce
+            C_Timer.After(0.35, function()
+                if token ~= activityCoalesce then
+                    return
+                end
+                runActivityScans()
+            end)
+        end
+        local af = CreateFrame("Frame")
+        af:RegisterEvent("QUEST_LOG_UPDATE")
+        -- WORLD_MAP_UPDATE is not a valid Frame event on Retail 12.x (registration errors).
+        af:RegisterEvent("QUESTLINE_UPDATE")
+        af:RegisterEvent("ZONE_CHANGED")
+        af:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+        af:RegisterEvent("PLAYER_ENTERING_WORLD")
+        af:SetScript("OnEvent", function(_, event)
+            scheduleActivityScan()
+            if event == "PLAYER_ENTERING_WORLD" then
+                -- Delve POI/widget text can be empty for several seconds after login/reload.
+                -- Run forced warmup passes so story notifications can fire at login.
+                loginWarmupToken = loginWarmupToken + 1
+                local token = loginWarmupToken
+                for _, delaySec in ipairs(LOGIN_WARMUP_DELAYS_SEC) do
+                    C_Timer.After(delaySec, function()
+                        if token ~= loginWarmupToken then
+                            return
+                        end
+                        if MetaAchievementDelveStoryAvailability and type(MetaAchievementDelveStoryAvailability.TryRefresh) == "function" then
+                            MetaAchievementDelveStoryAvailability.TryRefresh(true)
+                        end
+                        if MetaAchievementQuestLineScan_TryRefresh then
+                            MetaAchievementQuestLineScan_TryRefresh()
+                        end
+                        if MetaAchievementDelveStoryNotify_TryRefresh then
+                            MetaAchievementDelveStoryNotify_TryRefresh()
+                        end
+                    end)
+                end
+            end
+        end)
     end
 
     if type(MetaAchievement_RegisterMinimapButton) == "function" then

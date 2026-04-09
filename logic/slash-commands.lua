@@ -14,9 +14,11 @@ function helpCommand(unknownCommand)
 end
 
 function LoadSlashCommands(msg, editbox)
-    local key = type(msg) == "string" and msg:match("^%s*(.-)%s*$") or msg
+    -- First token only so subcommands work: e.g. /wss help → key "help", msg unchanged.
+    local key = type(msg) == "string" and msg:match("^%s*(%S+)") or msg
     if key and REGISTERED_COMMANDS[key] then
-        REGISTERED_COMMANDS[key]:callback(msg, editbox)
+        -- Dot call (not colon): callback is a plain function; colon would pass the registry table as arg1.
+        REGISTERED_COMMANDS[key].callback(msg, editbox)
     else
         helpCommand(true)
     end
@@ -32,25 +34,3 @@ function RegisterSlashCommand(eventName, callback, description)
 end
 
 RegisterSlashCommand("help", helpCommand, "Prints this helpful message")
-
-local function getAddonMetadata(field)
-    local addon = "Worldsoul_Searching"
-    if C_AddOns and C_AddOns.GetAddOnMetadata then
-        return C_AddOns.GetAddOnMetadata(addon, field)
-    end
-    if GetAddOnMetadata then
-        return GetAddOnMetadata(addon, field)
-    end
-    return nil
-end
-
-RegisterSlashCommand("status", function()
-    local title = getAddonMetadata("Title") or "Worldsoul Searching"
-    local version = getAddonMetadata("Version")
-    print(string.format("%s: loaded.", title))
-    if version and version ~= "" then
-        print("  Version: " .. version)
-    end
-    print("  MetaAchievementWindowCoordinator: " .. (MetaAchievementWindowCoordinator and "yes" or "no"))
-    print("  MetaAchievementUIBus: " .. (MetaAchievementUIBus and "yes" or "no"))
-end, "Print addon load status (version, coordinator, bus)")

@@ -7,6 +7,15 @@ RequirementRowRegular = RequirementRowRegular or {}
 
 local ROW_HEIGHT = 20
 
+local function formatRowText(req)
+    local text = (req and req.text) or ""
+    local availability = req and req.availabilityText
+    if type(availability) == "string" and availability ~= "" then
+        return text .. " |cffc8c8c8(" .. availability .. ")|r"
+    end
+    return text
+end
+
 function RequirementRowRegular.Apply(frame, req)
     if not frame or not req then return end
     -- Restore highlight (frame may have been recycled from progress/description which set it to 0)
@@ -19,7 +28,7 @@ function RequirementRowRegular.Apply(frame, req)
             frame.Text:SetPoint("LEFT", frame, "LEFT", 26, 0)
             frame.Text:SetPoint("RIGHT", frame, "RIGHT", -6, 0)
         end
-        if frame.Text.SetText then frame.Text:SetText(req.text or "") end
+        if frame.Text.SetText then frame.Text:SetText(formatRowText(req)) end
     end
     if frame.Check then
         if frame.Check.ClearAllPoints and frame.Check.SetPoint then
