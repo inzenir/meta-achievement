@@ -309,6 +309,9 @@ function MetaAchievementMainFrameMgr:SelectSource(frame, key)
         return
     end
 
+    if state:GetActiveSourceKey() ~= key and frame.JournalList and type(MetaAchievementJournalList_ResetScrollPreserveForNewSource) == "function" then
+        MetaAchievementJournalList_ResetScrollPreserveForNewSource(frame.JournalList)
+    end
     state:SetActiveSource(key)
     frame._selectedSourceKey = state:GetActiveSourceKey()
     frame._emptyStatePreview = nil

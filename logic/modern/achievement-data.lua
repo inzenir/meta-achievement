@@ -33,3 +33,35 @@ function AchievementData:GetInformation(topAchievementId, achievementId)
     end
     return groupData[achievementId]
 end
+
+--- Iterate every registered top group and each flat achievement entry (waypoints file row).
+--- callback(topAchievementId, achievementId, flatEntry). Skip non-table entries (e.g. stray keys).
+--- Used for cross-meta scans (delve story notifications, audits) without hardcoding a single waypoints table.
+function AchievementData:ForEachRegisteredAchievementEntry(callback)
+    if type(callback) ~= "function" then
+        return
+    end
+    for topAchievementId, groupData in pairs(self._registry) do
+        if type(topAchievementId) == "number" and type(groupData) == "table" then
+            for achievementId, flatEntry in pairs(groupData) do
+                if type(achievementId) == "number" and type(flatEntry) == "table" then
+                    callback(topAchievementId, achievementId, flatEntry)
+                end
+            end
+        end
+    end
+end
+
+--- First registered top achievement id whose waypoints table contains this child (for chat lines, WQ scans).
+--- @return number|nil
+function AchievementData:FindTopAchievementIdForChild(achievementId)
+    if type(achievementId) ~= "number" then
+        return nil
+    end
+    for topAchievementId, groupData in pairs(self._registry) do
+        if type(topAchievementId) == "number" and type(groupData) == "table" and groupData[achievementId] ~= nil then
+            return topAchievementId
+        end
+    end
+    return nil
+end

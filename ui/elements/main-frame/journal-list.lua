@@ -71,10 +71,92 @@ local function journalListScrollBoxBumpLayout(scrollBox)
     end
 end
 
+--- WowScrollBoxList scroll position (percentage or scrollbar value) before Flush+Insert; restored after layout.
+local function journalListCaptureScroll(scrollBox, scrollBar)
+    if scrollBox and type(scrollBox.GetScrollPercentage) == "function" then
+        local ok, p = pcall(function()
+            return scrollBox:GetScrollPercentage()
+        end)
+        if ok and type(p) == "number" then
+            return { kind = "pct", v = p }
+        end
+    end
+    if scrollBar and type(scrollBar.GetValue) == "function" and type(scrollBar.GetMinMaxValues) == "function" then
+        local vmin, vmax = scrollBar:GetMinMaxValues()
+        local v = scrollBar:GetValue()
+        if type(vmax) == "number" and vmax > 0 then
+            return { kind = "bar", v = v, vmin = vmin or 0, vmax = vmax }
+        end
+    end
+    return nil
+end
+
+local function journalListRestoreScroll(scrollBox, scrollBar, saved)
+    if not saved then
+        return
+    end
+    if saved.kind == "pct" and scrollBox and type(scrollBox.SetScrollPercentage) == "function" then
+        pcall(function()
+            scrollBox:SetScrollPercentage(saved.v)
+        end)
+        return
+    end
+    if saved.kind == "bar" and scrollBar and type(scrollBar.SetValue) == "function" then
+        pcall(function()
+            scrollBar:SetValue(saved.v)
+        end)
+    end
+end
+
+--- True when scroll is not at the top (worth masking during rebuild to avoid a one-frame jump).
+local function journalListScrollNeedsPreserveForMask(preserve)
+    if not preserve then
+        return false
+    end
+    if preserve.kind == "pct" and type(preserve.v) == "number" and preserve.v > 0.0001 then
+        return true
+    end
+    if preserve.kind == "bar" and type(preserve.v) == "number" and type(preserve.vmax) == "number" and preserve.vmax > 0 then
+        local vmin = preserve.vmin or 0
+        return preserve.v > vmin + 0.25
+    end
+    return false
+end
+
+--- Call before repopulating a new meta/source so the next scroll capture starts at the top (not the previous meta).
+function MetaAchievementJournalList_ResetScrollPreserveForNewSource(self)
+    if not self then
+        return
+    end
+    self._journalScrollPreserve = nil
+    local sb = self.ScrollBox
+    if sb and type(sb.ScrollToBegin) == "function" then
+        sb:ScrollToBegin()
+    elseif self.ScrollBar and type(self.ScrollBar.SetValue) == "function" and type(self.ScrollBar.GetMinMaxValues) == "function" then
+        local vmin, vmax = self.ScrollBar:GetMinMaxValues()
+        if type(vmax) == "number" and vmax > 0 then
+            self.ScrollBar:SetValue(vmin or 0)
+        end
+    end
+end
+
 --- WowScrollBoxList does not reliably re-run the row initializer when only list._selectedIndex changes; Flush+Insert forces the same repaint as open/close.
+--- Multiple flushes in one frame (e.g. SetItems then SetSelectedIndex) share one pre-flush scroll capture so the second flush does not reset to top.
+--- Restore runs in the same frame as Flush (no deferred timer) so the list does not paint at scroll 0 then jump — avoids visible twitch.
 local function journalListFlushAndRepaint(self)
     local dp = self._dataProvider
-    if not dp or not self._items then return end
+    if not dp or not self._items then
+        return
+    end
+    local scrollBox, scrollBar = self.ScrollBox, self.ScrollBar
+    if self._journalScrollPreserve == nil and scrollBox then
+        self._journalScrollPreserve = journalListCaptureScroll(scrollBox, scrollBar)
+    end
+    local preserve = self._journalScrollPreserve
+    local mask = journalListScrollNeedsPreserveForMask(preserve)
+    if mask and self.SetAlpha then
+        self:SetAlpha(0)
+    end
     dp:Flush()
     for i, item in ipairs(self._items) do
         dp:Insert({ index = i, item = item })
@@ -82,13 +164,13 @@ local function journalListFlushAndRepaint(self)
     if self._view and self._view.Refresh then
         self._view:Refresh()
     end
-    journalListScrollBoxBumpLayout(self.ScrollBox)
-    if C_Timer and C_Timer.After then
-        C_Timer.After(0, function()
-            if self and self.ScrollBox then
-                journalListScrollBoxBumpLayout(self.ScrollBox)
-            end
-        end)
+    journalListScrollBoxBumpLayout(scrollBox)
+    journalListRestoreScroll(scrollBox, scrollBar, preserve)
+    journalListScrollBoxBumpLayout(scrollBox)
+    journalListRestoreScroll(scrollBox, scrollBar, preserve)
+    self._journalScrollPreserve = nil
+    if mask and self.SetAlpha then
+        self:SetAlpha(1)
     end
 end
 

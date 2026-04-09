@@ -39,7 +39,7 @@ function MetaAchievement_RegisterMinimapButton()
                 end
             end,
             OnTooltipShow = function(tooltip)
-                tooltip:SetText(MetaAchievementTitle or "Worldsoul Searching")
+                tooltip:SetText(MetaAchievementTitle or "Meta Achievement Tracker")
                 tooltip:AddLine("Click to toggle the achievement journal.", 1, 1, 1, true)
                 tooltip:AddLine("Right-click for addon options.", 0.8, 0.8, 0.8, true)
             end,

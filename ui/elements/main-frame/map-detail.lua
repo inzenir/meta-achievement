@@ -228,7 +228,8 @@ local function renderRequirements(self)
         row:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
 
         if row.Text and row.Text.SetText then
-            row.Text:SetText(req.text or "")
+            local availability = (type(req.availabilityText) == "string" and req.availabilityText ~= "") and (" |cffc8c8c8(" .. req.availabilityText .. ")|r") or ""
+            row.Text:SetText((req.text or "") .. availability)
         end
         if row.Check then
             if req.completed == true then
@@ -490,6 +491,7 @@ local function isRewardEmpty(rewardText)
 end
 
 local DEFAULT_WAYPOINT_HELP = "Use the waypoint button to add this location to your map."
+local DELVE_STORY_CRITERIA_TYPE = 73
 
 local function criterionHasWaypoints(cinfo)
     if type(cinfo) ~= "table" or type(cinfo.waypoints) ~= "table" then
@@ -541,6 +543,49 @@ local function hasHelpText(helpText)
     end
     local t = helpText:gsub("^%s+", ""):gsub("%s+$", "")
     return t ~= ""
+end
+
+local function getDelveAvailabilityForCriterion(achievementId, criteriaId, criterion)
+    if type(criterion) ~= "table" then
+        return nil, nil
+    end
+    if type(criterion.criteriaType) ~= "number" or criterion.criteriaType ~= DELVE_STORY_CRITERIA_TYPE then
+        return nil, nil
+    end
+    if type(achievementId) ~= "number" or type(criteriaId) ~= "number" then
+        return nil, nil
+    end
+    if not MetaAchievementDelveStoryAvailability
+        or type(MetaAchievementDelveStoryAvailability.GetAvailabilityStateForCriteria) ~= "function"
+    then
+        return nil, nil
+    end
+    local state, text = MetaAchievementDelveStoryAvailability.GetAvailabilityStateForCriteria(achievementId, criteriaId)
+    return state, text
+end
+
+--- True when achievement data includes delve storyline rows (criteriaType 73) for availability labels.
+local function achievementNeedsDelveStoryAvailabilityScan(achievementInformation)
+    if type(achievementInformation) ~= "table" then
+        return false
+    end
+    local crit = achievementInformation.criteria
+    if type(crit) == "table" then
+        for _, cinfo in pairs(crit) do
+            if type(cinfo) == "table" and cinfo.criteriaType == DELVE_STORY_CRITERIA_TYPE then
+                return true
+            end
+        end
+    end
+    local vc = achievementInformation.virtualCriteria
+    if type(vc) == "table" then
+        for _, cinfo in pairs(vc) do
+            if type(cinfo) == "table" and cinfo.criteriaType == DELVE_STORY_CRITERIA_TYPE then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
@@ -828,7 +873,7 @@ local function getCombineVirtualAndRegularFlag(achievementInformation)
 end
 
 --- Append WoW API criteria rows. apiCriteriaIndex is stored for requirement row clicks when combined with virtual rows (display order may differ from API index).
-local function appendRegularCriteriaFromApi(achievementId, requirements)
+local function appendRegularCriteriaFromApi(achievementId, requirements, achievementInformation)
     if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
         return
     end
@@ -856,6 +901,11 @@ local function appendRegularCriteriaFromApi(achievementId, requirements)
             criteriaId = criteriaID,
             criteriaType = criteriaType,
         }
+        if overrides and criteriaID and type(overrides[criteriaID]) == "table" then
+            local state, availabilityText = getDelveAvailabilityForCriterion(achievementId, criteriaID, overrides[criteriaID])
+            entry.availabilityState = state
+            entry.availabilityText = availabilityText
+        end
         if reqQuantity and reqQuantity > 0 and quantity ~= nil then
             entry.quantity = quantity
             entry.reqQuantity = reqQuantity
@@ -871,6 +921,11 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
     local requirements = {}
 
     local achievementInformation = AchievementData:GetInformation(topAchievementId, achievementId)
+    if achievementInformation and achievementNeedsDelveStoryAvailabilityScan(achievementInformation) then
+        if MetaAchievementDelveStoryAvailability and type(MetaAchievementDelveStoryAvailability.TryRefreshForMapDetail) == "function" then
+            MetaAchievementDelveStoryAvailability.TryRefreshForMapDetail()
+        end
+    end
     local hasVirtual = achievementInformation and type(achievementInformation.virtualCriteria) == "table"
     local combineVirtualAndRegular = hasVirtual and getCombineVirtualAndRegularFlag(achievementInformation)
 
@@ -888,6 +943,9 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
                     criteriaId = i,
                     criteriaType = criterion.criteriaType,
                 }
+                local state, availabilityText = getDelveAvailabilityForCriterion(achievementId, i, criterion)
+                entry.availabilityState = state
+                entry.availabilityText = availabilityText
                 -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
                 if type(GetAchievementCriteriaInfo) == "function" then
                     local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
@@ -906,7 +964,7 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
 
     if combineVirtualAndRegular then
         -- Combined: regular API criteria first, then virtual rows appended.
-        appendRegularCriteriaFromApi(achievementId, requirements)
+        appendRegularCriteriaFromApi(achievementId, requirements, achievementInformation)
         appendVirtualRows()
     elseif hasVirtual then
         appendVirtualRows()

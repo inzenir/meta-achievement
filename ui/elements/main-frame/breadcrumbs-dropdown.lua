@@ -76,7 +76,6 @@ function MetaAchievementBreadcrumbsDropdown_GetListFunc(breadcrumbsFrame)
         -- Only show dropdown if this is the first button in the navList
         local isFirstButton = (button == breadcrumbsFrame.navList[1])
         if not isFirstButton then
-            -- Debug: log when listFunc is called on wrong button
             return {}
         end
         

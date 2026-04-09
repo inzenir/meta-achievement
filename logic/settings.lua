@@ -19,6 +19,16 @@ local function getDefaults()
         miniJournalLockPosition = false,
         miniJournalEscapeDoesNotClose = false,
         miniJournalHideCompletedCriteria = false,
+        -- Activity notifications: world quests + delve story lines (registry-curated).
+        enableWorldQuestNotifications = true,
+        enableDelveStoryNotifications = true,
+        activityNotifyCooldownSec = 21600,
+        -- Activity notification delivery: chat | cards | both (DEV-029).
+        activityNotifyDeliveryMode = "both",
+        activityNotifyCardCorner = "TOPLEFT",
+        activityNotifyCardMaxVisible = 5,
+        -- Card auto-dismiss seconds; -1 = never (until max stack or /reload).
+        activityNotifyCardDurationSec = 15,
         mapIntegration = {},
         mainFrame = {
             closed = false,
