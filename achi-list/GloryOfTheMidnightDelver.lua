@@ -3,6 +3,7 @@ GloryOfTheMidnightDelverAchievements = {
     {
         ["id"] = 61906,
         ["name"] = "Glory of the Midnight Delver",
+        mountId = 2773,
         ["children"] = {
         {
             ["id"] = 61741,
