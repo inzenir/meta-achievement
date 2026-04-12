@@ -72,6 +72,8 @@ logic\delve-story-availability.lua
 logic\delve-story-notify.lua
 logic\quest-line-scan.lua
 logic\slash-commands.lua
+logic\custom-requirements.lua
+ui\elements\main-frame\custom-requirements\62121-altar-of-blessings-sacred-buffet-devotee\element.lua
 
 # app (bus before controller; coordinator before UI that calls it from OnLoad/OnHide)
 app\MetaAchievementUIBus.lua

@@ -126,6 +126,11 @@ LightUpTheNightWaypoints = {
             [112035] = { helpText = "Elrendar's Song", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.MIDNIGHT_ZONE_Eversong_Woods, x = 42.63, y = 62.63, title = "Elrendar's Song" } } } } },
         }
     },
+    -- Altar of Blessings: Sacred Buffet Devotee — https://www.wowhead.com/achievement=62121
+    -- Custom requirements body: major/minor blessing table (see custom-requirements module). Criteria unchanged in data.
+    [62121] = {
+        requirementsBodyOverrideElement = "62121-altar-of-blessings-sacred-buffet-devotee",
+    },
     --- Making and amani out of you ()
     [62122] = { -- Tallest Tree in the Forest
         criteria = {
