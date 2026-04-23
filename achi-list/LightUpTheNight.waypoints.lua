@@ -130,6 +130,72 @@ LightUpTheNightWaypoints = {
     -- Custom requirements body: major/minor blessing table (see custom-requirements module). Criteria unchanged in data.
     [62121] = {
         requirementsBodyOverrideElement = "62121-altar-of-blessings-sacred-buffet-devotee",
+        criteria = {
+            [112106] = { helpText = "Triggers instantly when selected" },
+            [112108] = { helpText = "Triggers instantly when selected" },
+            [112109] = { helpText = "Triggers when you enter combat." },
+            [112110] = {
+                helpText = "Talk to Backpeddle of Victory and select 'Receive the Blessing' option in dialogue.",
+                waypoints = {
+                    {
+                        kind = "point",
+                        coordinates = {
+                            { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 40.3, y = 51.1, title = "Altar of Blessings" }
+                        }
+                    }
+                }
+            },
+            [112111] = { helpText = "Triggers when you enter combat." },
+            [112112] = { helpText = "Triggers when you defeat an enemy." },
+            [112113] = { helpText = "Triggers in combat. It might take a few enemies for 5% proc chance to trigger." },
+            [112114] = { helpText = "Triggers in combat. It might take a few enemies for 15% proc chance to trigger." },
+            [112115] = {
+                helpText = "Talk to Backpeddle of the Hunt and select 'Receive the Blessing' option in dialogue.",
+                waypoints = {
+                    {
+                        kind = "point",
+                        coordinates = {
+                            { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 40.3, y = 51.1, title = "Altar of Blessings" }
+                        }
+                    }
+                }
+            },
+            [112116] = { helpText = "Triggers when you enter combat." },
+            [112117] = { helpText = "Triggers in combat. It might take a few enemies for 25% proc chance to trigger." },
+            [112118] = { helpText = "Triggers in combat. It might take a few enemies for 5% proc chance to trigger." },
+            [112119] = { helpText = "Triggers instantly if you are above 90% health." },
+            [112120] = { helpText = "Triggers when casting a spell. Recuperate spell works as well." },
+            [112121] = { helpText = "Triggers in combat. It might take a few enemies for 5% proc chance to trigger." },
+            [112122] = {
+                helpText = "Talk to Packpeddle of Fire and select 'Receive the Blessing' option in dialogue. You have to be dismounted for blessing to trigger.",
+                waypoints = {
+                    {
+                        kind = "point",
+                        coordinates = {
+                            { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 40.3, y = 51.1, title = "Altar of Blessings" }
+                        }
+                    }
+                }
+            },
+            [112123] = { helpText = "Triggers when you enter combat." },
+            [112124] = { helpText = "Requires you to mine ore, gather a herb, skin or fish" },
+            [112125] = { helpText = "Triggers on less than 15% health. You can cheese it by flying up and dismounting" },
+            [112126] = { helpText = "Buffs you when you are under 50% health. Triggers after 2 minute buff runs out. Cheese it by flying up, getting the buff and clicking buff away." },
+            [112127] = { helpText = "To be implemented" },
+            [112128] = {
+                helpText = "Talk to Packpeddle of War and select 'Receive the Blessing' option in dialogue.",
+                waypoints = {
+                    {
+                        kind = "point",
+                        coordinates = {
+                            { mapId = MapZones.MIDNIGHT_ZONE_ZulAman, x = 40.3, y = 51.1, title = "Altar of Blessings" }
+                        }
+                    }
+                }
+            },
+            [112129] = { helpText = "Triggers when you enter combat." },
+            [112130] = { helpText = "Requires you to mine ore, gather a herb, skin or fish" },
+        },
     },
     --- Making and amani out of you ()
     [62122] = { -- Tallest Tree in the Forest

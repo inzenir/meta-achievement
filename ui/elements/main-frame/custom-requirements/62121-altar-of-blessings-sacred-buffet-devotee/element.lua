@@ -127,7 +127,10 @@ local function isBlessingCriterionCompleted(criteriaId)
 end
 
 --- Incomplete / empty slots: grey (`|cff808080`); completed: default font colour (no escape).
-local function formatCellTextByCompletion(displayText, completed)
+local function formatCellTextByCompletion(displayText, completed, isClickable)
+    if not isClickable then
+        return "|cff808080" .. displayText .. "|r"
+    end
     if completed then
         return displayText
     end
@@ -135,19 +138,23 @@ local function formatCellTextByCompletion(displayText, completed)
 end
 
 local function applyBlessingMatrixCells(frame)
-    if not frame or not frame._cells then
+    if not frame or not frame._cellButtons then
         return
     end
     for r = 1, MINOR_COUNT do
         for c = 1, MAJOR_COUNT do
-            local cell = frame._cells[r][c]
-            if cell then
+            local cellButton = frame._cellButtons[r][c]
+            if cellButton and cellButton.Text then
                 local critId = BLESSING_CRITERIA_IDS[r] and BLESSING_CRITERIA_IDS[r][c]
                 if critId == false or critId == nil then
-                    cell:SetText(formatCellTextByCompletion("—", false))
+                    cellButton.Text:SetText(formatCellTextByCompletion("—", false, false))
+                    cellButton._criteriaId = nil
+                    cellButton:Disable()
                 else
                     local name = getCriterionDisplayName(critId)
-                    cell:SetText(formatCellTextByCompletion(name, isBlessingCriterionCompleted(critId)))
+                    cellButton.Text:SetText(formatCellTextByCompletion(name, isBlessingCriterionCompleted(critId), true))
+                    cellButton._criteriaId = critId
+                    cellButton:Enable()
                 end
             end
         end
@@ -184,7 +191,7 @@ local function getViewportContentWidth(scroll, content, outer)
 end
 
 local function layoutTable(frame)
-    if not frame or not frame._content or not frame._cells then
+    if not frame or not frame._content or not frame._cellButtons then
         return
     end
     local content = frame._content
@@ -229,13 +236,13 @@ local function layoutTable(frame)
             ml:SetPoint("TOPLEFT", content, "TOPLEFT", pad, -HEADER_EXTRA - (r - 1) * ROW_HEIGHT)
         end
         for c = 1, MAJOR_COUNT do
-            local cell = frame._cells[r][c]
-            if cell and cell.SetWidth then
-                cell:SetWidth(colW - 2)
-                if cell.SetHeight then
-                    cell:SetHeight(ROW_HEIGHT)
+            local cellButton = frame._cellButtons[r][c]
+            if cellButton and cellButton.SetWidth then
+                cellButton:SetWidth(colW - 2)
+                if cellButton.SetHeight then
+                    cellButton:SetHeight(ROW_HEIGHT)
                 end
-                cell:SetPoint(
+                cellButton:SetPoint(
                     "TOPLEFT",
                     content,
                     "TOPLEFT",
@@ -298,7 +305,7 @@ local function create(parent, mapDetail)
     end
 
     local minorLabels = {}
-    local cells = {}
+    local cellButtons = {}
     for r = 1, MINOR_COUNT do
         local ml = content:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
         ml:SetPoint("TOPLEFT", H_PAD, -200)
@@ -312,20 +319,41 @@ local function create(parent, mapDetail)
             ml:SetHeight(ROW_HEIGHT)
         end
         minorLabels[r] = ml
-        cells[r] = {}
+        cellButtons[r] = {}
         for c = 1, MAJOR_COUNT do
-            local cellFs = content:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-            cellFs:SetPoint("TOPLEFT", content, "TOPLEFT", 104 + (c - 1) * 56, -200)
-            cellFs:SetWidth(52)
+            local cellButton = CreateFrame("Button", nil, content)
+            cellButton:SetPoint("TOPLEFT", content, "TOPLEFT", 104 + (c - 1) * 56, -200)
+            cellButton:SetSize(52, ROW_HEIGHT)
+            cellButton:RegisterForClicks("AnyUp")
+            cellButton._mapDetail = mapDetail
+            local hl = cellButton:CreateTexture(nil, "HIGHLIGHT")
+            hl:SetAllPoints()
+            hl:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
+            hl:SetBlendMode("ADD")
+
+            local cellFs = cellButton:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+            cellFs:SetAllPoints()
             cellFs:SetJustifyH("CENTER")
             cellFs:SetJustifyV("MIDDLE")
             if cellFs.SetWordWrap then
                 cellFs:SetWordWrap(true)
             end
-            if cellFs.SetHeight then
-                cellFs:SetHeight(ROW_HEIGHT)
-            end
-            cells[r][c] = cellFs
+            cellButton.Text = cellFs
+            cellButton._row = r
+            cellButton._col = c
+            cellButton:SetScript("OnClick", function(btn)
+                local owner = btn._mapDetail
+                local criteriaId = btn._criteriaId
+                if not owner or not criteriaId or type(MetaAchievementMapDetail_OnRequirementClicked) ~= "function" then
+                    return
+                end
+                MetaAchievementMapDetail_OnRequirementClicked(owner, {
+                    criteriaString = getCriterionDisplayName(criteriaId),
+                    criteriaType = 0,
+                    criteriaID = criteriaId,
+                }, BLESSING_ACHIEVEMENT_ID, criteriaId)
+            end)
+            cellButtons[r][c] = cellButton
         end
     end
 
@@ -333,7 +361,7 @@ local function create(parent, mapDetail)
     f._corner = corner
     f._majorHeaders = majorHeaders
     f._minorLabels = minorLabels
-    f._cells = cells
+    f._cellButtons = cellButtons
     f._scroll = scroll
     scroll:SetScrollChild(content)
 
@@ -350,7 +378,7 @@ local function create(parent, mapDetail)
     f:RegisterEvent("ACHIEVEMENT_EARNED")
     f:SetScript("OnEvent", function(self, event)
         if event == "CRITERIA_UPDATE" or event == "ACHIEVEMENT_EARNED" then
-            if self._cells and self:IsVisible() then
+            if self._cellButtons and self:IsVisible() then
                 applyBlessingMatrixCells(self)
             end
         end
@@ -361,8 +389,17 @@ local function create(parent, mapDetail)
 end
 
 local function setContext(frame, mapDetail)
-    if not frame or not frame._cells then
+    if not frame or not frame._cellButtons then
         return
+    end
+    frame._mapDetail = mapDetail or frame._mapDetail
+    for r = 1, MINOR_COUNT do
+        for c = 1, MAJOR_COUNT do
+            local btn = frame._cellButtons[r][c]
+            if btn then
+                btn._mapDetail = frame._mapDetail
+            end
+        end
     end
     for c = 1, MAJOR_COUNT do
         local entry = MAJOR_LOA_SPELLS[c]

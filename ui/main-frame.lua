@@ -78,13 +78,23 @@ local function deferJournalMapAndVisibility(mgr, frame)
 end
 
 local function mainFrame_OnKeyDown(self, key)
+    local function trySetPropagate(frame, enabled)
+        if not frame or type(frame.SetPropagateKeyboardInput) ~= "function" then
+            return
+        end
+        if type(InCombatLockdown) == "function" and InCombatLockdown() then
+            return
+        end
+        pcall(function()
+            frame:SetPropagateKeyboardInput(enabled)
+        end)
+    end
+
     if key == "ESCAPE" then
-        self:SetPropagateKeyboardInput(false)
+        trySetPropagate(self, false)
         if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
             MetaAchievementMainFrameMgr:HidePanel()
         end
-    else
-        self:SetPropagateKeyboardInput(true)
     end
 end
 
@@ -864,11 +874,11 @@ function MetaAchievementMainFrame_OnShow(self)
 end
 
 function MetaAchievementMainFrame_OnHide(self)
-    pcall(function()
-        if self.SetPropagateKeyboardInput then
+    if self and self.SetPropagateKeyboardInput and (not InCombatLockdown or not InCombatLockdown()) then
+        pcall(function()
             self:SetPropagateKeyboardInput(true)
-        end
-    end)
+        end)
+    end
     self:EnableKeyboard(false)
     self:SetScript("OnKeyDown", nil)
     if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ReleaseKeyboardCapture) == "function" then
