@@ -285,6 +285,13 @@
                             <Anchor point="BOTTOMLEFT" relativeTo="$parentScrollBox" relativePoint="BOTTOMRIGHT" x="6" y="0"/>
                         </Anchors>
                     </EventFrame>
+                    <!-- Custom requirements body (optional): same anchors as ScrollBox; default list hidden when active -->
+                    <Frame name="$parentCustomBodyHost" hidden="true">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="6" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="-22" y="8"/>
+                        </Anchors>
+                    </Frame>
                 </Frames>
             </Frame>
 

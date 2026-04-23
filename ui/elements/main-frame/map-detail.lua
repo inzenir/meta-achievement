@@ -29,6 +29,82 @@ local REQUIREMENT_ROW_PROGRESS_HEIGHT = 41  -- progress rows: text line + bar on
 local REQUIREMENT_ROW_GAP = 0
 local REQUIREMENTS_CRITERIA_GAP = 8  -- Vertical gap between Requirements box bottom and Criteria information box top
 
+--- True when a registered custom body override is active (hides default ScrollBox list).
+local function mapDetailHasActiveBodyOverride(detail)
+    if not detail or not MetaAchievementCustomRequirements then
+        return false
+    end
+    local ov = detail._requirementsBodyOverrideElement
+    if type(ov) ~= "string" or ov == "" then
+        return false
+    end
+    return MetaAchievementCustomRequirements.GetBodyElement(ov) ~= nil
+end
+
+--- Requirements chrome (border, title, buttons) visible when there are rows OR a valid custom body override.
+local function mapDetailShowsRequirementsChrome(detail)
+    local n = (detail._requirements and #detail._requirements) or 0
+    return n > 0 or mapDetailHasActiveBodyOverride(detail)
+end
+
+--- Swap default requirement list vs. custom body; keeps RequirementsBox chrome. Global for docs / RefreshContentLayout.
+function MetaAchievementMapDetail_SyncRequirementsBodyDisplay(self)
+    if not self or not self.RequirementsBox or not MetaAchievementCustomRequirements then
+        return
+    end
+    local box = self.RequirementsBox
+    local ov = self._requirementsBodyOverrideElement
+    local api
+    if type(ov) == "string" and ov ~= "" then
+        api = MetaAchievementCustomRequirements.GetBodyElement(ov)
+        if not api then
+            MetaAchievementCustomRequirements.WarnUnknownBodyElementOnce(ov)
+        end
+    end
+
+    local sb, sbar = box.ScrollBox, box.ScrollBar
+    local host = box.CustomBodyHost
+
+    if api then
+        if sb then
+            sb:Hide()
+        end
+        if sbar then
+            sbar:Hide()
+        end
+        if host then
+            host:Show()
+        end
+
+        if self._customRequirementsBodyName ~= ov then
+            MetaAchievementCustomRequirements.ReleaseDetailBody(self)
+            self._customRequirementsBodyName = ov
+            self._customRequirementsBodyFrame = api.Create(host, self)
+            if self._customRequirementsBodyFrame then
+                self._customRequirementsBodyFrame:SetParent(host)
+                self._customRequirementsBodyFrame:ClearAllPoints()
+                self._customRequirementsBodyFrame:SetAllPoints()
+                self._customRequirementsBodyFrame:Show()
+            end
+        end
+        if self._customRequirementsBodyFrame and api.SetContext then
+            api.SetContext(self._customRequirementsBodyFrame, self)
+        end
+    else
+        if sb then
+            sb:Show()
+        end
+        if sbar then
+            sbar:Show()
+        end
+        if host then
+            host:Hide()
+        end
+        MetaAchievementCustomRequirements.ReleaseDetailBody(self)
+        self._customRequirementsBodyName = nil
+    end
+end
+
 local function setScrollChildWidth(self)
     if not self.RequirementsBox or not self.RequirementsBox.ScrollFrame or not self.RequirementsBox.ScrollFrame.ScrollChild then
         return
@@ -40,6 +116,9 @@ local function setScrollChildWidth(self)
 end
 
 local function refreshRequirementsDataProvider(self)
+    if mapDetailHasActiveBodyOverride(self) then
+        return
+    end
     local box = self.RequirementsBox
     if not box or not box._dataProvider then return end
     local dp = box._dataProvider
@@ -314,6 +393,7 @@ function MetaAchievementMapDetail_OnLoad(self)
         end
         self.RequirementsBox.ScrollBox = _G[self.RequirementsBox:GetName() .. "ScrollBox"]
         self.RequirementsBox.ScrollBar = _G[self.RequirementsBox:GetName() .. "ScrollBar"]
+        self.RequirementsBox.CustomBodyHost = _G[self.RequirementsBox:GetName() .. "CustomBodyHost"]
 
         if self.RequirementsBox.ScrollBox and self.RequirementsBox.ScrollBar and CreateScrollBoxListLinearView and ScrollUtil and ScrollUtil.InitScrollBoxListWithScrollBar and CreateDataProvider then
             local box = self.RequirementsBox
@@ -421,7 +501,7 @@ function MetaAchievementMapDetail_OnLoad(self)
 
     -- Refresh content layout when detail is shown (fixes empty panels when SetData ran before frame had valid dimensions).
     self:SetScript("OnShow", function()
-        if self._currentRewardText ~= nil or self._currentHelpText ~= nil or (self._requirements and #self._requirements > 0) then
+        if self._currentRewardText ~= nil or self._currentHelpText ~= nil or mapDetailShowsRequirementsChrome(self) then
             MetaAchievementMapDetail_RefreshContentLayout(self)
         end
     end)
@@ -595,7 +675,7 @@ local function updateRewardHelpAndRequirementsLayout(self, rewardText, helpText)
 
     local hasReward = not isRewardEmpty(rewardText)
     local hasHelp = self.HelpBox and hasHelpText(helpText)
-    local hasRequirements = self._requirements and #self._requirements > 0
+    local hasRequirements = mapDetailShowsRequirementsChrome(self)
 
     self.RewardBox:SetShown(hasReward)
 
@@ -677,6 +757,7 @@ function MetaAchievementMapDetail_RefreshContentLayout(self)
     -- Anchor RequirementsBox after reward/help heights are final, then flush+reinsert rows (ScrollBoxList needs this on first paint).
     updateRewardHelpAndRequirementsLayout(self, rewardText or "", helpText or "")
     refreshRequirementsDataProvider(self)
+    MetaAchievementMapDetail_SyncRequirementsBodyDisplay(self)
 end
 
 local CRITERIA_INFO_BOX_TITLE = "CRITERIA INFORMATION"
@@ -724,6 +805,7 @@ local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
         self.CriteriaInfoBox:Hide()
     end
     updateRewardHelpAndRequirementsLayout(self, self._currentRewardText or "", self._currentHelpText or "")
+    MetaAchievementMapDetail_SyncRequirementsBodyDisplay(self)
 end
 
 function MetaAchievementMapDetail_SetData(self, data)
@@ -782,22 +864,24 @@ function MetaAchievementMapDetail_SetData(self, data)
 
     self._currentRewardText = data.reward or ""
     self._currentHelpText = data.helpText or ""
+    self._requirementsBodyOverrideElement = data.requirementsBodyOverrideElement
     self._requirements = data.requirements or {}
 
     setCriteriaInfoBox(self, nil)
     updateRewardHelpAndRequirementsLayout(self, data.reward, data.helpText)
     refreshRequirementsDataProvider(self)
+    MetaAchievementMapDetail_SyncRequirementsBodyDisplay(self)
 
     -- Defer layout refresh so scroll frames have valid dimensions (fixes empty reward/help/requirements on first open).
     if C_Timer and type(C_Timer.After) == "function" then
         C_Timer.After(0, function()
-            if self and (self._currentRewardText ~= nil or self._currentHelpText ~= nil or (self._requirements and #self._requirements > 0)) then
+            if self and (self._currentRewardText ~= nil or self._currentHelpText ~= nil or mapDetailShowsRequirementsChrome(self)) then
                 MetaAchievementMapDetail_RefreshContentLayout(self)
             end
         end)
         -- Second tick: map inset / ScrollBox often only get final size after the first deferred frame.
         C_Timer.After(0.05, function()
-            if self and self._requirements and #self._requirements > 0 then
+            if self and mapDetailShowsRequirementsChrome(self) then
                 MetaAchievementMapDetail_RefreshContentLayout(self)
             end
         end)
@@ -1047,6 +1131,9 @@ function MetaAchievementMapDetail_BuildDataFromAchievementId(achievementId, node
         reward = rewardText or "",
         requirements = requirements,
     }
+    if flatInfo and type(flatInfo.requirementsBodyOverrideElement) == "string" and flatInfo.requirementsBodyOverrideElement ~= "" then
+        data.requirementsBodyOverrideElement = flatInfo.requirementsBodyOverrideElement
+    end
     return data, flatInfo
 end
 
@@ -1077,6 +1164,7 @@ function MetaAchievementMapDetail_PreviewMountReward(self)
         MetaAchievementMountRewardPanel_Update(self.MountPreviewPanel, mountId)
     end
     updateRewardHelpAndRequirementsLayout(self, self._currentRewardText, self._currentHelpText)
+    MetaAchievementMapDetail_SyncRequirementsBodyDisplay(self)
 end
 
 -- Convenience: populate the detail frame from an achievement id.
