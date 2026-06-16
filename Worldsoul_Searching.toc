@@ -1,6 +1,6 @@
-﻿## Interface: 120005
+﻿## Interface: 120007
 ## Title: Meta Achievement Tracker
-## Notes: The War Within Meta Achievement tracker
+## Notes: Meta Achievement tracker
 ## Author: inzenir
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\Worldsoul_Searching\images\achievement_zone_isleofdorn
@@ -17,36 +17,36 @@ bindings-localization.lua
 
 # achievement data
 map-zones.lua
-achi-list\WorldSoulSearching.lua
-achi-list\WorldSoulSearching.waypoints.lua
-achi-list\AFarewellToArms.lua
-achi-list\AFarewellToArms.waypoints.lua
-achi-list\AWorldAwoken.lua
-achi-list\AWorldAwoken\raids-and-dungeons.waypoints.lua
-achi-list\AWorldAwoken\questing.waypoints.lua
-achi-list\AWorldAwoken\zones.waypoints.lua
-achi-list\AWorldAwoken\dragon-isles-pathfinder.waypoints.lua
-achi-list\AWorldAwoken\friend-of-the-dragon-isles.waypoints.lua
-achi-list\AWorldAwoken\oh-my-god-they-were-clutchmates.waypoints.lua
-achi-list\AWorldAwoken\across-the-isles.waypoints.lua
-achi-list\AWorldAwoken\now-this-is-dragon-racing.waypoints.lua
-achi-list\AWorldAwoken.waypoints.lua
-achi-list\BackFromTheBeyond.lua
-achi-list\BackFromTheBeyond.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen.lua
-achi-list\WhatALongStrangeTripItsBeen\to-honor-ones-elders.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\the-flame-keeper.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\merrymaker.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\hallowed-be-thy-name.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\fool-for-love.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\noble-gardener.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\for-the-children.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen\brewmaster.waypoints.lua
-achi-list\WhatALongStrangeTripItsBeen.waypoints.lua
-achi-list\LightUpTheNight.lua
-achi-list\LightUpTheNight.waypoints.lua
-achi-list\GloryOfTheMidnightDelver.lua
-achi-list\GloryOfTheMidnightDelver.waypoints.lua
+achi-list\TheWarWithin\WorldSoulSearching.lua
+achi-list\TheWarWithin\WorldSoulSearching.waypoints.lua
+achi-list\BattleForAzeroth\AFarewellToArms.lua
+achi-list\BattleForAzeroth\AFarewellToArms.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken.lua
+achi-list\Dragonflight\AWorldAwoken\raids-and-dungeons.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\questing.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\zones.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\dragon-isles-pathfinder.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\friend-of-the-dragon-isles.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\oh-my-god-they-were-clutchmates.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\across-the-isles.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken\now-this-is-dragon-racing.waypoints.lua
+achi-list\Dragonflight\AWorldAwoken.waypoints.lua
+achi-list\Shadowlands\BackFromTheBeyond.lua
+achi-list\Shadowlands\BackFromTheBeyond.waypoints.lua
+achi-list\Midnight\LightUpTheNight.lua
+achi-list\Midnight\LightUpTheNight.waypoints.lua
+achi-list\Midnight\GloryOfTheMidnightDelver.lua
+achi-list\Midnight\GloryOfTheMidnightDelver.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\to-honor-ones-elders.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\the-flame-keeper.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\merrymaker.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\hallowed-be-thy-name.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\fool-for-love.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\noble-gardener.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\for-the-children.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen\brewmaster.waypoints.lua
+achi-list\Meta\WhatALongStrangeTripItsBeen.waypoints.lua
 
 # logic loading
 logic\modern\achievement-data.lua

@@ -65,29 +65,6 @@ function EntryPoint()
         end,
         "Hide addon window")
 
-    RegisterSlashCommand("reset",
-        function()
-            -- Window position reset removed with legacy main frame; use journal UI.
-        end,
-        "Reset window position")
-
-    RegisterSlashCommand("journal",
-        function()
-            MetaAchievement_ToggleWindowVisibility()
-        end,
-        "Toggle retail-style journal + map UI")
-
-    RegisterSlashCommand("mini",
-        function()
-            if type(MetaAchievementMiniFrame_Show) == "function" then
-                MetaAchievementMiniFrame_Show()
-            else
-                print((MetaAchievementTitle or "Meta Achievement Tracker") .. ": Mini frame not loaded yet.")
-            end
-        end,
-        "Show the mini (compact) window")
-
-
     -- Settings
 
 
