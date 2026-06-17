@@ -130,4 +130,6 @@ MapZones = {
     MIDNIGHT_ZONE_Eversong_Woods = 2395,
     MIDNIGHT_ZONE_MidnightSilvermoon = 2393,
     MIDNIGHT_ZONE_ZulAman = 2437,
+    MIDNIGHT_ZONE_Val = 2599,
+    MIDNIGHT_ZONE_Naigtal = 2600,
 }

@@ -34,7 +34,8 @@ end
 --- @param key string Unique key (e.g. "worldSoulSearching")
 --- @param displayName string Display name for UI
 --- @param provider table Must have GetList() and topAchievementId
-function ActiveAchievementState:RegisterSource(key, displayName, provider)
+--- @param expansion string|nil Display grouping for journal list dropdown (e.g. "Midnight")
+function ActiveAchievementState:RegisterSource(key, displayName, provider, expansion)
     if type(key) ~= "string" or key == "" then
         return
     end
@@ -52,11 +53,12 @@ function ActiveAchievementState:RegisterSource(key, displayName, provider)
     self._sources[key] = {
         key = key,
         name = displayName,
+        expansion = expansion,
         provider = provider,
     }
 end
 
---- Return registered sources in registration order.
+--- Return registered sources sorted by expansion, preserving registration order within each group.
 function ActiveAchievementState:GetRegisteredSources()
     self._sources = self._sources or {}
     self._sourceOrder = self._sourceOrder or {}
@@ -66,6 +68,9 @@ function ActiveAchievementState:GetRegisteredSources()
         if src then
             list[#list + 1] = src
         end
+    end
+    if JournalSourceExpansions and type(JournalSourceExpansions.SortSources) == "function" then
+        return JournalSourceExpansions.SortSources(list)
     end
     return list
 end

@@ -966,18 +966,24 @@ local function appendRegularCriteriaFromApi(achievementId, requirements, achieve
     for i = 1, numCriteria do
         local criteriaString, criteriaType, completed, quantity, reqQuantity, _charName, _flags, _assetID, quantityString, criteriaID, _eligible =
             GetAchievementCriteriaInfo(achievementId, i)
-        -- Some completed API criteria may return an empty string; keep them visible in combined mode.
-        local text = (type(criteriaString) == "string" and criteriaString ~= "") and criteriaString or ("Criteria " .. tostring(i))
+        -- List title: explicit override, then API name, then waypoints name. helpText is for the criteria info box only.
+        local text
         if overrides and criteriaID then
             local o = overrides[criteriaID]
-            if type(o) == "table" then
-                if type(o.helpText) == "string" and o.helpText ~= "" then
-                    text = o.helpText
-                elseif type(o.text) == "string" and o.text ~= "" then
-                    text = o.text
-                end
+            if type(o) == "table" and type(o.text) == "string" and o.text ~= "" then
+                text = o.text
             end
         end
+        if not text and type(criteriaString) == "string" and criteriaString ~= "" then
+            text = criteriaString
+        end
+        if not text and overrides and criteriaID then
+            local o = overrides[criteriaID]
+            if type(o) == "table" and type(o.name) == "string" and o.name ~= "" then
+                text = o.name
+            end
+        end
+        text = text or ("Criteria " .. tostring(i))
         local entry = {
             text = text,
             completed = completed == true,
@@ -1589,12 +1595,6 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
                 criteriaID = criteriaId,
                 eligible = eligible,
             }, aid, apiIdx)
-        end
-    elseif aid and idx and type(GetAchievementNumCriteria) == "function" then
-        local n = GetAchievementNumCriteria(aid) or 0
-        if n == 0 then
-            print("[MetaAchievement] Criteria click (child-achievement row): achievementId", aid, "rowIndex", idx)
-            print("  req", req and req.text or "nil")
         end
     end
     MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)

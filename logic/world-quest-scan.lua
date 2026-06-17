@@ -1,10 +1,51 @@
 --[[
-  Map quest/task POIs intersected with registry; drives activity notifications (DEV-021).
+  World quest activity notifications: scan AchievementData-registered waypoints for
+  criteria rows with worldQuest { mapId, questId }, probe those maps via task/map POI
+  APIs, and notify when the quest is active and the criteria is still incomplete.
+
+  Legacy quest-achievement-registry rows are no longer required for this path; new data
+  only needs RegisterDataSource + criteria.worldQuest in waypoints files.
 ]]
 
-local function collectQuestIdsForMap(uiMapID)
+local function isCriteriaIncompleteById(achievementId, criteriaId)
+    if type(achievementId) ~= "number" or type(criteriaId) ~= "number" then
+        return false
+    end
+    if type(GetAchievementCriteriaInfoByID) == "function" then
+        local ok, _criteriaString, _criteriaType, completed = pcall(GetAchievementCriteriaInfoByID, achievementId, criteriaId)
+        if ok and completed ~= nil then
+            return completed ~= true
+        end
+    end
+    if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
+        return false
+    end
+    local num = GetAchievementNumCriteria(achievementId) or 0
+    for idx = 1, num do
+        local _, _, completed, _, _, _, _, _, _, cid = GetAchievementCriteriaInfo(achievementId, idx)
+        if cid == criteriaId then
+            return completed ~= true
+        end
+    end
+    return false
+end
+
+local function getTaskQuestPoisForMap(uiMapID)
+    if not C_TaskQuest then
+        return nil
+    end
+    -- 11.0.5+: GetQuestsForPlayerByMapID was replaced by GetQuestsOnMap (same return shape).
+    if type(C_TaskQuest.GetQuestsOnMap) == "function" then
+        return C_TaskQuest.GetQuestsOnMap(uiMapID)
+    end
+    if type(C_TaskQuest.GetQuestsForPlayerByMapID) == "function" then
+        return C_TaskQuest.GetQuestsForPlayerByMapID(uiMapID)
+    end
+    return nil
+end
+
+local function collectActiveQuestIdsForMap(uiMapID)
     local seen = {}
-    local order = {}
 
     local function addPoiList(pois)
         if type(pois) ~= "table" then
@@ -14,56 +55,125 @@ local function collectQuestIdsForMap(uiMapID)
             local row = pois[i]
             if type(row) == "table" then
                 local qid = row.questID
-                if type(qid) == "number" and not seen[qid] then
+                if type(qid) == "number" then
                     seen[qid] = true
-                    order[#order + 1] = qid
                 end
             end
         end
     end
 
-    if C_TaskQuest and type(C_TaskQuest.GetQuestsForPlayerByMapID) == "function" then
-        addPoiList(C_TaskQuest.GetQuestsForPlayerByMapID(uiMapID))
-    end
+    addPoiList(getTaskQuestPoisForMap(uiMapID))
+
     if C_QuestLog and type(C_QuestLog.GetQuestsOnMap) == "function" then
         addPoiList(C_QuestLog.GetQuestsOnMap(uiMapID))
     end
 
-    return order
+    return seen
+end
+
+local function normalizeWorldQuest(cinfo)
+    if type(cinfo) ~= "table" then
+        return nil
+    end
+    local wq = cinfo.worldQuest
+    if type(wq) ~= "table" then
+        return nil
+    end
+    local mapId = wq.mapId
+    local questId = wq.questId
+    if type(mapId) ~= "number" or type(questId) ~= "number" then
+        return nil
+    end
+    return mapId, questId
 end
 
 function MetaAchievementWorldQuestScan_TryRefresh()
-    if not C_Map or type(C_Map.GetBestMapForUnit) ~= "function" then
+    if not AchievementData or type(AchievementData.ForEachRegisteredAchievementEntry) ~= "function" then
         return
     end
-    if not MetaAchievementQuestRegistry or not MetaAchievementActivityNotify then
-        return
-    end
-
-    local m = C_Map.GetBestMapForUnit("player")
-    if not m then
+    if not MetaAchievementActivityNotify or type(MetaAchievementActivityNotify.TryNotify) ~= "function" then
         return
     end
 
-    local questIds = collectQuestIdsForMap(m)
+    local watchList = {}
+    local mapIdsToScan = {}
+    local mapIdSeen = {}
+
+    AchievementData:ForEachRegisteredAchievementEntry(function(topAchievementId, achievementId, flatEntry)
+        local criteria = flatEntry and flatEntry.criteria
+        if type(criteria) ~= "table" then
+            return
+        end
+        for criteriaId, cinfo in pairs(criteria) do
+            if type(criteriaId) == "number" and type(cinfo) == "table" then
+                local mapId, questId = normalizeWorldQuest(cinfo)
+                if mapId and questId then
+                    watchList[#watchList + 1] = {
+                        topAchievementId = topAchievementId,
+                        achievementId = achievementId,
+                        criteriaId = criteriaId,
+                        cinfo = cinfo,
+                        mapId = mapId,
+                        questId = questId,
+                    }
+                    if not mapIdSeen[mapId] then
+                        mapIdSeen[mapId] = true
+                        mapIdsToScan[#mapIdsToScan + 1] = mapId
+                    end
+                end
+            end
+        end
+    end)
+
+    if #watchList == 0 then
+        return
+    end
+
+    local activeByMap = {}
+    for i = 1, #mapIdsToScan do
+        local mapId = mapIdsToScan[i]
+        activeByMap[mapId] = collectActiveQuestIdsForMap(mapId)
+    end
+
     if type(MetaAchievementActivityNotify.BeginNotificationBurst) == "function" then
         MetaAchievementActivityNotify.BeginNotificationBurst()
     end
-    for i = 1, #questIds do
-        local qid = questIds[i]
-        local achis = MetaAchievementQuestRegistry.GetAchievementIdsForQuest(qid)
-        if achis then
-            for j = 1, #achis do
-                local aid = achis[j]
-                MetaAchievementActivityNotify.TryNotify({
-                    feature = "worldQuest",
-                    achievementId = aid,
-                    questId = qid,
-                    dedupeKey = tostring(qid) .. ":" .. tostring(aid),
-                })
+
+    for i = 1, #watchList do
+        local row = watchList[i]
+        local activeOnMap = activeByMap[row.mapId]
+        if activeOnMap and activeOnMap[row.questId]
+            and isCriteriaIncompleteById(row.achievementId, row.criteriaId)
+        then
+            local questName
+            if type(GetAchievementCriteriaInfoByID) == "function" then
+                local ok, label = pcall(GetAchievementCriteriaInfoByID, row.achievementId, row.criteriaId)
+                if ok and type(label) == "string" and label ~= "" then
+                    questName = label
+                end
             end
+            if not questName and row.cinfo and type(row.cinfo.name) == "string" and row.cinfo.name ~= "" then
+                questName = row.cinfo.name
+            end
+            if not questName then
+                questName = tostring(row.questId)
+            end
+            MetaAchievementActivityNotify.TryNotify({
+                feature = "worldQuest",
+                achievementId = row.achievementId,
+                topAchievementId = row.topAchievementId,
+                questId = row.questId,
+                cardDescription = string.format("%s: world quest is currently active", questName),
+                dedupeKey = "wq:"
+                    .. tostring(row.topAchievementId)
+                    .. ":"
+                    .. tostring(row.achievementId)
+                    .. ":"
+                    .. tostring(row.criteriaId),
+            })
         end
     end
+
     if type(MetaAchievementActivityNotify.EndNotificationBurst) == "function" then
         MetaAchievementActivityNotify.EndNotificationBurst()
     end

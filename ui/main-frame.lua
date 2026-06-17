@@ -107,7 +107,7 @@ local function clearRegions(parent)
     end
 end
 
-function MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, provider)
+function MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, provider, expansion)
     if type(key) ~= "string" or key == "" then
         return
     end
@@ -129,6 +129,7 @@ function MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, provid
     self.dataSources[key] = {
         key = key,
         name = displayName,
+        expansion = expansion,
         provider = provider
     }
 
@@ -136,7 +137,7 @@ function MetaAchievementMainFrameMgr:RegisterDataSource(key, displayName, provid
     if ActiveAchievementState and type(ActiveAchievementState.GetInstance) == "function" then
         local state = ActiveAchievementState:GetInstance()
         if type(state.RegisterSource) == "function" then
-            state:RegisterSource(key, displayName, provider)
+            state:RegisterSource(key, displayName, provider, expansion)
         end
     end
 
@@ -160,6 +161,9 @@ function MetaAchievementMainFrameMgr:GetDataSourcesSorted()
         if src then
             list[#list + 1] = src
         end
+    end
+    if JournalSourceExpansions and type(JournalSourceExpansions.SortSources) == "function" then
+        return JournalSourceExpansions.SortSources(list)
     end
     return list
 end

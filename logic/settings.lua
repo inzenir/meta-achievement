@@ -11,7 +11,6 @@ local function getDefaults()
         achievementLinkSource = "none",
         showSettingsButton = true,
         hideCompleted = false,
-        colouredHightlight = false,
         removeCompletedWaypoints = false,
         addWpsOnlyForUncompletedAchis = true,
         showCompletedScreenWhenTopDone = true,
@@ -21,6 +20,7 @@ local function getDefaults()
         miniJournalHideCompletedCriteria = false,
         -- Activity notifications: world quests + delve story lines (registry-curated).
         enableWorldQuestNotifications = true,
+        worldQuestScanIntervalSec = 60,
         enableDelveStoryNotifications = true,
         activityNotifyCooldownSec = 21600,
         -- Activity notification delivery: chat | cards | both (DEV-029).
@@ -48,8 +48,6 @@ local function getDefaults()
         selectedSourceKey = "worldSoulSearching",
         -- Hidden: selected achievement id in that list so mini shows same achievement.
         selectedAchievementId = nil,
-        dataList = {},
-        tmp1 = {}
     }
 end
 
