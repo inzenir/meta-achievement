@@ -1596,12 +1596,6 @@ function MetaAchievementMapRequirementRow_OnClick(row, button)
                 eligible = eligible,
             }, aid, apiIdx)
         end
-    elseif aid and idx and type(GetAchievementNumCriteria) == "function" then
-        local n = GetAchievementNumCriteria(aid) or 0
-        if n == 0 then
-            print("[MetaAchievement] Criteria click (child-achievement row): achievementId", aid, "rowIndex", idx)
-            print("  req", req and req.text or "nil")
-        end
     end
     MetaAchievementUIBus:Emit("MA_MAPDETAIL_REQUIREMENT_CLICKED", owner, row._index, req, button)
 end

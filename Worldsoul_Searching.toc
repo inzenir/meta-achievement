@@ -68,7 +68,6 @@ logic\achievement-criteria.lua
 logic\modern\criteria-completion.lua
 logic\modern\criteria-completion\quest-criteria.lua
 logic\wow-achievements.lua
-logic\achievement-scan.lua
 logic\quest-achievement-registry.lua
 logic\activity-notification.lua
 ui\activity-notification-cards.lua

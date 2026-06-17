@@ -11,7 +11,6 @@ local function getDefaults()
         achievementLinkSource = "none",
         showSettingsButton = true,
         hideCompleted = false,
-        colouredHightlight = false,
         removeCompletedWaypoints = false,
         addWpsOnlyForUncompletedAchis = true,
         showCompletedScreenWhenTopDone = true,
@@ -49,8 +48,6 @@ local function getDefaults()
         selectedSourceKey = "worldSoulSearching",
         -- Hidden: selected achievement id in that list so mini shows same achievement.
         selectedAchievementId = nil,
-        dataList = {},
-        tmp1 = {}
     }
 end
 

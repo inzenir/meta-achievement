@@ -25,15 +25,6 @@ ATripAroundTheStarsWaypoints = {
     },
     [62881] = {
         helpText = "Defeat 6 rare creatures in Val.",
-        -- waypoints = {
-        --     {
-        --         kind = "point",
-        --         coordinates = {
-        --             { mapId = MapZones.MIDNIGHT_ZONE_Val, x = 62, y = 15, title = "Umbral Base Camp" },
-        --             { mapId = MapZones.MIDNIGHT_ZONE_Val, x = 49, y = 90, title = "Imperator Pertinax" },
-        --         },
-        --     },
-        -- },
         criteria = {
             [113995] = {
                 name = "Sleet-Rune",
