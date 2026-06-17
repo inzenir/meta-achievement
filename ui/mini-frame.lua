@@ -123,7 +123,6 @@ function MetaAchievementMiniFrameDropdown_OnLoad(self)
                 rootDescription:CreateTitle("No achievement lists registered")
                 return
             end
-            rootDescription:CreateTitle("Achievement lists")
             local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
             local currentKey = (MetaAchievementSettings and MetaAchievementSettings:Get("selectedSourceKey")) or (state and type(state.GetActiveSourceKey) == "function" and state:GetActiveSourceKey())
             local function isSelected(key)
@@ -147,10 +146,14 @@ function MetaAchievementMiniFrameDropdown_OnLoad(self)
                     dropdownMenu = nil
                 end
             end
-            for _, src in ipairs(sources) do
-                local key = (src and src.key) or ""
-                local label = (src and (src.name or src.key)) or ""
-                rootDescription:CreateRadio(label, isSelected, setSelected, key)
+            if JournalSourceExpansions and type(JournalSourceExpansions.PopulateAchievementListMenu) == "function" then
+                JournalSourceExpansions.PopulateAchievementListMenu(rootDescription, sources, isSelected, setSelected)
+            else
+                for _, src in ipairs(sources) do
+                    local key = (src and src.key) or ""
+                    local label = (src and (src.name or src.key)) or ""
+                    rootDescription:CreateRadio(label, isSelected, setSelected, key)
+                end
             end
         end)
     end

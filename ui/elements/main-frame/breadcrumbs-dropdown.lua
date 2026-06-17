@@ -19,8 +19,6 @@ local function createDropdownMenu(breadcrumbsFrame, button)
                 return
             end
 
-            rootDescription:CreateTitle("Achievement lists")
-
             local function isSelected(key)
                 return breadcrumbsFrame._selectedSourceKey == key
             end
@@ -36,10 +34,14 @@ local function createDropdownMenu(breadcrumbsFrame, button)
                 end
             end
 
-            for _, src in ipairs(sources) do
-                local key = (src and src.key) or ""
-                local label = (src and (src.name or src.key)) or ""
-                rootDescription:CreateRadio(label, isSelected, setSelected, key)
+            if JournalSourceExpansions and type(JournalSourceExpansions.PopulateAchievementListMenu) == "function" then
+                JournalSourceExpansions.PopulateAchievementListMenu(rootDescription, sources, isSelected, setSelected)
+            else
+                for _, src in ipairs(sources) do
+                    local key = (src and src.key) or ""
+                    local label = (src and (src.name or src.key)) or ""
+                    rootDescription:CreateRadio(label, isSelected, setSelected, key)
+                end
             end
         end)
     end

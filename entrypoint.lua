@@ -83,7 +83,7 @@ function EntryPoint()
 
     -- Register existing achievement lists as dropdown data sources for the journal+map UI
     if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.RegisterDataSource) == "function" then
-        local function registerJournalSource(key, displayName, achievementList)
+        local function registerJournalSource(key, displayName, achievementList, expansion)
             local data = DataList:new(achievementList)
             if DataList.RegisterForSourceKey then
                 DataList.RegisterForSourceKey(key, data)
@@ -149,18 +149,18 @@ function EntryPoint()
 
                     return true
                 end
-            })
+            }, expansion)
         end
 
-        registerJournalSource(WindowTabs.aTripThroughTheStars, "A Trip Through the Stars", ATripThroughTheStarsAchievements)
-        registerJournalSource(WindowTabs.aTripAroundTheStars, "A Trip Around the Stars", ATripAroundTheStarsAchievements)
-        registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements)
-        registerJournalSource(WindowTabs.gloryOfTheMidnightDelver, "Glory of the Midnight Delver", GloryOfTheMidnightDelverAchievements)
-        registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements)
-        registerJournalSource(WindowTabs.aWorldAwoken, "A World Awoken", AWorldAwokenAchievements)
-        registerJournalSource(WindowTabs.backFromTheBeyond, "Back From The Beyond", BackFromTheBeyondAchievements)
-        registerJournalSource(WindowTabs.farewellToArms, "A Farewell To Arms", AFarewellToArmsAchievements)
-        registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements)
+        registerJournalSource(WindowTabs.aTripThroughTheStars, "A Trip Through the Stars", ATripThroughTheStarsAchievements, "Midnight")
+        registerJournalSource(WindowTabs.aTripAroundTheStars, "A Trip Around the Stars", ATripAroundTheStarsAchievements, "Midnight")
+        registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements, "Midnight")
+        registerJournalSource(WindowTabs.gloryOfTheMidnightDelver, "Glory of the Midnight Delver", GloryOfTheMidnightDelverAchievements, "Midnight")
+        registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements, "The War Within")
+        registerJournalSource(WindowTabs.aWorldAwoken, "A World Awoken", AWorldAwokenAchievements, "Dragonflight")
+        registerJournalSource(WindowTabs.backFromTheBeyond, "Back From The Beyond", BackFromTheBeyondAchievements, "Shadowlands")
+        registerJournalSource(WindowTabs.farewellToArms, "A Farewell To Arms", AFarewellToArmsAchievements, "Battle for Azeroth")
+        registerJournalSource(WindowTabs.whatALongStrangeTripItsBeen, "What a Long, Strange Trip It's Been", WhatALongStrangeTripItsBeenAchievements, "Meta")
 
         -- Achievement progress: ACHIEVEMENT_EARNED = full completion; CRITERIA_UPDATE = partial/meta criteria (no payload).
         -- Mini frame previously only invalidated cache when main was hidden â€” it must rebuild list + detail from live APIs.

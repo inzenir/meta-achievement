@@ -3,6 +3,7 @@ ATripThroughTheStarsAchievements = {
     {
         ["id"] = 62874,
         ["name"] = "A Trip Through the Stars",
+        mountId = 2990,
         ["children"] = {
             {
                 ["id"] = 63383,
