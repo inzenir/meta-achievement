@@ -86,6 +86,21 @@ MetaAchievementOptionsDefinitions = {
         group = "notifications",
     },
     {
+        variable = "worldQuestScanIntervalSec",
+        name = "Activity rescan interval",
+        tooltip = "How often to check for newly active world quests and delve story alerts while playing, even when the quest log does not update.",
+        varType = "select",
+        group = "notifications",
+        options = {
+            { value = 30, label = "30 seconds" },
+            { value = 60, label = "1 minute" },
+            { value = 120, label = "2 minutes" },
+            { value = 300, label = "5 minutes" },
+            { value = 600, label = "10 minutes" },
+            { value = 900, label = "15 minutes" },
+        },
+    },
+    {
         variable = "activityNotifyDeliveryMode",
         name = "Activity notification delivery",
         tooltip = "Where to show activity alerts: chat only, on-screen cards only, or both. Cards stack from the chosen screen corner — top corners grow downward, bottom corners grow upward.",

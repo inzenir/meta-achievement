@@ -37,6 +37,10 @@ achi-list\Midnight\LightUpTheNight.lua
 achi-list\Midnight\LightUpTheNight.waypoints.lua
 achi-list\Midnight\GloryOfTheMidnightDelver.lua
 achi-list\Midnight\GloryOfTheMidnightDelver.waypoints.lua
+achi-list\Midnight\ATripThroughTheStars.lua
+achi-list\Midnight\ATripThroughTheStars.waypoints.lua
+achi-list\Midnight\ATripAroundTheStars.lua
+achi-list\Midnight\ATripAroundTheStars.waypoints.lua
 achi-list\Meta\WhatALongStrangeTripItsBeen.lua
 achi-list\Meta\WhatALongStrangeTripItsBeen\to-honor-ones-elders.waypoints.lua
 achi-list\Meta\WhatALongStrangeTripItsBeen\the-flame-keeper.waypoints.lua

@@ -32,6 +32,8 @@ MetaAchievementDB.primaryWindow = {
 WindowTabs = {
     lightUpTheNight = "lightUpTheNight",
     gloryOfTheMidnightDelver = "gloryOfTheMidnightDelver",
+    aTripThroughTheStars = "aTripThroughTheStars",
+    aTripAroundTheStars = "aTripAroundTheStars",
     worldSoulSearching = "worldSoulSearching",
     settings = "settings",
     farewellToArms = "farewellToArms",
@@ -72,6 +74,8 @@ function EntryPoint()
     AchievementData:RegisterDataSource(61451, WorldSoulSearchingWaypoints)
     AchievementData:RegisterDataSource(62386, LightUpTheNightWaypoints)
     AchievementData:RegisterDataSource(61906, GloryOfTheMidnightDelverWaypoints)
+    AchievementData:RegisterDataSource(62874, ATripThroughTheStarsWaypoints)
+    AchievementData:RegisterDataSource(62873, ATripAroundTheStarsWaypoints)
     AchievementData:RegisterDataSource(19458, AWorldAwokenWaypoints)
     AchievementData:RegisterDataSource(40953, AFarewellToArmsWaypoints)
     AchievementData:RegisterDataSource(20501, BackFromTheBeyondWaypoints)
@@ -148,6 +152,8 @@ function EntryPoint()
             })
         end
 
+        registerJournalSource(WindowTabs.aTripThroughTheStars, "A Trip Through the Stars", ATripThroughTheStarsAchievements)
+        registerJournalSource(WindowTabs.aTripAroundTheStars, "A Trip Around the Stars", ATripAroundTheStarsAchievements)
         registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements)
         registerJournalSource(WindowTabs.gloryOfTheMidnightDelver, "Glory of the Midnight Delver", GloryOfTheMidnightDelverAchievements)
         registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements)
@@ -264,6 +270,72 @@ function EntryPoint()
                 runActivityScans()
             end)
         end
+
+        local periodicWqScanTicker = nil
+        local VALID_WQ_SCAN_INTERVALS = {
+            [30] = true,
+            [60] = true,
+            [120] = true,
+            [300] = true,
+            [600] = true,
+            [900] = true,
+        }
+        local function getWorldQuestScanIntervalSec()
+            local interval = MetaAchievementSettings and MetaAchievementSettings:Get("worldQuestScanIntervalSec")
+            if type(interval) == "number" and VALID_WQ_SCAN_INTERVALS[interval] then
+                return interval
+            end
+            return 60
+        end
+        local function isWorldQuestPeriodicScanEnabled()
+            return MetaAchievementSettings
+                and MetaAchievementSettings:Get("enableWorldQuestNotifications") == true
+        end
+
+        local function isDelvePeriodicScanEnabled()
+            return MetaAchievementSettings
+                and MetaAchievementSettings:Get("enableDelveStoryNotifications") == true
+        end
+
+        local function isPeriodicActivityScanEnabled()
+            return isWorldQuestPeriodicScanEnabled() or isDelvePeriodicScanEnabled()
+        end
+
+        local function runPeriodicActivityScan()
+            if isWorldQuestPeriodicScanEnabled() and MetaAchievementWorldQuestScan_TryRefresh then
+                MetaAchievementWorldQuestScan_TryRefresh()
+            end
+
+            -- Delve notifications rely on the availability cache, so refresh it too.
+            if isDelvePeriodicScanEnabled() then
+                if MetaAchievementDelveStoryAvailability and type(MetaAchievementDelveStoryAvailability.TryRefresh) == "function" then
+                    MetaAchievementDelveStoryAvailability.TryRefresh(false)
+                end
+                if MetaAchievementDelveStoryNotify_TryRefresh then
+                    MetaAchievementDelveStoryNotify_TryRefresh()
+                end
+            end
+        end
+        local function stopPeriodicWorldQuestScan()
+            if periodicWqScanTicker then
+                periodicWqScanTicker:Cancel()
+                periodicWqScanTicker = nil
+            end
+        end
+        local function restartPeriodicWorldQuestScan()
+            stopPeriodicWorldQuestScan()
+            if not isPeriodicActivityScanEnabled() then
+                return
+            end
+            periodicWqScanTicker = C_Timer.NewTicker(getWorldQuestScanIntervalSec(), runPeriodicActivityScan)
+        end
+        if MetaAchievementSettings and type(MetaAchievementSettings.RegisterListener) == "function" then
+            MetaAchievementSettings:RegisterListener("worldQuestScanIntervalSec", restartPeriodicWorldQuestScan)
+            MetaAchievementSettings:RegisterListener("enableWorldQuestNotifications", restartPeriodicWorldQuestScan)
+            MetaAchievementSettings:RegisterListener("enableDelveStoryNotifications", restartPeriodicWorldQuestScan)
+        end
+        restartPeriodicWorldQuestScan()
+
         local af = CreateFrame("Frame")
         af:RegisterEvent("QUEST_LOG_UPDATE")
         -- WORLD_MAP_UPDATE is not a valid Frame event on Retail 12.x (registration errors).
