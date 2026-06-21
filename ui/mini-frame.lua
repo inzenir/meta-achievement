@@ -72,11 +72,9 @@ local function applyMiniEscapeKeyboardMode(frame)
     if not frame or not frame:IsShown() then
         return
     end
-    pcall(function()
-        if frame.SetPropagateKeyboardInput then
-            frame:SetPropagateKeyboardInput(true)
-        end
-    end)
+    if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.SafeSetPropagateKeyboardInput) == "function" then
+        MetaAchievementWindowCoordinator.SafeSetPropagateKeyboardInput(frame, true)
+    end
     frame:SetScript("OnKeyDown", nil)
     pcall(function()
         frame:EnableKeyboard(false)
@@ -240,11 +238,6 @@ function MetaAchievementMiniFrame_OnLoad(self)
     end)
     self:SetScript("OnHide", function(f)
         removeMiniFromUISpecialFrames()
-        pcall(function()
-            if f.SetPropagateKeyboardInput then
-                f:SetPropagateKeyboardInput(true)
-            end
-        end)
         f:EnableKeyboard(false)
         f:SetScript("OnKeyDown", nil)
         if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ReleaseKeyboardCapture) == "function" then

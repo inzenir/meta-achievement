@@ -1,10 +1,10 @@
 --[[
   World quest activity notifications: scan AchievementData-registered waypoints for
-  criteria rows with worldQuest { mapId, questId }, probe those maps via task/map POI
-  APIs, and notify when the quest is active and the criteria is still incomplete.
+  criteria or virtualCriteria rows with worldQuest { mapId, questId }, probe those maps
+  via task/map POI APIs, and notify when the quest is active and tracking is still relevant.
 
   Legacy quest-achievement-registry rows are no longer required for this path; new data
-  only needs RegisterDataSource + criteria.worldQuest in waypoints files.
+  only needs RegisterDataSource + criteria.worldQuest or virtualCriteria.worldQuest.
 ]]
 
 local function isCriteriaIncompleteById(achievementId, criteriaId)
@@ -87,6 +87,68 @@ local function normalizeWorldQuest(cinfo)
     return mapId, questId
 end
 
+local function isAchievementIncomplete(achievementId)
+    if type(achievementId) ~= "number" or type(GetAchievementInfo) ~= "function" then
+        return false
+    end
+    local ok, _, _, _, completed = pcall(GetAchievementInfo, achievementId)
+    return ok and completed ~= true
+end
+
+local function isWatchRowIncomplete(row)
+    if row.isVirtual then
+        return isAchievementIncomplete(row.achievementId)
+    end
+    return isCriteriaIncompleteById(row.achievementId, row.criteriaId)
+end
+
+local function getWatchRowQuestName(row)
+    local questName
+    if not row.isVirtual and type(GetAchievementCriteriaInfoByID) == "function" then
+        local ok, label = pcall(GetAchievementCriteriaInfoByID, row.achievementId, row.criteriaId)
+        if ok and type(label) == "string" and label ~= "" then
+            questName = label
+        end
+    end
+    if not questName and row.cinfo then
+        if type(row.cinfo.name) == "string" and row.cinfo.name ~= "" then
+            questName = row.cinfo.name
+        elseif type(row.cinfo.text) == "string" and row.cinfo.text ~= "" then
+            questName = row.cinfo.text
+        end
+    end
+    if not questName then
+        questName = tostring(row.questId)
+    end
+    return questName
+end
+
+local function addWorldQuestWatchRows(watchList, mapIdsToScan, mapIdSeen, topAchievementId, achievementId, criteriaTable, isVirtual)
+    if type(criteriaTable) ~= "table" then
+        return
+    end
+    for criteriaId, cinfo in pairs(criteriaTable) do
+        if type(criteriaId) == "number" and type(cinfo) == "table" then
+            local mapId, questId = normalizeWorldQuest(cinfo)
+            if mapId and questId then
+                watchList[#watchList + 1] = {
+                    topAchievementId = topAchievementId,
+                    achievementId = achievementId,
+                    criteriaId = criteriaId,
+                    cinfo = cinfo,
+                    mapId = mapId,
+                    questId = questId,
+                    isVirtual = isVirtual == true,
+                }
+                if not mapIdSeen[mapId] then
+                    mapIdSeen[mapId] = true
+                    mapIdsToScan[#mapIdsToScan + 1] = mapId
+                end
+            end
+        end
+    end
+end
+
 function MetaAchievementWorldQuestScan_TryRefresh()
     if not AchievementData or type(AchievementData.ForEachRegisteredAchievementEntry) ~= "function" then
         return
@@ -100,29 +162,11 @@ function MetaAchievementWorldQuestScan_TryRefresh()
     local mapIdSeen = {}
 
     AchievementData:ForEachRegisteredAchievementEntry(function(topAchievementId, achievementId, flatEntry)
-        local criteria = flatEntry and flatEntry.criteria
-        if type(criteria) ~= "table" then
+        if type(flatEntry) ~= "table" then
             return
         end
-        for criteriaId, cinfo in pairs(criteria) do
-            if type(criteriaId) == "number" and type(cinfo) == "table" then
-                local mapId, questId = normalizeWorldQuest(cinfo)
-                if mapId and questId then
-                    watchList[#watchList + 1] = {
-                        topAchievementId = topAchievementId,
-                        achievementId = achievementId,
-                        criteriaId = criteriaId,
-                        cinfo = cinfo,
-                        mapId = mapId,
-                        questId = questId,
-                    }
-                    if not mapIdSeen[mapId] then
-                        mapIdSeen[mapId] = true
-                        mapIdsToScan[#mapIdsToScan + 1] = mapId
-                    end
-                end
-            end
-        end
+        addWorldQuestWatchRows(watchList, mapIdsToScan, mapIdSeen, topAchievementId, achievementId, flatEntry.criteria, false)
+        addWorldQuestWatchRows(watchList, mapIdsToScan, mapIdSeen, topAchievementId, achievementId, flatEntry.virtualCriteria, true)
     end)
 
     if #watchList == 0 then
@@ -142,28 +186,13 @@ function MetaAchievementWorldQuestScan_TryRefresh()
     for i = 1, #watchList do
         local row = watchList[i]
         local activeOnMap = activeByMap[row.mapId]
-        if activeOnMap and activeOnMap[row.questId]
-            and isCriteriaIncompleteById(row.achievementId, row.criteriaId)
-        then
-            local questName
-            if type(GetAchievementCriteriaInfoByID) == "function" then
-                local ok, label = pcall(GetAchievementCriteriaInfoByID, row.achievementId, row.criteriaId)
-                if ok and type(label) == "string" and label ~= "" then
-                    questName = label
-                end
-            end
-            if not questName and row.cinfo and type(row.cinfo.name) == "string" and row.cinfo.name ~= "" then
-                questName = row.cinfo.name
-            end
-            if not questName then
-                questName = tostring(row.questId)
-            end
+        if activeOnMap and activeOnMap[row.questId] and isWatchRowIncomplete(row) then
             MetaAchievementActivityNotify.TryNotify({
                 feature = "worldQuest",
                 achievementId = row.achievementId,
                 topAchievementId = row.topAchievementId,
                 questId = row.questId,
-                cardDescription = string.format("%s: world quest is currently active", questName),
+                cardDescription = string.format("%s: world quest is currently active", getWatchRowQuestName(row)),
                 dedupeKey = "wq:"
                     .. tostring(row.topAchievementId)
                     .. ":"

@@ -2,5 +2,11 @@
 -- Part of What a Long, Strange Trip It's Been (2144)
 
 WhatALongStrangeTripItsBeen_BrewmasterWaypoints = {
-    -- Add waypoint data for Brewfest achievements as needed
+    [1683] = {
+        helpText = "Brewmaster: Complete all Brewfest achievements during the holiday (event 372).",
+        worldEvent = {
+            eventId = 372,
+            name = "Brewfest",
+        },
+    },
 }

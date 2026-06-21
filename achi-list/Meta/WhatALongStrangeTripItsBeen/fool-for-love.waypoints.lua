@@ -2,5 +2,11 @@
 -- Part of What a Long, Strange Trip It's Been (2144)
 
 WhatALongStrangeTripItsBeen_FoolForLoveWaypoints = {
-    -- Add waypoint data for Love is in the Air achievements as needed
+    [1693] = {
+        helpText = "Fool For Love: Complete all Love is in the Air achievements during the holiday (event 423).",
+        worldEvent = {
+            eventId = 423,
+            name = "Love is in the Air",
+        },
+    },
 }

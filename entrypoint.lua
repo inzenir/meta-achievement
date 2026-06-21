@@ -34,6 +34,7 @@ WindowTabs = {
     gloryOfTheMidnightDelver = "gloryOfTheMidnightDelver",
     aTripThroughTheStars = "aTripThroughTheStars",
     aTripAroundTheStars = "aTripAroundTheStars",
+    heroicShowdowns = "heroicShowdowns",
     worldSoulSearching = "worldSoulSearching",
     settings = "settings",
     farewellToArms = "farewellToArms",
@@ -76,6 +77,7 @@ function EntryPoint()
     AchievementData:RegisterDataSource(61906, GloryOfTheMidnightDelverWaypoints)
     AchievementData:RegisterDataSource(62874, ATripThroughTheStarsWaypoints)
     AchievementData:RegisterDataSource(62873, ATripAroundTheStarsWaypoints)
+    AchievementData:RegisterDataSource(63264, HeroicShowdownsWaypoints)
     AchievementData:RegisterDataSource(19458, AWorldAwokenWaypoints)
     AchievementData:RegisterDataSource(40953, AFarewellToArmsWaypoints)
     AchievementData:RegisterDataSource(20501, BackFromTheBeyondWaypoints)
@@ -83,8 +85,8 @@ function EntryPoint()
 
     -- Register existing achievement lists as dropdown data sources for the journal+map UI
     if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.RegisterDataSource) == "function" then
-        local function registerJournalSource(key, displayName, achievementList, expansion)
-            local data = DataList:new(achievementList)
+        local function registerJournalSource(key, displayName, achievementList, expansion, listOptions)
+            local data = DataList:new(achievementList, listOptions)
             if DataList.RegisterForSourceKey then
                 DataList.RegisterForSourceKey(key, data)
             end
@@ -154,6 +156,7 @@ function EntryPoint()
 
         registerJournalSource(WindowTabs.aTripThroughTheStars, "A Trip Through the Stars", ATripThroughTheStarsAchievements, "Midnight")
         registerJournalSource(WindowTabs.aTripAroundTheStars, "A Trip Around the Stars", ATripAroundTheStarsAchievements, "Midnight")
+        registerJournalSource(WindowTabs.heroicShowdowns, "Heroic Showdowns", HeroicShowdownsAchievements, "Midnight")
         registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements, "Midnight")
         registerJournalSource(WindowTabs.gloryOfTheMidnightDelver, "Glory of the Midnight Delver", GloryOfTheMidnightDelverAchievements, "Midnight")
         registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements, "The War Within")
@@ -253,6 +256,9 @@ function EntryPoint()
             if MetaAchievementWorldQuestScan_TryRefresh then
                 MetaAchievementWorldQuestScan_TryRefresh()
             end
+            if MetaAchievementWorldEventScan_TryRefresh then
+                MetaAchievementWorldEventScan_TryRefresh()
+            end
             if MetaAchievementQuestLineScan_TryRefresh then
                 MetaAchievementQuestLineScan_TryRefresh()
             end
@@ -297,13 +303,23 @@ function EntryPoint()
                 and MetaAchievementSettings:Get("enableDelveStoryNotifications") == true
         end
 
+        local function isWorldEventPeriodicScanEnabled()
+            return MetaAchievementSettings
+                and MetaAchievementSettings:Get("enableWorldEventNotifications") == true
+        end
+
         local function isPeriodicActivityScanEnabled()
-            return isWorldQuestPeriodicScanEnabled() or isDelvePeriodicScanEnabled()
+            return isWorldQuestPeriodicScanEnabled()
+                or isWorldEventPeriodicScanEnabled()
+                or isDelvePeriodicScanEnabled()
         end
 
         local function runPeriodicActivityScan()
             if isWorldQuestPeriodicScanEnabled() and MetaAchievementWorldQuestScan_TryRefresh then
                 MetaAchievementWorldQuestScan_TryRefresh()
+            end
+            if isWorldEventPeriodicScanEnabled() and MetaAchievementWorldEventScan_TryRefresh then
+                MetaAchievementWorldEventScan_TryRefresh()
             end
 
             -- Delve notifications rely on the availability cache, so refresh it too.
@@ -332,6 +348,7 @@ function EntryPoint()
         if MetaAchievementSettings and type(MetaAchievementSettings.RegisterListener) == "function" then
             MetaAchievementSettings:RegisterListener("worldQuestScanIntervalSec", restartPeriodicWorldQuestScan)
             MetaAchievementSettings:RegisterListener("enableWorldQuestNotifications", restartPeriodicWorldQuestScan)
+            MetaAchievementSettings:RegisterListener("enableWorldEventNotifications", restartPeriodicWorldQuestScan)
             MetaAchievementSettings:RegisterListener("enableDelveStoryNotifications", restartPeriodicWorldQuestScan)
         end
         restartPeriodicWorldQuestScan()
@@ -343,8 +360,12 @@ function EntryPoint()
         af:RegisterEvent("ZONE_CHANGED")
         af:RegisterEvent("ZONE_CHANGED_NEW_AREA")
         af:RegisterEvent("PLAYER_ENTERING_WORLD")
+        af:RegisterEvent("CALENDAR_UPDATE_EVENT_LIST")
         af:SetScript("OnEvent", function(_, event)
             scheduleActivityScan()
+            if event == "CALENDAR_UPDATE_EVENT_LIST" and MetaAchievementWorldEventScan_TryRefresh then
+                MetaAchievementWorldEventScan_TryRefresh()
+            end
             if event == "PLAYER_ENTERING_WORLD" then
                 -- Delve POI/widget text can be empty for several seconds after login/reload.
                 -- Run forced warmup passes so story notifications can fire at login.
@@ -372,6 +393,10 @@ function EntryPoint()
 
     if type(MetaAchievement_RegisterMinimapButton) == "function" then
         MetaAchievement_RegisterMinimapButton()
+    end
+
+    if MetaAchievementWorldEventCalendar and type(MetaAchievementWorldEventCalendar.Init) == "function" then
+        MetaAchievementWorldEventCalendar.Init()
     end
 end
 

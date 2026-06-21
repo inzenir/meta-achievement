@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <!-- Progress requirement row: bar is created in Lua using Blizzard's built-in StatusBar template. -->
     <Button name="MetaAchievementMapRequirementRowProgressTemplate" virtual="true">
-        <Size x="1" y="36"/>
+        <Size x="1" y="41"/>
         <Layers>
             <Layer level="ARTWORK">
                 <Texture name="$parentCheck">

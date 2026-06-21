@@ -77,27 +77,6 @@ local function deferJournalMapAndVisibility(mgr, frame)
     end)
 end
 
-local function mainFrame_OnKeyDown(self, key)
-    local function trySetPropagate(frame, enabled)
-        if not frame or type(frame.SetPropagateKeyboardInput) ~= "function" then
-            return
-        end
-        if type(InCombatLockdown) == "function" and InCombatLockdown() then
-            return
-        end
-        pcall(function()
-            frame:SetPropagateKeyboardInput(enabled)
-        end)
-    end
-
-    if key == "ESCAPE" then
-        trySetPropagate(self, false)
-        if MetaAchievementMainFrameMgr and type(MetaAchievementMainFrameMgr.HidePanel) == "function" then
-            MetaAchievementMainFrameMgr:HidePanel()
-        end
-    end
-end
-
 local function clearRegions(parent)
     for _, region in ipairs({ parent:GetRegions() }) do
         region:Hide()
@@ -789,7 +768,8 @@ function MetaAchievementMainFrame_OnLoad(self)
     self:SetFrameStrata("DIALOG")
     self:SetFrameLevel(200)
 
-    -- Keyboard / ESC: registered only in OnShow and cleared in OnHide (see WindowCoordinator.ReleaseKeyboardCapture).
+    -- ESC closes via UIPanel (ShowUIPanel / HideUIPanel). Do not EnableKeyboard here — it captures every key
+    -- without SetPropagateKeyboardInput(true) and blocks action bars, chat, movement bindings, etc.
     self:EnableKeyboard(false)
 
     -- When these settings change, refresh the journal so list/detail/visibility match without re-opening or changing selection.
@@ -825,8 +805,11 @@ function MetaAchievementMainFrame_OnLoad(self)
 end
 
 function MetaAchievementMainFrame_OnShow(self)
-    self:EnableKeyboard(true)
-    self:SetScript("OnKeyDown", mainFrame_OnKeyDown)
+    if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.SafeSetPropagateKeyboardInput) == "function" then
+        MetaAchievementWindowCoordinator.SafeSetPropagateKeyboardInput(self, true)
+    end
+    self:EnableKeyboard(false)
+    self:SetScript("OnKeyDown", nil)
     -- Load selection from ActiveAchievementState when showing (do not use cached selection).
     local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
     if state and type(state.GetActiveSourceKey) == "function" then
@@ -878,11 +861,6 @@ function MetaAchievementMainFrame_OnShow(self)
 end
 
 function MetaAchievementMainFrame_OnHide(self)
-    if self and self.SetPropagateKeyboardInput and (not InCombatLockdown or not InCombatLockdown()) then
-        pcall(function()
-            self:SetPropagateKeyboardInput(true)
-        end)
-    end
     self:EnableKeyboard(false)
     self:SetScript("OnKeyDown", nil)
     if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ReleaseKeyboardCapture) == "function" then

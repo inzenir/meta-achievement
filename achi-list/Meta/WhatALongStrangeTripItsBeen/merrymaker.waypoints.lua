@@ -4,6 +4,10 @@
 WhatALongStrangeTripItsBeen_MerrymakerWaypoints = {
     [1691] = {
         helpText = "Merrymaker: Complete all Winter Veil achievements (event 141). Two achievements are faction-specific: Scrooge (259 Horde / 1255 Alliance) and Holiday Bromance (1685 Horde / 1686 Alliance). Others: On Metzen!, With a Little Helper from My Friends, Fa-la-la-la-Ogri'la, 'Tis the Season, Simply Abominable, Let It Snow, The Winter Veil Gourmet, He Knows If You've Been Naughty, A Frosty Shake.",
+        worldEvent = {
+            eventId = 141,
+            name = "Feast of Winter Veil",
+        },
     },
     [259] = {
         helpText = "Scrooge (Horde): Throw a snowball at Baine Bloodhoof in Thunder Bluff during Winter Veil. Get snowballs from snow mounds.",

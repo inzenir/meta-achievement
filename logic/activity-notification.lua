@@ -101,7 +101,7 @@ local function defaultCooldownSec()
     return 21600
 end
 
---- opts.feature: "worldQuest" | "questLine"
+--- opts.feature: "worldQuest" | "worldEvent" | "questLine"
 --- opts.achievementId: number (required)
 --- opts.dedupeKey: string (required for stable cooldown)
 --- opts.questId / opts.questLineId: optional (for default message)
@@ -115,6 +115,10 @@ function MetaAchievementActivityNotify.TryNotify(opts)
     local feature = opts.feature
     if feature == "worldQuest" then
         if not MetaAchievementSettings or not MetaAchievementSettings:Get("enableWorldQuestNotifications") then
+            return
+        end
+    elseif feature == "worldEvent" then
+        if not MetaAchievementSettings or not MetaAchievementSettings:Get("enableWorldEventNotifications") then
             return
         end
     elseif feature == "questLine" then
@@ -160,6 +164,8 @@ function MetaAchievementActivityNotify.TryNotify(opts)
         commentLine = opts.cardDescription
     elseif feature == "worldQuest" then
         commentLine = string.format("related world quest may be active (quest %s)", tostring(opts.questId or "?"))
+    elseif feature == "worldEvent" then
+        commentLine = string.format("seasonal world event is active (event %s)", tostring(opts.eventId or "?"))
     else
         commentLine = string.format("related quest line may be available (line %s)", tostring(opts.questLineId or "?"))
     end

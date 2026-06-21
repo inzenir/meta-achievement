@@ -2,18 +2,26 @@ AchievementRequirement = {}
 AchievementRequirement.__index = AchievementRequirement
 
 
+local function resolveEventId(requirement)
+    if type(requirement) ~= "table" then
+        return nil
+    end
+    if type(requirement.eventId) == "number" then
+        return requirement.eventId
+    end
+    local worldEvent = requirement.worldEvent
+    if type(worldEvent) == "table" and type(worldEvent.eventId) == "number" then
+        return worldEvent.eventId
+    end
+    return nil
+end
+
 local function checkWorldEvent(eventId)
+    if MetaAchievementWorldEventCalendar
+        and type(MetaAchievementWorldEventCalendar.IsWorldEventActive) == "function" then
+        return MetaAchievementWorldEventCalendar.IsWorldEventActive(eventId, true)
+    end
     return true
- --   local currentEvents = C_Calendar.GetNumDayEvents(0, 0)
---
---    for i = 1, currentEvents do
---        local event = C_Calendar.GetDayEvent(0, 0, i)
---        if event.eventID == eventId then
---            return true
---        end
---    end
---
---    return false
 end
 
 local function checkActiveQuest(questId)
@@ -37,8 +45,13 @@ function AchievementRequirement:new(requirement)
 
     obj.requirements = {}
 
+    local eventId = resolveEventId(requirement)
+    if eventId then
+        obj.requirements.eventId = eventId
+    end
+
     for type, _ in pairs(SUPPORTED_ACHIEVEMENT_REQUIREMENTS) do
-        if requirement[type] then
+        if type ~= "eventId" and requirement[type] then
             obj.requirements[type] = requirement[type]
         end
     end
@@ -47,17 +60,26 @@ function AchievementRequirement:new(requirement)
 end
 
 function AchievementRequirement:HasSpecialRequirements()
-    return #self.requirements > 0
+    return next(self.requirements) ~= nil
 end
 
-function AchievementRequirement:AreRequirementsMet()
+function AchievementRequirement:AreRequirementsMet(opts)
+    opts = opts or {}
     local returnValue = true
 
     for type, callback in pairs(SUPPORTED_ACHIEVEMENT_REQUIREMENTS) do
         if self.requirements[type] ~= nil then
-            returnValue = returnValue and callback(self.requirements[type])
+            if opts.ignoreFaction and type == "faction" then
+                -- Journal may show both faction branches; notifications still use full checks.
+            else
+                returnValue = returnValue and callback(self.requirements[type])
+            end
         end
     end
 
     return returnValue
+end
+
+function AchievementRequirement:GetFactionRequirement()
+    return self.requirements.faction
 end

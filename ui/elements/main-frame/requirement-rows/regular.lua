@@ -5,7 +5,9 @@
 
 RequirementRowRegular = RequirementRowRegular or {}
 
-local ROW_HEIGHT = 20
+local function rowHeight()
+    return (RequirementRows and RequirementRows.REGULAR_HEIGHT) or 20
+end
 
 local function formatRowText(req)
     local text = (req and req.text) or ""
@@ -21,7 +23,8 @@ function RequirementRowRegular.Apply(frame, req)
     -- Restore highlight (frame may have been recycled from progress/description which set it to 0)
     local highlight = frame.GetHighlightTexture and frame:GetHighlightTexture()
     if highlight then highlight:SetAlpha(1) end
-    if frame.SetHeight then frame:SetHeight(ROW_HEIGHT) end
+    if frame.SetHeight then frame:SetHeight(rowHeight()) end
+    if frame.SetClipsChildren then frame:SetClipsChildren(false) end
     if frame.Text then
         if frame.Text.ClearAllPoints and frame.Text.SetPoint then
             frame.Text:ClearAllPoints()

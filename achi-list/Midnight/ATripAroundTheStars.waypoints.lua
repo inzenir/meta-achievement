@@ -24,7 +24,15 @@ ATripAroundTheStarsWaypoints = {
         helpText = "Climate Strange: Val.",
     },
     [62881] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Defeat 6 rare creatures in Val.",
+        virtualCriteria = {
+            [0] = {
+                text = "Rare creatures defeated",
+                criteriaType = VirtualCriteriaTypes.ProgressBar,
+                reqQuantity = 6,
+            },
+        },
         criteria = {
             [113995] = {
                 name = "Sleet-Rune",
@@ -97,7 +105,15 @@ ATripAroundTheStarsWaypoints = {
         },
     },
     [62880] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Complete 8 different World Quests in Val.",
+        virtualCriteria = {
+            [0] = {
+                text = "World quests completed",
+                criteriaType = VirtualCriteriaTypes.ProgressBar,
+                reqQuantity = 8,
+            },
+        },
         criteria = {
             [113981] = {
                 name = "Lingering Corruption",
