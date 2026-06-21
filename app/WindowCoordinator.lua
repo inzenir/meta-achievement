@@ -7,59 +7,47 @@
 
 MetaAchievementWindowCoordinator = MetaAchievementWindowCoordinator or {}
 
+--- SetPropagateKeyboardInput is protected during combat and during UIPanel Hide/CloseAllWindows.
+--- Only call from user keyboard handlers or OnShow — never from OnHide / ReleaseKeyboardCapture.
+function MetaAchievementWindowCoordinator.CanSetPropagateKeyboardInput()
+    return type(InCombatLockdown) ~= "function" or not InCombatLockdown()
+end
+
+function MetaAchievementWindowCoordinator.SafeSetPropagateKeyboardInput(frame, enabled)
+    if not frame or type(frame.SetPropagateKeyboardInput) ~= "function" then
+        return
+    end
+    if not MetaAchievementWindowCoordinator.CanSetPropagateKeyboardInput() then
+        return
+    end
+    frame:SetPropagateKeyboardInput(enabled)
+end
+
+local function clearFrameKeyboardCapture(f)
+    if not f or (f.IsShown and f:IsShown()) then
+        return
+    end
+    if f.EnableKeyboard then
+        pcall(function()
+            f:EnableKeyboard(false)
+        end)
+    end
+    if f.SetScript then
+        f:SetScript("OnKeyDown", nil)
+    end
+end
+
 --- After **any** close (X button, ESC, HidePanel, coordinator): force both journal frames to drop
 --- keyboard hooks. Hidden frames must not keep `EnableKeyboard` or `OnKeyDown` — that steals ESC from
 --- the game menu on the next keypress (especially when closing mini with X only).
 function MetaAchievementWindowCoordinator.ReleaseKeyboardCapture()
     local main = MetaAchievementMainFrameMgr and MetaAchievementMainFrameMgr.frame
     local mini = _G.MetaAchievementMiniFrame
-    local function clearIfHidden(f)
-        if not f or f:IsShown() then
-            return
-        end
-        pcall(function()
-            if f.SetPropagateKeyboardInput then
-                f:SetPropagateKeyboardInput(true)
-            end
-        end)
-        if f.EnableKeyboard then
-            pcall(function()
-                f:EnableKeyboard(false)
-            end)
-        end
-        if f.SetScript then
-            f:SetScript("OnKeyDown", nil)
-        end
-    end
-    clearIfHidden(main)
-    clearIfHidden(mini)
+    clearFrameKeyboardCapture(main)
+    clearFrameKeyboardCapture(mini)
     C_Timer.After(0, function()
-        if main and main.IsShown and not main:IsShown() then
-            pcall(function()
-                if main.SetPropagateKeyboardInput then
-                    main:SetPropagateKeyboardInput(true)
-                end
-            end)
-            pcall(function()
-                main:EnableKeyboard(false)
-            end)
-            if main.SetScript then
-                main:SetScript("OnKeyDown", nil)
-            end
-        end
-        if mini and mini.IsShown and not mini:IsShown() then
-            pcall(function()
-                if mini.SetPropagateKeyboardInput then
-                    mini:SetPropagateKeyboardInput(true)
-                end
-            end)
-            pcall(function()
-                mini:EnableKeyboard(false)
-            end)
-            if mini.SetScript then
-                mini:SetScript("OnKeyDown", nil)
-            end
-        end
+        clearFrameKeyboardCapture(main)
+        clearFrameKeyboardCapture(mini)
     end)
     if MetaAchievementUIBus and type(MetaAchievementUIBus.Emit) == "function" then
         MetaAchievementUIBus:Emit("MA_JOURNAL_KEYBOARD_RELEASED")

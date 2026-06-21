@@ -79,6 +79,13 @@ MetaAchievementOptionsDefinitions = {
         group = "notifications",
     },
     {
+        variable = "enableWorldEventNotifications",
+        name = "World event alerts",
+        tooltip = "Tell you when a seasonal world event you still need for an unfinished achievement is active (for example Midsummer Fire Festival).",
+        varType = "boolean",
+        group = "notifications",
+    },
+    {
         variable = "enableDelveStoryNotifications",
         name = "Delve story alerts",
         tooltip = "Tell you when a delve story you still need for an unfinished achievement is active today.",

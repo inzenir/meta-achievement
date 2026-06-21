@@ -1153,6 +1153,23 @@ local function countTrackedCriteriaProgress(achievementId, criteriaTable)
     return completed, total
 end
 
+--- Count completed vs total from WoW API criteria (for ProgressBar rows with countFromApi on virtualCriteria).
+local function countApiCriteriaProgress(achievementId)
+    if not achievementId or type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
+        return 0, 0
+    end
+    local num = GetAchievementNumCriteria(achievementId) or 0
+    local total, completed = 0, 0
+    for i = 1, num do
+        local _, _, completedFlag = GetAchievementCriteriaInfo(achievementId, i)
+        total = total + 1
+        if completedFlag == true then
+            completed = completed + 1
+        end
+    end
+    return completed, total
+end
+
 --- True when virtual rows are appended after regular WoW API criteria. Flag may be on the achievement entry or on virtualCriteria.
 local function getCombineVirtualAndRegularFlag(achievementInformation)
     if not achievementInformation then
@@ -1241,7 +1258,12 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
             achievementId = achievementId,
             criterion = criterion,
             criteriaTable = achievementInformation and achievementInformation.criteria,
-            countCompleted = countTrackedCriteriaProgress,
+            countCompleted = function(aid, criteriaTable)
+                if criterion.countFromApi == true then
+                    return countApiCriteriaProgress(aid)
+                end
+                return countTrackedCriteriaProgress(aid, criteriaTable)
+            end,
         }
         if VirtualCriteriaTypes and VirtualCriteriaTypes.ApplyToRequirementEntry(entry, virtualCtx) then
             -- Virtual criteria type handled (e.g. ProgressBar = -1).

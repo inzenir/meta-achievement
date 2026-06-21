@@ -7,6 +7,10 @@ WhatALongStrangeTripItsBeen_ToHonorOnesEldersWaypoints = {
     },
     [913] = {
         helpText = "To Honor One's Elders: Complete all Lunar Festival elder achievements. Visit elders in Eastern Kingdoms, Kalimdor, Northrend, Cataclysm zones, dungeons, and capital cities during Lunar Festival (event 327). Use the waypoint buttons on each sub-achievement to add elder locations to your map.",
+        worldEvent = {
+            eventId = 327,
+            name = "Lunar Festival",
+        },
     },
     [6006] = {
         helpText = "Visit all 9 Cataclysm zone elders during Lunar Festival. Zones: Mount Hyjal, Uldum, Twilight Highlands, Vashj'ir, Deepholm, Temple of Earth (instance).",

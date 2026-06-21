@@ -4,15 +4,16 @@ DataList.__index = DataList
 NODE_ICON_COMPLETED = "Interface\\Buttons\\UI-CheckBox-Check"
 NODE_ICON_NOT_COMPLETED = "Interface\\Buttons\\UI-StopButton"
 
-local function scanData(inputData, depth, colapsedItems, parentRequirements)
+local function scanData(inputData, depth, colapsedItems, parentRequirements, scanOptions)
+    scanOptions = scanOptions or {}
     local tmpItems = {}
     for _, item in ipairs(inputData or {}) do
         local achiObj = Achievement:new(item, parentRequirements)
 
-        -- Skip achievements whose requirements are not met (e.g., wrong faction)
+        -- Skip achievements whose requirements are not met (e.g., inactive world event)
         local shouldInclude = true
         if achiObj.requirements and achiObj.requirements.AreRequirementsMet then
-            shouldInclude = achiObj.requirements:AreRequirementsMet()
+            shouldInclude = achiObj.requirements:AreRequirementsMet(scanOptions)
         end
 
         if shouldInclude then
@@ -21,7 +22,7 @@ local function scanData(inputData, depth, colapsedItems, parentRequirements)
                 data = achiObj,
                 completedIcon = achiObj.completed and NODE_ICON_COMPLETED or NODE_ICON_NOT_COMPLETED,
                 colapsed = colapsedItems[item.id] or false,
-                children = scanData(item.children or {}, depth + 1, colapsedItems, achiObj.requirements),
+                children = scanData(item.children or {}, depth + 1, colapsedItems, achiObj.requirements, scanOptions),
                 allChildrenCompleted = achiObj.chidrenCompleted,
                 depth = depth,
                 waypoints = item.waypoints
@@ -34,10 +35,16 @@ local function scanData(inputData, depth, colapsedItems, parentRequirements)
     return tmpItems
 end
 
-function DataList:new(achievementItems)
+function DataList:new(achievementItems, listOptions)
     local obj = setmetatable({}, DataList)
 
     achievementItems = achievementItems or {}
+    listOptions = listOptions or {}
+    obj.scanOptions = {}
+    if listOptions.ignoreFactionInJournal then
+        obj.scanOptions.ignoreFaction = true
+    end
+
     local first = achievementItems[1]
     -- Empty list: no [1]; avoid indexing nil (topAchievementId stays nil).
     obj.topAchievementId = first and first.id or nil
@@ -52,7 +59,7 @@ function DataList:new(achievementItems)
         obj.colapsedItems = MetaAchievementConfigurationDB.mapIntegration[obj.topAchievementId].colapsedItems
     end
 
-    obj.items = scanData(obj.achievements, 0, obj.colapsedItems)
+    obj.items = scanData(obj.achievements, 0, obj.colapsedItems, nil, obj.scanOptions)
     -- Tree matches static data + collapse state; skip rescan on source tab switch unless marked dirty.
     obj._treeDirty = false
 
@@ -60,7 +67,7 @@ function DataList:new(achievementItems)
 end
 
 function DataList:rescanData()
-    self.items = scanData(self.achievements, 0, self.colapsedItems)
+    self.items = scanData(self.achievements, 0, self.colapsedItems, nil, self.scanOptions or {})
     self._treeDirty = false
 end
 

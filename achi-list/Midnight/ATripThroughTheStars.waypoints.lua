@@ -36,7 +36,15 @@ ATripThroughTheStarsWaypoints = {
         },
     },
     [62883] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Defeat 6 rare creatures in Naigtal.",
+        virtualCriteria = {
+            [0] = {
+                text = "Rare creatures defeated",
+                criteriaType = VirtualCriteriaTypes.ProgressBar,
+                reqQuantity = 6,
+            },
+        },
         criteria = {
             [114005] = {
                 name = "Interminable Uarn",
@@ -94,7 +102,15 @@ ATripThroughTheStarsWaypoints = {
         },
     },
     [62882] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Complete 8 different World Quests in Naigtal.",
+        virtualCriteria = {
+            [0] = {
+                text = "World quests completed",
+                criteriaType = VirtualCriteriaTypes.ProgressBar,
+                reqQuantity = 8,
+            },
+        },
         criteria = {
             [114013] = { 
                 name = "Mush-Vroom!",

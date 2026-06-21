@@ -65,6 +65,8 @@ logic\settings.lua
 logic\active-achievement-state.lua
 logic\journal-source-expansions.lua
 logic\waypoint.lua
+logic\world-event-calendar.lua
+logic\world-event-scan.lua
 logic\AchievementRequirement.lua
 logic\achievement.lua
 logic\achievement-criteria.lua

@@ -22,20 +22,13 @@ HeroicShowdownsWaypoints = {
             },
         },
         criteria = {
+            -- Quest IDs from https://www.wowhead.com/achievement=62887/heroic-worlds-ahead
             [115101] = {
                 name = "Mush-Vroom!",
                 criteriaType = 27,
                 worldQuest = {
                     mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
                     questId = 96293,
-                },
-            },
-            [115102] = {
-                name = "Mashing Mushroom Mana Machines",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
-                    questId = 96272,
                 },
             },
             [115103] = {
@@ -46,28 +39,12 @@ HeroicShowdownsWaypoints = {
                     questId = 96210,
                 },
             },
-            [115104] = {
-                name = "Power Overload",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
-                    questId = 96432,
-                },
-            },
             [115105] = {
                 name = "Sporadic Power Drain",
                 criteriaType = 27,
                 worldQuest = {
                     mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
                     questId = 96217,
-                },
-            },
-            [115106] = {
-                name = "Marsh Mana Spores",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
-                    questId = 96268,
                 },
             },
             [115107] = {
@@ -78,28 +55,12 @@ HeroicShowdownsWaypoints = {
                     questId = 96000,
                 },
             },
-            [115108] = {
-                name = "Forest Mana Spores",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
-                    questId = 96575,
-                },
-            },
             [115109] = {
                 name = "Crypt Culling",
                 criteriaType = 27,
                 worldQuest = {
                     mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
                     questId = 96600,
-                },
-            },
-            [115110] = {
-                name = "Weaken Their Forces",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
-                    questId = 96547,
                 },
             },
             [115111] = {
@@ -110,28 +71,12 @@ HeroicShowdownsWaypoints = {
                     questId = 96400,
                 },
             },
-            [115112] = {
-                name = "Freeze Range Eggs",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95404,
-                },
-            },
             [115113] = {
                 name = "A Lingering Echo",
                 criteriaType = 27,
                 worldQuest = {
                     mapId = MapZones.MIDNIGHT_ZONE_Val,
                     questId = 95403,
-                },
-            },
-            [115114] = {
-                name = "Ignoble Gas Collector",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95402,
                 },
             },
             [115115] = {
@@ -142,28 +87,12 @@ HeroicShowdownsWaypoints = {
                     questId = 95401,
                 },
             },
-            [115116] = {
-                name = "Solid Cold",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95400,
-                },
-            },
             [115117] = {
                 name = "Shadowy Strategies",
                 criteriaType = 27,
                 worldQuest = {
                     mapId = MapZones.MIDNIGHT_ZONE_Val,
                     questId = 95399,
-                },
-            },
-            [115118] = {
-                name = "Dissent and Divide",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95398,
                 },
             },
             [115119] = {
@@ -174,28 +103,12 @@ HeroicShowdownsWaypoints = {
                     questId = 95397,
                 },
             },
-            [115120] = {
-                name = "Tainted Ritual",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95396,
-                },
-            },
             [115121] = {
                 name = "Until it is Done",
                 criteriaType = 27,
                 worldQuest = {
                     mapId = MapZones.MIDNIGHT_ZONE_Val,
                     questId = 95395,
-                },
-            },
-            [115122] = {
-                name = "Aberration Liberation",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95394,
                 },
             },
             [115123] = {
@@ -206,14 +119,6 @@ HeroicShowdownsWaypoints = {
                     questId = 95393,
                 },
             },
-            [115124] = {
-                name = "One Friend is Plenty",
-                criteriaType = 27,
-                worldQuest = {
-                    mapId = MapZones.MIDNIGHT_ZONE_Val,
-                    questId = 95392,
-                },
-            },
             [116528] = {
                 name = "Flying Debris",
                 criteriaType = 27,
@@ -222,10 +127,115 @@ HeroicShowdownsWaypoints = {
                     questId = 96557,
                 },
             },
+            [115102] = {
+                name = "Mashing Mushroom Mana Machines",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
+                    questId = 96272,
+                },
+            },
+            [115104] = {
+                name = "Power Overload",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
+                    questId = 96432,
+                },
+            },
+            [115106] = {
+                name = "Marsh Mana Spores",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
+                    questId = 96268,
+                },
+            },
+            [115108] = {
+                name = "Forest Mana Spores",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
+                    questId = 95575,
+                },
+            },
+            [115110] = {
+                name = "Weaken Their Forces",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
+                    questId = 96547,
+                },
+            },
+            [115112] = {
+                name = "Freeze Range Eggs",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95404,
+                },
+            },
+            [115114] = {
+                name = "Ignoble Gas Collector",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95402,
+                },
+            },
+            [115116] = {
+                name = "Solid Cold",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95400,
+                },
+            },
+            [115118] = {
+                name = "Dissent and Divide",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95398,
+                },
+            },
+            [115120] = {
+                name = "Tainted Ritual",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95396,
+                },
+            },
+            [115122] = {
+                name = "Aberration Liberation",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95394,
+                },
+            },
+            [115124] = {
+                name = "One Friend is Plenty",
+                criteriaType = 27,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 95392,
+                },
+            },
         },
     },
     [62901] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Heroic: Power Creep.",
+        virtualCriteria = {
+            [0] = {
+                text = "Affix types defeated",
+                criteriaType = VirtualCriteriaTypes.ProgressBar,
+                reqQuantity = 10,
+                countFromApi = true,
+            },
+        },
     },
     [62909] = {
         helpText = "Heroic: Pain of Command.",
@@ -249,6 +259,15 @@ HeroicShowdownsWaypoints = {
         },
     },
     [63348] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Heroic Slugger.",
+        virtualCriteria = {
+            [0] = {
+                text = "Rare creatures defeated",
+                criteriaType = VirtualCriteriaTypes.ProgressBar,
+                reqQuantity = 15,
+                countFromApi = true,
+            },
+        },
     },
 }

@@ -38,6 +38,27 @@ local function getAchievementWaypoints(achi)
     return returnValue
 end
 
+local function mergeRequirementTables(parentAchievementRequirements, childRequirementTable)
+    local parentTable = parentAchievementRequirements
+        and parentAchievementRequirements.requirements
+    if not childRequirementTable and not parentTable then
+        return nil
+    end
+
+    local merged = {}
+    if parentTable then
+        for key, value in pairs(parentTable) do
+            merged[key] = value
+        end
+    end
+    if childRequirementTable then
+        for key, value in pairs(childRequirementTable) do
+            merged[key] = value
+        end
+    end
+    return merged
+end
+
 function Achievement:new(achievementEntry, parentAchievementRequirements)
     local obj = setmetatable({}, Achievement)
 
@@ -51,13 +72,13 @@ function Achievement:new(achievementEntry, parentAchievementRequirements)
     obj.icon = icon or achievementEntry.icon or ACHIEVEMENT_DEFAULT_ICON
     obj.chidrenCompleted = figureOutIfChildrenAreCompleted(achievementEntry)
 
-    local req = achievementEntry.requirements or achievementEntry.requires
-    if req then
-        obj.requirements = AchievementRequirement:new(req)
-    end
+    local rawReq = achievementEntry.requirements or achievementEntry.requires
 
-    if not obj.requirements then
-        obj.requirements = parentAchievementRequirements or nil
+    local mergedReq = mergeRequirementTables(parentAchievementRequirements, rawReq)
+    if mergedReq and next(mergedReq) then
+        obj.requirements = AchievementRequirement:new(mergedReq)
+    elseif parentAchievementRequirements then
+        obj.requirements = parentAchievementRequirements
     end
 
     obj.criteria = loadCriteria(obj.id, achievementEntry.criteria or {})

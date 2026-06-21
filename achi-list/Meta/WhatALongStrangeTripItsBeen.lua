@@ -7,9 +7,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 913,
                 ["name"] = "To Honor One's Elders",
-                requires = {
-                    eventId = 327
-                },
                 ["children"] = {
                     {
                         ["id"] = 6006,
@@ -519,9 +516,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 1693,
                 ["name"] = "Fool For Love",
-                requires = {
-                    eventId = 423
-                },
                 ["children"] = {
                     {
                         ["id"] = 1188,
@@ -726,9 +720,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 2798,
                 ["name"] = "Noble Gardener",
-                requires = {
-                    eventId = 181
-                },
                 ["children"] = {
                     {
                         ["id"] = 2676,
@@ -885,9 +876,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 1793,
                 ["name"] = "For the Children",
-                requires = {
-                    eventId = 201
-                },
                 ["children"] = {
                     {
                         ["id"] = 1791,
@@ -958,9 +946,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 1039,
                 ["name"] = "The Flame Keeper",
-                requires = {
-                    eventId = 341
-                },
                 ["children"] = {
                     {
                         ["id"] = 1036,
@@ -1363,9 +1348,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 1683,
                 ["name"] = "Brewmaster",
-                requires = {
-                    eventId = 372
-                },
                 ["children"] = {
                     {
                         ["id"] = 1185,
@@ -1434,9 +1416,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 1656,
                 ["name"] = "Hallowed Be Thy Name",
-                requires = {
-                    eventId = 324
-                },
                 ["children"] = {
                     {
                         ["id"] = 972,
@@ -2160,9 +2139,6 @@ WhatALongStrangeTripItsBeenAchievements = {
             {
                 ["id"] = 1691,
                 ["name"] = "Merrymaker",
-                requires = {
-                    eventId = 141
-                },
                 ["children"] = {
                     {
                         ["id"] = 273,

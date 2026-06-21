@@ -5,8 +5,21 @@
 -- Coordinates from HandyNotes_SummerFestival (Ravendwyr)
 
 WhatALongStrangeTripItsBeen_TheFlameKeeperWaypoints = {
-    [1039] = {
+    [1038] = { -- alliance achievement
+        helpText = "The Flame Warden: Complete The Fires of Azeroth (Alliance) or The Fires of Azeroth (Horde). Honor the bonfires in each zone during Midsummer Fire Festival.",
+        worldEvent = {
+            eventId = 341,
+            name = "Midsummer Fire Festival",
+            faction = "Alliance",
+        },
+    },
+    [1039] = { -- horde achievement
         helpText = "The Flame Keeper: Complete The Fires of Azeroth (Horde) or The Fires of Azeroth (Alliance). Honor the bonfires in each zone during Midsummer Fire Festival.",
+        worldEvent = {
+            eventId = 341,
+            name = "Midsummer Fire Festival",
+            faction = "Horde",
+        },
     },
     -- Horde: Flame Keeper (honor Horde flames)
     [1036] = {

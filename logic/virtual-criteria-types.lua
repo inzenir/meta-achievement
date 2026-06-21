@@ -35,7 +35,7 @@ function VirtualCriteriaTypes.ApplyToRequirementEntry(entry, ctx)
         local countFn = ctx.countCompleted
         local criteriaTable = ctx.criteriaTable
         local achievementId = ctx.achievementId
-        if type(countFn) ~= "function" or type(criteriaTable) ~= "table" then
+        if type(countFn) ~= "function" then
             return false
         end
         local quantity, total = countFn(achievementId, criteriaTable)

@@ -5,6 +5,13 @@
 -- Alliance: 966 (Eastern Kingdoms), 963 (Kalimdor), 969 (Outland)
 
 WhatALongStrangeTripItsBeen_HallowedBeThyNameWaypoints = {
+    [1656] = {
+        helpText = "Hallowed Be Thy Name: Complete all Hallow's End achievements during the holiday (event 324).",
+        worldEvent = {
+            eventId = 324,
+            name = "Hallow's End",
+        },
+    },
     [971] = {
         helpText = "Tricks and Treats of Azeroth: Complete Tricks and Treats of Eastern Kingdoms, Kalimdor, and Outland (Horde 967/965/968 or Alliance 966/963/969). Use the candy bucket in each inn to get treats.",
     },

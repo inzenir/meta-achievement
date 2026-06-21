@@ -20,6 +20,7 @@ local function getDefaults()
         miniJournalHideCompletedCriteria = false,
         -- Activity notifications: world quests + delve story lines (registry-curated).
         enableWorldQuestNotifications = true,
+        enableWorldEventNotifications = true,
         worldQuestScanIntervalSec = 60,
         enableDelveStoryNotifications = true,
         activityNotifyCooldownSec = 21600,
