@@ -1,7 +1,9 @@
 -- Map detail element controller.
 -- Shows header (icon + title + points/feat), description, reward, and scrollable requirements list.
 
-local REQUIREMENT_ROW_HEIGHT = 20
+local REQUIREMENT_ROW_HEIGHT = 20  -- fallback when RequirementRows not loaded yet
+local REQUIREMENT_ROW_GAP = 0
+local REQUIREMENTS_CRITERIA_GAP = 8  -- Vertical gap between Requirements box bottom and Criteria information box top
 
 --- Return achievement link source: "none", "wowhead", or "wowdb". Tries Settings then raw DB (Blizzard may store under prefixed key).
 local function getAchievementLinkSource()
@@ -25,9 +27,10 @@ local function getRequirementsLinkButton(reqBox)
     end
     return nil
 end
-local REQUIREMENT_ROW_PROGRESS_HEIGHT = 41  -- progress rows: text line + bar on new line
-local REQUIREMENT_ROW_GAP = 0
-local REQUIREMENTS_CRITERIA_GAP = 8  -- Vertical gap between Requirements box bottom and Criteria information box top
+
+local function requirementRowExtent(_elementData)
+    return (RequirementRows and RequirementRows.REGULAR_HEIGHT) or REQUIREMENT_ROW_HEIGHT
+end
 
 --- True when a registered custom body override is active (hides default ScrollBox list).
 local function mapDetailHasActiveBodyOverride(detail)
@@ -38,6 +41,9 @@ local function mapDetailHasActiveBodyOverride(detail)
     if type(ov) ~= "string" or ov == "" then
         return false
     end
+    if type(MetaAchievementCustomRequirements.GetBodyElement) ~= "function" then
+        return false
+    end
     return MetaAchievementCustomRequirements.GetBodyElement(ov) ~= nil
 end
 
@@ -45,6 +51,126 @@ end
 local function mapDetailShowsRequirementsChrome(detail)
     local n = (detail._requirements and #detail._requirements) or 0
     return n > 0 or mapDetailHasActiveBodyOverride(detail)
+end
+
+--- Pinned summary rows (virtual ProgressBar) render outside the ScrollBox to avoid variable-extent scroll glitches.
+local function splitRequirementsForScroll(requirements)
+    local pinned, scrollable = {}, {}
+    for _, req in ipairs(requirements or {}) do
+        if type(req) == "table" and req.isPinnedSummary then
+            pinned[#pinned + 1] = req
+        else
+            scrollable[#scrollable + 1] = req
+        end
+    end
+    return pinned, scrollable
+end
+
+local function ensureRequirementsPinnedHost(box)
+    if not box then
+        return nil
+    end
+    if box.PinnedHost then
+        return box.PinnedHost
+    end
+    local boxName = box.GetName and box:GetName()
+    if boxName and boxName ~= "" then
+        box.PinnedHost = _G[boxName .. "PinnedHost"]
+    end
+    if box.PinnedHost then
+        return box.PinnedHost
+    end
+    if type(CreateFrame) ~= "function" then
+        return nil
+    end
+    local hostName = (boxName and boxName ~= "") and (boxName .. "PinnedHost") or nil
+    local host = CreateFrame("Frame", hostName, box)
+    host:SetPoint("TOPLEFT", box, "TOPLEFT", 6, -24)
+    host:SetPoint("TOPRIGHT", box, "TOPRIGHT", -22, -24)
+    host:SetHeight(0.001)
+    host:Hide()
+    if host.SetClipsChildren then
+        host:SetClipsChildren(true)
+    end
+    box.PinnedHost = host
+    return host
+end
+
+local function updateRequirementsScrollAnchors(self)
+    local box = self and self.RequirementsBox
+    if not box or not box.ScrollBox then
+        return
+    end
+    local pinnedCount = #(self._requirementsPinned or {})
+    local pinHeight = pinnedCount * ((RequirementRows and RequirementRows.PROGRESS_HEIGHT) or 41)
+    local host = ensureRequirementsPinnedHost(box)
+    local scrollBox = box.ScrollBox
+    scrollBox:ClearAllPoints()
+    if host and pinHeight > 0 then
+        host:SetHeight(pinHeight)
+        host:Show()
+        scrollBox:SetPoint("TOPLEFT", host, "BOTTOMLEFT", 0, -2)
+    else
+        if host then
+            host:SetHeight(0.001)
+            host:Hide()
+        end
+        scrollBox:SetPoint("TOPLEFT", box, "TOPLEFT", 6, -24)
+    end
+    scrollBox:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", -22, 8)
+end
+
+local function refreshRequirementsPinnedRows(self)
+    if mapDetailHasActiveBodyOverride(self) then
+        local host = self and self.RequirementsBox and self.RequirementsBox.PinnedHost
+        if host then
+            host:Hide()
+        end
+        return
+    end
+    local box = self and self.RequirementsBox
+    if not box then
+        return
+    end
+    local host = ensureRequirementsPinnedHost(box)
+    if not host then
+        return
+    end
+    local pinned = self._requirementsPinned or {}
+    self._pinnedRowPool = self._pinnedRowPool or {}
+    local pool = self._pinnedRowPool
+    local rowHeight = (RequirementRows and RequirementRows.PROGRESS_HEIGHT) or 41
+
+    for i = #pinned + 1, #pool do
+        if pool[i] then
+            pool[i]:Hide()
+        end
+    end
+
+    for i, req in ipairs(pinned) do
+        local row = pool[i]
+        if not row then
+            local rowName = box.GetName and box:GetName()
+            rowName = (rowName and rowName ~= "") and (rowName .. "PinnedReq" .. i) or nil
+            row = CreateFrame("Button", rowName, host, "MetaAchievementMapRequirementRowProgressTemplate")
+            pool[i] = row
+        end
+        row:SetParent(host)
+        row:Show()
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -((i - 1) * rowHeight))
+        row:SetPoint("TOPRIGHT", host, "TOPRIGHT", 0, -((i - 1) * rowHeight))
+        row:SetHeight(rowHeight)
+        if RequirementRows and RequirementRows.InitRow then
+            RequirementRows.InitRow(row, {
+                index = i,
+                req = req,
+                templateName = RequirementRows.TEMPLATE_PROGRESS,
+            }, self)
+        end
+    end
+
+    updateRequirementsScrollAnchors(self)
 end
 
 --- Swap default requirement list vs. custom body; keeps RequirementsBox chrome. Global for docs / RefreshContentLayout.
@@ -115,24 +241,59 @@ local function setScrollChildWidth(self)
     end
 end
 
+local function scrollableRequirementsUseProgressRows(scrollable)
+    if not RequirementRows or not RequirementRows.IsProgressRequirement then
+        return false
+    end
+    for _, req in ipairs(scrollable or {}) do
+        if RequirementRows.IsProgressRequirement(req) then
+            return true
+        end
+    end
+    return false
+end
+
+local function configureRequirementsScrollView(box, scrollable)
+    local view = box and box._view
+    if not view then
+        return
+    end
+    if scrollableRequirementsUseProgressRows(scrollable)
+        and view.SetVariableExtentEnabled
+        and view.SetElementExtentProvider
+    then
+        view:SetVariableExtentEnabled(true)
+        view:SetElementExtentProvider(function(elementData)
+            if RequirementRows and RequirementRows.GetRowHeightForTemplate then
+                return RequirementRows.GetRowHeightForTemplate(elementData and elementData.templateName)
+            end
+            return REQUIREMENT_ROW_HEIGHT
+        end)
+    else
+        if view.SetVariableExtentEnabled then
+            view:SetVariableExtentEnabled(false)
+        end
+        view:SetElementExtent(requirementRowExtent())
+    end
+end
+
 local function refreshRequirementsDataProvider(self)
     if mapDetailHasActiveBodyOverride(self) then
         return
     end
+    refreshRequirementsPinnedRows(self)
     local box = self.RequirementsBox
     if not box or not box._dataProvider then return end
+    local scrollable = self._requirementsScroll or {}
+    configureRequirementsScrollView(box, scrollable)
     local dp = box._dataProvider
+    local pinnedCount = #(self._requirementsPinned or {})
     dp:Flush()
-    for i, req in ipairs(self._requirements or {}) do
-        local templateName
-        if req.isDescriptionRow then
-            templateName = "MetaAchievementMapRequirementRowDescriptionTemplate"
-        elseif req.reqQuantity and req.reqQuantity > 0 and req.quantity ~= nil then
-            templateName = "MetaAchievementMapRequirementRowProgressTemplate"
-        else
-            templateName = "MetaAchievementMapRequirementRowRegularTemplate"
-        end
-        dp:Insert({ index = i, req = req, templateName = templateName })
+    for i, req in ipairs(scrollable) do
+        local templateName = (RequirementRows and RequirementRows.GetTemplateName)
+            and RequirementRows.GetTemplateName(req)
+            or "MetaAchievementMapRequirementRowRegularTemplate"
+        dp:Insert({ index = pinnedCount + i, req = req, templateName = templateName })
     end
     if box._view and box._view.Refresh then box._view:Refresh() end
     local sb = box.ScrollBox
@@ -160,6 +321,119 @@ local function scheduleRequirementsScrollRefresh(detail)
     end)
 end
 
+local function normalizeForWrap(s)
+    if type(s) ~= "string" then
+        return ""
+    end
+    -- Keep it readable in a wrapped FontString
+    s = s:gsub("\r", "\n")
+    s = s:gsub("\n+", "\n")
+    s = s:gsub("[ \t]+", " ")
+    s = s:gsub("^%s+", ""):gsub("%s+$", "")
+    return s
+end
+
+local function formatRewardText(s)
+    if type(s) ~= "string" then
+        return ""
+    end
+    s = normalizeForWrap(s)
+
+    -- Rewards often come as "A; B; C" or "A, B, C" — show each on its own line.
+    -- We only split on ", " (comma+space) to avoid breaking numbers like "1,000".
+    local hasSemicolon = s:find(";", 1, true) ~= nil
+    local hasCommaSpace = s:find(", ", 1, true) ~= nil
+    if not hasSemicolon and not hasCommaSpace then
+        return s
+    end
+
+    -- Normalize both separators into ';' then split.
+    local normalized = s
+    if hasCommaSpace then
+        normalized = normalized:gsub(",%s+", "; ")
+    end
+
+    local parts = {}
+    for part in normalized:gmatch("([^;]+)") do
+        part = part:gsub("^%s+", ""):gsub("%s+$", "")
+        if part ~= "" then
+            parts[#parts + 1] = part
+        end
+    end
+
+    -- If normalization didn't actually produce multiple parts, keep original.
+    if #parts <= 1 then
+        return s
+    end
+
+    return table.concat(parts, "\n")
+end
+
+local HELP_BOX_MIN_HEIGHT = 88
+local HELP_BOX_MAX_HEIGHT = 220
+
+local function configureWrappedScrollText(text, scrollChild, scrollFrame, containerFrame, content, horizontalPadding)
+    horizontalPadding = horizontalPadding or 16
+    if not text or not scrollChild or not scrollFrame then
+        return 0
+    end
+
+    local w = scrollFrame:GetWidth()
+    if (not w or w <= 0) and containerFrame then
+        w = containerFrame:GetWidth()
+    end
+    if not w or w <= 0 then
+        w = 200
+    end
+    w = w - horizontalPadding
+    if w < 50 then
+        w = 50
+    end
+
+    if type(content) ~= "string" or content == "" then
+        text:SetText("")
+        scrollChild:SetWidth(w + horizontalPadding)
+        scrollChild:SetHeight(1)
+        if scrollFrame.SetVerticalScroll then
+            scrollFrame:SetVerticalScroll(0)
+        end
+        return 0
+    end
+
+    if text.ClearAllPoints and text.SetPoint then
+        text:ClearAllPoints()
+        text:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", horizontalPadding / 2, 0)
+    end
+    if text.SetWordWrap then
+        text:SetWordWrap(true)
+    end
+    if text.SetNonSpaceWrap then
+        text:SetNonSpaceWrap(false)
+    end
+    if text.SetMaxLines then
+        text:SetMaxLines(0)
+    end
+    text:SetWidth(w)
+    text:SetText(content)
+
+    local contentH = (text:GetStringHeight() or 0) + 8
+    scrollChild:SetWidth(w + horizontalPadding)
+    scrollChild:SetHeight(math.max(contentH, scrollFrame:GetHeight() or 1))
+    if scrollFrame.SetVerticalScroll then
+        scrollFrame:SetVerticalScroll(0)
+    end
+    return contentH
+end
+
+local function resizeHelpBoxForContent(self, contentH)
+    if not self.HelpBox or type(self.HelpBox.SetHeight) ~= "function" then
+        return
+    end
+    local chrome = 32
+    local want = math.min(HELP_BOX_MAX_HEIGHT, math.max(HELP_BOX_MIN_HEIGHT, contentH + chrome))
+    self.HelpBox:SetHeight(want)
+end
+
 local function updateHelpBoxContent(self, helpText)
     if not self.HelpBox or not self.HelpBox.ScrollFrame or not self.HelpBox.ScrollFrame.ScrollChild or not self.HelpBox.Text then
         return
@@ -167,24 +441,9 @@ local function updateHelpBoxContent(self, helpText)
     local sf = self.HelpBox.ScrollFrame
     local sc = sf.ScrollChild
     local text = self.HelpBox.Text
-    local w = sf:GetWidth() or (self.HelpBox:GetWidth() and (self.HelpBox:GetWidth() - 24) or 200)
-    if w <= 0 then
-        w = 200
-    end
-    if type(helpText) ~= "string" or helpText == "" then
-        text:SetText("")
-        sc:SetHeight(1)
-        sc:SetWidth(w)
-        return
-    end
-    text:SetWidth(w)
-    if text.SetWordWrap then
-        text:SetWordWrap(true)
-    end
-    text:SetText(helpText)
-    local contentH = (text:GetStringHeight() or 0) + 8
-    sc:SetWidth(w)
-    sc:SetHeight(math.max(contentH, sf:GetHeight() or 1))
+    local normalized = (type(helpText) == "string" and helpText ~= "") and normalizeForWrap(helpText) or ""
+    local contentH = configureWrappedScrollText(text, sc, sf, self.HelpBox, normalized, 16)
+    resizeHelpBoxForContent(self, contentH)
 end
 
 local function updateRewardBoxContent(self, rewardText)
@@ -194,27 +453,8 @@ local function updateRewardBoxContent(self, rewardText)
     local sf = self.RewardBox.ScrollFrame
     local sc = sf.ScrollChild
     local text = self.RewardBox.Text
-    local w = sf:GetWidth() or (self.RewardBox:GetWidth() and (self.RewardBox:GetWidth() - 28) or 200)
-    if w <= 0 then
-        w = 200
-    end
-    if type(rewardText) ~= "string" or rewardText == "" then
-        text:SetText("")
-        sc:SetHeight(1)
-        sc:SetWidth(w)
-        return
-    end
-    text:SetWidth(w)
-    if text.SetWordWrap then
-        text:SetWordWrap(true)
-    end
-    text:SetText(rewardText)
-    local contentH = (text:GetStringHeight() or 0) + 8
-    sc:SetWidth(w)
-    sc:SetHeight(math.max(contentH, sf:GetHeight() or 1))
-    if sf.SetVerticalScroll then
-        sf:SetVerticalScroll(0)
-    end
+    local normalized = (type(rewardText) == "string" and rewardText ~= "") and formatRewardText(rewardText) or ""
+    configureWrappedScrollText(text, sc, sf, self.RewardBox, normalized, 12)
 end
 
 local function updateCriteriaInfoBoxContent(self, text)
@@ -224,24 +464,8 @@ local function updateCriteriaInfoBoxContent(self, text)
     local sf = self.CriteriaInfoBox.ScrollFrame
     local sc = sf.ScrollChild
     local fs = self.CriteriaInfoBox.Text
-    local w = sf:GetWidth() or (self.CriteriaInfoBox:GetWidth() and (self.CriteriaInfoBox:GetWidth() - 24) or 200)
-    if w <= 0 then
-        w = 200
-    end
-    if type(text) ~= "string" or text == "" then
-        fs:SetText("")
-        sc:SetHeight(1)
-        sc:SetWidth(w)
-        return
-    end
-    fs:SetWidth(w)
-    if fs.SetWordWrap then
-        fs:SetWordWrap(true)
-    end
-    fs:SetText(text)
-    local contentH = (fs:GetStringHeight() or 0) + 8
-    sc:SetWidth(w)
-    sc:SetHeight(math.max(contentH, sf:GetHeight() or 1))
+    local normalized = (type(text) == "string" and text ~= "") and normalizeForWrap(text) or ""
+    configureWrappedScrollText(fs, sc, sf, self.CriteriaInfoBox, normalized, 16)
 end
 
 local function acquireReqRow(self, idx)
@@ -377,6 +601,14 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.HelpBox.ScrollBar and self.HelpBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
             ScrollUtil.InitScrollFrameWithScrollBar(self.HelpBox.ScrollFrame, self.HelpBox.ScrollBar)
         end
+        if self.HelpBox.ScrollFrame and not self.HelpBox.ScrollFrame._metaHelpTextWidthHook then
+            self.HelpBox.ScrollFrame._metaHelpTextWidthHook = true
+            self.HelpBox.ScrollFrame:HookScript("OnSizeChanged", function()
+                if self._currentHelpText and type(self._currentHelpText) == "string" and self._currentHelpText ~= "" then
+                    updateHelpBoxContent(self, self._currentHelpText)
+                end
+            end)
+        end
     end
     if self.RequirementsBox then
         self.RequirementsBox.Label = _G[self.RequirementsBox:GetName() .. "Label"]
@@ -393,6 +625,8 @@ function MetaAchievementMapDetail_OnLoad(self)
         end
         self.RequirementsBox.ScrollBox = _G[self.RequirementsBox:GetName() .. "ScrollBox"]
         self.RequirementsBox.ScrollBar = _G[self.RequirementsBox:GetName() .. "ScrollBar"]
+        self.RequirementsBox.PinnedHost = _G[self.RequirementsBox:GetName() .. "PinnedHost"]
+        ensureRequirementsPinnedHost(self.RequirementsBox)
         self.RequirementsBox.CustomBodyHost = _G[self.RequirementsBox:GetName() .. "CustomBodyHost"]
 
         if self.RequirementsBox.ScrollBox and self.RequirementsBox.ScrollBar and CreateScrollBoxListLinearView and ScrollUtil and ScrollUtil.InitScrollBoxListWithScrollBar and CreateDataProvider then
@@ -401,16 +635,13 @@ function MetaAchievementMapDetail_OnLoad(self)
             local detail = self
 
             local view = CreateScrollBoxListLinearView()
-            if view.SetVariableExtentEnabled and view.SetElementExtentProvider then
-                view:SetVariableExtentEnabled(true)
-                view:SetElementExtentProvider(function(elementData)
-                    return (elementData and elementData.templateName == "MetaAchievementMapRequirementRowProgressTemplate") and REQUIREMENT_ROW_PROGRESS_HEIGHT or REQUIREMENT_ROW_HEIGHT
-                end)
-            else
-                view:SetElementExtent(REQUIREMENT_ROW_HEIGHT)
-            end
+            -- Scroll list is regular rows only; pinned summary progress renders in PinnedHost above.
+            view:SetElementExtent(requirementRowExtent())
 
             local function requirementRowInit(frame, elementData)
+                if RequirementRows and RequirementRows.ApplyRowFrameMetrics then
+                    RequirementRows.ApplyRowFrameMetrics(frame, elementData)
+                end
                 if RequirementRows and RequirementRows.InitRow then
                     RequirementRows.InitRow(frame, elementData, detail)
                 end
@@ -435,7 +666,7 @@ function MetaAchievementMapDetail_OnLoad(self)
             box._dataProvider = dataProvider
             box._view = view
 
-            -- Repopulate when the ScrollBox finally gets dimensions (first journal open often lays out after SetData).
+            -- Repopulate once when the ScrollBox first gets usable dimensions (avoid re-flushing on every scroll resize).
             scrollBox:SetScript("OnSizeChanged", function(sb)
                 local w = sb:GetWidth() or 0
                 local h = sb:GetHeight() or 0
@@ -445,10 +676,14 @@ function MetaAchievementMapDetail_OnLoad(self)
                 if not detail._requirements or #detail._requirements == 0 then
                     return
                 end
+                if detail._reqScrollLayoutReady then
+                    return
+                end
+                detail._reqScrollLayoutReady = true
                 scheduleRequirementsScrollRefresh(detail)
             end)
             scrollBox:SetScript("OnShow", function()
-                if detail._requirements and #detail._requirements > 0 then
+                if detail._requirements and #detail._requirements > 0 and not detail._reqScrollLayoutReady then
                     scheduleRequirementsScrollRefresh(detail)
                 end
             end)
@@ -507,54 +742,6 @@ function MetaAchievementMapDetail_OnLoad(self)
     end)
 end
 
-local function normalizeForWrap(s)
-    if type(s) ~= "string" then
-        return ""
-    end
-    -- Keep it readable in a wrapped FontString
-    s = s:gsub("\r", "\n")
-    s = s:gsub("\n+", "\n")
-    s = s:gsub("[ \t]+", " ")
-    s = s:gsub("^%s+", ""):gsub("%s+$", "")
-    return s
-end
-
-local function formatRewardText(s)
-    if type(s) ~= "string" then
-        return ""
-    end
-    s = normalizeForWrap(s)
-
-    -- Rewards often come as "A; B; C" or "A, B, C" — show each on its own line.
-    -- We only split on ", " (comma+space) to avoid breaking numbers like "1,000".
-    local hasSemicolon = s:find(";", 1, true) ~= nil
-    local hasCommaSpace = s:find(", ", 1, true) ~= nil
-    if not hasSemicolon and not hasCommaSpace then
-        return s
-    end
-
-    -- Normalize both separators into ';' then split.
-    local normalized = s
-    if hasCommaSpace then
-        normalized = normalized:gsub(",%s+", "; ")
-    end
-
-    local parts = {}
-    for part in normalized:gmatch("([^;]+)") do
-        part = part:gsub("^%s+", ""):gsub("%s+$", "")
-        if part ~= "" then
-            parts[#parts + 1] = part
-        end
-    end
-
-    -- If normalization didn't actually produce multiple parts, keep original.
-    if #parts <= 1 then
-        return s
-    end
-
-    return table.concat(parts, "\n")
-end
-
 local function isRewardEmpty(rewardText)
     if type(rewardText) ~= "string" then
         return true
@@ -605,10 +792,15 @@ local function isCriterionCompleted(achievementId, criteriaId, cinfo)
     if not achievementId or not criteriaId then
         return false
     end
-    if type(cinfo) == "table" and type(cinfo.criteriaType) == "number" and type(IsAchievementCriteriaCompleted) == "function" then
-        local viaType = IsAchievementCriteriaCompleted(achievementId, criteriaId, cinfo.criteriaType)
-        if viaType ~= nil then
-            return viaType == true
+    if type(cinfo) == "table" and type(cinfo.criteriaType) == "number" then
+        if VirtualCriteriaTypes and VirtualCriteriaTypes.IsVirtual(cinfo.criteriaType) then
+            return false
+        end
+        if type(IsAchievementCriteriaCompleted) == "function" then
+            local viaType = IsAchievementCriteriaCompleted(achievementId, criteriaId, cinfo.criteriaType)
+            if viaType ~= nil then
+                return viaType == true
+            end
         end
     end
     if type(MetaAchievementMapCriterionIsCompleted) == "function" then
@@ -865,7 +1057,10 @@ function MetaAchievementMapDetail_SetData(self, data)
     self._currentRewardText = data.reward or ""
     self._currentHelpText = data.helpText or ""
     self._requirementsBodyOverrideElement = data.requirementsBodyOverrideElement
-    self._requirements = data.requirements or {}
+    local allRequirements = data.requirements or {}
+    self._requirements = allRequirements
+    self._requirementsPinned, self._requirementsScroll = splitRequirementsForScroll(allRequirements)
+    self._reqScrollLayoutReady = false
 
     setCriteriaInfoBox(self, nil)
     updateRewardHelpAndRequirementsLayout(self, data.reward, data.helpText)
@@ -939,6 +1134,23 @@ local function virtualCriteriaSortedKeys(virtualCriteria)
         return tostring(a) < tostring(b)
     end)
     return keys
+end
+
+--- Count completed vs total rows in a waypoints `criteria` table (used by virtual progress-bar criteria).
+local function countTrackedCriteriaProgress(achievementId, criteriaTable)
+    if not achievementId or type(criteriaTable) ~= "table" then
+        return 0, 0
+    end
+    local total, completed = 0, 0
+    for criteriaId, cinfo in pairs(criteriaTable) do
+        if type(cinfo) == "table" then
+            total = total + 1
+            if isCriterionCompleted(achievementId, criteriaId, cinfo) then
+                completed = completed + 1
+            end
+        end
+    end
+    return completed, total
 end
 
 --- True when virtual rows are appended after regular WoW API criteria. Flag may be on the achievement entry or on virtualCriteria.
@@ -1019,43 +1231,71 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
     local hasVirtual = achievementInformation and type(achievementInformation.virtualCriteria) == "table"
     local combineVirtualAndRegular = hasVirtual and getCombineVirtualAndRegularFlag(achievementInformation)
 
-    local function appendVirtualRows()
+    local function buildVirtualCriteriaEntry(i, criterion)
+        local entry = {
+            text = criterion.text or i,
+            criteriaId = i,
+            criteriaType = criterion.criteriaType,
+        }
+        local virtualCtx = {
+            achievementId = achievementId,
+            criterion = criterion,
+            criteriaTable = achievementInformation and achievementInformation.criteria,
+            countCompleted = countTrackedCriteriaProgress,
+        }
+        if VirtualCriteriaTypes and VirtualCriteriaTypes.ApplyToRequirementEntry(entry, virtualCtx) then
+            -- Virtual criteria type handled (e.g. ProgressBar = -1).
+        elseif type(criterion.criteriaType) == "number" and VirtualCriteriaTypes and VirtualCriteriaTypes.IsVirtual(criterion.criteriaType) then
+            entry.completed = false
+        else
+            entry.completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType) == true
+            -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
+            if type(GetAchievementCriteriaInfo) == "function" then
+                local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
+                if ok and reqQuantity and reqQuantity > 0 and quantity ~= nil then
+                    entry.quantity = quantity
+                    entry.reqQuantity = reqQuantity
+                    if type(quantityString) == "string" and quantityString ~= "" then
+                        entry.quantityString = quantityString
+                    end
+                end
+            end
+        end
+        local state, availabilityText = getDelveAvailabilityForCriterion(achievementId, i, criterion)
+        entry.availabilityState = state
+        entry.availabilityText = availabilityText
+        return entry
+    end
+
+    local function shouldPrependVirtualCriterion(criterion)
+        return type(criterion) == "table"
+            and VirtualCriteriaTypes
+            and VirtualCriteriaTypes.PrependWhenCombined(criterion.criteriaType)
+    end
+
+    local function appendVirtualRows(prependOnly)
         if not hasVirtual then
             return
         end
         local vc = achievementInformation.virtualCriteria
         for _, i in ipairs(virtualCriteriaSortedKeys(vc)) do
             local criterion = vc[i]
-            if type(criterion) == "table" then
-                local entry = {
-                    text = criterion.text or i,
-                    completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType) == true,
-                    criteriaId = i,
-                    criteriaType = criterion.criteriaType,
-                }
-                local state, availabilityText = getDelveAvailabilityForCriterion(achievementId, i, criterion)
-                entry.availabilityState = state
-                entry.availabilityText = availabilityText
-                -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
-                if type(GetAchievementCriteriaInfo) == "function" then
-                    local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
-                    if ok and reqQuantity and reqQuantity > 0 and quantity ~= nil then
-                        entry.quantity = quantity
-                        entry.reqQuantity = reqQuantity
-                        if type(quantityString) == "string" and quantityString ~= "" then
-                            entry.quantityString = quantityString
-                        end
-                    end
+            if type(criterion) == "table"
+                and not (VirtualCriteriaTypes and VirtualCriteriaTypes.IsHidden(criterion))
+            then
+                local prepend = shouldPrependVirtualCriterion(criterion)
+                if prependOnly == nil or (prependOnly == true and prepend) or (prependOnly == false and not prepend) then
+                    requirements[#requirements + 1] = buildVirtualCriteriaEntry(i, criterion)
                 end
-                requirements[#requirements + 1] = entry
             end
         end
     end
 
     if combineVirtualAndRegular then
-        -- Combined: regular API criteria first, then virtual rows appended.
+        -- Prepend virtual types (e.g. ProgressBar), then regular API criteria, then remaining virtual rows.
+        appendVirtualRows(true)
         appendRegularCriteriaFromApi(achievementId, requirements, achievementInformation)
-        appendVirtualRows()
+        appendVirtualRows(false)
     elseif hasVirtual then
         appendVirtualRows()
     else

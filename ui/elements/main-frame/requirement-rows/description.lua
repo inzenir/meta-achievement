@@ -5,13 +5,16 @@
 
 RequirementRowDescription = RequirementRowDescription or {}
 
-local ROW_HEIGHT = 20
+local function rowHeight()
+    return (RequirementRows and RequirementRows.REGULAR_HEIGHT) or 20
+end
 
 function RequirementRowDescription.Apply(frame, req)
     if not frame or not req then return end
     local highlight = frame.GetHighlightTexture and frame:GetHighlightTexture()
     if highlight then highlight:SetAlpha(0) end
-    if frame.SetHeight then frame:SetHeight(ROW_HEIGHT) end
+    if frame.SetHeight then frame:SetHeight(rowHeight()) end
+    if frame.SetClipsChildren then frame:SetClipsChildren(false) end
     if frame.Text then
         if frame.Text.ClearAllPoints and frame.Text.SetPoint then
             frame.Text:ClearAllPoints()

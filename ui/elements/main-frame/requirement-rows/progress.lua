@@ -5,7 +5,6 @@
 
 RequirementRowProgress = RequirementRowProgress or {}
 
-local PROGRESS_ROW_HEIGHT = 41
 local PROGRESS_BAR_INSET = 48
 local BAR_HEIGHT = 12
 
@@ -114,8 +113,18 @@ end
 function RequirementRowProgress.Apply(frame, req)
     if not frame or not req then return end
 
+    local rowHeight = (RequirementRows and RequirementRows.PROGRESS_HEIGHT) or 41
     if frame.SetHeight then
-        frame:SetHeight(PROGRESS_ROW_HEIGHT)
+        frame:SetHeight(rowHeight)
+    end
+    if frame.SetClipsChildren then
+        frame:SetClipsChildren(true)
+    end
+    if frame.Text and frame.Text.SetWordWrap then
+        frame.Text:SetWordWrap(false)
+    end
+    if frame.Text and frame.Text.SetMaxLines then
+        frame.Text:SetMaxLines(1)
     end
     if frame.Text and frame.Text.ClearAllPoints and frame.Text.SetPoint then
         frame.Text:ClearAllPoints()

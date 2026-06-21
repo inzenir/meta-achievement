@@ -34,6 +34,7 @@ WindowTabs = {
     gloryOfTheMidnightDelver = "gloryOfTheMidnightDelver",
     aTripThroughTheStars = "aTripThroughTheStars",
     aTripAroundTheStars = "aTripAroundTheStars",
+    heroicShowdowns = "heroicShowdowns",
     worldSoulSearching = "worldSoulSearching",
     settings = "settings",
     farewellToArms = "farewellToArms",
@@ -76,6 +77,7 @@ function EntryPoint()
     AchievementData:RegisterDataSource(61906, GloryOfTheMidnightDelverWaypoints)
     AchievementData:RegisterDataSource(62874, ATripThroughTheStarsWaypoints)
     AchievementData:RegisterDataSource(62873, ATripAroundTheStarsWaypoints)
+    AchievementData:RegisterDataSource(63264, HeroicShowdownsWaypoints)
     AchievementData:RegisterDataSource(19458, AWorldAwokenWaypoints)
     AchievementData:RegisterDataSource(40953, AFarewellToArmsWaypoints)
     AchievementData:RegisterDataSource(20501, BackFromTheBeyondWaypoints)
@@ -154,6 +156,7 @@ function EntryPoint()
 
         registerJournalSource(WindowTabs.aTripThroughTheStars, "A Trip Through the Stars", ATripThroughTheStarsAchievements, "Midnight")
         registerJournalSource(WindowTabs.aTripAroundTheStars, "A Trip Around the Stars", ATripAroundTheStarsAchievements, "Midnight")
+        registerJournalSource(WindowTabs.heroicShowdowns, "Heroic Showdowns", HeroicShowdownsAchievements, "Midnight")
         registerJournalSource(WindowTabs.lightUpTheNight, "Light Up The Night", LightUpTheNightAchievements, "Midnight")
         registerJournalSource(WindowTabs.gloryOfTheMidnightDelver, "Glory of the Midnight Delver", GloryOfTheMidnightDelverAchievements, "Midnight")
         registerJournalSource(WindowTabs.worldSoulSearching, "Worldsoul Searching", WorldSoulSearchingAchievements, "The War Within")

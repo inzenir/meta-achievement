@@ -21,7 +21,19 @@ ATripThroughTheStarsWaypoints = {
         helpText = "A Hal'hadar Walks into a Swamp.",
     },
     [62904] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Climate Strange: Naigtal.",
+        virtualCriteria = {
+            [1] = {
+                text = "Subdue the Spore Storm",
+                hidden = true,
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Naigtal,
+                    questId = 96668,
+                },
+            },
+        },
     },
     [62883] = {
         helpText = "Defeat 6 rare creatures in Naigtal.",

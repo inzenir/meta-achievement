@@ -7,6 +7,7 @@ AchievementData.__index = AchievementData
 
 --- Registry: topAchievementId -> waypoints flat data (achievementId -> { helpText, waypoints, criteria?, virtualCriteria?, combineVirtualAndRegularCriteria?, requirementsBodyOverrideElement? })
 --- combineVirtualAndRegularCriteria: optional boolean on the achievement entry OR on the virtualCriteria table; when true, requirements list shows regular WoW API criteria first and appends virtual rows after. Only one placement needed.
+--- virtualCriteria: optional addon-only rows. Use VirtualCriteriaTypes (negative criteriaType values); ProgressBar (-1) counts completed `criteria` rows with optional reqQuantity (defaults to total tracked criteria); WorldQuest (-2) tracks bonus-objective quest IDs via `worldQuest` for notifications. Set `hidden = true` to omit a row from the requirements list while keeping scan/waypoint data.
 AchievementData._registry = AchievementData._registry or {}
 
 --- Register a waypoints table for a group.
