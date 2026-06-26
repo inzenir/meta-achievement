@@ -22,7 +22,8 @@ local perMount = {
     [2339] = { x = 0.5 },  -- jani's trahspile
     [2707] = { x = -3.5, z = -0.6 },  -- brilliant petalwing
     [2773] = { x = -1, y = -0.12, z = -0.1 },  -- glory of the midnight delver
-    [2990] = { x = -2.5 }  -- a trip through the stars
+    [2990] = { x = -2.5 },  -- a trip through the stars
+    [3033] = { x = -1.9, z = -0.5 }  -- heroic showdowns
 }
 
 function MetaAchievementMountRewardPanel_GetPosition(mountId)

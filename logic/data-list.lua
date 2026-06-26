@@ -8,7 +8,7 @@ local function scanData(inputData, depth, colapsedItems, parentRequirements, sca
     scanOptions = scanOptions or {}
     local tmpItems = {}
     for _, item in ipairs(inputData or {}) do
-        local achiObj = Achievement:new(item, parentRequirements)
+        local achiObj = Achievement:new(item, parentRequirements, scanOptions)
 
         -- Skip achievements whose requirements are not met (e.g., inactive world event)
         local shouldInclude = true

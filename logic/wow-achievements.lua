@@ -13,29 +13,6 @@ function WoWAchievement:new(id)
     return obj
 end
 
---[[
-function WoWAchievement:dumpinfo()
-    print("info")
-    local numCriteria = GetAchievementNumCriteria(self.id)
-    for i = 1, numCriteria do
-        local criteriaString, criteriaType, completed, quantity, reqQuantity, charName, flags, assetID, quantityString, criteriaID, eligible = GetAchievementCriteriaInfo(self.id, i)
-
-        print("----- Criteria " .. i .. " -----")
-        print("criteriaString: " .. tostring(criteriaString))
---        print("criteriaType: " .. tostring(criteriaType))
---        print("completed: " .. tostring(completed))
---        print("quantity: " .. tostring(quantity))
---        print("reqQuantity: " .. tostring(reqQuantity))
---        print("charName: " .. tostring(charName))
---        print("flags: " .. tostring(flags))
---        print("assetID: " .. tostring(assetID))
---        print("quantityString: " .. tostring(quantityString))
-        print("criteriaID: " .. tostring(criteriaID))
---        print("eligible: " .. tostring(eligible))
-    end
-end
-]]
-
 function WoWAchievement:filterWaypoints(waypoints)
     local returnData = {}
     local added = {}

@@ -45,10 +45,6 @@ MetaAchievementWorldEventCalendar.KNOWN_HOLIDAYS = {
     [141] = "Feast of Winter Veil",
 }
 
-local function getAddonChatPrefix()
-    return "|cffb4b4ff" .. (MetaAchievementTitle or "Meta Achievement Tracker") .. ":|r "
-end
-
 local function normalizeEventId(raw)
     if type(raw) == "number" then
         return raw
@@ -246,54 +242,12 @@ function MetaAchievementWorldEventCalendar.IsWorldEventActive(eventId, failOpenI
     return MetaAchievementWorldEventCalendar.IsHolidayActive(eventId)
 end
 
-function MetaAchievementWorldEventCalendar.PrintActiveHolidays()
-    local prefix = getAddonChatPrefix()
-    local active = collectActiveHolidaysForToday()
-    if #active == 0 then
-        print(prefix .. "No seasonal world events are active today.")
-        return
+function MetaAchievementWorldEventCalendar.GetTodayHolidayRows(refresh)
+    if refresh then
+        invalidateHolidayCache()
+        requestCalendarRefresh()
     end
-    print(prefix .. "Active world events (" .. tostring(#active) .. "):")
-    for i = 1, #active do
-        local row = active[i]
-        local idText = row.eventId and tostring(row.eventId) or "?"
-        print(prefix .. "  " .. row.title .. " (id " .. idText .. ")")
-    end
-end
-
-function MetaAchievementWorldEventCalendar.PrintHolidayDebugList()
-    invalidateHolidayCache()
-    requestCalendarRefresh()
-
-    local prefix = getAddonChatPrefix()
-    if not calendarReady then
-        print(prefix .. "Calendar still loading; run again after CALENDAR_UPDATE_EVENT_LIST if empty.")
-    end
-
-    local rows = readTodayHolidayEvents()
-    if #rows == 0 then
-        print(prefix .. "No HOLIDAY entries on today's calendar.")
-        return
-    end
-
-    print(prefix .. "Calendar holidays today (" .. tostring(#rows) .. " entries):")
-    for i = 1, #rows do
-        local row = rows[i]
-        local known = row.eventId and MetaAchievementWorldEventCalendar.KNOWN_HOLIDAYS[row.eventId]
-        local label = known or row.title or ("Holiday #" .. tostring(row.eventId or "?"))
-        local status = row.isActive and "|cff00ff00active|r" or "inactive"
-        print(prefix .. "  "
-            .. label
-            .. " (id "
-            .. tostring(row.eventId or "?")
-            .. ", seq "
-            .. tostring(row.sequenceType)
-            .. ") "
-            .. status)
-    end
-
-    local active = collectActiveHolidaysForToday()
-    print(prefix .. "Counted as active: " .. tostring(#active))
+    return readTodayHolidayEvents()
 end
 
 local initFrame
@@ -313,12 +267,6 @@ end
 function MetaAchievementWorldEventCalendar.Init()
     if initFrame then
         return
-    end
-
-    if type(RegisterSlashCommand) == "function" then
-        RegisterSlashCommand("worldevents", function()
-            MetaAchievementWorldEventCalendar.PrintHolidayDebugList()
-        end, "List today's calendar holidays (debug)")
     end
 
     initFrame = CreateFrame("Frame")

@@ -14,30 +14,6 @@ local function loadCriteria(achievementId, criteriaList)
     return returnValue
 end
 
-local function figureOutIfChildrenAreCompleted(achievementEntry)
-    local _, _, _, completed, _, _, _, _, _, _ = GetAchievementInfo(achievementEntry.id)
-    if not completed then
-        return false
-    end
-
-    for _, achi in pairs(achievementEntry.children or {}) do
-        if figureOutIfChildrenAreCompleted(achi) == false then
-            return false
-        end
-    end
-
-    return true
-end
-
-local function getAchievementWaypoints(achi)
-    local returnValue = {}
-    for _, item in pairs(achi.waypoints) do
-        returnValue[#returnValue+1] = Waypoint:new(item)
-    end
-
-    return returnValue
-end
-
 local function mergeRequirementTables(parentAchievementRequirements, childRequirementTable)
     local parentTable = parentAchievementRequirements
         and parentAchievementRequirements.requirements
@@ -59,7 +35,52 @@ local function mergeRequirementTables(parentAchievementRequirements, childRequir
     return merged
 end
 
-function Achievement:new(achievementEntry, parentAchievementRequirements)
+local function buildRequirements(achievementEntry, parentAchievementRequirements)
+    local rawReq = achievementEntry.requirements or achievementEntry.requires
+    local mergedReq = mergeRequirementTables(parentAchievementRequirements, rawReq)
+    if mergedReq and next(mergedReq) then
+        return AchievementRequirement:new(mergedReq)
+    elseif parentAchievementRequirements then
+        return parentAchievementRequirements
+    end
+    return nil
+end
+
+-- Mirrors DataList scanData: only visible (requirement-eligible) children count toward hideCompleted.
+local function figureOutIfChildrenAreCompleted(achievementEntry, parentAchievementRequirements, scanOptions)
+    scanOptions = scanOptions or {}
+    local _, _, _, completed, _, _, _, _, _, _ = GetAchievementInfo(achievementEntry.id)
+    if not completed then
+        return false
+    end
+
+    local requirements = buildRequirements(achievementEntry, parentAchievementRequirements)
+
+    for _, achi in pairs(achievementEntry.children or {}) do
+        local childRequirements = buildRequirements(achi, requirements)
+        local shouldInclude = true
+        if childRequirements and childRequirements.AreRequirementsMet then
+            shouldInclude = childRequirements:AreRequirementsMet(scanOptions)
+        end
+
+        if shouldInclude and figureOutIfChildrenAreCompleted(achi, requirements, scanOptions) == false then
+            return false
+        end
+    end
+
+    return true
+end
+
+local function getAchievementWaypoints(achi)
+    local returnValue = {}
+    for _, item in pairs(achi.waypoints) do
+        returnValue[#returnValue+1] = Waypoint:new(item)
+    end
+
+    return returnValue
+end
+
+function Achievement:new(achievementEntry, parentAchievementRequirements, scanOptions)
     local obj = setmetatable({}, Achievement)
 
     obj.id = achievementEntry.id
@@ -70,7 +91,11 @@ function Achievement:new(achievementEntry, parentAchievementRequirements)
     obj.completed = completed
     obj.name = name or achievementEntry.name or ACHIEVEMENT_DEFAULT_NAME
     obj.icon = icon or achievementEntry.icon or ACHIEVEMENT_DEFAULT_ICON
-    obj.chidrenCompleted = figureOutIfChildrenAreCompleted(achievementEntry)
+    obj.chidrenCompleted = figureOutIfChildrenAreCompleted(
+        achievementEntry,
+        parentAchievementRequirements,
+        scanOptions
+    )
 
     local rawReq = achievementEntry.requirements or achievementEntry.requires
 

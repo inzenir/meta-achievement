@@ -184,7 +184,7 @@ function MetaAchievementBreadcrumbs_SetSelection(self, items, selectedNode, topN
     if not self then
         return
     end
-    
+
     -- Always store and render breadcrumbs when SetSelection is called.
     -- topNode: optional { id, name } for the data source root (shown when "hide completed" filters it out).
     self._items = items

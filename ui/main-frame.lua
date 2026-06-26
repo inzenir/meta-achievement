@@ -387,6 +387,21 @@ function getTopNodeForBreadcrumbs(frame)
     }
 end
 
+function MetaAchievementMainFrameMgr:RefreshBreadcrumbs(frame)
+    if not frame or not frame.Breadcrumbs or frame._journalTabActive == false then
+        return
+    end
+    local state = ActiveAchievementState and ActiveAchievementState:GetInstance()
+    if type(MetaAchievementBreadcrumbs_SetSelection) == "function" then
+        MetaAchievementBreadcrumbs_SetSelection(
+            frame.Breadcrumbs,
+            frame._modelItems,
+            state and state:GetActiveItem(),
+            getTopNodeForBreadcrumbs(frame)
+        )
+    end
+end
+
 local MONTH_NAMES = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
 local function formatCompletionDate(month, day, year)
@@ -450,6 +465,9 @@ function MetaAchievementMainFrameMgr:UpdateListVisibility(frame)
     if not frame or not frame.MapInset then
         return
     end
+    if frame._journalTabActive == false then
+        return
+    end
     local listEmpty = not frame._modelItems or #frame._modelItems == 0
     local showCompletedScreen = (MetaAchievementSettings and MetaAchievementSettings:Get("showCompletedScreenWhenTopDone"))
         and isTopAchievementCompleted(frame)
@@ -511,7 +529,8 @@ function MetaAchievementMainFrameMgr:UpdateListVisibility(frame)
     else
         frame.MapInset:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -60)
     end
-    frame.MapInset:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -6, 25)
+    local bottomInset = frame._contentBottomInset or 25
+    frame.MapInset:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -6, bottomInset)
 end
 
 -- Rebuild list after expand/collapse; keeps current selection by index if still valid.
@@ -747,8 +766,14 @@ function MetaAchievementMainFrame_OnLoad(self)
     MetaAchievementController_RegisterMainFrame(self)
     if self.MapInset then
         self.MapInset.MapCanvas = _G[self.MapInset:GetName() .. "MapCanvas"]
+        if not self.MapInset.MapCanvas then
+            self.MapInset.MapCanvas = _G["MetaAchievementMainFrameMapCanvas"]
+        end
         if self.MapInset.MapCanvas then
             self.MapInset.MapCanvas.Content = _G[self.MapInset.MapCanvas:GetName() .. "Content"]
+            if not self.MapInset.MapCanvas.Content then
+                self.MapInset.MapCanvas.Content = _G["MetaAchievementMainFrameMapCanvasContent"]
+            end
             if self.MapInset.MapCanvas.Content then
                 self.MapInset.MapCanvas.DynamicContent = CreateFrame("Frame", nil, self.MapInset.MapCanvas.Content)
                 self.MapInset.MapCanvas.DynamicContent:SetAllPoints()
@@ -802,6 +827,10 @@ function MetaAchievementMainFrame_OnLoad(self)
     end
 
     MetaAchievementMainFrameMgr:RefreshDropdown(self)
+
+    if MetaAchievementMainWindowPlugins and type(MetaAchievementMainWindowPlugins.Init) == "function" then
+        MetaAchievementMainWindowPlugins.Init(self)
+    end
 end
 
 function MetaAchievementMainFrame_OnShow(self)
@@ -858,9 +887,16 @@ function MetaAchievementMainFrame_OnShow(self)
     -- Cold open: first RenderMap (sync or defer) often runs before UIPanel has finished sizing the journal.
     -- When _selectedIndex is already set, OnShow skips SetSelectedIndex and only defer runs — repainting after layout fixes missing detail/requirements.
     scheduleJournalDetailResyncAfterShow(self)
+
+    if MetaAchievementMainWindowPlugins and type(MetaAchievementMainWindowPlugins.OnMainFrameShow) == "function" then
+        MetaAchievementMainWindowPlugins.OnMainFrameShow(self)
+    end
 end
 
 function MetaAchievementMainFrame_OnHide(self)
+    if MetaAchievementMainWindowPlugins and type(MetaAchievementMainWindowPlugins.OnMainFrameHide) == "function" then
+        MetaAchievementMainWindowPlugins.OnMainFrameHide(self)
+    end
     self:EnableKeyboard(false)
     self:SetScript("OnKeyDown", nil)
     if MetaAchievementWindowCoordinator and type(MetaAchievementWindowCoordinator.ReleaseKeyboardCapture) == "function" then

@@ -82,7 +82,7 @@
                     </Frame>
                 </Frames>
             </Frame>
-        
+
             <!-- Smaller button: left of Close; positions from XML only (no Lua SetPoint). Declare before SettingsButton so it exists for anchor. -->
             <Button name="$parentSmallerButton" inherits="MetaAchievementSmallerButtonTemplate">
                 <Anchors>

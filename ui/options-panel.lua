@@ -6,6 +6,8 @@
 ]]
 
 local ourCategoryID = nil
+local ourCategory = nil
+local registeredPluginOptions = {}
 local WAYPOINT_NO_INTEGRATIONS = "_no_integrations_"
 
 --- Called when a setting value changes in the Blizzard UI. Sync invalid sentinel and notify listeners.
@@ -105,6 +107,29 @@ local function resetOurOptionsToDefaults()
             if def.variable then
                 Settings.NotifyUpdate("MetaAchievement_" .. def.variable)
                 Settings.NotifyUpdate(def.variable)
+            end
+        end
+    end
+    if MetaAchievementPlugins and MetaAchievementPlugins.GetOrderedIds then
+        for _, pluginId in ipairs(MetaAchievementPlugins.GetOrderedIds()) do
+            local provider = MetaAchievementPlugins.GetOptionsProvider(pluginId)
+            if provider then
+                local pluginDefaults = provider:GetDefaults()
+                local db = provider:GetDbTable()
+                for key, value in pairs(pluginDefaults) do
+                    if type(value) ~= "table" then
+                        db[key] = value
+                    end
+                end
+                for key, value in pairs(pluginDefaults) do
+                    provider:EmitChange(key, value, nil)
+                end
+                if Settings and Settings.NotifyUpdate then
+                    for key in pairs(pluginDefaults) do
+                        Settings.NotifyUpdate("MetaAchievement_plugin_" .. pluginId .. "_" .. key)
+                        Settings.NotifyUpdate("plugin_" .. pluginId .. "_" .. key)
+                    end
+                end
             end
         end
     end
@@ -250,6 +275,126 @@ local function tryRegisterAddOnSetting(category, variableId, variableKey, variab
     return nil
 end
 
+local function OnPluginSettingChanged(provider, setting, key)
+    if not provider or not key then
+        return
+    end
+    local value = (setting and setting.GetValue and setting:GetValue()) or provider:Get(key)
+    provider:EmitChange(key, value, nil)
+end
+
+local function makePluginGetter(provider, key)
+    return function()
+        return provider:Get(key)
+    end
+end
+
+local function makePluginSetter(provider, key)
+    return function(value)
+        provider:Set(key, value)
+    end
+end
+
+local function setPluginValueChangedCallback(provider, setting, key)
+    if not setting or type(setting.SetValueChangedCallback) ~= "function" then
+        return
+    end
+    setting:SetValueChangedCallback(function()
+        if not provider then
+            return
+        end
+        local value = setting.GetValue and setting:GetValue()
+        if value == nil then
+            return
+        end
+        provider:Set(key, value)
+    end)
+end
+
+function RegisterMetaAchievementPluginOptions(provider, sectionTitle)
+    if not ourCategory or not provider or type(provider.GetDefinitions) ~= "function" then
+        return
+    end
+    local pluginId = provider.pluginId
+    if type(pluginId) ~= "string" or pluginId == "" or registeredPluginOptions[pluginId] then
+        return
+    end
+    registeredPluginOptions[pluginId] = true
+
+    local useAddOn = useAddOnSetting()
+    local VarType = Settings.VarType
+    local VarTypeString = Settings.VarType and Settings.VarType.String
+    local defaultsTable = provider:GetDefaults()
+    local dbTable = provider:GetDbTable()
+
+    if sectionTitle and sectionTitle ~= "" and Settings.RegisterInitializer and Settings.CreateElementInitializer then
+        local ok, initializer = pcall(Settings.CreateElementInitializer, "MetaAchievementSettingsSeparatorTemplate", { text = sectionTitle })
+        if ok and initializer then
+            Settings.RegisterInitializer(ourCategory, initializer)
+        end
+    end
+
+    for _, def in ipairs(provider:GetDefinitions()) do
+        if not def.variable then
+            -- skip
+        else
+            local variable = def.variable
+            local name = def.name or variable
+            local tooltip = def.tooltip or name
+            local varTypeKey = (def.varType or "boolean"):lower()
+            local settingId = "MetaAchievement_plugin_" .. pluginId .. "_" .. variable
+            local proxyId = "plugin_" .. pluginId .. "_" .. variable
+
+            if varTypeKey == "boolean" and VarType and VarType.Boolean then
+                local defaultValue = (defaultsTable[variable] ~= nil) and defaultsTable[variable] or false
+                local setting
+                if useAddOn then
+                    setting = tryRegisterAddOnSetting(ourCategory, settingId, variable, dbTable, type(defaultValue), name, defaultValue)
+                    if setting and type(setting.SetValueChangedCallback) == "function" then
+                        setting:SetValueChangedCallback(function() OnPluginSettingChanged(provider, setting, variable) end)
+                    end
+                end
+                if not setting then
+                    setting = Settings.RegisterProxySetting(ourCategory, proxyId, VarType.Boolean, name, defaultValue, makePluginGetter(provider, variable), makePluginSetter(provider, variable))
+                    setPluginValueChangedCallback(provider, setting, variable)
+                end
+                if setting then
+                    Settings.CreateCheckbox(ourCategory, setting, tooltip)
+                end
+            elseif varTypeKey == "select" and def.options and #(def.options or {}) > 0 and VarTypeString and Settings.CreateDropdown and Settings.CreateControlTextContainer then
+                local defaultValue = (defaultsTable[variable] ~= nil) and defaultsTable[variable] or (def.options[1] and def.options[1].value)
+                local setting
+                if useAddOn then
+                    setting = tryRegisterAddOnSetting(ourCategory, settingId, variable, dbTable, type(defaultValue), name, defaultValue)
+                    if setting and type(setting.SetValueChangedCallback) == "function" then
+                        setting:SetValueChangedCallback(function() OnPluginSettingChanged(provider, setting, variable) end)
+                    end
+                end
+                if not setting then
+                    setting = Settings.RegisterProxySetting(ourCategory, proxyId, VarTypeString, name, defaultValue, makePluginGetter(provider, variable), makePluginSetter(provider, variable))
+                    setPluginValueChangedCallback(provider, setting, variable)
+                end
+                if setting then
+                    local options = def.options
+                    local function getOptions()
+                        local container = Settings.CreateControlTextContainer()
+                        if not container then
+                            return {}
+                        end
+                        for _, opt in ipairs(options or {}) do
+                            if opt.value ~= nil and opt.label then
+                                container:Add(opt.value, opt.label)
+                            end
+                        end
+                        return container.GetData and container:GetData() or {}
+                    end
+                    Settings.CreateDropdown(ourCategory, setting, getOptions, tooltip)
+                end
+            end
+        end
+    end
+end
+
 function RegisterMetaAchievementOptionsPanel()
     if not Settings or not Settings.RegisterVerticalLayoutCategory or not Settings.RegisterAddOnCategory then
         return
@@ -266,6 +411,7 @@ function RegisterMetaAchievementOptionsPanel()
     local VarTypeString = Settings.VarType and Settings.VarType.String
 
     local category = Settings.RegisterVerticalLayoutCategory(MetaAchievementTitle)
+    ourCategory = category
     ourCategoryID = category:GetID()
     MetaAchievementSettingsCategoryID = ourCategoryID  -- for key binding: open game settings to this addon
 
@@ -410,7 +556,16 @@ function RegisterMetaAchievementOptionsPanel()
             end
         end
     end
-    
+
+    if MetaAchievementPlugins and MetaAchievementPlugins.GetOrderedIds then
+        for _, pluginId in ipairs(MetaAchievementPlugins.GetOrderedIds()) do
+            local spec = MetaAchievementPlugins.Get(pluginId)
+            if spec and spec.optionsProvider then
+                RegisterMetaAchievementPluginOptions(spec.optionsProvider, spec.title or pluginId)
+            end
+        end
+    end
+
     Settings.RegisterAddOnCategory(category)
     hookDefaultsButton()
 

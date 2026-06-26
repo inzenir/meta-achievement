@@ -3,6 +3,7 @@ HeroicShowdownsAchievements = {
     {
         ["id"] = 63264,
         ["name"] = "Heroic Showdowns",
+        mountId = 3033,
         ["children"] = {
             {
                 ["id"] = 62887,
