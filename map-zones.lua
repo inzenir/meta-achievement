@@ -90,6 +90,7 @@ MapZones = {
     BFA_ZONE_Boralus = 1161,
     BFA_ZONE_Drustvar = 896,
     BFA_ZONE_StormsongValley = 942,
+    BFA_ZONE_Nazjatar = 1355,
 
 	TBC_ZONE_SilvermoonCity2 = 1954,
 

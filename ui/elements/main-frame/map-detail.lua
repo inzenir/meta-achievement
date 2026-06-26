@@ -1185,6 +1185,36 @@ local function getCombineVirtualAndRegularFlag(achievementInformation)
     return false
 end
 
+local CRITERIA_TYPE_ACHIEVEMENT = 8
+
+--- Parent meta criterion (type 8) for a sub-achievement id, if any.
+local function findParentCriterionForSubAchievement(parentAchievementId, subAchievementId)
+    if not parentAchievementId or not subAchievementId then
+        return nil
+    end
+    if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
+        return nil
+    end
+    local numCriteria = GetAchievementNumCriteria(parentAchievementId) or 0
+    for i = 1, numCriteria do
+        local criteriaString, criteriaType, completed, quantity, reqQuantity, _charName, flags, assetID, quantityString, criteriaID =
+            GetAchievementCriteriaInfo(parentAchievementId, i)
+        if criteriaType == CRITERIA_TYPE_ACHIEVEMENT and assetID == subAchievementId then
+            return {
+                index = i,
+                criteriaId = criteriaID,
+                criteriaType = criteriaType,
+                completed = completed == true,
+                criteriaString = criteriaString,
+                quantity = quantity,
+                reqQuantity = reqQuantity,
+                quantityString = quantityString,
+            }
+        end
+    end
+    return nil
+end
+
 --- Append WoW API criteria rows. apiCriteriaIndex is stored for requirement row clicks when combined with virtual rows (display order may differ from API index).
 local function appendRegularCriteriaFromApi(achievementId, requirements, achievementInformation)
     if type(GetAchievementNumCriteria) ~= "function" or type(GetAchievementCriteriaInfo) ~= "function" then
@@ -1329,11 +1359,14 @@ end
 
 --- Build requirements from our filtered tree (node.children) or raw definition (node.data.children).
 --- Prefer node.children: it's already filtered by faction/requirements in scanData.
+--- Sub-achievement rows (meta criteria type 8) use parent GetAchievementCriteriaInfo completion, not GetAchievementInfo(child).
 local function buildRequirementsFromChildren(node)
     local requirements = {}
     if type(GetAchievementInfo) ~= "function" then
         return requirements
     end
+
+    local parentAchievementId = node and node.id
 
     -- Prefer filtered tree (node.children) - respects faction, eventId, etc.
     local children = node and node.children
@@ -1347,11 +1380,34 @@ local function buildRequirementsFromChildren(node)
     for _, child in ipairs(children) do
         local childId = child and child.id
         if childId then
-            local _, childName, _, childCompleted = GetAchievementInfo(childId)
-            requirements[#requirements + 1] = {
+            local _, childName = GetAchievementInfo(childId)
+            local entry = {
                 text = childName or ("Achievement " .. tostring(childId)),
-                completed = childCompleted == true
             }
+
+            local parentCriterion = parentAchievementId
+                and findParentCriterionForSubAchievement(parentAchievementId, childId)
+            if parentCriterion then
+                entry.completed = parentCriterion.completed
+                entry.criteriaId = parentCriterion.criteriaId
+                entry.criteriaType = parentCriterion.criteriaType
+                entry.apiCriteriaIndex = parentCriterion.index
+                if parentCriterion.reqQuantity and parentCriterion.reqQuantity > 0 and parentCriterion.quantity ~= nil then
+                    entry.quantity = parentCriterion.quantity
+                    entry.reqQuantity = parentCriterion.reqQuantity
+                    if type(parentCriterion.quantityString) == "string" and parentCriterion.quantityString ~= "" then
+                        entry.quantityString = parentCriterion.quantityString
+                    end
+                end
+                if type(parentCriterion.criteriaString) == "string" and parentCriterion.criteriaString ~= "" then
+                    entry.text = parentCriterion.criteriaString
+                end
+            else
+                local _, _, _, childCompleted = GetAchievementInfo(childId)
+                entry.completed = childCompleted == true
+            end
+
+            requirements[#requirements + 1] = entry
         end
     end
 

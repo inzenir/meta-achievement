@@ -67,6 +67,7 @@ function UpdateSettings()
             MetaAchievementConfigurationDB[key] = value
         end
     end
+    MetaAchievementConfigurationDB.plugins = MetaAchievementConfigurationDB.plugins or {}
 end
 
 -- Flush all simple (non-table) settings into the DB on logout so they persist even if the Blizzard Settings UI didn't call our setter.

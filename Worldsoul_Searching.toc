@@ -5,6 +5,7 @@
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\Worldsoul_Searching\images\achievement_zone_isleofdorn
 ## SavedVariables: MetaAchievementConfigurationDB
+## Category: Meta Achievement Tracker
 
 # libs
 Libs\LibStub\LibStub.lua
@@ -72,6 +73,7 @@ logic\achievement.lua
 logic\achievement-criteria.lua
 logic\modern\criteria-completion.lua
 logic\modern\criteria-completion\quest-criteria.lua
+logic\modern\criteria-completion\achievement-criteria.lua
 logic\wow-achievements.lua
 logic\quest-achievement-registry.lua
 logic\activity-notification.lua
@@ -110,6 +112,9 @@ ui\elements\main-frame\requirement-rows\regular.lua
 ui\elements\main-frame\requirement-rows\progress.lua
 ui\elements\main-frame\requirement-rows\init.lua
 app\MetaAchievementController.lua
+logic\plugin-registry.lua
+logic\plugin-options.lua
+ui\elements\main-frame\main-window-plugins.lua
 ui\main-frame.xml
 
 # drawing loading

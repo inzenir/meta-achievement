@@ -241,7 +241,19 @@ HeroicShowdownsWaypoints = {
         helpText = "Heroic: Pain of Command.",
     },
     [62917] = {
+        combineVirtualAndRegularCriteria = true,
         helpText = "Heroic Climate Strange: Val.",
+        virtualCriteria = {
+            [1] = {
+                text = "Subdue the Spore Storm",
+                hidden = true,
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                worldQuest = {
+                    mapId = MapZones.MIDNIGHT_ZONE_Val,
+                    questId = 96611,
+                },
+            },
+        },
     },
     [62919] = {
         combineVirtualAndRegularCriteria = true,
