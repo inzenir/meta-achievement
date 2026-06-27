@@ -932,15 +932,16 @@ AFarewellToArmsWaypoints = {
         },
     },
 
-    -- A Farewell to Arms: achievement 13024
+    -- A Farewell to Arms: achievement 13024 (Carved in Stone, Written in Blood)
+    -- Coordinates from HandyNotes Battle for Azeroth pictographs
     [13024] = {
-        helpText = "",
+        helpText = "Carved in Stone, Written in Blood: Interact with four pictograph tablets in Nazmir.",
         criteria = {
-            [41860] = { helpText = "", waypoints = {} },
-            [41861] = { helpText = "", waypoints = {} },
-            [41862] = { helpText = "", waypoints = {} },
-            [42116] = { helpText = "", waypoints = {} },
-        }
+            [41860] = { criteriaType = 68, text = "Ancient Nazmani Tablet", helpText = "Ancient Nazmani Tablet — inside a destroyed building near the mountain", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 56.35, y = 57.36, title = "Ancient Nazmani Tablet" } } } } },
+            [41861] = { criteriaType = 68, text = "Weathered Nazmani Tablet", helpText = "Weathered Nazmani Tablet — on the destroyed pillar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 43.35, y = 48.11, title = "Weathered Nazmani Tablet" } } } } },
+            [41862] = { criteriaType = 68, text = "Cracked Tablet", helpText = "Cracked Tablet — on the destroyed wall in front of the huge pillar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 51.27, y = 85.10, title = "Cracked Tablet" } } } } },
+            [42116] = { criteriaType = 68, text = "Fractured Tablet", helpText = "Fractured Tablet — on a pillar next to the NPC at this spot", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 42.55, y = 57.10, title = "Fractured Tablet" } } } } },
+        },
     },
 
     -- A Farewell to Arms: achievement 13028 (Krag'wa's Ire - find 10 Lost Spawn of Krag'wa in Nazmir)
