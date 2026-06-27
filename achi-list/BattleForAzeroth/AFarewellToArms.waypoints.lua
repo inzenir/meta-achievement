@@ -784,16 +784,28 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13009
+    -- A Farewell to Arms: achievement 13009 (Adept Sandfisher)
     [13009] = {
-        helpText = "",
+        helpText = "Adept Sandfisher: Collect all five Sandworm Scale colors from Sandfishing world quests in Vol'dun. Disable auto-loot so you can keep fishing after meeting the world quest objective.",
         criteria = {
             [41335] = { helpText = "", waypoints = {} },
             [41336] = { helpText = "", waypoints = {} },
             [41337] = { helpText = "", waypoints = {} },
             [41338] = { helpText = "", waypoints = {} },
             [41339] = { helpText = "", waypoints = {} },
-        }
+        },
+        virtualCriteria = {
+            [51173] = {
+                text = "Sandfishing",
+                hidden = true,
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                worldQuest = {
+                    mapId = MapZones.BFA_ZONE_Voldun,
+                    questId = 51173,
+                },
+                helpText = "Sandfishing world quest in Vol'dun — fish for rare Sandworm Scales",
+            },
+        },
     },
 
     -- A Farewell to Arms: achievement 13011
