@@ -1140,9 +1140,25 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13094
+    -- A Farewell to Arms: achievement 13094 (Cursed Game Hunter)
+    -- Type-0 criteria use API index 1–13 (criteriaID 0). virtualCriteria keys match index.
     [13094] = {
-        helpText = "",
+        helpText = "Cursed Game Hunter: Kill one of every type of cursed animal in Drustvar.",
+        virtualCriteria = {
+            [1] = { criteriaType = 0, text = "Goats", helpText = "Hexed Craghopper", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 53.87, y = 20.72, title = "Goats (Hexed Craghopper)" } } } } },
+            [2] = { criteriaType = 0, text = "Deer", helpText = "Hexcrazed Doe", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 56.80, y = 41.48, title = "Deer (Hexcrazed Doe)" } } } } },
+            [3] = { criteriaType = 0, text = "Pigs", helpText = "Fallhaven Pig", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 58.62, y = 34.61, title = "Pigs (Fallhaven Pig)" } } } } },
+            [4] = { criteriaType = 0, text = "Thornclaws", helpText = "Hexed Thornclaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 32.21, y = 61.70, title = "Thornclaws (Hexed Thornclaw)" } } } } },
+            [5] = { criteriaType = 0, text = "Wolves", helpText = "Bewitched Darkmaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 58.95, y = 29.92, title = "Wolves (Bewitched Darkmaw)" } } } } },
+            [6] = { criteriaType = 0, text = "Ravens", helpText = "Bonepicker Raven", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 53.17, y = 36.02, title = "Ravens (Bonepicker Raven)" } } } } },
+            [7] = { criteriaType = 0, text = "Rabbits", helpText = "Ensorcelled Hare", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 53.33, y = 42.70, title = "Rabbits (Ensorcelled Hare)" } } } } },
+            [8] = { criteriaType = 0, text = "Falcons", helpText = "Cursed Falcon", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 31.29, y = 25.11, title = "Falcons (Cursed Falcon)" } } } } },
+            [9] = { criteriaType = 0, text = "Bramblebacks", helpText = "Cursed Brambleback", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 24.00, y = 49.02, title = "Bramblebacks (Cursed Brambleback)" } } } } },
+            [10] = { criteriaType = 0, text = "Sea Lions", helpText = "Bewitched Seal", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 21.90, y = 22.60, title = "Sea Lions (Bewitched Seal)" } } } } },
+            [11] = { criteriaType = 0, text = "Horses", helpText = "Hexthralled Guardsman", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 30.28, y = 25.28, title = "Horses (Hexthralled Guardsman)" } } } } },
+            [12] = { criteriaType = 0, text = "Sharks", helpText = "Hexed Dreadmaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 22.36, y = 69.47, title = "Sharks (Hexed Dreadmaw)" } } } } },
+            [13] = { criteriaType = 0, text = "Crabs", helpText = "Cursed Snapclaw", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 74.34, y = 65.89, title = "Crabs (Cursed Snapclaw)" } } } } },
+        },
     },
 
     -- A Farewell to Arms: achievement 13097
