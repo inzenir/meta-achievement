@@ -1115,14 +1115,15 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13082
+    -- A Farewell to Arms: achievement 13082 (Everything Old Is New Again)
+    -- Find four Order of Embers relics in Drustvar and return each to Gol Var ruins.
     [13082] = {
-        helpText = "",
+        helpText = "Everything Old Is New Again: Find four Order of Embers relics in Drustvar and return each to the ruins of Gol Var (42.43, 25.48).",
         criteria = {
-            [41636] = { helpText = "", waypoints = {} },
-            [41637] = { helpText = "", waypoints = {} },
-            [41638] = { helpText = "", waypoints = {} },
-            [41639] = { helpText = "", waypoints = {} },
+            [41636] = { criteriaType = 27, text = "Crossbow", helpText = "Order of Embers Crossbow — near the cliff under the trees west of Arom's Stand flight master", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 35.52, y = 51.87, title = "Order of Embers Crossbow" } } } } },
+            [41637] = { criteriaType = 27, text = "Flask", helpText = "Order of Embers Flask — between the rocks mid level of the waterfall", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 64.87, y = 67.79, title = "Order of Embers Flask" } } } } },
+            [41638] = { criteriaType = 27, text = "Hat", helpText = "Order of Embers Hat — on the mountain north of Fallhaven in the pile of bones", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 55.43, y = 27.14, title = "Order of Embers Hat" } } } } },
+            [41639] = { criteriaType = 27, text = "Knife", helpText = "Order of Embers Knife — in the tree trunk from the south side", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Drustvar, x = 32.58, y = 58.91, title = "Order of Embers Knife" } } } } },
         }
     },
 
