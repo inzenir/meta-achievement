@@ -1394,9 +1394,21 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13437
+    -- A Farewell to Arms: achievement 13437 (Scavenge like a Vulpera)
     [13437] = {
-        helpText = "",
+        helpText = "Scavenge like a Vulpera: During the Vol'dun Assault world quest Vulpera for a Day, speak to Nisha for the vulpera disguise, then complete an Archaeology digsite in Vol'dun. Requires Battle for Azeroth Archaeology; clear other Zandalar digs if none spawns in Vol'dun.",
+        virtualCriteria = {
+            [54415] = {
+                text = "Vulpera for a Day",
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                worldQuest = {
+                    mapId = MapZones.BFA_ZONE_Voldun,
+                    questId = 54415,
+                },
+                helpText = "Vol'dun Assault world quest — talk to Nisha for the vulpera buff, then complete a Vol'dun Archaeology digsite",
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 39.0, y = 47.0, title = "Nisha" } } } },
+            },
+        },
     },
 
     -- A Farewell to Arms: achievement 13466
