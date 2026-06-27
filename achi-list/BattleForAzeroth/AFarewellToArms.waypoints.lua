@@ -825,12 +825,22 @@ AFarewellToArmsWaypoints = {
         },
     },
 
-    -- A Farewell to Arms: achievement 13011
+    -- A Farewell to Arms: achievement 13011 (Scourge of Zem'lan)
     [13011] = {
-        helpText = "",
+        helpText = "Scourge of Zem'lan: At the Port of Zem'lan in Vol'dun, click three hidden interactables — a pirate hat, Zem'lan blackeye brew, and a treasure map. Each grants a 10-minute buff (Thirst for Adventure, Thirst for Brew, and Thirst for Treasure). With all three buffs active, Ol' Bonebite appears and follows you until one expires. Kill 20 skeleton pirates in the port while he is with you. Objects respawn about every 15 minutes and have no glow or outline, so check the marked spots carefully. Grab all three buffs quickly, then clear pirates before time runs out.",
+        waypoints = { { kind = "point", coordinates = {
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 36.80, y = 79.90, title = "Blackeye Brew" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 37.08, y = 79.98, title = "Blackeye Brew" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 37.13, y = 78.11, title = "Blackeye Brew (chamber)" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 33.77, y = 78.76, title = "Pirate Hat" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 34.13, y = 78.35, title = "Pirate Hat" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 34.73, y = 80.14, title = "Pirate Hat" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 35.80, y = 76.65, title = "Treasure Map (chamber)" },
+            { mapId = MapZones.BFA_ZONE_Voldun, x = 34.83, y = 76.75, title = "Treasure Map (wall)" },
+        } } },
         criteria = {
-            [41341] = { helpText = "", waypoints = {} },
-        }
+            [41341] = { helpText = "Slay 20 Zem'lan pirates while Ol' Bonebite is following you (all three thirst buffs must stay active)." },
+        },
     },
 
     -- A Farewell to Arms: achievement 13016 (Scavenger of the Sands)
