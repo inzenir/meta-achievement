@@ -905,9 +905,19 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 13023
+    -- A Farewell to Arms: achievement 13023 (It's Really Getting Out of Hand)
     [13023] = {
-        helpText = "",
+        helpText = "During the Getting Out of Hand world quest in Nazmir, become the Hand of Fate and finish within 20 seconds while not in a group. One approach: transform into the hand to start the timer, use Leave Vehicle to return to your character, then kill 40 enemies before time runs out. At max level with good mobility, this is usually the fastest way.",
+        virtualCriteria = {
+            [50559] = {
+                text = "Getting Out of Hand",
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                worldQuest = {
+                    mapId = MapZones.BFA_ZONE_Nazmir,
+                    questId = 50559,
+                },
+            },
+        },
     },
 
     -- A Farewell to Arms: achievement 13024
