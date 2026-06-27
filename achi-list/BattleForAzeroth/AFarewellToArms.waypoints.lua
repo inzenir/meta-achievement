@@ -954,9 +954,9 @@ AFarewellToArmsWaypoints = {
         waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox (loot Unforgettable Luncheon)" }, { mapId = MapZones.BFA_ZONE_StormsongValley, x = 41.25, y = 69.50, title = "Unforgettable Luncheon spot" } } } },
     },
 
-    -- A Farewell to Arms: achievement 13047
+    -- A Farewell to Arms: achievement 13047 (Clever Use of Mechanical Explosives)
     [13047] = {
-        helpText = "",
+        helpText = "Clever Use of Mechanical Explosives: You can find Sporonite Bomb using Pig Nose item, or you can buy it on the auction house. Before using the bomb on Lichen King, engage him in combat.",
     },
 
     -- A Farewell to Arms: achievement 13049
