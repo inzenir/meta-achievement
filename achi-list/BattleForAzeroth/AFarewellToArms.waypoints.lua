@@ -895,9 +895,19 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13021
+    -- A Farewell to Arms: achievement 13021 (A Most Efficient Apocalypse)
     [13021] = {
         helpText = "",
+        virtualCriteria = {
+            [50665] = {
+                text = "Cancel the Blood Troll Apocalypse",
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                worldQuest = {
+                    mapId = MapZones.BFA_ZONE_Nazmir,
+                    questId = 50665,
+                },
+            },
+        },
     },
 
     -- A Farewell to Arms: achievement 13022
