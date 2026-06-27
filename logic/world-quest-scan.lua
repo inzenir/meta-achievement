@@ -71,6 +71,28 @@ local function collectActiveQuestIdsForMap(uiMapID)
     return seen
 end
 
+local function isFactionAllowedForPlayer(requiredFaction)
+    if type(requiredFaction) ~= "string" then
+        return true
+    end
+    local playerFaction = UnitFactionGroup("player")
+    return playerFaction == requiredFaction
+end
+
+local function getWorldQuestFaction(cinfo)
+    if type(cinfo) ~= "table" then
+        return nil
+    end
+    if type(cinfo.faction) == "string" then
+        return cinfo.faction
+    end
+    local wq = cinfo.worldQuest
+    if type(wq) == "table" and type(wq.faction) == "string" then
+        return wq.faction
+    end
+    return nil
+end
+
 local function normalizeWorldQuest(cinfo)
     if type(cinfo) ~= "table" then
         return nil
@@ -128,7 +150,8 @@ local function addWorldQuestWatchRows(watchList, mapIdsToScan, mapIdSeen, topAch
         return
     end
     for criteriaId, cinfo in pairs(criteriaTable) do
-        if type(criteriaId) == "number" and type(cinfo) == "table" then
+        if type(criteriaId) == "number" and type(cinfo) == "table"
+            and isFactionAllowedForPlayer(getWorldQuestFaction(cinfo)) then
             local mapId, questId = normalizeWorldQuest(cinfo)
             if mapId and questId then
                 watchList[#watchList + 1] = {
