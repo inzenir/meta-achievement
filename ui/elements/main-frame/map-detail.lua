@@ -786,11 +786,16 @@ local function achievementHasDirectWaypoints(flatInfo)
     return false
 end
 
---- True if this criterion row is completed. Virtual rows (e.g. quest IDs + criteriaType 27) must use
---- `IsAchievementCriteriaCompleted`; `MetaAchievementMapCriterionIsCompleted` only matches WoW API criteria indices/ids.
+--- True if this criterion row is completed. Virtual rows may use `criteriaCheck` (e.g. checkByIndex).
 local function isCriterionCompleted(achievementId, criteriaId, cinfo)
     if not achievementId or not criteriaId then
         return false
+    end
+    if type(cinfo) == "table" and type(MetaAchievementResolveCriteriaCheck) == "function" then
+        local viaCheck = MetaAchievementResolveCriteriaCheck(achievementId, criteriaId, cinfo)
+        if viaCheck ~= nil then
+            return viaCheck == true
+        end
     end
     if type(cinfo) == "table" and type(cinfo.criteriaType) == "number" then
         if VirtualCriteriaTypes and VirtualCriteriaTypes.IsVirtual(cinfo.criteriaType) then
@@ -1297,13 +1302,20 @@ local function buildRequirementsFromCriteria(achievementId, topAchievementId)
         }
         if VirtualCriteriaTypes and VirtualCriteriaTypes.ApplyToRequirementEntry(entry, virtualCtx) then
             -- Virtual criteria type handled (e.g. ProgressBar = -1).
-        elseif type(criterion.criteriaType) == "number" and VirtualCriteriaTypes and VirtualCriteriaTypes.IsVirtual(criterion.criteriaType) then
-            entry.completed = false
         else
-            entry.completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType) == true
-            -- Virtual criteria indices may not exist in the WoW API; use pcall to avoid "criteria not found" errors.
+            local viaCheck = type(MetaAchievementResolveCriteriaCheck) == "function"
+                and MetaAchievementResolveCriteriaCheck(achievementId, i, criterion)
+            if viaCheck ~= nil then
+                entry.completed = viaCheck == true
+            elseif type(criterion.criteriaType) == "number" and VirtualCriteriaTypes and VirtualCriteriaTypes.IsVirtual(criterion.criteriaType) then
+                entry.completed = false
+            else
+                entry.completed = IsAchievementCriteriaCompleted(achievementId, i, criterion.criteriaType) == true
+            end
+            local apiIndex = (viaCheck ~= nil and CriteriaChecks and CriteriaChecks.GetApiCriteriaIndex(i, criterion)) or i
             if type(GetAchievementCriteriaInfo) == "function" then
-                local ok, _, _, quantity, reqQuantity, _, _, _, quantityString = pcall(GetAchievementCriteriaInfo, achievementId, i)
+                local ok, _, _, quantity, reqQuantity, _, _, _, quantityString =
+                    pcall(GetAchievementCriteriaInfo, achievementId, apiIndex)
                 if ok and reqQuantity and reqQuantity > 0 and quantity ~= nil then
                     entry.quantity = quantity
                     entry.reqQuantity = reqQuantity
@@ -1703,6 +1715,12 @@ function MetaAchievementMapDetail_OnRequirementsBoxWaypointButtonClick(self)
                     if type(cinfo.criteriaType) == "number" then
                         wp.criteriaType = cinfo.criteriaType
                     end
+                    if cinfo.criteriaCheck ~= nil then
+                        wp.criteriaCheck = cinfo.criteriaCheck
+                    end
+                    if type(cinfo.index) == "number" then
+                        wp.criteriaIndex = cinfo.index
+                    end
                 end
                 allWaypoints[#allWaypoints + 1] = wp
             end
@@ -1735,6 +1753,12 @@ function MetaAchievementMapDetail_AddCriteriaWaypoints(achievementId, topAchieve
                     wp.criteriaId = criteriaId
                     if type(cinfo.criteriaType) == "number" then
                         wp.criteriaType = cinfo.criteriaType
+                    end
+                    if cinfo.criteriaCheck ~= nil then
+                        wp.criteriaCheck = cinfo.criteriaCheck
+                    end
+                    if type(cinfo.index) == "number" then
+                        wp.criteriaIndex = cinfo.index
                     end
                 end
                 allWaypoints[#allWaypoints + 1] = wp
@@ -1859,6 +1883,12 @@ function MetaAchievementMapDetail_OnCriteriaInfoBoxWaypointButtonClick(self)
             wp.criteriaId = critId
             if type(cinfo.criteriaType) == "number" then
                 wp.criteriaType = cinfo.criteriaType
+            end
+            if cinfo.criteriaCheck ~= nil then
+                wp.criteriaCheck = cinfo.criteriaCheck
+            end
+            if type(cinfo.index) == "number" then
+                wp.criteriaIndex = cinfo.index
             end
         end
     end

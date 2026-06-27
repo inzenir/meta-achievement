@@ -42,7 +42,7 @@ function MetaAchievementMapCriterionIsCompleted(achievementId, criteriaId)
     return false
 end
 
---- Stored waypoints may include `criteriaType` (e.g. virtual quest criteria); otherwise use API criteria lookup only.
+--- Stored waypoints may include `criteriaType` or `criteriaCheck` (virtual criteria completion).
 function MetaAchievementIsWaypointCriterionCompleted(achievementId, wp)
     if not achievementId or not wp or type(wp) ~= "table" then
         return false
@@ -50,6 +50,13 @@ function MetaAchievementIsWaypointCriterionCompleted(achievementId, wp)
     local critId = wp.criteriaId
     if not critId then
         return false
+    end
+    if wp.criteriaCheck and type(MetaAchievementResolveCriteriaCheck) == "function" then
+        local criterion = { criteriaCheck = wp.criteriaCheck, index = wp.criteriaIndex }
+        local viaCheck = MetaAchievementResolveCriteriaCheck(achievementId, critId, criterion)
+        if viaCheck ~= nil then
+            return viaCheck == true
+        end
     end
     if type(wp.criteriaType) == "number" and type(IsAchievementCriteriaCompleted) == "function" then
         local viaType = IsAchievementCriteriaCompleted(achievementId, critId, wp.criteriaType)
