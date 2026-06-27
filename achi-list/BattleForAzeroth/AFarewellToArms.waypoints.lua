@@ -839,19 +839,19 @@ AFarewellToArmsWaypoints = {
     },
 
     -- A Farewell to Arms: achievement 13020 (Bow to Your Masters)
-    -- /bow to each Loa at their location. Some require zone storyline completion.
+    -- /bow at each Loa shrine. Criteria IDs and names from WoW API (type 69).
     [13020] = {
-        helpText = "Bow to Your Masters: Earn respect from all 9 Loa by using /bow at their shrines. Rezan: Zuldazar storyline or Atal'Dazar dungeon. Jani: Mysterious Trashpiles (12 across Zandalar). Others: visit shrines in Zuldazar, Nazmir, Vol'dun. Sethraliss/Rezan may require zone storyline completion.",
+        helpText = "Bow to Your Masters: Earn respect from all 9 Loa by using /bow at their shrines. Rezan may require the Zuldazar storyline or Atal'Dazar. Jani uses Mysterious Trashpiles across Zandalar.",
         criteria = {
-            [41525] = { helpText = "Rezan - Zuldazar shrine or Atal'Dazar dungeon (complete Zuldazar storyline)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 43.74, y = 76.74, title = "Rezan Shrine" } } } } },
-            [41495] = { helpText = "Jani - Interact with Mysterious Trashpiles across Zandalar (12 locations)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 48.54, y = 54.60, title = "Jani Trashpile (Gorilla Gorge)" } } } } },
-            [41497] = { helpText = "Gonk - Temple of the Prophet, Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 51.69, y = 28.25, title = "Shrine of Gonk" } } } } },
-            [41498] = { helpText = "Krag'wa - Krag'wa's Burrow, Nazmir (Frogmarsh)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 58.92, y = 48.65, title = "Krag'wa's Burrow" } } } } },
-            [41499] = { helpText = "Sethraliss - Sanctuary of the Devoted, Vol'dun (may need zone storyline)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 27.0, y = 52.6, title = "Sanctuary of the Devoted" } } } } },
-            [41500] = { helpText = "Pa'ku - Atal'Gral or Pterror Rise, Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 49.00, y = 41.29, title = "Shrine of Pa'ku" } } } } },
-            [41501] = { helpText = "Kimbul - Temple of Kimbul, Vol'dun (northern tip)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 56.6, y = 10.4, title = "Temple of Kimbul" } } } } },
-            [41502] = { helpText = "Akunda - Temple of Akunda, Vol'dun (southeastern)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 53.2, y = 90.2, title = "Temple of Akunda" } } } } },
-            [41503] = { helpText = "Bwonsamdi - The Edge of Oblivion, Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 39.12, y = 38.65, title = "Bwonsamdi Shrine" } } } } },
+            [41525] = { criteriaType = 69, text = "Bwonsamdi respected", helpText = "Bwonsamdi — The Edge of Oblivion, Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 39.56, y = 24.60, title = "Bwonsamdi" } } } } },
+            [41495] = { criteriaType = 69, text = "Krag'wa respected", helpText = "Krag'wa — eastern Nazmir", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 75.49, y = 56.84, title = "Krag'wa" } } } } },
+            [41497] = { criteriaType = 69, text = "Akunda respected", helpText = "Akunda — Temple of Akunda, southeastern Vol'dun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 53.18, y = 91.64, title = "Akunda" } } } } },
+            [41498] = { criteriaType = 69, text = "Gonk respected", helpText = "Gonk — Shrine of Gonk, Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 49.27, y = 44.33, title = "Gonk" } } } } },
+            [41499] = { criteriaType = 69, text = "Kimbul respected", helpText = "Kimbul — Temple of Kimbul, northern Vol'dun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 56.57, y = 10.23, title = "Kimbul" } } } } },
+            [41500] = { criteriaType = 69, text = "Jani respected", helpText = "Jani — Mysterious Trashpiles across Zandalar (example: Dazar'alor)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Dazaralor, x = 35.35, y = 7.67, title = "Jani" }, { mapId = MapZones.BFA_ZONE_Zuldazar, x = 48.54, y = 54.60, title = "Jani Trashpile (Gorilla Gorge)" } } } } },
+            [41501] = { criteriaType = 69, text = "Pa'ku respected", helpText = "Pa'ku — eastern Zuldazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 71.54, y = 49.42, title = "Pa'ku" } } } } },
+            [41502] = { criteriaType = 69, text = "Rezan respected", helpText = "Rezan — Zuldazar shrine (complete Zuldazar storyline) or Atal'Dazar", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 43.74, y = 76.74, title = "Rezan" } } } } },
+            [41503] = { criteriaType = 69, text = "Sethraliss respected", helpText = "Sethraliss — Sanctuary of the Devoted, Vol'dun", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 27.18, y = 52.57, title = "Sethraliss" } } } } },
         }
     },
 
