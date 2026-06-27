@@ -2865,6 +2865,7 @@ WorldSoulSearchingAchievements = {
                                     {
                                         ["id"] = 0,
                                         ["name"] = "Brotherhood in the Skolzgal Wood",
+                                        helpText = "Complete the Sojourner questline Brotherhood in the Skolzgal Wood.",
                                     },
                                     {
                                         ["id"] = 69433,

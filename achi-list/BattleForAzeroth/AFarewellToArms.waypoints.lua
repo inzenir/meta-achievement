@@ -419,7 +419,7 @@ AFarewellToArmsWaypoints = {
             [41065] = { criteriaType = 27, text = "Hidden Scholar's Chest", helpText = "Hidden Scholar's Chest — on the roof at Sagehold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.91, y = 39.07, title = "Hidden Scholar's Chest" } } } } },
             [41066] = { criteriaType = 27, text = "Smuggler's Stash", helpText = "Smuggler's Stash — in the water under the platform, Highland Pass", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.60, y = 83.88, title = "Smuggler's Stash" } } } } },
             [41067] = { criteriaType = 27, text = "Discarded Lunchbox", helpText = "Discarded Lunchbox — on the highest shelf in the shed, Brennadam Square", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox" } } } } },
-            [41068] = { criteriaType = 27, text = "Carved Wooden Chest", helpText = "Carved Wooden Chest — in cave on Thornheart platform (drops Pig Nose)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.44, y = 73.53, title = "Carved Wooden Chest" } } } } },
+            [41068] = { criteriaType = 27, text = "Carved Wooden Chest", helpText = "Carved Wooden Chest — in cave on Thornheart platform (drops {item:162000})", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.44, y = 73.53, title = "Carved Wooden Chest" } } } } },
             [41069] = { criteriaType = 27, text = "Venture Co. Supply Chest", helpText = "Venture Co. Supply Chest — climb the ladder on the ship, Jeweled Coast", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 36.69, y = 23.23, title = "Venture Co. Supply Chest" } } } } },
             [41070] = { criteriaType = 27, text = "Forgotten Chest", helpText = "Forgotten Chest — behind pillar on mountain near Warfang Hold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 46.00, y = 30.69, title = "Forgotten Chest" } } } } },
         }
@@ -1028,13 +1028,13 @@ AFarewellToArmsWaypoints = {
     -- A Farewell to Arms: achievement 13046 (These Hills Sing)
     -- Coordinates from HandyNotes_BattleForAzerothTreasures
     [13046] = {
-        helpText = "These Hills Sing: Enjoy an Unforgettable Luncheon at a special location in Stormsong Valley. Buy Unforgettable Luncheon from an innkeeper, or loot one from the Discarded Lunchbox treasure in Brennadam. Use the item at the picnic spot.",
+        helpText = "These Hills Sing: Enjoy an Unforgettable Luncheon at a special location in Stormsong Valley. Buy {item:160485} from an innkeeper, or loot one from the Discarded Lunchbox treasure in Brennadam. Use the item at the picnic spot.",
         waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox (loot Unforgettable Luncheon)" }, { mapId = MapZones.BFA_ZONE_StormsongValley, x = 41.25, y = 69.50, title = "Unforgettable Luncheon spot" } } } },
     },
 
     -- A Farewell to Arms: achievement 13047 (Clever Use of Mechanical Explosives)
     [13047] = {
-        helpText = "Clever Use of Mechanical Explosives: You can find Sporonite Bomb using Pig Nose item, or you can buy it on the auction house. Before using the bomb on Lichen King, engage him in combat.",
+        helpText = "Clever Use of Mechanical Explosives: You can find {item:163558} using {item:162000} item, or you can buy it on the auction house. Before using the bomb on Lichen King, engage him in combat.",
     },
 
     -- A Farewell to Arms: achievement 13049

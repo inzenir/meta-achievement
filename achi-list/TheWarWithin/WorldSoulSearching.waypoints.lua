@@ -1615,22 +1615,31 @@ WorldSoulSearchingWaypoints = {
     
     -- Achievement 20595: Sojourner of Isle of Dorn
     [20595] = {
-        helpText = "Complete 10 Sojourner questlines on Isle of Dorn. Questlines rotate; complete all variants over time.",
+        helpText = "Complete 10 Sojourner questlines on Isle of Dorn.",
+        criteria = {
+            [0] = {
+                criteriaType = 0,
+                criteriaCheck = "checkByIndex",
+                index = 9,
+                text = "Brotherhood in the Skolzgal Wood",
+                helpText = "Complete {achievement:20598} to be able to start this questline.",
+            },
+        },
     },
     
     -- Achievement 40799: Sojourner of The Ringing Deeps
     [40799] = {
-        helpText = "Complete 17 Sojourner questlines in The Ringing Deeps. Questlines rotate weekly.",
+        helpText = "Complete 17 Sojourner questlines in The Ringing Deeps. ",
     },
     
     -- Achievement 40844: Sojourner of Hallowfall
     [40844] = {
-        helpText = "Complete 17 Sojourner questlines in Hallowfall. Questlines rotate weekly.",
+        helpText = "Complete 17 Sojourner questlines in Hallowfall.",
     },
     
     -- Achievement 40636: Sojourner of Azj-Kahet
     [40636] = {
-        helpText = "Complete 15 Sojourner questlines in Azj-Kahet. Questlines rotate weekly.",
+        helpText = "Complete 15 Sojourner questlines in Azj-Kahet.",
     },
     
     -- Achievement 40762: Khaz Algar Lore Hunter

@@ -99,6 +99,7 @@ map-integration\tomtom\tomtom-waypoint.lua
 map-integration\tomtom\tomtom.lua
 
 # ui loading
+ui\text-links.lua
 ui\options-definitions.lua
 ui\elements\main-frame\settings-separator.lua
 ui\elements\main-frame\settings-separator.xml

@@ -414,6 +414,10 @@ local function configureWrappedScrollText(text, scrollChild, scrollFrame, contai
         text:SetMaxLines(0)
     end
     text:SetWidth(w)
+    if MetaAchievementTextLinks then
+        MetaAchievementTextLinks.Prepare(content)
+        content = MetaAchievementTextLinks.Render(content)
+    end
     text:SetText(content)
 
     local contentH = (text:GetStringHeight() or 0) + 8
@@ -466,6 +470,57 @@ local function updateCriteriaInfoBoxContent(self, text)
     local fs = self.CriteriaInfoBox.Text
     local normalized = (type(text) == "string" and text ~= "") and normalizeForWrap(text) or ""
     configureWrappedScrollText(fs, sc, sf, self.CriteriaInfoBox, normalized, 16)
+end
+
+local function refreshMapDetailTextLinks(self)
+    if not self or self._metaTextLinkRefreshing then
+        return
+    end
+    self._metaTextLinkRefreshing = true
+    if type(self._currentHelpText) == "string" and self._currentHelpText ~= "" then
+        updateHelpBoxContent(self, self._currentHelpText)
+    end
+    if self._currentRewardText ~= nil then
+        updateRewardBoxContent(self, self._currentRewardText)
+    end
+    if type(self._currentCriteriaInfoText) == "string" and self._currentCriteriaInfoText ~= "" then
+        updateCriteriaInfoBoxContent(self, self._currentCriteriaInfoText)
+    end
+    self._metaTextLinkRefreshing = nil
+end
+
+local function resolveScrollChild(scrollFrame)
+    if not scrollFrame then
+        return nil
+    end
+    if scrollFrame.ScrollChild then
+        return scrollFrame.ScrollChild
+    end
+    if scrollFrame.GetScrollChild then
+        return scrollFrame:GetScrollChild()
+    end
+    local frameName = scrollFrame.GetName and scrollFrame:GetName()
+    if frameName and frameName ~= "" then
+        return _G[frameName .. "ScrollChild"]
+    end
+    return nil
+end
+
+local function installTextHyperlinkHosts(box, scrollFrame)
+    if not MetaAchievementTextLinks then
+        return
+    end
+    if box then
+        MetaAchievementTextLinks.InstallHyperlinkFrame(box)
+    end
+    if scrollFrame then
+        MetaAchievementTextLinks.InstallHyperlinkFrame(scrollFrame)
+        local scrollChild = resolveScrollChild(scrollFrame)
+        if scrollChild then
+            scrollFrame.ScrollChild = scrollChild
+            MetaAchievementTextLinks.InstallHyperlinkFrame(scrollChild)
+        end
+    end
 end
 
 local function acquireReqRow(self, idx)
@@ -583,6 +638,7 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.RewardBox.ScrollBar and self.RewardBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
             ScrollUtil.InitScrollFrameWithScrollBar(self.RewardBox.ScrollFrame, self.RewardBox.ScrollBar)
         end
+        installTextHyperlinkHosts(self.RewardBox, self.RewardBox.ScrollFrame)
     end
     self.MountPreviewPanel = _G[self:GetName() .. "MountPreviewPanel"]
     if self.HelpBox then
@@ -601,6 +657,7 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.HelpBox.ScrollBar and self.HelpBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
             ScrollUtil.InitScrollFrameWithScrollBar(self.HelpBox.ScrollFrame, self.HelpBox.ScrollBar)
         end
+        installTextHyperlinkHosts(self.HelpBox, self.HelpBox.ScrollFrame)
         if self.HelpBox.ScrollFrame and not self.HelpBox.ScrollFrame._metaHelpTextWidthHook then
             self.HelpBox.ScrollFrame._metaHelpTextWidthHook = true
             self.HelpBox.ScrollFrame:HookScript("OnSizeChanged", function()
@@ -707,6 +764,13 @@ function MetaAchievementMapDetail_OnLoad(self)
         if self.CriteriaInfoBox.ScrollBar and self.CriteriaInfoBox.ScrollFrame and ScrollUtil and type(ScrollUtil.InitScrollFrameWithScrollBar) == "function" then
             ScrollUtil.InitScrollFrameWithScrollBar(self.CriteriaInfoBox.ScrollFrame, self.CriteriaInfoBox.ScrollBar)
         end
+        installTextHyperlinkHosts(self.CriteriaInfoBox, self.CriteriaInfoBox.ScrollFrame)
+    end
+
+    if MetaAchievementTextLinks and MetaAchievementTextLinks.WatchFrame then
+        MetaAchievementTextLinks.WatchFrame(self, function()
+            refreshMapDetailTextLinks(self)
+        end)
     end
 
     self._requirements = {}
@@ -788,7 +852,7 @@ end
 
 --- True if this criterion row is completed. Virtual rows may use `criteriaCheck` (e.g. checkByIndex).
 local function isCriterionCompleted(achievementId, criteriaId, cinfo)
-    if not achievementId or not criteriaId then
+    if not achievementId or criteriaId == nil then
         return false
     end
     if type(cinfo) == "table" and type(MetaAchievementResolveCriteriaCheck) == "function" then
@@ -820,6 +884,34 @@ local function hasHelpText(helpText)
     end
     local t = helpText:gsub("^%s+", ""):gsub("%s+$", "")
     return t ~= ""
+end
+
+local function findCriterionFlatInfo(flatInfo, criteriaId, criteriaIndex)
+    if type(flatInfo) ~= "table" then
+        return nil
+    end
+    local cinfo = (flatInfo.virtualCriteria and flatInfo.virtualCriteria[criteriaId])
+        or (flatInfo.criteria and flatInfo.criteria[criteriaId])
+    if cinfo then
+        return cinfo
+    end
+    local function scan(table)
+        if type(table) ~= "table" then
+            return nil
+        end
+        for key, row in pairs(table) do
+            if type(row) == "table" then
+                if type(row.index) == "number" and row.index == criteriaIndex then
+                    return row
+                end
+                if type(key) == "number" and key == criteriaIndex and row.criteriaCheck then
+                    return row
+                end
+            end
+        end
+        return nil
+    end
+    return scan(flatInfo.criteria) or scan(flatInfo.virtualCriteria)
 end
 
 local function getDelveAvailabilityForCriterion(achievementId, criteriaId, criterion)
@@ -959,7 +1051,7 @@ end
 
 local CRITERIA_INFO_BOX_TITLE = "CRITERIA INFORMATION"
 
-local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
+local function setCriteriaInfoBox(self, content, criteriaName, criteriaId, criteriaIndex)
     if not self or not self.CriteriaInfoBox then
         return
     end
@@ -974,26 +1066,24 @@ local function setCriteriaInfoBox(self, content, criteriaName, criteriaId)
     
     -- Store the selected criteria ID for waypoint button handler
     self._selectedCriteriaId = criteriaId
+    self._selectedCriteriaIndex = criteriaIndex
     
     -- Show/hide waypoint button based on whether this criterion has waypoints (and, if addWpsOnlyForUncompletedAchis, only when criterion is not completed)
     local hasWaypoints = false
     local cinfo = nil
-    if criteriaId and self._flatInfo then
-        if type(self._flatInfo.criteria) == "table" then
-            cinfo = self._flatInfo.criteria[criteriaId]
-        end
-        if not cinfo and type(self._flatInfo.virtualCriteria) == "table" then
-            cinfo = self._flatInfo.virtualCriteria[criteriaId]
-        end
+    if criteriaId ~= nil and self._flatInfo then
+        cinfo = findCriterionFlatInfo(self._flatInfo, criteriaId, criteriaIndex)
         hasWaypoints = criterionHasWaypoints(cinfo)
     end
     local onlyUncompleted = MetaAchievementSettings and MetaAchievementSettings:Get("addWpsOnlyForUncompletedAchis")
-    local criterionCompleted = criteriaId and self._achievementId and isCriterionCompleted(self._achievementId, criteriaId, cinfo)
+    local criterionCompleted = criteriaId ~= nil and self._achievementId and isCriterionCompleted(self._achievementId, criteriaId, cinfo)
     local showWaypoint = hasWaypoints and hasContent and (not onlyUncompleted or not criterionCompleted)
     if self.CriteriaInfoBox.WaypointButton then
         self.CriteriaInfoBox.WaypointButton:SetShown(showWaypoint)
     end
     
+    self._currentCriteriaInfoText = hasContent and content or ""
+
     if hasContent then
         updateCriteriaInfoBoxContent(self, content)
         self.CriteriaInfoBox:Show()
@@ -1618,11 +1708,10 @@ end
 local function criteriaTypeHandler_Default(owner, criteriaInfo, achievementId, criteriaIndex)
     -- When criteria is not another achievement, check waypoints flat table for additional criteria info.
     local criteriaId = criteriaInfo and criteriaInfo.criteriaID
-    if not criteriaId or not owner or not owner._flatInfo then
+    if criteriaId == nil or not owner or not owner._flatInfo then
         return
     end
-    local cinfo = (owner._flatInfo.virtualCriteria and owner._flatInfo.virtualCriteria[criteriaId])
-        or (owner._flatInfo.criteria and owner._flatInfo.criteria[criteriaId])
+    local cinfo = findCriterionFlatInfo(owner._flatInfo, criteriaId, criteriaIndex)
     if not cinfo then
         return
     end
@@ -1633,7 +1722,7 @@ local function criteriaTypeHandler_Default(owner, criteriaInfo, achievementId, c
     if ht == "" and criterionHasWaypoints(cinfo) then
         ht = DEFAULT_WAYPOINT_HELP
     end
-    setCriteriaInfoBox(owner, ht, criteriaName, criteriaId)
+    setCriteriaInfoBox(owner, ht, criteriaName, criteriaId, criteriaIndex)
 end
 
 do
