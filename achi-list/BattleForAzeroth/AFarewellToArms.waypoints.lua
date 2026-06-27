@@ -1018,9 +1018,10 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13058
+    -- A Farewell to Arms: achievement 13058 (Kul Tiran Up the Dance Floor)
     [13058] = {
-        helpText = "",
+        helpText = "Kul Tiran Up the Dance Floor: /dance with another player on the dance floor at Norwington Estate in Tiragarde Sound.",
+        waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 50, y = 24, title = "Norwington Estate dance floor" } } } },
     },
 
     -- A Farewell to Arms: achievement 13061 (Three Sheets to the Wind)
