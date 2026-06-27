@@ -306,21 +306,22 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12771
+    -- A Farewell to Arms: achievement 12771 (Treasures of Nazmir)
+    -- Coordinates from HandyNotes Battle for Azeroth treasures
     [12771] = {
-        helpText = "Treasures of Nazmir: Discover 10 hidden treasures in Nazmir. Includes: Lucky Horace's Lucky Chest, Cursed Nazmani Chest, Lost Nazmani Treasure, Shipwrecked Chest, Swallowed Naga Chest, Partially-Digested Treasure, Cleverly Disguised Chest, Offering to Bwonsamdi, Venomous Seal, Wunja's Trove.",
+        helpText = "Treasures of Nazmir: Discover 10 hidden treasures in Nazmir.",
         criteria = {
-            [40857] = { helpText = "Lucky Horace's Lucky Chest", waypoints = {} },
-            [40858] = { helpText = "Cursed Nazmani Chest", waypoints = {} },
-            [40859] = { helpText = "Lost Nazmani Treasure", waypoints = {} },
-            [40860] = { helpText = "Shipwrecked Chest", waypoints = {} },
-            [40861] = { helpText = "Swallowed Naga Chest", waypoints = {} },
-            [40862] = { helpText = "Partially-Digested Treasure", waypoints = {} },
-            [40863] = { helpText = "Cleverly Disguised Chest", waypoints = {} },
-            [40864] = { helpText = "Offering to Bwonsamdi", waypoints = {} },
-            [40865] = { helpText = "Venomous Seal", waypoints = {} },
-            [40866] = { helpText = "Wunja's Trove", waypoints = {} },
-        }
+            [40857] = { criteriaType = 27, text = "Lucky Horace's Lucky Chest", helpText = "Lucky Horace's Lucky Chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 77.68, y = 36.13, title = "Lucky Horace's Lucky Chest" } } } } },
+            [40858] = { criteriaType = 27, text = "Partially-Digested Treasure", helpText = "Partially-Digested Treasure", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 77.88, y = 46.35, title = "Partially-Digested Treasure" } } } } },
+            [40859] = { criteriaType = 27, text = "Cursed Nazmani Chest", helpText = "Cursed Nazmani Chest — in a small cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 43.06, y = 50.78, title = "Cursed Nazmani Chest" } } } } },
+            [40860] = { criteriaType = 27, text = "Cleverly Disguised Chest", helpText = "Cleverly Disguised Chest — in a small cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 35.63, y = 85.60, title = "Cleverly Disguised Chest" } } } } },
+            [40861] = { criteriaType = 27, text = "Lost Nazmani Treasure", helpText = "Lost Nazmani Treasure — in an underwater cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 62.10, y = 34.87, title = "Lost Nazmani Treasure" } } } } },
+            [40862] = { criteriaType = 27, text = "Offering to Bwonsamdi", helpText = "Offering to Bwonsamdi — climb the nearby tree and jump into the broken structure", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 42.77, y = 26.20, title = "Offering to Bwonsamdi" } } } } },
+            [40863] = { criteriaType = 27, text = "Shipwrecked Chest", helpText = "Shipwrecked Chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 66.79, y = 17.35, title = "Shipwrecked Chest" } } } } },
+            [40864] = { criteriaType = 27, text = "Venomous Seal", helpText = "Venomous Seal", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 46.22, y = 82.95, title = "Venomous Seal" } } } } },
+            [40865] = { criteriaType = 27, text = "Swallowed Naga Chest", helpText = "Swallowed Naga Chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 76.87, y = 62.14, title = "Swallowed Naga Chest" } } } } },
+            [40866] = { criteriaType = 27, text = "Wunja's Trove", helpText = "Wunja's Trove — in a small cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 35.45, y = 54.98, title = "Wunja's Trove" } } } } },
+        },
     },
 
     -- A Farewell to Arms: achievement 12807
@@ -943,7 +944,7 @@ AFarewellToArmsWaypoints = {
 
     -- A Farewell to Arms: achievement 13028 (Krag'wa's Ire - find 10 Lost Spawn of Krag'wa in Nazmir)
     [13028] = {
-        helpText = "Krag'wa's Ire: Find and interact with 10 Lost Spawn of Krag'wa in Nazmir. Each spawn is tied to a quest.",
+        helpText = "Find and interact with 10 Lost Spawn of Krag'wa in Nazmir.\nYou can complete this over multiple characters.",
         criteria = {
             [41598] = {},
         },
@@ -951,25 +952,40 @@ AFarewellToArmsWaypoints = {
             [53417] = { criteriaType = 27, text = "Krag'wa #1", helpText = "Dive into the submerged cave at this location.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 65.6, y = 50.9, title = "Krag'wa #1" } } } } },
             [53418] = { criteriaType = 27, text = "Krag'wa #2", helpText = "Enter the underwater cave beneath the giant skeleton.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 69.1, y = 57.9, title = "Krag'wa #2" } } } } },
             [53419] = { criteriaType = 27, text = "Krag'wa #3", helpText = "Tucked away behind a large tree.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 56.1, y = 64.9, title = "Krag'wa #3" } } } } },
-            [53422] = { criteriaType = 27, text = "Krag'wa #4", helpText = "In a cave inhabited by riverbeasts.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 45.6, y = 91.0, title = "Krag'wa #4" } } } } },
-            [53423] = { criteriaType = 27, text = "Krag'wa #5", helpText = "Inside a cliff cave - follow the road up the mountain from the waypoint.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 26.8, y = 80.4, title = "Start of path—follow the road up the mountain" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 26.8, y = 80.4, title = "Krag'wa #5 (cave)" } } } } },
-            [53424] = { criteriaType = 27, text = "Krag'wa #6", helpText = "Resting among the trees in the open.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 24.2, y = 91.6, title = "Krag'wa #6" } } } } },
-            [53425] = { criteriaType = 27, text = "Krag'wa #7", helpText = "Along the riverbank.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 21.7, y = 69.3, title = "Krag'wa #7" } } } } },
-            [53421] = { criteriaType = 27, text = "Krag'wa #8", helpText = "Inside a small cave at this spot.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 33.5, y = 61.6, title = "Krag'wa #8" } } } } },
-            [53420] = { criteriaType = 27, text = "Krag'wa #9", helpText = "Concealed behind the seamoss.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 25.6, y = 40.6, title = "Krag'wa #9" } } } } },
+            [53420] = { criteriaType = 27, text = "Krag'wa #4", helpText = "Concealed behind the seamoss.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 25.6, y = 40.6, title = "Krag'wa #9" } } } } },
+            [53421] = { criteriaType = 27, text = "Krag'wa #5", helpText = "Inside a small cave at this spot.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 33.5, y = 61.6, title = "Krag'wa #8" } } } } },
+            [53422] = { criteriaType = 27, text = "Krag'wa #6", helpText = "In a cave inhabited by riverbeasts.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 45.6, y = 91.0, title = "Krag'wa #4" } } } } },
+            [53423] = { criteriaType = 27, text = "Krag'wa #7", helpText = "Inside a cliff cave - follow the road up the mountain from the waypoint.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 26.8, y = 80.4, title = "Start of path—follow the road up the mountain" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 26.8, y = 80.4, title = "Krag'wa #5 (cave)" } } } } },
+            [53424] = { criteriaType = 27, text = "Krag'wa #8", helpText = "Resting among the trees in the open.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 24.2, y = 91.6, title = "Krag'wa #6" } } } } },
+            [53425] = { criteriaType = 27, text = "Krag'wa #9", helpText = "Along the riverbank.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 21.7, y = 69.3, title = "Krag'wa #7" } } } } },
             [53426] = { criteriaType = 27, text = "Krag'wa #10", helpText = "Inside the ruined building.", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 52.8, y = 42.9, title = "Krag'wa #10" } } } } },
         }
     },
 
     -- A Farewell to Arms: achievement 13029 (Eating Out of the Palm of My Tiny Hand)
-    -- Feed brutosaurs their favorite food in each of the three Zandalar zones.
+    -- Feed brutosaurs in Nazmir, Vol'dun, and Zuldazar. Criteria IDs and coords from HandyNotes.
     [13029] = {
-        helpText = "Eating Out of the Palm of My Tiny Hand: Feed one brutosaur in each Zandalar zone. Zuldazar: Buy Extra-Dry Fruitcake from Golkada, feed Irritable Maka'fon. Nazmir: Buy Primitive Watermelon from Blind Wunja (in cave), feed Goramor. Vol'dun: Buy Snake on a Stick from Rikati, feed Ol' Stompy.",
+        helpText = "Eating Out of the Palm of My Tiny Hand: Feed one brutosaur in each Zandalar zone. Nazmir: buy Primitive Watermelon from Blind Wunja (cave), feed Goramor. Vol'dun: buy Snake on a Stick from Rikati, feed Ol' Stompy. Zuldazar: buy Extra-Dry Fruitcake from Golkada, feed Irritable Maka'fon.",
         criteria = {
-            [41575] = { helpText = "Zuldazar: Buy Extra-Dry Fruitcake from Golkada (71.2, 29.5), feed to Irritable Maka'fon in The Slough", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 71.2, y = 29.5, title = "Golkada (vendor) / Irritable Maka'fon" } } } } },
-            [41578] = { helpText = "Nazmir: Buy Primitive Watermelon from Blind Wunja in cave (34.6, 54.9), feed to Goramor in Far Reach (32, 35)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 34.6, y = 54.9, title = "Blind Wunja (vendor, in cave)" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 32.0, y = 35.0, title = "Goramor (brutosaur)" } } } } },
-            [41580] = { helpText = "Vol'dun: Buy Snake on a Stick from Rikati (40.4, 55.3), feed to Ol' Stompy in Shrouded Shore", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 40.4, y = 55.3, title = "Rikati (vendor) / Ol' Stompy" } } } } },
-        }
+            [41575] = {
+                criteriaType = 0,
+                text = "Brutosaur of Nazmir Fed",
+                helpText = "Nazmir — buy Primitive Watermelon from Blind Wunja (cave), feed Goramor",
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Nazmir, x = 34.60, y = 54.94, title = "Blind Wunja (vendor, cave)" }, { mapId = MapZones.BFA_ZONE_Nazmir, x = 32.40, y = 35.10, title = "Goramor" } } } },
+            },
+            [41578] = {
+                criteriaType = 0,
+                text = "Brutosaur of Vol'dun Fed",
+                helpText = "Vol'dun — buy Snake on a Stick from Rikati, feed Ol' Stompy",
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 40.40, y = 55.40, title = "Rikati (vendor)" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 61.90, y = 9.50, title = "Ol' Stompy" } } } },
+            },
+            [41580] = {
+                criteriaType = 0,
+                text = "Brutosaur of Zuldazar Fed",
+                helpText = "Zuldazar — buy Extra-Dry Fruitcake from Golkada at Scaletrader Post, feed Irritable Maka'fon",
+                waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Zuldazar, x = 71.20, y = 29.50, title = "Golkada (vendor)" }, { mapId = MapZones.BFA_ZONE_Zuldazar, x = 64.20, y = 39.30, title = "Irritable Maka'fon" } } } },
+            },
+        },
     },
 
     -- A Farewell to Arms: achievement 13036 (A Loa of a Tale)
