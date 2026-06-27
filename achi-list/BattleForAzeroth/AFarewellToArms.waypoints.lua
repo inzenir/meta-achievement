@@ -354,21 +354,22 @@ AFarewellToArmsWaypoints = {
         helpText = "",
     },
 
-    -- A Farewell to Arms: achievement 12849
+    -- A Farewell to Arms: achievement 12849 (Treasures of Vol'dun)
+    -- Coordinates from HandyNotes Battle for Azeroth treasures
     [12849] = {
-        helpText = "Treasures of Vol'dun: Discover 10 hidden treasures in Vol'dun. Includes: Ashvane Spoils, Lost Explorer's Bounty, Stranded Cache, Zem'lan's Buried Treasure, Deadwood Chest, Grayal's Last Offering, Sandfury Reserve, Excavator's Greed, Lost Offerings of Kimbul, Sandsunken Treasure.",
+        helpText = "Treasures of Vol'dun: Discover 10 hidden treasures in Vol'dun.",
         criteria = {
-            [40966] = { helpText = "Ashvane Spoils", waypoints = {} },
-            [40967] = { helpText = "Lost Explorer's Bounty", waypoints = {} },
-            [40968] = { helpText = "Stranded Cache", waypoints = {} },
-            [40969] = { helpText = "Zem'lan's Buried Treasure", waypoints = {} },
-            [40970] = { helpText = "Deadwood Chest", waypoints = {} },
-            [40971] = { helpText = "Grayal's Last Offering", waypoints = {} },
-            [40972] = { helpText = "Sandfury Reserve", waypoints = {} },
-            [41002] = { helpText = "Excavator's Greed", waypoints = {} },
-            [41003] = { helpText = "Lost Offerings of Kimbul", waypoints = {} },
-            [41004] = { helpText = "Sandsunken Treasure", waypoints = {} },
-        }
+            [40966] = { criteriaType = 27, text = "Ashvane Spoils", helpText = "Ashvane Spoils — ride the parrot down the hill to spawn the treasure at the bottom", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 46.59, y = 88.01, title = "Ashvane Spoils" } } } } },
+            [40967] = { criteriaType = 27, text = "Grayal's Last Offering", helpText = "Grayal's Last Offering — after Atul'Aman quest, click the Ancient Altar inside to spawn the treasure", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.07, y = 64.68, title = "Atul'Aman entrance" }, { mapId = MapZones.BFA_ZONE_Voldun, x = 48.18, y = 64.69, title = "Grayal's Last Offering" } } } } },
+            [40968] = { criteriaType = 27, text = "Lost Explorer's Bounty", helpText = "Lost Explorer's Bounty — in a small cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 49.78, y = 79.40, title = "Lost Explorer's Bounty" } } } } },
+            [40969] = { criteriaType = 27, text = "Sandfury Reserve", helpText = "Sandfury Reserve", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 47.19, y = 58.46, title = "Sandfury Reserve" } } } } },
+            [40970] = { criteriaType = 27, text = "Stranded Cache", helpText = "Stranded Cache", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 44.50, y = 26.13, title = "Stranded Cache" } } } } },
+            [40971] = { criteriaType = 27, text = "Excavator's Greed", helpText = "Excavator's Greed — inside a collapsed tunnel", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 57.74, y = 64.64, title = "Excavator's Greed" } } } } },
+            [40972] = { criteriaType = 27, text = "Zem'lan's Buried Treasure", helpText = "Zem'lan's Buried Treasure", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 29.38, y = 87.42, title = "Zem'lan's Buried Treasure" } } } } },
+            [41002] = { criteriaType = 27, text = "Lost Offerings of Kimbul", helpText = "Lost Offerings of Kimbul — on the hill above the Temple of Kimbul", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 57.06, y = 11.21, title = "Lost Offerings of Kimbul" } } } } },
+            [41003] = { criteriaType = 27, text = "Deadwood Chest", helpText = "Deadwood Chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 40.57, y = 85.74, title = "Deadwood Chest" } } } } },
+            [41004] = { criteriaType = 27, text = "Sandsunken Treasure", helpText = "Sandsunken Treasure — click the Abandoned Bobber to pull the chest from the sand", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Voldun, x = 26.48, y = 45.35, title = "Sandsunken Treasure" } } } } },
+        },
     },
 
     -- A Farewell to Arms: achievement 12851
