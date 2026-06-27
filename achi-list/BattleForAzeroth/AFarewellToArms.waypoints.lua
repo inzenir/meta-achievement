@@ -405,20 +405,20 @@ AFarewellToArmsWaypoints = {
     },
 
     -- A Farewell to Arms: achievement 12853 (Treasures of Stormsong Valley)
-    -- Coordinates from Wowpedia (HandyNotes_BattleForAzerothTreasures)
+    -- Coordinates from HandyNotes Battle for Azeroth treasures
     [12853] = {
         helpText = "Treasures of Stormsong Valley: Discover 10 hidden treasures in Stormsong Valley. Loot each chest to earn credit.",
         criteria = {
-            [41061] = { helpText = "Frosty Treasure Chest - top level of mountain waterfalls", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 48.96, y = 84.07, title = "Frosty Treasure Chest" } } } } },
-            [41062] = { helpText = "Hidden Scholar's Chest - on roof at Sagehold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.91, y = 39.00, title = "Hidden Scholar's Chest" } } } } },
-            [41063] = { helpText = "Old Ironbound Chest - inside cave with bears, Shepherd's Bluff", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 42.85, y = 47.23, title = "Old Ironbound Chest" } } } } },
-            [41064] = { helpText = "Smuggler's Stash - under wooden platform, Highland Pass", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.60, y = 83.88, title = "Smuggler's Stash" } } } } },
-            [41065] = { helpText = "Sunken Strongbox - under the ship at Port Fogtide", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 67.22, y = 43.21, title = "Sunken Strongbox" } } } } },
-            [41066] = { helpText = "Venture Co. Supply Chest - use ladder to get on ship, Jeweled Coast", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 36.69, y = 23.23, title = "Venture Co. Supply Chest" } } } } },
-            [41067] = { helpText = "Weathered Treasure Chest - underground cave hidden in trees", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 66.92, y = 12.03, title = "Weathered Treasure Chest" } } } } },
-            [41068] = { helpText = "Carved Wooden Chest - on Thornheart platform", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.44, y = 73.53, title = "Carved Wooden Chest" } } } } },
-            [41069] = { helpText = "Forgotten Chest - behind pillar, mountain near Warfang Hold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 46.00, y = 30.69, title = "Forgotten Chest" } } } } },
-            [41070] = { helpText = "Discarded Lunchbox - highest shelf in shed, Brennadam Square", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox" } } } } },
+            [41061] = { criteriaType = 27, text = "Weathered Treasure Chest", helpText = "Weathered Treasure Chest — hidden cave; three entrances behind tree clusters", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 66.92, y = 12.06, title = "Weathered Treasure Chest" } } } } },
+            [41062] = { criteriaType = 27, text = "Old Ironbound Chest", helpText = "Old Ironbound Chest — inside cave with bears, Shepherd's Bluff", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 42.85, y = 47.23, title = "Old Ironbound Chest" } } } } },
+            [41063] = { criteriaType = 27, text = "Frosty Treasure Chest", helpText = "Frosty Treasure Chest — top level of mountain waterfalls", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 48.96, y = 84.07, title = "Frosty Treasure Chest" } } } } },
+            [41064] = { criteriaType = 27, text = "Sunken Strongbox", helpText = "Sunken Strongbox — in the water under the ship at Port Fogtide", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 67.22, y = 43.21, title = "Sunken Strongbox" } } } } },
+            [41065] = { criteriaType = 27, text = "Hidden Scholar's Chest", helpText = "Hidden Scholar's Chest — on the roof at Sagehold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.91, y = 39.07, title = "Hidden Scholar's Chest" } } } } },
+            [41066] = { criteriaType = 27, text = "Smuggler's Stash", helpText = "Smuggler's Stash — in the water under the platform, Highland Pass", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.60, y = 83.88, title = "Smuggler's Stash" } } } } },
+            [41067] = { criteriaType = 27, text = "Discarded Lunchbox", helpText = "Discarded Lunchbox — on the highest shelf in the shed, Brennadam Square", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 58.21, y = 63.68, title = "Discarded Lunchbox" } } } } },
+            [41068] = { criteriaType = 27, text = "Carved Wooden Chest", helpText = "Carved Wooden Chest — in cave on Thornheart platform (drops Pig Nose)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.44, y = 73.53, title = "Carved Wooden Chest" } } } } },
+            [41069] = { criteriaType = 27, text = "Venture Co. Supply Chest", helpText = "Venture Co. Supply Chest — climb the ladder on the ship, Jeweled Coast", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 36.69, y = 23.23, title = "Venture Co. Supply Chest" } } } } },
+            [41070] = { criteriaType = 27, text = "Forgotten Chest", helpText = "Forgotten Chest — behind pillar on mountain near Warfang Hold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 46.00, y = 30.69, title = "Forgotten Chest" } } } } },
         }
     },
 
