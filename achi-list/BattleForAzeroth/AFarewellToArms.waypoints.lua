@@ -387,20 +387,21 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 12852
+    -- A Farewell to Arms: achievement 12852 (Treasures of Tiragarde Sound)
+    -- Coordinates from HandyNotes Battle for Azeroth treasures
     [12852] = {
-        helpText = "Treasures of Tiragarde Sound: Discover 10 hidden treasures in Tiragarde Sound. Includes: Hay Covered Chest, Precarious Noble Cache, Scrimshaw Cache, Soggy Treasure Map, Yellowed Treasure Map, Cutwater Treasure Chest, Forgotten Smuggler's Stash, Secret of the Depths, Faded Treasure Map, Singed Treasure Map.",
+        helpText = "Treasures of Tiragarde Sound: Discover 10 hidden treasures in Tiragarde Sound. Treasure maps drop from pirates in Kul Tiras (Freehold is a good farm).",
         criteria = {
-            [41012] = { helpText = "Hay Covered Chest", waypoints = {} },
-            [41013] = { helpText = "Precarious Noble Cache", waypoints = {} },
-            [41014] = { helpText = "Scrimshaw Cache", waypoints = {} },
-            [41015] = { helpText = "Soggy Treasure Map", waypoints = {} },
-            [41016] = { helpText = "Yellowed Treasure Map", waypoints = {} },
-            [41017] = { helpText = "Cutwater Treasure Chest", waypoints = {} },
-            [41018] = { helpText = "Forgotten Smuggler's Stash", waypoints = {} },
-            [41019] = { helpText = "Secret of the Depths", waypoints = {} },
-            [41020] = { helpText = "Faded Treasure Map", waypoints = {} },
-            [41021] = { helpText = "Singed Treasure Map", waypoints = {} },
+            [41012] = { criteriaType = 27, text = "Hay Covered Chest", helpText = "Hay Covered Chest — ride Guardian of the Spring down the road to spawn Garyl, then loot the chest", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 61.70, y = 51.54, title = "Guardian of the Spring" }, { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 67.36, y = 51.63, title = "Hay Covered Chest" } } } } },
+            [41013] = { criteriaType = 27, text = "Cutwater Treasure Chest", helpText = "Cutwater Treasure Chest — small cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 72.49, y = 58.14, title = "Cutwater Treasure Chest" } } } } },
+            [41014] = { criteriaType = 27, text = "Precarious Noble Cache", helpText = "Precarious Noble Cache — on a cliff ledge", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 56.03, y = 33.19, title = "Precarious Noble Cache" } } } } },
+            [41015] = { criteriaType = 27, text = "Forgotten Smuggler's Stash", helpText = "Forgotten Smuggler's Stash — small cave", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 61.78, y = 62.75, title = "Forgotten Smuggler's Stash" } } } } },
+            [41016] = { criteriaType = 27, text = "Scrimshaw Cache", helpText = "Scrimshaw Cache — small cave in Boralus", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 63.27, y = 6.17, title = "Scrimshaw Cache" } } } } },
+            [41017] = { criteriaType = 27, text = "Secret of the Depths", helpText = "Secret of the Depths — read all 5 Damp Scrolls in Boralus, then use the Ominous Altar to reach the treasure", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_Boralus, x = 55.69, y = 91.08, title = "Ominous Altar" }, { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 73.10, y = 39.50, title = "Secret of the Depths" } } } } },
+            [41018] = { criteriaType = 27, text = "Soggy Treasure Map", helpText = "Soggy Treasure Map — requires the Soggy Treasure Map item (drops from Kul Tiran pirates)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 54.99, y = 46.08, title = "Soggy Treasure Map" } } } } },
+            [41019] = { criteriaType = 27, text = "Faded Treasure Map", helpText = "Faded Treasure Map — requires the Faded Treasure Map item (drops from Kul Tiran pirates)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 29.22, y = 25.34, title = "Faded Treasure Map" } } } } },
+            [41020] = { criteriaType = 27, text = "Yellowed Treasure Map", helpText = "Yellowed Treasure Map — requires the Yellowed Treasure Map item (drops from Kul Tiran pirates)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 90.50, y = 75.51, title = "Yellowed Treasure Map" } } } } },
+            [41021] = { criteriaType = 27, text = "Singed Treasure Map", helpText = "Singed Treasure Map — requires the Singed Treasure Map item (drops from Kul Tiran pirates)", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_TiragardeSound, x = 48.98, y = 37.59, title = "Singed Treasure Map" } } } } },
         }
     },
 
