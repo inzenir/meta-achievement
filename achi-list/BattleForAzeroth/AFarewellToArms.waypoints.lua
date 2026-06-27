@@ -972,15 +972,39 @@ AFarewellToArmsWaypoints = {
         }
     },
 
-    -- A Farewell to Arms: achievement 13050
+    -- A Farewell to Arms: achievement 13050 (Bless the Rains Down in Freehold)
     [13050] = {
-        helpText = "",
+        helpText = "Bless the Rains Down in Freehold: During the Swab This! world quest in Tiragarde Sound, hit Banana Hoard, Cart o' Cutlasses, Sweete's Feast, and Blacktooth Brew with Vile Bombardment from Rodrigo's parrot. You do not need to finish the world quest.",
         criteria = {
             [41662] = { helpText = "", waypoints = {} },
             [41663] = { helpText = "", waypoints = {} },
             [41664] = { helpText = "", waypoints = {} },
             [41665] = { helpText = "", waypoints = {} },
-        }
+        },
+        virtualCriteria = {
+            [52159] = {
+                text = "Swab This!",
+                hidden = true,
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                faction = "Alliance",
+                worldQuest = {
+                    mapId = MapZones.BFA_ZONE_TiragardeSound,
+                    questId = 52159,
+                    faction = "Alliance",
+                },
+            },
+            [53196] = {
+                text = "Swab This!",
+                hidden = true,
+                criteriaType = VirtualCriteriaTypes.WorldQuest,
+                faction = "Horde",
+                worldQuest = {
+                    mapId = MapZones.BFA_ZONE_TiragardeSound,
+                    questId = 53196,
+                    faction = "Horde",
+                },
+            },
+        },
     },
 
     -- A Farewell to Arms: achievement 13051 (Legends of the Tidesages)
