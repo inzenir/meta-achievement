@@ -983,19 +983,18 @@ AFarewellToArmsWaypoints = {
     },
 
     -- A Farewell to Arms: achievement 13051 (Legends of the Tidesages)
-    -- Find 8 Ancient Tidesage scrolls hanging from shrines/monuments in Stormsong Valley. Some hidden in mountains.
-    -- Coordinates from warcraft.blizzplanet.com
+    -- Find 8 Ancient Tidesage scrolls in Stormsong Valley. Criteria IDs and coords from HandyNotes.
     [13051] = {
         helpText = "Legends of the Tidesages: Discover 8 large Tidesage scrolls hanging from shrines or monuments throughout Stormsong Valley. Some are well hidden in the mountains.",
         criteria = {
-            [41425] = { helpText = "Legends of the Tidesages Part 1 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 49.52, y = 80.91, title = "Legends of the Tidesages Part 1" } } } } },
-            [41426] = { helpText = "Legends of the Tidesages Part 2 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 31.93, y = 72.92, title = "Legends of the Tidesages Part 2" } } } } },
-            [41427] = { helpText = "Legends of the Tidesages Part 3 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.01, y = 59.55, title = "Legends of the Tidesages Part 3" } } } } },
-            [41428] = { helpText = "Legends of the Tidesages Part 4 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.20, y = 36.62, title = "Legends of the Tidesages Part 4" } } } } },
-            [41429] = { helpText = "Legends of the Tidesages Part 5 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 56.05, y = 38.49, title = "Legends of the Tidesages Part 5" } } } } },
-            [41430] = { helpText = "Legends of the Tidesages Part 6 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.06, y = 30.24, title = "Legends of the Tidesages Part 6" } } } } },
-            [41431] = { helpText = "Legends of the Tidesages Part 7 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 75.06, y = 31.09, title = "Legends of the Tidesages Part 7" } } } } },
-            [41432] = { helpText = "Legends of the Tidesages Part 8 - scroll at shrine/monument", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 33.81, y = 33.21, title = "Legends of the Tidesages Part 8" } } } } },
+            [41425] = { criteriaType = 68, text = "Legends of the Tidesages - Part 1", helpText = "Part 1 — near the waterfall", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 49.51, y = 80.90, title = "Legends of the Tidesages - Part 1" } } } } },
+            [41426] = { criteriaType = 68, text = "Legends of the Tidesages - Part 2", helpText = "Part 2 — on top of the hill", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 59.02, y = 59.54, title = "Legends of the Tidesages - Part 2" } } } } },
+            [41427] = { criteriaType = 68, text = "Legends of the Tidesages - Part 3", helpText = "Part 3 — near the lake", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 31.95, y = 72.91, title = "Legends of the Tidesages - Part 3" } } } } },
+            [41428] = { criteriaType = 68, text = "Legends of the Tidesages - Part 4", helpText = "Part 4 — on top of the island", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 33.81, y = 33.23, title = "Legends of the Tidesages - Part 4" } } } } },
+            [41429] = { criteriaType = 68, text = "Legends of the Tidesages - Part 5", helpText = "Part 5 — up the mountain right of Warfang Hold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 56.02, y = 38.53, title = "Legends of the Tidesages - Part 5" } } } } },
+            [41430] = { criteriaType = 68, text = "Legends of the Tidesages - Part 6", helpText = "Part 6 — up the mountain left of Warfang Hold", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 44.18, y = 36.60, title = "Legends of the Tidesages - Part 6" } } } } },
+            [41431] = { criteriaType = 68, text = "Legends of the Tidesages - Part 7", helpText = "Part 7 — eastern Stormsong Valley", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 62.08, y = 30.22, title = "Legends of the Tidesages - Part 7" } } } } },
+            [41432] = { criteriaType = 68, text = "Legends of the Tidesages - Part 8", helpText = "Part 8 — near the Shrine of the Storm entrance", waypoints = { { kind = "point", coordinates = { { mapId = MapZones.BFA_ZONE_StormsongValley, x = 75.07, y = 31.13, title = "Legends of the Tidesages - Part 8" } } } } },
         }
     },
 
